@@ -493,7 +493,7 @@ function forwardpage(){
                                     </li>
 -->
                                     
-<!--
+
                                     <li class="dropdown" id="attachDropdown">
                                         <a class="ios7-a dropdown-toggle" data-toggle="dropdown" id="showAttach" title="Attachments">
                                             <span class="fa fa-paperclip"></span>
@@ -520,7 +520,7 @@ function forwardpage(){
                                             </form>
                                         </div>
                                     </li>
--->
+
 
 <!--
                                     <li><a class="ios7-a " id="contentHistory"
@@ -592,6 +592,10 @@ function forwardpage(){
                               <big><big><i class="fa fa-google"></i></big></big>
                            </a>
                         </li>
+                        <li><a href="#cloud" data-toggle="tab" title="Cloud">
+                              <big><big><i class="fa fa-google"></i></big></big>
+                           </a>
+                        </li>
                         
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -644,6 +648,7 @@ function forwardpage(){
                           <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="" height=600px></iframe>
                         </form>
                        </div>
+
                         
                        <div class="tab-pane fade" id="webBrowser">
                        	   <i class="fa fa-webback" onclick="backpage()"></i>
@@ -653,6 +658,8 @@ function forwardpage(){
                            <iframe id="webpage" name = "viewframe" src="http://baidu.com" width=100% height=900 onchange="" nwdisable nwfaketop></iframe>
                               <!-- <iframe id="webpage" class="display" src="http://baidu.com"></iframe> -->
                        </div>
+
+
                        <div class="tab-pane fade" id="searchEngine" overflow="auto">
                            <gcse:search></gcse:search> 
                            
@@ -680,10 +687,16 @@ function forwardpage(){
 							<h4>Drag the best elements into your note<br> and add your own content.</h4>
 							
 							</div>
+                       </div>
 
 
-
-
+                       <div class="tab-pane fade" id="cloud">
+                         	<form action="" method="post" enctype="multipart/form-data">
+							<input type='text' name='textfield' id='textfield' class='txt' />  
+							<input type='button' class='btn' value='浏览...' />
+							<input type="file" name="fileField" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
+							<input type="submit" name="submit" class="btn" value="上传" />
+							</form>
                        </div>
                     </div>
                 </div>
