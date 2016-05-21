@@ -460,14 +460,18 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                     res.end('{"msg": "receiver not found", "status": "fail"}');
                                 }
                             }
-                        }
+                        });
                     }
                 }
                 else {
+                    console.log("Group not found");
                     res.end('{"msg": "Group not found", "status": "fail"}');
                 }
             }
-        }
+            else {
+                console.log("Sender not found");
+                res.end('{"msg": "Sender not found", "status": "fail"}');
+            }
         }
     });
 });
