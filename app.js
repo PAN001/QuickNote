@@ -32,6 +32,8 @@ app.use('/register', bodyParser.text());
 app.use('/logIn', bodyParser.text());
 app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
+app.use('/share/addGroupShareNotebook', bodyParser.text());
+app.use('/share/addGroupShareNote', bodyParser.text());
 
 //app.use('/share/listShareNotes', bodyParser.text());
 //app.use(bodyParser.json());
