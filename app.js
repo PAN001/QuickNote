@@ -406,6 +406,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
                 var usersShareTo = 0;
                 var group = item.Group;
                 for(var i in group) {
+                    console.log("current groupid is " + group[i].GroupI);
                     if(group[i].GroupId == groupId) {
                         usersShareTo = group[i].Members;
                         break;
