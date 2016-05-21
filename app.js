@@ -667,12 +667,12 @@ app.get("/share/listShareNotes", function(req, res) {
                                 }
                             }
                         }
+                        res.json(JSON.stringify(allNotes));
                     }
                     else { // 不存在share给当前用户的笔记
                         console.log("Not found any note");
 				        res.end('{"msg": "Not found any note", "status": "success"}');
                     }
-                    
                 }
                 else {     
                     var notebooks = item.notebooks;
@@ -699,8 +699,8 @@ app.get("/share/listShareNotes", function(req, res) {
                             }
                         }
                     }
+                    res.json(JSON.stringify(allNotes));
                 }
-                res.json(JSON.stringify(allNotes));
     //                    res.end('{"msg": "found notebook", "status": "success"}');
 			}
 			else {
