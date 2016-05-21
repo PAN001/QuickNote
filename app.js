@@ -386,7 +386,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
     var parsedData = JSON.parse(req.body);
     var senderUserId = parsedData.SenderUserId;
     var groupId = parsedData.GroupId;
-    var Perm = parsedData.Perm;
+    var perm = parsedData.Perm;
     
     var query = {"UserInfo.UserId": senderUserId};
     req.db.collection("allAppData").findOne(query, function(err, item) {
