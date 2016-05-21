@@ -670,7 +670,7 @@ app.get("/share/listShareNotes", function(req, res) {
                     }
                     else { // 不存在share给当前用户的笔记
                         console.log("Not found any note");
-				        res.end('{"msg": "Not found any note", "status": "fail"}');
+				        res.end('{"msg": "Not found any note", "status": "success"}');
                     }
                     
                 }
