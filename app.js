@@ -406,6 +406,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
                 var usersShareTo = 0;
                 var group = item.group;
                 console.log("group is " + group[0].GroupId);
+                var ToUserIds = [];
                 for(var i in group) {
                     console.log("current groupid is " + group[i].GroupId);
                     if(group[i].GroupId == groupId) {
@@ -428,7 +429,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
 
                                     var targetUserInfo = item.UserInfo;  
                                     var shareNotebooks = item.shareNotebooks;
-                                    var receiverUserId = targetUserInfo.UserId;
+                                    var ToUserId = targetUserInfo.UserId;
                                     console.log("receiver id is " + targetUserInfo.UserId);
                                     // 更新目标ShareUserInfos
                                     var anotherUserInfo = {};
@@ -446,7 +447,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                     console.log("anotherUserInfo email is " + anotherUserInfo.Email);
 
                                     // 更新receiver的sharedUserInfos
-                                    var query = {"UserInfo.UserId": receiverUserId};
+                                    var query = {"UserInfo.UserId": ToUserId};
                                     req.db.collection('allAppData').update(query, {$addToSet:{"sharedUserInfos": anotherUserInfo}}, {upsert: true}, function(err, data) {
                                         if(err) {
                                             console.log(err);
@@ -455,17 +456,18 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                         else {
                                             console.log("successfully update ShareUserInfos");
                                             res.end('{"msg": "success", "status": "success", "receiverUserId":' + '"' + receiverUserId + '"' + '}');
-        //                                    res.json(JSON.stringify(ToUserId));
+                                            ToUserIds.push(ToUserId);
                                         }
                                     });
                                 }
                                 else {
                                     console.log("Note found receiver");
-                                    res.end('{"msg": "receiver not found", "status": "fail"}');
+//                                    res.end('{"msg": "receiver not found", "status": "fail"}');
                                 }
                             }
                         });
                     }
+                    res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
                 }
                 else {
                     console.log("Group not found");
