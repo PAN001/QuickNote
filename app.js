@@ -559,7 +559,7 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
                                         anotherUserInfo.Usn = senderUserInfo.Usn;
                                         console.log("anotherUserInfo email is " + anotherUserInfo.Email);
                                         
-                -                        // 更新receiver的sharedUserInfos
+                                        // 更新receiver的sharedUserInfos
                                         var query = {"UserInfo.UserId": ToUserId};
                                         req.db.collection('allAppData').update(query, {$addToSet:{"sharedUserInfos": anotherUserInfo}}, {upsert: true}, function(err, data) {
                                             if(err) {
