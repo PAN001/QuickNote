@@ -462,8 +462,6 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                             
                                             count++;
                                             if(count == (usersShareTo.length)) {
-                                                console.log("here");
-                                                console.log(ToUserIds);
                                                 res.end('{"msg": "success", "status": "success", "ToUserIds":' + JSON.stringify(ToUserIds) + '}');
                                             }
                                         }
