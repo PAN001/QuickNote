@@ -459,6 +459,13 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                             console.log("successfully update ShareUserInfos");
 //                                            res.end('{"msg": "success", "status": "success", "ToUserId":' + '"' + ToUserId + '"' + '}');
                                             ToUserIds.push(ToUserId);
+                                            
+                                            count++;
+                                            if(i == (usersShareTo.length -1 )) {
+                                                console.log("here");
+                                                console.log(ToUserIds);
+                                                res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
+                                            }
                                         }
                                     });
                                 }
@@ -466,13 +473,6 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                     console.log("Not found receiver");
 //                                    res.end('{"msg": "receiver not found", "status": "fail"}');
                                 }
-                            }
-                            count++;
-                            
-                            if(count == (usersShareTo.length -1 )) {
-                                console.log("here");
-                                console.log(ToUserIds);
-                                res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
                             }
                         });
 
