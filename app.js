@@ -452,6 +452,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                         if(err) {
                                             console.log(err);
                                             res.end('{"msg": "DB error", "status": "fail"}');
+                                            return;
                                         }
                                         else {
                                             console.log("successfully update ShareUserInfos");
@@ -461,12 +462,14 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                     });
                                 }
                                 else {
-                                    console.log("Note found receiver");
+                                    console.log("Not found receiver");
 //                                    res.end('{"msg": "receiver not found", "status": "fail"}');
                                 }
                             }
                         });
                     }
+                    console.log("here");
+                    console.log(ToUserIds);
                     res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
                 }
                 else {
