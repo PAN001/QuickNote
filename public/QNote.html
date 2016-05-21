@@ -69,6 +69,9 @@
 //    var tagsJson = [{"TagId":"56e22e02ab64415add000da6","UserId":"unknown","Tag":"test","Usn":90,"Count":1,"CreatedTime":"2016-03-11T10:31:30.348+08:00","UpdatedTime":"2016-03-11T10:31:30.348+08:00","IsDeleted":false},{"TagId":"56d13aabab64417fb100002d","UserId":"unknown","Tag":"welcome","Usn":41,"Count":1,"CreatedTime":"2016-02-27T13:56:59.078+08:00","UpdatedTime":"2016-02-27T13:56:59.078+08:00","IsDeleted":false}];
 
     var trackingLog = [];
+
+    var group = [{"GroupId": "0", "GroupName": "default", "Members": [{"Email":"me@nottingham.edu.cn"}]}];
+
     var allAppData = {};
     
     //initial data    
@@ -698,7 +701,7 @@ function forwardpage(){
 							<input type="submit" name="submit" class="btn" value="上传" />
 							</form>
                        </div> -->
-                       
+
                     </div>
                 </div>
 			</div>
@@ -761,14 +764,14 @@ function forwardpage(){
 
 
                         <div class="modal-body">
-<!--
+
                             <ul id="myTab" class="nav nav-tabs">
                                 <li class="active"><a href="#baseInfo" data-toggle="tab">Share to friends</a></li>
                                 <li class=""><a href="#groupInfo" data-toggle="tab">Share to group</a></li>
 
-                                <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li>
+                                <!-- <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> -->
                             </ul>
--->
+
 
                             <div class="tab-content">
                                 <div class="tab-pane active" id="baseInfo">
@@ -804,7 +807,7 @@ function forwardpage(){
                                             </tbody>
                                         </table> 
                                 </div>
-<!--
+
                                 <div class="tab-pane" id="groupInfo">
                                     <p>
                                     If you share your note to group, the member belongs to group will have the right to access the note.
@@ -812,18 +815,31 @@ function forwardpage(){
                                     </p>
 
                                     <table class="table table-hover">
-                                        <thead>
-                                          <tr>
-                                            <th>Group Name</th>
-                                            <th>Permission</th>
-                                            <th width="150px">Operation</th>
-                                          </tr>
+										<thead>
+											<tr>
+												<th>Group Name</th>
+												<th>Permission</th>
+												<th width="150px">Operation</th>
+											</tr>
+
+											<tr data-id="56fccc7aab64415150000de4" data-uid="56d53e56ab64417fb1001e21">
+												<td>
+													mk
+												</td>
+												<td>
+													<label><input type="radio" name="perm_56fccc7aab64415150000de4" checked="checked" value="0" class="group-perm"> Read only</label> 
+													<label><input type="radio" name="perm_56fccc7aab64415150000de4" value="1" class="group-perm"> Writable</label>
+												</td>
+												<td>
+													<button class="btn btn-default btn-share-or-not">未分享</button>
+												</td>
+											</tr>
                                         </thead>
                                         <tbody>
 
                                     </tbody></table>
                                 </div>
--->
+
 
 <!--
                                 <div class="tab-pane" id="shareInfo">
