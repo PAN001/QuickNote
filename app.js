@@ -405,7 +405,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
                 // look for group
                 var usersShareTo = 0;
                 var group = item.group;
-                console.log("group is " + group[0].GroupId);
+//                console.log("group is " + group[0].GroupId);
                 var ToUserIds = [];
                 for(var i in group) {
                     console.log("current groupid is " + group[i].GroupId);
@@ -530,6 +530,8 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
                     // look for group
                     var usersShareTo = 0;
                     var group = item.Group;
+                    console.log("group id is " + groupId);
+                    console.log("this group id is " + group[i].GroupId);
                     for(var i in group) {
                         if(group[i].GroupId == groupId) {
                             usersShareTo = group[i].Members;
