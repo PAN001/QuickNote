@@ -71,6 +71,7 @@ function retrieveData() {
                 allAppData.tagsJson = tagsJson;
                 allAppData.trackingLog = trackingLog;
                 allAppData.shareNotebookDefault = shareNotebookDefault;
+                allAppData.group = group;
                 console.log("using initial data");
                 console.log("call initPage()");
                 initPage();
@@ -102,6 +103,9 @@ function retrieveData() {
             console.log("trackingLog updated from server");
             shareNotebookDefault = allAppData.shareNotebookDefault;
             console.log("shareNotebookDefault updated from server");
+            group = allAppData.group;
+            console.log("group updated from server");
+
             console.log("call initPage()");
             initPage();
             localforage.setItem("allAppData", allAppData, function(err, value) {
@@ -135,6 +139,9 @@ function retrieveData() {
                         console.log("trackingLog updated from local");
                         shareNotebookDefault = allAppData.shareNotebookDefault;
                         console.log("shareNotebookDefault updated from local");
+                        group = allAppData.group;
+                        console.log("group updated from local");
+                    
                         console.log("call initPage() from local");
                         initPage();
                         localforage.setItem("allAppData", allAppData, function(err, value) {
@@ -152,6 +159,8 @@ function retrieveData() {
                     allAppData.tagsJson = tagsJson;
                     allAppData.trackingLog = trackingLog;
                     allAppData.shareNotebookDefault = shareNotebookDefault;
+                    allAppData.group = group;
+                    
                     console.log("using initial data");
                     console.log("call initPage()");
                     initPage();

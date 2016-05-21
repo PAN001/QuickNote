@@ -44,15 +44,19 @@
     
     var sharedUserInfos = [{"UserId":"57178cd5d922a859a7000000","Email":"QuickNote","Verified":true,"Username":"QuickNote","UsernameRaw":"ownertinymce","CreatedTime":"2014-01-14T21:20:39.225+08:00","Logo":"","Theme":"default","NotebookWidth":201,"NoteListWidth":241,"MdEditorWidth":477,"LeftIsMin":false,"ThirdUserId":"","ThirdUsername":"","ThirdType":0,"FromUserId":"","NoteCnt": 5,"Usn":203042,"FullSyncBefore":"0001-01-01T00:00:00Z"}];
 
+    // store notebooks shared from other users
     var shareNotebooks = {"57178cd5d922a859a7000000":[{"ParentNotebookId":"","Title":"User Guide","UrlTitle":"","NumberNotes":5,"IsTrash":false,"IsBlog":false,"UpdatedTime":"0001-01-01T00:00:00Z","Usn":0,"IsDeleted":false,"ShareNotebookId":"5715d63ac1f4d07f58000000","ToUserId":"56a82c7bab64417776002a5c","ToGroupId":"","ToGroup":{"GroupId":"","UserId":"","Title":"","UserCount":0,"CreatedTime":"0001-01-01T00:00:00Z","Users":null},"Perm":1,"Subs":null,"Seq":0,"NotebookId":"5715d63ac1f4d07f58000000", "IsDefault":false}
     ]};
 
+    
 //    var shareNotebooks = {};
     
 //    var sharedUserInfos = [{"UserId":"56fb70aed922a81ac2000000","Email":"qy","Verified":true,"Username":"qy","UsernameRaw":"qy","CreatedTime":"2014-01-14T21:20:39.225+08:00","Logo":"public/upload/520/52d26b4e99c37b609a000001/images/logo/3fa3ca0e0a431b81ede3351cd091f17d.jpg","Theme":"default","NotebookWidth":201,"NoteListWidth":241,"MdEditorWidth":477,"LeftIsMin":false,"ThirdUserId":"","ThirdUsername":"","ThirdType":0,"FromUserId":"","NoteCnt":276,"Usn":203042,"FullSyncBefore":"0001-01-01T00:00:00Z"}];
     
 //    var sharedUserInfos = [];
     
+    // store notes shared from other users
+    // Each attribute is the id of the receiver
     var shareNotebookDefault = {};
 
 
@@ -69,6 +73,9 @@
 //    var tagsJson = [{"TagId":"56e22e02ab64415add000da6","UserId":"unknown","Tag":"test","Usn":90,"Count":1,"CreatedTime":"2016-03-11T10:31:30.348+08:00","UpdatedTime":"2016-03-11T10:31:30.348+08:00","IsDeleted":false},{"TagId":"56d13aabab64417fb100002d","UserId":"unknown","Tag":"welcome","Usn":41,"Count":1,"CreatedTime":"2016-02-27T13:56:59.078+08:00","UpdatedTime":"2016-02-27T13:56:59.078+08:00","IsDeleted":false}];
 
     var trackingLog = [];
+
+    var group = [{"GroupId": "56fccc7aab64415150000de4", "GroupName": "default", "Members": [{"Email":"70"}, {"Email":"71"}]}];
+
     var allAppData = {};
     
     //initial data    
@@ -81,6 +88,7 @@
     allAppData.tagsJson = tagsJson;
     allAppData.trackingLog = trackingLog;
     allAppData.shareNotebookDefault = shareNotebookDefault;
+    allAppData.group = group;
 
 </script>   
     
@@ -595,10 +603,10 @@ function forwardpage(){
                               <big><big><i class="fa fa-google"></i></big></big>
                            </a>
                         </li>
-                        <li><a href="#cloud" data-toggle="tab" title="Cloud">
+ <!--                        <li><a href="#cloud" data-toggle="tab" title="Cloud">
                               <big><big><i class="fa fa-google"></i></big></big>
                            </a>
-                        </li>
+                        </li> -->
                         
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -708,14 +716,15 @@ function forwardpage(){
                        </div>
 
 
-                       <div class="tab-pane fade" id="cloud">
+<!--                        <div class="tab-pane fade" id="cloud">
                          	<form action="" method="post" enctype="multipart/form-data">
 							<input type='text' name='textfield' id='textfield' class='txt' />  
 							<input type='button' class='btn' value='浏览...' />
 							<input type="file" name="fileField" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
 							<input type="submit" name="submit" class="btn" value="上传" />
 							</form>
-                       </div>
+                       </div> -->
+
                     </div>
                 </div>
 			</div>
@@ -778,14 +787,13 @@ function forwardpage(){
 
 
                         <div class="modal-body">
-<!--
+
                             <ul id="myTab" class="nav nav-tabs">
                                 <li class="active"><a href="#baseInfo" data-toggle="tab">Share to friends</a></li>
                                 <li class=""><a href="#groupInfo" data-toggle="tab">Share to group</a></li>
 
-                                <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li>
+                                <!-- <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> -->
                             </ul>
--->
 							<!-- iris -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="baseInfo">
@@ -830,7 +838,7 @@ function forwardpage(){
                                             </tbody>
                                         </table> 
                                 </div>
-<!--
+
                                 <div class="tab-pane" id="groupInfo">
                                     <p>
                                     If you share your note to group, the member belongs to group will have the right to access the note.
@@ -838,18 +846,31 @@ function forwardpage(){
                                     </p>
 
                                     <table class="table table-hover">
-                                        <thead>
-                                          <tr>
-                                            <th>Group Name</th>
-                                            <th>Permission</th>
-                                            <th width="150px">Operation</th>
-                                          </tr>
+										<thead>
+											<tr>
+												<th>Group Name</th>
+												<th>Permission</th>
+												<th width="150px">Operation</th>
+											</tr>
+
+											<tr data-id="56fccc7aab64415150000de4" data-uid="56d53e56ab64417fb1001e21">
+												<td>
+													mk
+												</td>
+												<td>
+													<label><input type="radio" name="perm_56fccc7aab64415150000de4" checked="checked" value="0" class="group-perm"> Read only</label> 
+													<label><input type="radio" name="perm_56fccc7aab64415150000de4" value="1" class="group-perm"> Writable</label>
+												</td>
+												<td>
+													<button class="btn btn-default btn-share-or-not">未分享</button>
+												</td>
+											</tr>
                                         </thead>
                                         <tbody>
 
                                     </tbody></table>
                                 </div>
--->
+
 
 <!--
                                 <div class="tab-pane" id="shareInfo">
