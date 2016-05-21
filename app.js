@@ -531,7 +531,7 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
                     var usersShareTo = 0;
                     var group = item.Group;
                     console.log("group id is " + groupId);
-                    console.log("this group id is " + group[i].GroupId);
+                    console.log("this group id is " + group[0].GroupId);
                     for(var i in group) {
                         if(group[i].GroupId == groupId) {
                             usersShareTo = group[i].Members;
