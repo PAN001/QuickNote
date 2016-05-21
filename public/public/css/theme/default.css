@@ -269,11 +269,16 @@
 }
 
 .btn {
-	border-radius: 2px
+	border-radius: 10px;
+
 }
 
 .alert {
-	margin-bottom: 10px
+	/*margin-bottom: 10px;*/
+	/*padding: 0px;*/
+	border:0px;
+	color: #CD5555;
+	text-align: center;
 }
 
 .btn * {
@@ -452,7 +457,8 @@ a.raw:hover {
 }
 
 .modal-content {
-	background-color: #f8f8f8
+	background-color: #f8f8f8;
+	border-radius: 15px;
 }
 
 .modal-body {
@@ -461,7 +467,8 @@ a.raw:hover {
 }
 
 .modal-footer {
-	margin-top: 0
+	margin-top: 0;
+	text-align: center;
 }
 
 #editorTool,#newNoteWrap,#myBlog,.lea-blog,#myProfile,#toggleEditorMode,.folderHeader {
@@ -641,13 +648,18 @@ a.raw:hover {
 	cursor: pointer
 }
 
-#page.mini-left #notebook,#page.mini-left #mediaSplitter,#page.mini-left #media,#page.mini-left #noteList,#page.mini-left #notebookSplitter,#page.mini-left #logo,#page.mini-left #leftSwitcher,#page.mini-left #leftNotebook .slimScrollDiv {
+/*#page.mini-left #notebook,#page.mini-left #mediaSplitter,#page.mini-left #media,#page.mini-left #noteList,#page.mini-left #notebookSplitter,#page.mini-left #logo,#page.mini-left #leftSwitcher,#page.mini-left #leftNotebook .slimScrollDiv {
+	display: none
+}*/
+
+/*iris*/
+#page.mini-left #notebook,#page.mini-left #mediaSplitter,#page.mini-left #media,#page.mini-left #noteList,#page.mini-left #notebookSplitter,#page.mini-left #leftSwitcher,#page.mini-left #leftNotebook .slimScrollDiv {
 	display: none
 }
 
-#page.mini-left #leftSwitcher2 {
+/*#page.mini-left #leftSwitcher2 {
 	display: block
-}
+}*/
 
 #page.mini-left #leftNotebook {
 	width: 30px!important
@@ -753,9 +765,9 @@ a:hover {
 	color: #0fb264
 }
 
-#switcher #leftSwitcher2 {
+/*#switcher #leftSwitcher2 {
 	display: none
-}
+}*/
 
 #searchNote {
 	padding-left: 0;
@@ -3352,6 +3364,7 @@ h1,h2,h3 {
     border-left: 10px solid #888;
 }*/
 
+
 .gsc-result-info {
     text-align: left;
     color: #999;
@@ -3379,4 +3392,43 @@ h1,h2,h3 {
     display: inline;
     border: 1px solid #DDD;
     padding: 2px 5px 2px 5px;
+}
+
+/*iris*/
+#modalTitle {
+	text-align: center;
+}
+#friendsEmail {
+	border-radius: 10px;
+}
+#sharebutton {
+	/*background-color: #DDA0DD;*/
+	border-color: #79CDCF;
+	background-color: #79CDCD;
+	/*background-color: #7AC5CD;*/
+}
+#deletebutton {
+	/*background-color:#C67171;
+	border-color: #C67174;*/
+	background-color: #CD5555;
+	border-color: #CD5559;
+}
+#addfriendbutton {
+	padding-bottom: 10px;
+}
+#sharebuttontd {
+	text-align: right;
+}
+#optionth {
+	text-align: center;
+}
+/*#searchEngine {
+	overflow-x: scroll;
+    overflow-y: scroll;
+}*/
+/*#searchEngine {
+	height: 2700px;
+}*/
+.gsc-control-cse {
+	height: 2300px;
 }

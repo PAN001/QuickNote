@@ -208,8 +208,11 @@ function forwardpage(){
 				</div>
 
 				<div id="switcher" class="pull-left">
-					 <i class="fa fa-align-justify" id="leftSwitcher" title="Hide sidebar"></i>
-					 <span id="leftSwitcher2" title="Show sidebar"><img src="public/images/logo/quickwrite10.png" height=25></span>
+					<!-- iris -->
+					<i class="fa fa-expand" aria-hidden="true" id="leftSwitcher" title="Fullscreen Display"></i>
+					<!--<i class="fa fa-align-justify" id="leftSwitcher" title="Hide sidebar"></i> -->
+<!-- 					<span id="leftSwitcher2" title="Show sidebar"><img src="public/images/logo/quickwrite10.png" height=25></span> -->
+					<i class="fa fa-compress" aria-hidden="true" id="leftSwitcher2" title="Display Sidebar"></i>
 				</div>
 
 <!--
@@ -223,9 +226,9 @@ function forwardpage(){
 				<div class="pull-left" style="" id="newNoteWrap">
 
 					<div id="newMyNote">
-						<a class="new-note" id="newNoteBtn" title="New note">
+						<a class="new-note" id="newNoteBtn" title="Add New Note">
 
-							<span class="new-note-text">New note</span>
+							<span class="new-note-text"> + Add New Note</span>
 							<span class="new-note-text-abbr">New</span>
 						</a>
 						
@@ -238,8 +241,8 @@ function forwardpage(){
 							<span class="new-markdown-text-abbr">Md</span>
 						</a>
 -->
-
-						<span class="for-split"> - </span>
+						<i class="fa fa-book" aria-hidden="true"></i>
+						<span class="for-split"> Current: </span>
 
 <!--                        为了方便获取当前notebookId：用于创建新note-->
 						<span id="curNotebookForNewNote" notebookId=""></span>
@@ -272,7 +275,7 @@ function forwardpage(){
 
 				<div class="pull-right" style="margin: 0 10px" id="myProfile">
 					<div class="dropdown">
-						<a class="dropdown-toggle" title="<semail" data-toggle="dropdown" style="line-height: 60px;">
+						<a class="dropdown-toggle" title="My Profile" data-toggle="dropdown" style="line-height: 60px;">
 							<img alt="" title="" src="public/images/supermario.jpg" id="myAvatar"/>
 							<span class="username" id="username"> 
 <!--								pan.atopos@outlook.com-->
@@ -291,9 +294,9 @@ function forwardpage(){
 
 <!--                go to the feedback questionaire-->
 				<div class="pull-right top-nav writting-hide lea-blog">
-					<a target="_blank" href="http://www.sojump.com/jq/7951507.aspx">
+					<a target="_blank" href="http://www.sojump.com/jq/7951507.aspx" title = "Give Feedback">
 						<!-- Q-Note Home -->
-						Give us feedback
+						Give Us Feedback
 					</a>
 				</div>
 <!--
@@ -312,9 +315,9 @@ function forwardpage(){
 
 				<div class="pull-right top-nav" id="downloadTracking">
 					<!-- <a onclick="downloadTrakcingLog()"><span>Download tracking log</span></a> -->
-					<i id = "synBtn" class = "fa fa-synchronization" title = "synchronization"></i>
+					<i id = "synBtn" class = "fa fa-synchronization" title = "Synchronize Notebooks"></i>
 					&nbsp
-					<i class = "fa fa-downloadTracking" title = "Download tracking log" onclick = "downloadTrakcingLog()"></i>
+					<i class = "fa fa-downloadTracking" title = "Download Tracking Log" onclick = "downloadTrakcingLog()"></i>
 				</div>
 
 				<div style="clear: both"></div>
@@ -644,8 +647,13 @@ function forwardpage(){
                           <form id="form1" runat="server">
 
                           <input type='file' id="imgInp" class="browseFile" title="Choose a file" width=400px onChange="TrackLogRecord.newOpenFileRecord()"/>
+
                           <div id="file-caption">Click on the button to display a file</div>
-                          <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="" height=600px></iframe>
+
+                          <!--  -->
+                          <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="JavaScript:'yeyeyyeyyeeyey'" height=600px>	
+                          		
+                          </iframe>
                         </form>
                        </div>
 
@@ -659,8 +667,9 @@ function forwardpage(){
                               <!-- <iframe id="webpage" class="display" src="http://baidu.com"></iframe> -->
                        </div>
 
-
-                       <div class="tab-pane fade" id="searchEngine" overflow="auto">
+                       <!-- iris -->
+                       <div class="tab-pane fade" id="searchEngine" style = "overflow-y:scroll;height:1700px">
+                       
                            <gcse:search></gcse:search> 
                            
 <!--
@@ -678,7 +687,7 @@ function forwardpage(){
 
 
                            
-                           <div id = gscDoc>
+                           <div id = "gscDoc">
                             <br><br><br><br><br><br>
 							<h1>Search</h1>
 							<h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
@@ -687,6 +696,7 @@ function forwardpage(){
 							<h4>Drag the best elements into your note<br> and add your own content.</h4>
 							
 							</div>
+						
                        </div>
 
 
@@ -755,7 +765,7 @@ function forwardpage(){
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title" id="modalTitle">Share your notes or notebooks</h4>
+                            <h4 class="modal-title" id="modalTitle">Share Your Notes or Notebooks</h4>
                         </div>
 
 
@@ -768,35 +778,44 @@ function forwardpage(){
                                 <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li>
                             </ul>
 -->
-
+							<!-- iris -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="baseInfo">
-                                    <button class="btn btn-primary" id="addShareNotebookBtn">Add Friend</button>
-                                        <div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div>
+                                	<div id = "addfriendbutton">
+                                    	<button class="btn btn-primary" id="addShareNotebookBtn"> + Add New Friend</button>
+                                	</div>
+                                        <!-- <div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div> -->
                                         <table class="table table-hover" id="shareNotebookTable">
                                             <thead>
                                               <tr>
-                                                <th>#</th>
-                                                <th>Friend email</th>
+                                                <!-- <th>#</th> -->
+
+                                                <th id = "friendth">Friend Account</th>
 <!--                                                <th>Permission</th>-->
-                                                <th width="150px">Delete</th>
+
+                                                <th colspan = "2" id = "optionth">Options</th>
                                               </tr>
                                             </thead>
                                             <tbody>
                                             <tr id="tr1">
-                                                <td>#</td>
+                                                <!-- <td>#</td> -->
                                                 <td>
-                                                    <input id="friendsEmail" type="text" class="form-control" placeholder="Friend email">
+                                                    <input id="friendsEmail" type="text" class="form-control" placeholder="Enter Account Name">
                                                 </td>
 <!--
                                                 <td>
                                                     <label for="readPerm1"><input type="radio" name="perm1" checked="checked" value="0" id="readPerm1"> Read only</label> 
                                                     <label for="writePerm1"><input type="radio" name="perm1" value="1" id="writePerm1"> Writable</label>
                                                 </td>
--->
+-->					
+												<!-- iris -->
+                                                <td id = "sharebuttontd">
+
+                                                    <button class="btn btn-success" data-loading-text="..." onclick="addShareNoteOrNotebook(1)" id = "sharebutton"><i class="fa fa-share" aria-hidden="true"></i>  Share</button>
+                                                    <!-- <i class="fa fa-share" aria-hidden="true" data-loading-text="..." onclick="addShareNoteOrNotebook(1)"></i> -->
+                                                </td>
                                                 <td>
-                                                    <button class="btn btn-success" data-loading-text="..." onclick="addShareNoteOrNotebook(1)">Share</button>
-                                                    <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)">Delete</button>
+                                                    <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                                                 </td>
                                             </tr>
 
@@ -850,9 +869,12 @@ function forwardpage(){
                                 
                             </div>
                         </div>
-
+						<!-- iris -->
                         <div class="modal-footer">
+                        
+                        	<div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                         </div>
                     </div>
                 </div>
