@@ -652,20 +652,28 @@ function forwardpage(){
 
                           <div id="file-caption">Click on the button to display a file</div>
 
-                          <!--  -->
+                          <!-- iris -->
                           <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="JavaScript:'yeyeyyeyyeeyey'" height=600px>	
                           		
                           </iframe>
                         </form>
                        </div>
 
-                        
+                        <!-- iris -->
                        <div class="tab-pane fade" id="webBrowser">
-                       	   <i class="fa fa-webback" onclick="backpage()"></i>
-                       	   <i class="fa fa-webforward" onclick="forwardpage()"></i>
-                           <input id="address" type="text" placeholder="Enter address..." size="22" onkeydown="if(event.keyCode==13) {webaddress();return false;}"/>
-                           <button id="addressbtn" onclick="webaddress()">Search</button>
-                           <iframe id="webpage" name = "viewframe" src="http://baidu.com" width=100% height=900 onchange="" nwdisable nwfaketop></iframe>
+                       	   <!-- <i class="fa fa-webback" onclick="backpage()"></i>
+                       	   <i class="fa fa-webforward" onclick="forwardpage()"></i> -->
+                       	   <br/>
+                       	   &nbsp;&nbsp;
+                       	   <i class="fa fa-arrow-left" aria-hidden="true" onclick="backpage()"></i>
+                       	   &nbsp;&nbsp;
+                       	   <i class="fa fa-arrow-right" aria-hidden="true" onclick="forwardpage()"></i>
+                       	   &nbsp;&nbsp;
+                           <input id="address" type="text" placeholder="Enter Address..." size="22" onkeydown="if(event.keyCode==13) {webaddress();return false;}"/>
+                           &nbsp;
+                           <button id="addressbtn" onclick="webaddress()">Go</button>
+                           <br/><br/>
+                           <iframe id="webpage" name = "viewframe" src="http://baidu.com" onchange="" nwdisable nwfaketop></iframe>
                               <!-- <iframe id="webpage" class="display" src="http://baidu.com"></iframe> -->
                        </div>
 
