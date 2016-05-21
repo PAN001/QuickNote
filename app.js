@@ -467,10 +467,12 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                 }
                             }
                         });
+                        if(i == (usersShareTo.length -1 )) {
+                            console.log("here");
+                            console.log(ToUserIds);
+                            res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
+                        }
                     }
-                    console.log("here");
-                    console.log(ToUserIds);
-                    res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
                 }
                 else {
                     console.log("Group not found");
