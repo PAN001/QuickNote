@@ -181,7 +181,13 @@
 function webaddress(){
 	//var x =document.getElementById("address");
 	var http = document.getElementById("address").value;
-	document.getElementById("webpage").src = document.getElementById("address").value;
+	if(http.substring(0,7)!="http://"||http.substring(0,8)!="https://"){
+		http = "http://"+http;
+		document.getElementById("webpage").src = "http://"+document.getElementById("address").value;
+	}
+	else{
+		document.getElementById("webpage").src = document.getElementById("address").value;
+	}
 	array.push(http);
 	current = array.length;
 	countweb=current-1;
