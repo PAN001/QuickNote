@@ -466,12 +466,14 @@ app.post("/share/addGroupShareNote", function(req, res) {
 //                                    res.end('{"msg": "receiver not found", "status": "fail"}');
                                 }
                             }
+                            
+                            if(i == (usersShareTo.length -1 )) {
+                                console.log("here");
+                                console.log(ToUserIds);
+                                res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
+                            }
                         });
-                        if(i == (usersShareTo.length -1 )) {
-                            console.log("here");
-                            console.log(ToUserIds);
-                            res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
-                        }
+
                     }
                 }
                 else {
