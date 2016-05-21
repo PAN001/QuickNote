@@ -415,6 +415,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
                     }
                 }
                 if(usersShareTo) {
+                    var count = 0;
                     for(var i in usersShareTo) {
                         var email = usersShareTo[i].Email;
                         var query = {"UserInfo.Email": email};
@@ -466,8 +467,9 @@ app.post("/share/addGroupShareNote", function(req, res) {
 //                                    res.end('{"msg": "receiver not found", "status": "fail"}');
                                 }
                             }
+                            count++;
                             
-                            if(i == (usersShareTo.length -1 )) {
+                            if(count == (usersShareTo.length -1 )) {
                                 console.log("here");
                                 console.log(ToUserIds);
                                 res.end('{"msg": "success", "status": "success", "ToUserIds":' + ToUserIds + '}');
