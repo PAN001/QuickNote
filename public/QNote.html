@@ -141,7 +141,7 @@
 <style>
 /* change player background color */
 #myVideo {
-  background-color: #47AFD1;
+  background-color: #79CDCD;
 }
 </style>
 
@@ -630,15 +630,17 @@ function forwardpage(){
                        <div class="tab-pane fade" id="videoRecording">
                           <!-- <p>Video Recording</p>  --><br/>
                           <video id="myVideo" class="video-js vjs-default-skin"></video>
-                          <button id="downloadbtn" onclick = "downloadvideo()">DOWNLOAD</button><br/><br/><br/><br/>
+                          <br/><br/>
+                          <button id="downloadbtn" onclick = "downloadvideo()"><i class="fa fa-download" aria-hidden="true"></i> DOWNLOAD</button><br/>
 <!--                           <i id="videodownload" class = "fa fa-downloadbtn"></i>-->
                           <div id = audioDoc>
 							<h1>Video Recording</h1>
-							<h4>1. Click "camera" to open your camera </h4>
-							<h4>2. Start recording </h4>
-							<h4>3. Stop recording </h4>
-							<h4>4. Then you can download it or record again</h4>
-							<p>P.S. You will download 2 files once. One for video and another for audio.</p>
+							<h3>1. Click the camera icon to start</h3>
+							<h3>2. Click start to start recording </h3>
+							<h3>3. Click finish to finish recording </h3>
+							<h3>4. Click play/pause to play/pause the recorded video </h3>
+							<h3>5. Click download to download the video </h3>
+							<p>P.S. Two files will be downloaded. One for video and another for audio.</p>
 							</div>
 
                        </div>
@@ -684,9 +686,9 @@ function forwardpage(){
                             </form>
                         </div>
 -->
-
-                           <div id = "gscDoc">
-                            <br><br><br><br><br><br>
+							<!-- iris -->
+                           <div id = "gscDoc" style = "position:absolute;left:25%;top:250px">
+                            
 							<h1>Search</h1>
 							<h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
                                <br><br>

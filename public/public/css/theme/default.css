@@ -257,7 +257,16 @@
 }
 
 @font-face {
-	font-family:leanote;src:url(../../fonts/leanote-font2/leanote.eot?-vcf23i);src:url(../../fonts/leanote-font2/leanote.eot?#iefix-vcf23i) format('embedded-opentype'),url(../../fonts/leanote-font2/leanote.ttf?-vcf23i) format('truetype'),url(../../fonts/leanote-font2/leanote.woff?-vcf23i) format('woff'),url(../../fonts/leanote-font2/leanote.svg?-vcf23i#leanote) format('svg');font-weight:400;font-style:normal
+/*	font-family:leanote;
+	src:url(../../fonts/leanote-font2/leanote.eot?-vcf23i);
+	src:url(../../fonts/leanote-font2/leanote.eot?#iefix-vcf23i) format('embedded-opentype'),url(../../fonts/leanote-font2/leanote.ttf?-vcf23i) format('truetype'),url(../../fonts/leanote-font2/leanote.woff?-vcf23i) format('woff'),url(../../fonts/leanote-font2/leanote.svg?-vcf23i#leanote) format('svg');
+	font-weight:400;
+	font-style:normal;*/
+
+	font-family: DeliciousRoman; 
+	src: url('http://www.font-face.com/fonts/delicious/Delicious-Roman.otf');
+	font-weight:400;
+	font-style:normal;
 }
 
 .close:focus {
@@ -492,7 +501,7 @@ a.raw:hover {
 }
 
 #curNotebookForNewNote {
-    color: #99ffcc
+    color: #64ffdf
 }
 
 
@@ -597,22 +606,6 @@ a.raw:hover {
     text-align: center
 }
 
-#downloadbtn{
-    width:150px;
-    font-family:Helvetica ;
-    font-size: 17px;
-    color: #fff;
-/*    font-weight: bold;*/
-    padding: 0 8px;
-    height: 30px;
-    min-width: 54px;
-    background-color: #333333;
-    border: 1px solid #000;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    cursor:pointer
-}
 
 #audioDoc{
     color: #bbb;
@@ -3431,4 +3424,23 @@ h1,h2,h3 {
 }*/
 .gsc-control-cse {
 	height: 2300px;
+	border-color: #fff !important;
+    background-color: #fff !important;
+}
+#downloadbtn{
+    width:150px;
+    font-family:Helvetica ;
+    font-size: 17px;
+    color: #fff;
+/*    font-weight: bold;*/
+    /*padding: 0 8px;*/
+    text-align: center;
+    height: 40px;
+    min-width: 54px;
+    background-color: #79CDCD;
+    border: 1px solid #79CDCF;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    cursor:pointer
 }

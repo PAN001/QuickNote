@@ -74,15 +74,15 @@ coloring of icons.
 --------------------------------------------------------------------------------
 */
 .vjs-device-button.vjs-control {
-  font-size: 3em;
+  font-size: 2.3em;
   position: absolute;
   z-index: 2;
   /* Center it vertically */
-  top: 50%;
+  top: 40%;
   /* Center it horizontally */
   left: 50%;
-  width: 4em;
-  height: 3.0em;
+  width: 5em;
+  height: 4.3em;
   margin-top: -1.8000000000000001em;
   margin-left: -2.1em;
   display: block;
