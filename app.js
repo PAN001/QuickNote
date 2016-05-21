@@ -404,7 +404,8 @@ app.post("/share/addGroupShareNote", function(req, res) {
 
                 // look for group
                 var usersShareTo = 0;
-                var group = item.Group;
+                var group = item.group;
+                console.log("group is " + group[i].GroupI);
                 for(var i in group) {
                     console.log("current groupid is " + group[i].GroupI);
                     if(group[i].GroupId == groupId) {
