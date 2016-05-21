@@ -455,7 +455,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
                                         }
                                         else {
                                             console.log("successfully update ShareUserInfos");
-                                            res.end('{"msg": "success", "status": "success", "receiverUserId":' + '"' + receiverUserId + '"' + '}');
+//                                            res.end('{"msg": "success", "status": "success", "ToUserId":' + '"' + ToUserId + '"' + '}');
                                             ToUserIds.push(ToUserId);
                                         }
                                     });
