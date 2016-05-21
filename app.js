@@ -529,7 +529,7 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
                 else { // 找到了要分享的notebook
                     // look for group
                     var usersShareTo = 0;
-                    var group = item.Group;
+                    var group = item.group;
                     console.log("group id is " + groupId);
                     console.log("this group id is " + group[0].GroupId);
                     for(var i in group) {
