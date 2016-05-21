@@ -294,7 +294,6 @@ app.post("/share/addShareNotebook", function(req, res) {
 });
 
 
-
 app.post("/share/addShareNote", function(req, res) {
     console.log("/share/addShareNote activated");
     console.log("Body is: " + req.body);
@@ -474,6 +473,157 @@ app.post("/share/addGroupShareNote", function(req, res) {
 });
                                             
 
+app.post("/share/addGroupShareNotebook", function(req, res) {
+    console.log("/share/addGroupShareNotebook activated");
+    console.log("Body is: " + req.body);
+	var parsedData = JSON.parse(req.body);
+    var senderUserId = parsedData.SenderUserId;
+//    var email = parsedData.Email;
+    var notebookId = parsedData.NotebookId;
+    var perm = parsedData.Perm;
+    var groupId = parsedData.GroupId;
+    
+    var query = {"UserInfo.UserId": senderUserId};
+    req.db.collection("allAppData").findOne(query, function(err, item) {
+		if(err) {
+            console.log("err is: " + err);
+            res.end('{"msg": "DB error", "status": "fail"}');
+        }
+        else {
+            if(item) {
+                console.log("Found sender");
+                var notebooks = item.notebooks;
+                var targetNotebook = 0;
+                var senderUserInfo = item.UserInfo;
+
+                for(var i in notebooks) {
+                    var curNotebook = notebooks[i];
+                    if(curNotebook.NotebookId == NotebookId) {
+                        console.log("Found notebook");
+                        targetNotebook = curNotebook;
+                        break;
+                    }
+                }
+                
+                if(!targetNotebook) { // 没找到notebook
+                    console.log("Notebook not found");
+                    res.end('{"msg": "Not found notebook", "status": "fail"}');
+                }
+                else { // 找到了要分享的notebook
+                    // look for group
+                    var usersShareTo = 0;
+                    var group = item.Group;
+                    for(var i in group) {
+                        if(group[i].GroupId == groupId) {
+                            usersShareTo = group[i].Members;
+                            break;
+                        }
+                    }
+                    if(usersShareTo) { // 找到了group
+                        for(var i in usersShareTo) {
+                            var email = usersShareTo[i].Email;
+                            var query = {"UserInfo.Email": email};
+                            req.db.collection("allAppData").findOne(query, function(err, item) {
+                                if(err) {
+                                    console.log("err is: " + err);
+                                    res.end('{"msg": "DB error", "status": "fail"}');
+                                }
+                                else {
+                                    if(item) { // 找到了一个receiver
+                                        console.log("Found one receiver");
+
+                                        var targetUserInfo = item.UserInfo;  
+                                        var shareNotebooks = item.shareNotebooks;
+                                        var receiverId = targetUserInfo.UserId;
+                                        console.log("receiver id is " + targetUserInfo.UserId);
+                                        // 更新目标ShareUserInfos
+                                        var anotherUserInfo = {};
+
+                                        anotherUserInfo.UserId = senderUserInfo.UserId;
+                                        anotherUserInfo.Email = senderUserInfo.Email;
+                                        anotherUserInfo.Verified = senderUserInfo.Verified;
+                                        anotherUserInfo.Username = senderUserInfo.Username;
+                                        anotherUserInfo.CreatedTime = senderUserInfo.CreatedTime;
+                                        anotherUserInfo.Logo = senderUserInfo.Logo;
+                                        anotherUserInfo.Theme = senderUserInfo.Theme;
+                                        anotherUserInfo.FromUserId = senderUserInfo.FromUserId;
+                                        anotherUserInfo.NoteCnt = senderUserInfo.NoteCnt;
+                                        anotherUserInfo.Usn = senderUserInfo.Usn;
+                                        console.log("anotherUserInfo email is " + anotherUserInfo.Email);
+                                        
+                                        // 更新receiver的sharedUserInfos
+                                        var query = {"UserInfo.UserId": ToUserId};
+                                        req.db.collection('allAppData').update(query, {$addToSet:{"sharedUserInfos": anotherUserInfo}}, {upsert: true}, function(err, data) {
+                                            if(err) {
+                                                console.log(err);
+                                                res.end('{"msg": "DB error", "status": "fail"}');
+                                            }
+                                            else {
+                                                console.log("successfully update ShareUserInfos");
+
+                                                // 更新receiver的ShareNotebooks
+                                                var anotherNotebook = {};
+                                                anotherNotebook.ParentNotebookId = targetNotebook.ParentNotebookId;
+                                                anotherNotebook.Title = targetNotebook.Title;
+                                                anotherNotebook.UrlTitle = targetNotebook.UrlTitle;
+                                                anotherNotebook.NumberNotes = targetNotebook.NumberNotes;
+                                                anotherNotebook.IsBlog = targetNotebook.IsBlog;
+                                                anotherNotebook.UpdatedTime = targetNotebook.UpdatedTime;
+                                                anotherNotebook.Usn = targetNotebook.Usn;
+                                                anotherNotebook.IsDeleted = targetNotebook.IsDeleted;
+                                                anotherNotebook.ShareNotebookId = "";
+                                                anotherNotebook.ToUserId = ToUserId;
+                                                anotherNotebook.ToGroupId = ""; 
+                                                anotherNotebook.ToGroup = {};
+                                                anotherNotebook.Perm = Perm;
+                                                anotherNotebook.Subs = targetNotebook.Subs;
+                                                anotherNotebook.Seq = targetNotebook.Seq;
+                                                anotherNotebook.NotebookId = targetNotebook.NotebookId;
+                                                anotherNotebook.IsDefault = targetNotebook.IsDefault;
+
+                                                if(shareNotebooks.hasOwnProperty(senderUserId)) { // 如果receiver已经有过sender的share记录
+                                                    shareNotebooks[senderUserId].push(anotherNotebook);
+                                                }
+                                                else {
+                                                    console.log("new sender")
+                                                    shareNotebooks[senderUserId] = [];
+                                                    shareNotebooks[senderUserId].push(anotherNotebook);
+                                                }
+                                                var query = {"UserInfo.UserId": receiverId};
+                                                req.db.collection('allAppData').update(query, {$set:{"shareNotebooks": shareNotebooks}}, {upsert: true}, function(err, data) { // 更新shareNotebooks
+                                                    if(err) {
+                                                        console.log(err);
+                                                        res.end('{"msg": "DB error", "status": "fail"}');
+                                                    }
+                                                    else {
+                                                        console.log("successfully update ShareNotebooks");
+                                                        res.end('{"msg": "Updated scuccessfully", "status": "success"}');
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        console.log("Not found receiver");
+                                        res.end('{"msg": "receiver not found", "status": "fail"}');
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        console.log("Not found group");
+                        res.end('{"msg": "group not found", "status": "fail"}');
+                    }
+                }
+            }
+            else {
+                console.log("Sender not found");
+                res.end('{"msg": "sender not found", "status": "fail"}');
+            }
+        }
+    });
+});
 
 app.get("/share/listShareNotes", function(req, res) {
     console.log("/share/listShareNotes activated");
