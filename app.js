@@ -594,7 +594,7 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
                                                 anotherNotebook.ToUserId = ToUserId;
                                                 anotherNotebook.ToGroupId = ""; 
                                                 anotherNotebook.ToGroup = {};
-                                                anotherNotebook.Perm = Perm;
+                                                anotherNotebook.Perm = perm;
                                                 anotherNotebook.Subs = targetNotebook.Subs;
                                                 anotherNotebook.Seq = targetNotebook.Seq;
                                                 anotherNotebook.NotebookId = targetNotebook.NotebookId;
