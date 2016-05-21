@@ -333,7 +333,7 @@ app.post("/share/addShareNote", function(req, res) {
 
                             var targetUserInfo = item.UserInfo;  
                             var shareNotebooks = item.shareNotebooks;
-                            var receiverUserId = targetUserInfo.UserId;
+                            var ToUserId = targetUserInfo.UserId;
                             console.log("receiver id is " + targetUserInfo.UserId);
 
                             // 更新目标ShareUserInfos
@@ -351,7 +351,7 @@ app.post("/share/addShareNote", function(req, res) {
                             console.log("anotherUserInfo email is " + anotherUserInfo.Email);
 
                             // 更新receiver的sharedUserInfos
-                            var query = {"UserInfo.UserId": receiverUserId};
+                            var query = {"UserInfo.UserId": ToUserId};
                             req.db.collection('allAppData').update(query, {$addToSet:{"sharedUserInfos": anotherUserInfo}}, {upsert: true}, function(err, data) {
                                 if(err) {
                                     console.log(err);
@@ -359,7 +359,7 @@ app.post("/share/addShareNote", function(req, res) {
                                 }
                                 else {
                                     console.log("successfully update ShareUserInfos");
-                                    res.end('{"msg": "success", "status": "success", "receiverUserId":' + '"' + receiverUserId + '"' + '}');
+                                    res.end('{"msg": "success", "status": "success", "ToUserId":' + '"' + ToUserId + '"' + '}');
 //                                    res.json(JSON.stringify(receiverUserId));
                                 }
                             });
@@ -542,7 +542,7 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
 
                                         var targetUserInfo = item.UserInfo;  
                                         var shareNotebooks = item.shareNotebooks;
-                                        var receiverId = targetUserInfo.UserId;
+                                        var ToUserId = targetUserInfo.UserId;
                                         console.log("receiver id is " + targetUserInfo.UserId);
                                         // 更新目标ShareUserInfos
                                         var anotherUserInfo = {};
@@ -559,7 +559,7 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
                                         anotherUserInfo.Usn = senderUserInfo.Usn;
                                         console.log("anotherUserInfo email is " + anotherUserInfo.Email);
                                         
-                                        // 更新receiver的sharedUserInfos
+                -                        // 更新receiver的sharedUserInfos
                                         var query = {"UserInfo.UserId": ToUserId};
                                         req.db.collection('allAppData').update(query, {$addToSet:{"sharedUserInfos": anotherUserInfo}}, {upsert: true}, function(err, data) {
                                             if(err) {
@@ -597,7 +597,7 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
                                                     shareNotebooks[senderUserId] = [];
                                                     shareNotebooks[senderUserId].push(anotherNotebook);
                                                 }
-                                                var query = {"UserInfo.UserId": receiverId};
+                                                var query = {"UserInfo.UserId": ToUserId};
                                                 req.db.collection('allAppData').update(query, {$set:{"shareNotebooks": shareNotebooks}}, {upsert: true}, function(err, data) { // 更新shareNotebooks
                                                     if(err) {
                                                         console.log(err);
