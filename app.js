@@ -515,7 +515,7 @@ app.post("/share/addGroupShareNotebook", function(req, res) {
 
                 for(var i in notebooks) {
                     var curNotebook = notebooks[i];
-                    if(curNotebook.NotebookId == NotebookId) {
+                    if(curNotebook.NotebookId == notebookId) {
                         console.log("Found notebook");
                         targetNotebook = curNotebook;
                         break;
