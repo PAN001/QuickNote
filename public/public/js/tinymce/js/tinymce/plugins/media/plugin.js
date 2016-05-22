@@ -282,8 +282,8 @@ tinymce.PluginManager.add('media', function(editor, url) {
 				data.height = videoScript.height;
 			}
 
-			data.width = data.width || 300;
-			data.height = data.height || 150;
+			data.width = 640;
+			data.height = 360;
 
 			tinymce.each(data, function(value, key) {
 				data[key] = editor.dom.encode(value);
@@ -293,13 +293,13 @@ tinymce.PluginManager.add('media', function(editor, url) {
 				var allowFullscreen = data.allowFullscreen ? ' allowFullscreen="1"' : '';
 				html += '<iframe src="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '"' + allowFullscreen + '></iframe>';
 			} else if (data.source1mime == "application/x-shockwave-flash") {
-				html += '<object data="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '" type="application/x-shockwave-flash">';
+				html += '<iframe src="' + data.source1 + '" width="' + data.width + '" height="' + data.height+ '>';
 
 				if (data.poster) {
 					html += '<img src="' + data.poster + '" width="' + data.width + '" height="' + data.height + '" />';
 				}
 
-				html += '</object>';
+				html += '</iframe>';
 			} else if (data.source1mime.indexOf('audio') != -1) {
 				if (editor.settings.audio_template_callback) {
 					html = editor.settings.audio_template_callback(data);
@@ -317,10 +317,10 @@ tinymce.PluginManager.add('media', function(editor, url) {
 					html = editor.settings.video_template_callback(data);
 				} else {
 					html = (
-						'<video width="' + data.width + '" height="' + data.height + '"' + (data.poster ? ' poster="' + data.poster + '"' : '') + ' controls="controls">\n' +
+						'<iframe width="' + data.width + '" height="' + data.height + '"' + (data.poster ? ' poster="' + data.poster + '"' : '') + ' controls="controls">\n' +
 							'<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' +
 							(data.source2 ? '<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') +
-						'</video>'
+						'</iframe>'
 					);
 				}
 			}
