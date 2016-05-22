@@ -1,4 +1,4 @@
-var audio = document.querySelector('audio');
+			var audio = document.querySelector('audio');
 			var inter;
 			var recorder;
 			var realaudio;
