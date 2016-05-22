@@ -3522,4 +3522,36 @@ h1,h2,h3 {
 	width: 50%;
 	text-decoration: none;
 }
+#myShareTab>li.active>a {
+	
+	text-decoration: none;
+}
+#addShareNotebookBtn {
+	background-color: #6CA6CD;
+	border-color: #6CA6CF;
+	padding-top: 10px;
+}
+#notsharebtn {
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+}
+
+#groupinfop {
+	margin-top: 10px;
+}
+#successbtn {
+	background-color: #CD5555;
+	border-color: #CD5559;
+	color: #fff;
+}
+#synBtn {
+	cursor: pointer;
+}
+#downloadbtn1 {
+	cursor: pointer;
+}
+.pull-right>i:hover {
+	color:#64ffdf;
+}
 

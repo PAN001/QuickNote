@@ -302,7 +302,7 @@ function forwardpage(){
 						<ul class="dropdown-menu li-a" role="menu">
 							<li role="presentation" class="divider"></li>
                             <li role="presentation" onclick="listGroupInfo()">
-								<i class="fa fa-user"></i> 
+								<i class="fa fa-users"></i> 
 								Group
 							</li>
 							<li role="presentation" onclick="logout()">
@@ -333,12 +333,12 @@ function forwardpage(){
 					<a href="#writing"><span>Writing Mode</span></a>
 				</div>
 -->
-
+				<!-- iris -->
 				<div class="pull-right top-nav" id="downloadTracking">
 					<!-- <a onclick="downloadTrakcingLog()"><span>Download tracking log</span></a> -->
-					<i id = "synBtn" class = "fa fa-synchronization" title = "Synchronize Notebooks"></i>
+					<i id = "synBtn" class="fa fa-refresh" aria-hidden="true" title = "Synchronize Notebooks"></i>
 					&nbsp
-					<i class = "fa fa-downloadTracking" title = "Download Tracking Log" onclick = "downloadTrakcingLog()"></i>
+					<i id = "downloadbtn1" class="fa fa-cloud-download" aria-hidden="true" title = "Download Tracking Log" onclick = "downloadTrakcingLog()"></i>
 				</div>
 
 				<div style="clear: both"></div>
@@ -856,7 +856,7 @@ function forwardpage(){
                                 </div>
 
                                 <div class="tab-pane" id="groupInfo">
-                                    <p>
+                                    <p id = "groupinfop">
                                     If you share your note to group, the member belongs to group will have the right to access the note.
                                     <a href="/member/group/index" target="_blank">Manage group/member</a>
                                     </p>
@@ -878,12 +878,13 @@ function forwardpage(){
 													<label><input type="radio" name="perm_56fccc7aab64415150000de4" value="1" class="group-perm"> Writable</label>
 												</td>
 												<td>
-													<button class="btn btn-default btn-share-or-not">Not shared</button>
+													<button id = "notsharebtn" class="btn btn-default btn-share-or-not">Not shared</button>
 												</td>
 											</tr>
 -->
                                         </thead>
                                         <tbody id="groupInfoTable">
+
                                         </tbody>
                                     </table>
                                 </div>
