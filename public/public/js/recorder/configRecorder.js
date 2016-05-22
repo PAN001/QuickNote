@@ -1,4 +1,8 @@
 
+var audio = document.querySelector('audio');
+			var inter;
+			var recorder;
+			var realaudio;
 			var c=0;
             var boolrecorder = true;
             var reg = /^\d$/;
@@ -13,19 +17,16 @@
 				var mediaStreamSource = context.createMediaStreamSource(s);
 				recorder = new Recorder(mediaStreamSource);
 				recorder.record();
-
 				// audio loopback
 				// mediaStreamSource.connect(context.destination);
 			}
 
 			window.URL = window.URL || window.webkitURL;
+
 			navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
 			
-			var audio = document.querySelector('audio');
-			var inter;
-			var recorder;
-			var realaudio;
+			
 
 			function startRecording() {
 				if(boolrecorder){
