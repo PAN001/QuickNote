@@ -3481,3 +3481,41 @@ h1,h2,h3 {
 	height:100%;
 	right:0;
 }
+.nav-tabs{
+	border: 0 solid #fff;
+}
+.nav-tabs>li {
+	width: 20%;
+}
+.nav-tabs>li>a {
+	border: 0 solid #fff;
+	width:100%;
+}
+.nav-tabs>li.active>a{
+	border: 0 solid #fff;
+	border-bottom: 3px solid #79CDCD;
+	color: #79CDCD;
+}
+.nav-tabs>li.active>a:hover {
+	border: 0 solid #fff;
+	color: #fff;
+	background-color: #444;
+}
+.nav-tabs>li.active>a:focus {
+	border: 0 solid #fff;
+	color:#79CDCD;
+	border-bottom: 3px solid #79CDCD;
+}
+.nav>li>a:hover {
+	border: 0 solid #fff;
+	color: #fff;
+	background-color: #444;
+}
+.nav>li>a:focus {
+	border: 0 solid #fff;
+	color:#79CDCD;
+	border-bottom: 3px solid #79CDCD;
+}
+
+
+
