@@ -796,7 +796,7 @@ function forwardpage(){
 
                         <div class="modal-body">
 
-                            <ul id="myTab" class="nav nav-tabs">
+                            <ul id="myShareTab" class="nav nav-tabs">
                                 <li class="active"><a href="#baseInfo" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
                                 <li class=""><a href="#groupInfo" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
 
@@ -805,9 +805,9 @@ function forwardpage(){
 							<!-- iris -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="baseInfo">
-                                	<div id = "addfriendbutton">
-                                    	<button class="btn btn-primary" id="addShareNotebookBtn"> + Add New Friend</button>
-                                	</div>
+                                	    <div id = "addfriendbutton">
+                                    		<button class="btn btn-primary" id="addShareNotebookBtn"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Friend</button>
+                              			</div>
                                         <!-- <div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div> -->
                                         <table class="table table-hover" id="shareNotebookTable">
                                             <thead>
@@ -843,7 +843,6 @@ function forwardpage(){
                                                     <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                                                 </td>
                                             </tr>
-
                                             </tbody>
                                         </table> 
                                 </div>

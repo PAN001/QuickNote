@@ -3385,6 +3385,7 @@ h1,h2,h3 {
 }
 #addfriendbutton {
 	padding-bottom: 10px;
+	padding-top: 10px;
 }
 #sharebuttontd {
 	text-align: right;
@@ -3517,5 +3518,8 @@ h1,h2,h3 {
 	border-bottom: 3px solid #79CDCD;
 }
 
-
+#myShareTab>li {
+	width: 50%;
+	text-decoration: none;
+}
 
