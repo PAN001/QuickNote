@@ -803,13 +803,15 @@ a:hover {
 	visibility: hidden
 }
 
+/*iris0522*/
 #page {
 	overflow: auto;
 	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
-	right: 0
+	right: 0;
+	/*height: 100%;*/
 }
 
 #pageInner {
@@ -833,9 +835,9 @@ a:hover {
 
 #media {
     position: absolute;
-	bottom: 0;
+/*	bottom: 0;
 	top: 0;
-	right: 0px;
+	right: 0px;*/
     left:67%;
 	padding-left: 5px;
 	overflow-y: hidden;
@@ -1481,12 +1483,14 @@ textarea#wmd-input {
 	list-style: none
 }
 
+/*iris*/
 #leftNotebook {
 	position: absolute;
 	left: 0;
-	top: 0;
-	bottom: 0;
-	width: 12%
+/*	top: 0;
+	bottom: 0;*/
+	width: 12%;
+	height: 100%;
 }
 
 #notebook,#notebookMin {
@@ -1783,8 +1787,10 @@ textarea#wmd-input {
 
 #noteAndEditor {
 	position: absolute;
+/*	bottom: 0;
+	top: 0;*/
 	bottom: 0;
-	top: 0;
+	height: 100%;
 	left:12%;
 	width:55%
 }
@@ -3386,10 +3392,18 @@ h1,h2,h3 {
 #optionth {
 	text-align: center;
 }
+/*iris*/
 .gsc-control-cse {
-	height: 2300px;
+	/*height: 900px;*/
+	height: 100%;
+	/*height:10%;*/
 	border-color: #fff !important;
     background-color: #fff !important;
+}
+#searchEngine {
+	/*height:900px;*/
+	height:100%;
+	/*height: 10%;*/
 }
 #downloadbtn{
     width:150px;
@@ -3454,7 +3468,15 @@ h1,h2,h3 {
 }
 
 #myTabContent {
+	/*height:900px;*/
+	height: 90%;
+	/*height: 860px;*/
+	position: relative;
+}
+#mytabdiv {
+	position:relative;
+	/*margin-top: 50px;*/
+}
+#media {
 	height:100%;
 }
-
-
