@@ -868,8 +868,6 @@
 			view.selectNode(setting, node, false);
 			$$(node, consts.id.SPAN, setting).html("<input type=text class='rename' id='" + node.tId + consts.id.INPUT + "' treeNode" + consts.id.INPUT + " >");
 			var inputObj = $$(node, consts.id.INPUT, setting);
-            console.log("inputObj is ");
-            console.log(inputObj);
 			inputObj.attr("value", node[nameKey]);
 			if (setting.edit.editNameSelectAll) {
 				tools.inputSelect(inputObj);
@@ -878,10 +876,52 @@
 			}
 
 			// here
-			inputObj.bind('blur', {input: inputObj}, function(event) {
+			inputObj.bind('blur', {input: inputObj, oldValue: inputObj.val()}, function(event) {
 				if (!view.editNodeBlur) {
 					view.cancelCurEditNode(setting);
 					console.log("lose blur");
+					var zTree = $.fn.zTree.getZTreeObj("groupZTree");
+					var nodes = zTree.getSelectedNodes();
+					var treeNode = nodes[0];
+					if(treeNode.level == 1) { // 一级node
+//						console.log("this is 1st level");
+                        var inputValue = event.data.input.val(); // this is the input
+                        var jsonData = {"Email": inputValue}; 
+                        var stringifiedJson = JSON.stringify(jsonData);
+                        var url = baseUrl + 'checkExistence';
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: stringifiedJson,
+                            contentType: "text/plain",
+                            success: function (data) {
+                                var res = jQuery.parseJSON(data);
+                                if(res.status == "fail") { // email not found
+                                    console.log("not found");
+                                    showAlert("#groupMsg", "Sorry! Email not found");
+//                                    event.data.input.attr("value", event.data.oldValue);
+                                    treeNode.name = event.data.oldValue;
+                                    zTree.updateNode(treeNode);
+                                    return false;
+                                }
+                                else { // email found
+                                    console.log("found");
+                                    showAlert("#groupMsg", "Rename successfully");
+                                    return true;
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                alert('Error: ' + error.message);
+                            }
+                        });
+                        
+					}
+				}
+			}).bind('keydown', {input: inputObj, oldValue: inputObj.val()}, function(event) {
+				if (event.keyCode=="13") { // 回车
+					view.editNodeBlur = true;
+					view.cancelCurEditNode(setting);
+                    console.log("lose blur");
 					var zTree = $.fn.zTree.getZTreeObj("groupZTree");
 					var nodes = zTree.getSelectedNodes();
 					var treeNode = nodes[0];
@@ -900,10 +940,16 @@
                             success: function (data) {
                                 var res = jQuery.parseJSON(data);
                                 if(res.status == "fail") { // email not found
-                                    alert(res.msg);
+                                    console.log("not found");
+                                    showAlert("#groupMsg", "Sorry! Email not found");
+//                                    event.data.input.attr("value", event.data.oldValue);
+                                    treeNode.name = event.data.oldValue;
+                                    zTree.updateNode(treeNode);
                                     return false;
                                 }
                                 else { // email found
+                                    console.log("found");
+                                    showAlert("#groupMsg", "Rename successfully");
                                     return true;
                                 }
                             },
@@ -913,11 +959,6 @@
                         });
                         
 					}
-				}
-			}).bind('keydown', function(event) {
-				if (event.keyCode=="13") { // 回车
-					view.editNodeBlur = true;
-					view.cancelCurEditNode(setting);
 				} else if (event.keyCode=="27") {
 					view.cancelCurEditNode(setting, null, true);
 				}
