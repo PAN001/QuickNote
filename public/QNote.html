@@ -181,7 +181,7 @@
 function webaddress(){
 	//var x =document.getElementById("address");
 	var http = document.getElementById("address").value;
-	if(http.substring(0,7)!="http://"||http.substring(0,8)!="https://"){
+	if(http.substring(0,7)!="http://"&&http.substring(0,8)!="https://"){
 		http = "http://"+http;
 		document.getElementById("webpage").src = "http://"+document.getElementById("address").value;
 	}
@@ -630,7 +630,7 @@ function forwardpage(){
 							<input style="margin-left:5%;" onclick="download()" type="image" class="audio-buttons" src="public\images\buttons\download.png" height=60 alt="Download" title="Download"/>
 							
 							<input style="margin-left:5%;" onclick="clearRecord()" type="image" class="audio-buttons" src="public\images\buttons\clear.png" height=60 alt="Clear" title="Clear"/><br/>
-							<b id="count"></b> <br/><br/><br/><br/><br/><br/><br/>
+							</br></br><b id="count"></b> <br/><br/><br/><br/><br/><br/><br/>
 
 							<div id = audioDoc>
 							<h1>Audio Recording</h1>
