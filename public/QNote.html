@@ -74,7 +74,10 @@
 
     var trackingLog = [];
 
-    var group = [{"GroupId": "56fccc7aab64415150000de4", "GroupName": "default", "Members": [{"Email":"70"}, {"Email":"71"}]}];
+    var group = [
+        {"GroupId": "56fccc7aab64415150000de4", "GroupName": "default1", "Members": [{"Email":"70"}, {"Email":"71"}]},
+        {"GroupId": "56fccc7aab64415150000de5", "GroupName": "default2", "Members": [{"Email":"72"}, {"Email":"73"}]}
+    ];
 
     var allAppData = {};
     
@@ -292,6 +295,10 @@ function forwardpage(){
 						</a>
 						<ul class="dropdown-menu li-a" role="menu">
 							<li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="listGroupInfo()">
+								<i class="fa fa-user"></i> 
+								Group
+							</li>
 							<li role="presentation" onclick="logout()">
 								<i class="fa fa-sign-out"></i>
 								Logout
@@ -775,7 +782,8 @@ function forwardpage(){
 
 				    </div>
 				  </div>
-			</div>			
+			</div>		
+            
 <!--            share开始-->
             <div class="modal fade bs-modal-sm in" id="leanoteDialogRemote" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">  
                 <div class="modal-dialog modal-sm">
@@ -852,7 +860,7 @@ function forwardpage(){
 												<th>Permission</th>
 												<th width="150px">Operation</th>
 											</tr>
-
+<!--
 											<tr data-id="56fccc7aab64415150000de4" data-uid="56d53e56ab64417fb1001e21">
 												<td>
 													mk
@@ -862,13 +870,14 @@ function forwardpage(){
 													<label><input type="radio" name="perm_56fccc7aab64415150000de4" value="1" class="group-perm"> Writable</label>
 												</td>
 												<td>
-													<button class="btn btn-default btn-share-or-not">未分享</button>
+													<button class="btn btn-default btn-share-or-not">Not shared</button>
 												</td>
 											</tr>
+-->
                                         </thead>
-                                        <tbody>
-
-                                    </tbody></table>
+                                        <tbody id="groupInfoTable">
+                                        </tbody>
+                                    </table>
                                 </div>
 
 
@@ -910,6 +919,52 @@ function forwardpage(){
             </div>
 			
 <!--            share结束-->
+            
+            
+            
+<!--            member开始-->
+            <div class="modal fade bs-modal-sm in" id="groupDialogRemote" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">  
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="modalTitle">Manage your group</h4>
+                        </div>
+
+
+                        <div class="modal-body">
+
+<!--
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active"><a href="#baseInfo" data-toggle="tab">Share to friends</a></li>
+                                <li class=""><a href="#groupInfo" data-toggle="tab">Share to group</a></li>
+
+                                 <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> 
+                            </ul>
+-->
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="baseInfo">
+                                	<div id = "addfriendbutton">
+                                    	<button class="btn btn-primary" id="addParentBtn"> + Add New Friend</button>
+                                	</div>
+                                    <div class="groupTree">
+                                        <ul id="groupZTree" class="ztree"></ul>
+                                    </div>
+                                </div>             
+                            </div>
+                        </div>
+						<!-- iris -->
+                        <div class="modal-footer">
+                        
+                        	<div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            member结束-->
 			<div class="display: hidden">
 			<div class="hide" id="copyDiv"></div>
 		</div>
@@ -1046,6 +1101,13 @@ function forwardpage(){
 <script src="public/js/tracking/Blob.js" ></script>
 <script src="public/js/tracking/FileSaver.js" ></script>
 <script src="public/js/tracking/tracking.js" ></script>
+    
+<!--group-->
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.exedit.js"></script>
+<script src="public/js/group.js"></script>
+<link href="public/css/group.css" rel="stylesheet" />
 
 </body>
 </html>

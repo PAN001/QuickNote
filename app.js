@@ -30,6 +30,7 @@ console.log("db starts");
 app.use('/updateAll', bodyParser.text());
 app.use('/register', bodyParser.text());
 app.use('/logIn', bodyParser.text());
+app.use('/checkExistence', bodyParser.text());
 app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
 app.use('/share/addGroupShareNotebook', bodyParser.text());
@@ -49,6 +50,7 @@ app.use(function(req, res, next) {
 	// console.log(req);
 	next();
 });
+
 
 
 app.post("/updateAll", function(req, res) {
@@ -156,6 +158,28 @@ app.post("/logIn", function(req, res) {
 });
 
 
+app.post("/checkExistence", function(req, res) {
+    console.log("/checkExistance activated");
+	var parsedData = JSON.parse(req.body);
+    var email = parsedData.Email;
+
+    var query = {"UserInfo.Email": email};
+    req.db.collection("allAppData").findOne(query, function(err, item) {
+        if(err) {
+            console.log("err is: " + err);
+            res.end('{"msg": "DB error", "status": "fail"}');
+        }
+        else {
+            if(item) { // 找到了该账户
+                res.end('{"msg": "Email found", "status": "success"}');
+            }
+            else {
+                res.end('{"msg": "Email not found", "status": "fail"}');
+            }
+        }
+    });
+});
+                                        
 
 app.post("/share/addShareNotebook", function(req, res) {
     console.log("/share/addShareNotebook activated");
