@@ -119,7 +119,7 @@
 
 <!--<link rel="stylesheet" href="public/css/tinymce/skin.min.css" rel="stylesheet"/> // style sheet for tinymce-->
 
-<link href="public/css/font-awesome-4.2.0/css/font-awesome-min.css" rel="stylesheet" />
+<link href="public/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
 <!--    responsible for icons-->
 
 <link href="public/css/zTreeStyle/zTreeStyle-min.css" rel="stylesheet" />
@@ -804,18 +804,18 @@ function forwardpage(){
 
                         <div class="modal-body">
 
-                            <ul id="myTab" class="nav nav-tabs">
-                                <li class="active"><a href="#baseInfo" data-toggle="tab">Share to friends</a></li>
-                                <li class=""><a href="#groupInfo" data-toggle="tab">Share to group</a></li>
+                            <ul id="myShareTab" class="nav nav-tabs">
+                                <li class="active"><a href="#baseInfo" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
+                                <li class=""><a href="#groupInfo" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
 
                                 <!-- <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> -->
                             </ul>
 							<!-- iris -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="baseInfo">
-                                	<div id = "addfriendbutton">
-                                    	<button class="btn btn-primary" id="addShareNotebookBtn"> + Add New Friend</button>
-                                	</div>
+                                	    <div id = "addfriendbutton">
+                                    		<button class="btn btn-primary" id="addShareNotebookBtn"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Friend</button>
+                              			</div>
                                         <!-- <div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div> -->
                                         <table class="table table-hover" id="shareNotebookTable">
                                             <thead>
@@ -829,8 +829,9 @@ function forwardpage(){
                                               </tr>
                                             </thead>
                                             <tbody>
-                                            <tr id="tr1">
+                                            <!-- <tr id="tr1"> -->
                                                 <!-- <td>#</td> -->
+                                                <tr>
                                                 <td>
                                                     <input id="friendsEmail" type="text" class="form-control" placeholder="Enter Account Name">
                                                 </td>
@@ -847,10 +848,9 @@ function forwardpage(){
                                                     <!-- <i class="fa fa-share" aria-hidden="true" data-loading-text="..." onclick="addShareNoteOrNotebook(1)"></i> -->
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                                    <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                                                 </td>
                                             </tr>
-
                                             </tbody>
                                         </table> 
                                 </div>
