@@ -187,7 +187,7 @@
 function webaddress(){
 	//var x =document.getElementById("address");
 	var http = document.getElementById("address").value;
-	if(http.substring(0,7)!="http://"||http.substring(0,8)!="https://"){
+	if(http.substring(0,7)!="http://"&&http.substring(0,8)!="https://"){
 		http = "http://"+http;
 		document.getElementById("webpage").src = "http://"+document.getElementById("address").value;
 	}
@@ -449,15 +449,16 @@ function forwardpage(){
 						</div>
 
                         <div id="editorMask">  
-                            There is no notebook now. Let us make one :)
+                            No note here.
                             <br />
                             <br />
                             <div id="editorMaskBtns">
                                 <a class="note">New note</a>
 <!--                                <a class="markdown">New Markdown Note</a>-->
                             </div>
-                            <div id="editorMaskBtnsEmpty">
-                                Sorry, please choose a notebook at first :)
+                            <div id="editorMaskBtnsEmpty"> 
+<!--                                appear when ti is in trash-->
+                                
                             </div>
                         </div>
 						
@@ -633,16 +634,14 @@ function forwardpage(){
 					        <div id = "test" style="visibility:hidden;">
 							<audio controls="controls"></audio>
 							</div>
-
-							<input onclick="startRecording()" type="image" class="audio-buttons" src="public\images\buttons\record.png" height=60 alt="Record" title="Record"/>
-							&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
-							<input onclick="stopRecording()" type="image" class="audio-buttons" src="public\images\buttons\stop.png" height=60 alt="Stop" title="Stop"/>
-							&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
-							<input onclick="download()" type="image" class="audio-buttons" src="public\images\buttons\download.png" height=60 alt="Download" title="Download"/>
-							&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
-							<input onclick="clearRecord()" type="image" class="audio-buttons" src="public\images\buttons\clear.png" height=60 alt="Clear" title="Clear"/><br/>
-
-							<b id="count"></b> <br/><br/><br/><br/><br/><br/><br/>
+							<input style="margin-left:5%;" onclick="startRecording()" type="image" class="audio-buttons" src="public\images\buttons\record.png" height=60 alt="Record" title="Record"/>
+							
+							<input style="margin-left:5%;" onclick="stopRecording()" type="image" class="audio-buttons" src="public\images\buttons\stop.png" height=60 alt="Stop" title="Stop"/>
+							
+							<input style="margin-left:5%;" onclick="download()" type="image" class="audio-buttons" src="public\images\buttons\download.png" height=60 alt="Download" title="Download"/>
+							
+							<input style="margin-left:5%;" onclick="clearRecord()" type="image" class="audio-buttons" src="public\images\buttons\clear.png" height=60 alt="Clear" title="Clear"/><br/>
+							</br></br><b id="count"></b> <br/><br/><br/><br/><br/><br/><br/>
 
 							<div id = audioDoc>
 							<h1>Audio Recording</h1>
@@ -1098,9 +1097,10 @@ function forwardpage(){
 <script>
     $("#videodownload").on("click",downloadvideo())
 </script>
-<script src="public/js/recorder/configRecorder.js"> </script>
 <script src="public/js/recorder/recorder.js"> </script>
 <script src="public/js/recorder/recorderWorker.js"> </script>
+<script src="public/js/recorder/configRecorder.js"> </script>
+
 <script src="public/js/plugins/main.min.js"></script>
 
 

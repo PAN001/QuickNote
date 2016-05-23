@@ -492,7 +492,7 @@
 							targetSetting.treeObj.scrollLeft(targetSetting.treeObj.scrollLeft()-10);
 						} else if (isRight) {
 							targetSetting.treeObj.scrollLeft(targetSetting.treeObj.scrollLeft()+10);
-						}
+                        }
 						//auto scroll left
 						if (tmpTarget && tmpTarget != targetSetting.treeObj && tmpTarget.offset().left < targetSetting.treeObj.offset().left) {
 							targetSetting.treeObj.scrollLeft(targetSetting.treeObj.scrollLeft()+ tmpTarget.offset().left - targetSetting.treeObj.offset().left);
@@ -785,6 +785,7 @@
 				return;
 			}
 			var aObj = $$(node, consts.id.A, setting),
+            // edit button
 			editStr = "<span class='" + consts.className.BUTTON + " edit' id='" + node.tId + consts.id.EDIT + "' title='"+tools.apply(setting.edit.renameTitle, [setting.treeId, node], setting.edit.renameTitle)+"' treeNode"+consts.id.EDIT+" style='display:none;'></span>";
 			aObj.append(editStr);
 
@@ -804,6 +805,7 @@
 				return;
 			}
 			var aObj = $$(node, consts.id.A, setting),
+            // remove button
 			removeStr = "<span class='" + consts.className.BUTTON + " remove' id='" + node.tId + consts.id.REMOVE + "' title='"+tools.apply(setting.edit.removeTitle, [setting.treeId, node], setting.edit.removeTitle)+"' treeNode"+consts.id.REMOVE+" style='display:none;'></span>";
 			aObj.append(removeStr);
 
