@@ -3467,6 +3467,9 @@ h1,h2,h3 {
 	height: 92%;
 	margin-left: 1.3%;
 }
+#cloudDisk {
+	height: 110%;
+}
 
 #myTabContent {
 	/*height:900px;*/
@@ -3486,7 +3489,7 @@ h1,h2,h3 {
 	border: 0 solid #fff;
 }
 .nav-tabs>li {
-	width: 16.67%;
+	width: 16%;
 }
 .nav-tabs>li>a {
 	border: 0 solid #fff;
