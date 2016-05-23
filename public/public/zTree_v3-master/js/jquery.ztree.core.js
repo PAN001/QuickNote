@@ -1222,12 +1222,14 @@
 			}
 			return false;
 		},
+		/*iris0523*/
+		// add node icon and node itself
 		makeDOMNodeIcon: function(html, setting, node) {
 			var nameStr = data.getNodeName(setting, node),
 			name = setting.view.nameIsHTML ? nameStr : nameStr.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-			html.push("<span id='", node.tId, consts.id.ICON,
+			html.push("&nbsp;&nbsp;<span id='", node.tId, consts.id.ICON,
 				"' title='' treeNode", consts.id.ICON," class='", view.makeNodeIcoClass(setting, node),
-				"' style='", view.makeNodeIcoStyle(setting, node), "'></span><span id='", node.tId, consts.id.SPAN,
+				"' style='", view.makeNodeIcoStyle(setting, node), "'></span>&nbsp;&nbsp;&nbsp;<span id='", node.tId, consts.id.SPAN,
 				"' class='", consts.className.NAME,
 				"'>",name,"</span>");
 		},

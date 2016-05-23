@@ -774,6 +774,7 @@
 			}
 		}
 	},
+	/*iris0523*/
 	//method of operate ztree dom
 	_view = {
 		addEditBtn: function(setting, node) {

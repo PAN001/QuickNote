@@ -276,12 +276,16 @@
 .invisible {
 	visibility: hidden
 }
-
+/*iris0523*/
 .btn {
 	border-radius: 10px;
-
 }
 
+#addgroupbtn{
+	border-radius: 10px;
+	background-color: #6CA6CD;
+	border-color: #6CA6CF;
+}
 .alert {
 	/*margin-bottom: 10px;*/
 	/*padding: 0px;*/
@@ -3554,4 +3558,7 @@ h1,h2,h3 {
 .pull-right>i:hover {
 	color:#64ffdf;
 }
-
+#groupZTree {
+	background-color: #fff;
+	color: #000;
+}
