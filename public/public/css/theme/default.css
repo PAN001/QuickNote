@@ -3562,3 +3562,10 @@ h1,h2,h3 {
 	background-color: #fff;
 	color: #000;
 }
+#cancelbutton {
+	background-color: #EEC900;
+	border-color: #EEC905;
+}
+#cancelbuttontd {
+	text-align: center;
+}
