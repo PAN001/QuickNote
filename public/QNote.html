@@ -74,7 +74,10 @@
 
     var trackingLog = [];
 
-    var group = [{"GroupId": "56fccc7aab64415150000de4", "GroupName": "default", "Members": [{"Email":"70"}, {"Email":"71"}]}];
+    var group = [
+        {"GroupId": "56fccc7aab64415150000de4", "GroupName": "default1", "Members": [{"Email":"70"}, {"Email":"71"}]},
+        {"GroupId": "56fccc7aab64415150000de5", "GroupName": "default2", "Members": [{"Email":"72"}, {"Email":"73"}]}
+    ];
 
     var allAppData = {};
     
@@ -109,6 +112,9 @@
 <link rel="stylesheet" href="public/css/theme/default.css" type="text/css" id="themeLink"/>
     
 <script src="public/js/dep.min.js"></script>
+<script type="text/javascript">
+    $.fn.notebookZTree = $.fn.zTree;
+</script>
 <!--定制版的JQuery；需要放在bootstrap之前-->
     
 <link href="public/css/bootstrap-min.css" rel="stylesheet" />
@@ -116,7 +122,7 @@
 
 <!--<link rel="stylesheet" href="public/css/tinymce/skin.min.css" rel="stylesheet"/> // style sheet for tinymce-->
 
-<link href="public/css/font-awesome-4.2.0/css/font-awesome-min.css" rel="stylesheet" />
+<link href="public/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
 <!--    responsible for icons-->
 
 <link href="public/css/zTreeStyle/zTreeStyle-min.css" rel="stylesheet" />
@@ -298,6 +304,10 @@ function forwardpage(){
 						</a>
 						<ul class="dropdown-menu li-a" role="menu">
 							<li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="listGroupInfo()">
+								<i class="fa fa-users"></i> 
+								Group
+							</li>
 							<li role="presentation" onclick="logout()">
 								<i class="fa fa-sign-out"></i>
 								Logout
@@ -326,12 +336,12 @@ function forwardpage(){
 					<a href="#writing"><span>Writing Mode</span></a>
 				</div>
 -->
-
+				<!-- iris -->
 				<div class="pull-right top-nav" id="downloadTracking">
 					<!-- <a onclick="downloadTrakcingLog()"><span>Download tracking log</span></a> -->
-					<i id = "synBtn" class = "fa fa-synchronization" title = "Synchronize Notebooks"></i>
+					<i id = "synBtn" class="fa fa-refresh" aria-hidden="true" title = "Synchronize Notebooks"></i>
 					&nbsp
-					<i class = "fa fa-downloadTracking" title = "Download Tracking Log" onclick = "downloadTrakcingLog()"></i>
+					<i id = "downloadbtn1" class="fa fa-cloud-download" aria-hidden="true" title = "Download Tracking Log" onclick = "downloadTrakcingLog()"></i>
 				</div>
 
 				<div style="clear: both"></div>
@@ -781,7 +791,8 @@ function forwardpage(){
 
 				    </div>
 				  </div>
-			</div>			
+			</div>		
+            
 <!--            share开始-->
             <div class="modal fade bs-modal-sm in" id="leanoteDialogRemote" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">  
                 <div class="modal-dialog modal-sm">
@@ -794,18 +805,18 @@ function forwardpage(){
 
                         <div class="modal-body">
 
-                            <ul id="myTab" class="nav nav-tabs">
-                                <li class="active"><a href="#baseInfo" data-toggle="tab">Share to friends</a></li>
-                                <li class=""><a href="#groupInfo" data-toggle="tab">Share to group</a></li>
+                            <ul id="myShareTab" class="nav nav-tabs">
+                                <li class="active"><a href="#baseInfo" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
+                                <li class=""><a href="#groupInfo" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
 
                                 <!-- <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> -->
                             </ul>
 							<!-- iris -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="baseInfo">
-                                	<div id = "addfriendbutton">
-                                    	<button class="btn btn-primary" id="addShareNotebookBtn"> + Add New Friend</button>
-                                	</div>
+                                	    <div id = "addfriendbutton">
+                                    		<button class="btn btn-primary" id="addShareNotebookBtn"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Friend</button>
+                              			</div>
                                         <!-- <div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div> -->
                                         <table class="table table-hover" id="shareNotebookTable">
                                             <thead>
@@ -818,35 +829,35 @@ function forwardpage(){
                                                 <th colspan = "2" id = "optionth">Options</th>
                                               </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr id="tr1">
+                                            <tbody id="baseInfoTableBody">
+                                            <!-- <tr id="tr1"> -->
                                                 <!-- <td>#</td> -->
-                                                <td>
-                                                    <input id="friendsEmail" type="text" class="form-control" placeholder="Enter Account Name">
-                                                </td>
-<!--
-                                                <td>
-                                                    <label for="readPerm1"><input type="radio" name="perm1" checked="checked" value="0" id="readPerm1"> Read only</label> 
-                                                    <label for="writePerm1"><input type="radio" name="perm1" value="1" id="writePerm1"> Writable</label>
-                                                </td>
--->					
-												<!-- iris -->
-                                                <td id = "sharebuttontd">
+                                                <tr id="tr1">
+                                                    <td>
+                                                        <input id="friendsEmail" type="text" class="form-control" placeholder="Enter Account Name">
+                                                    </td>
+    <!--
+                                                    <td>
+                                                        <label for="readPerm1"><input type="radio" name="perm1" checked="checked" value="0" id="readPerm1"> Read only</label> 
+                                                        <label for="writePerm1"><input type="radio" name="perm1" value="1" id="writePerm1"> Writable</label>
+                                                    </td>
+    -->					
+                                                    <!-- iris -->
+                                                    <td id = "sharebuttontd">
 
-                                                    <button class="btn btn-success" data-loading-text="..." onclick="addShareNoteOrNotebook(1)" id = "sharebutton"><i class="fa fa-share" aria-hidden="true"></i>  Share</button>
-                                                    <!-- <i class="fa fa-share" aria-hidden="true" data-loading-text="..." onclick="addShareNoteOrNotebook(1)"></i> -->
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                                                </td>
-                                            </tr>
-
+                                                        <button class="btn btn-success" data-loading-text="..." onclick="addShareNoteOrNotebook(1)" id = "sharebutton"><i class="fa fa-share" aria-hidden="true"></i>  Share</button>
+                                                        <!-- <i class="fa fa-share" aria-hidden="true" data-loading-text="..." onclick="addShareNoteOrNotebook(1)"></i> -->
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table> 
                                 </div>
 
                                 <div class="tab-pane" id="groupInfo">
-                                    <p>
+                                    <p id = "groupinfop">
                                     If you share your note to group, the member belongs to group will have the right to access the note.
                                     <a href="/member/group/index" target="_blank">Manage group/member</a>
                                     </p>
@@ -858,7 +869,7 @@ function forwardpage(){
 												<th>Permission</th>
 												<th width="150px">Operation</th>
 											</tr>
-
+<!--
 											<tr data-id="56fccc7aab64415150000de4" data-uid="56d53e56ab64417fb1001e21">
 												<td>
 													mk
@@ -868,13 +879,15 @@ function forwardpage(){
 													<label><input type="radio" name="perm_56fccc7aab64415150000de4" value="1" class="group-perm"> Writable</label>
 												</td>
 												<td>
-													<button class="btn btn-default btn-share-or-not">未分享</button>
+													<button id = "notsharebtn" class="btn btn-default btn-share-or-not">Not shared</button>
 												</td>
 											</tr>
+-->
                                         </thead>
-                                        <tbody>
+                                        <tbody id="groupInfoTable">
 
-                                    </tbody></table>
+                                        </tbody>
+                                    </table>
                                 </div>
 
 
@@ -916,6 +929,50 @@ function forwardpage(){
             </div>
 			
 <!--            share结束-->
+            
+            
+            
+<!--            member开始-->
+            <div class="modal fade bs-modal-sm in" id="groupDialogRemote" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">  
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="modalTitle">Manage your group</h4>
+                        </div>
+
+
+                        <div class="modal-body">
+
+<!--
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active"><a href="#baseInfo" data-toggle="tab">Share to friends</a></li>
+                                <li class=""><a href="#groupInfo" data-toggle="tab">Share to group</a></li>
+
+                                 <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> 
+                            </ul>
+-->
+
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                	<div id = "addfriendbutton">
+                                    	<button class="btn btn-primary" id="addParentBtn"> + Add New Friend</button>
+                                	</div>
+                                    <div class="groupTree">
+                                        <ul id="groupZTree" class="ztree"></ul>
+                                    </div>
+                                </div>             
+                            </div>
+                        </div>
+                        <div class="modal-footer">                 
+                        	<div id="groupMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            member结束-->
 			<div class="display: hidden">
 			<div class="hide" id="copyDiv"></div>
 		</div>
@@ -1053,6 +1110,13 @@ function forwardpage(){
 <script src="public/js/tracking/Blob.js" ></script>
 <script src="public/js/tracking/FileSaver.js" ></script>
 <script src="public/js/tracking/tracking.js" ></script>
+    
+<!--group-->
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.exedit.js"></script>
+<script src="public/js/group.js"></script>
+<link href="public/css/group.css" rel="stylesheet" />
 
 </body>
 </html>

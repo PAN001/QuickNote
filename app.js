@@ -30,6 +30,7 @@ console.log("db starts");
 app.use('/updateAll', bodyParser.text());
 app.use('/register', bodyParser.text());
 app.use('/logIn', bodyParser.text());
+app.use('/checkExistence', bodyParser.text());
 app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
 app.use('/share/addGroupShareNotebook', bodyParser.text());
@@ -49,6 +50,7 @@ app.use(function(req, res, next) {
 	// console.log(req);
 	next();
 });
+
 
 
 app.post("/updateAll", function(req, res) {
@@ -156,6 +158,28 @@ app.post("/logIn", function(req, res) {
 });
 
 
+app.post("/checkExistence", function(req, res) {
+    console.log("/checkExistance activated");
+	var parsedData = JSON.parse(req.body);
+    var email = parsedData.Email;
+
+    var query = {"UserInfo.Email": email};
+    req.db.collection("allAppData").findOne(query, function(err, item) {
+        if(err) {
+            console.log("err is: " + err);
+            res.end('{"msg": "DB error", "status": "fail"}');
+        }
+        else {
+            if(item) { // 找到了该账户
+                res.end('{"msg": "Email found", "status": "success"}');
+            }
+            else {
+                res.end('{"msg": "Email not found", "status": "fail"}');
+            }
+        }
+    });
+});
+                                        
 
 app.post("/share/addShareNotebook", function(req, res) {
     console.log("/share/addShareNotebook activated");
@@ -203,7 +227,7 @@ app.post("/share/addShareNotebook", function(req, res) {
                     req.db.collection("allAppData").findOne(query, function(err, item) {
                         if(err) {
                             console.log("err is: " + err);
-                            res.end('{"msg": "DB error", "status": "fail"}');
+                            res.end('{"msg": "Sorry, please try again in a minute", "status": "fail"}');
                         }
                         else {
                             if(item) { // 找到了receiver
@@ -236,6 +260,16 @@ app.post("/share/addShareNotebook", function(req, res) {
                                     }
                                     else {
                                         console.log("successfully update ShareUserInfos");
+                                        
+                                        // check whether this notebook has been shared before
+                                        var thisSenderShareNotebooks = shareNotebooks[senderUserId];
+                                        for(var i in thisSenderShareNotebooks) {
+                                            var curShareNotebook = thisSenderShareNotebooks[i];
+                                            if(curShareNotebook.NotebookId == targetNotebook.NotebookId) {
+                                                console.log("This notebook has already been shared before");
+                                                res.end('{"msg": "Sorry, this notebook has already been shared before", "status": "fail"}');
+                                            }
+                                        }
 
                                         // 更新receiver的ShareNotebooks
                                         var anotherNotebook = {};
@@ -280,8 +314,8 @@ app.post("/share/addShareNotebook", function(req, res) {
                                 });
                             }
                             else {
-                                console.log("Note found receiver");
-                                res.end('{"msg": "receiver not found", "status": "fail"}');
+                                console.log("Receiver not found");
+                                res.end('{"msg": "Account does not exist, please try again", "status": "fail"}');
                             }
                         }
                     });
@@ -289,7 +323,7 @@ app.post("/share/addShareNotebook", function(req, res) {
             }
             else {
                 console.log("Note found sender");
-                res.end('{"msg": "sender not found", "status": "fail"}');
+                res.end('{"msg": "Sorry, please restart and try again", "status": "fail"}');
             }
         }
     });
@@ -325,7 +359,7 @@ app.post("/share/addShareNote", function(req, res) {
                 req.db.collection("allAppData").findOne(query, function(err, item) {
                     if(err) {
                         console.log("err is: " + err);
-                        res.end('{"msg": "DB error", "status": "fail"}');
+                        res.end('{"msg": "Sorry, please try again in a minute", "status": "fail"}');
                     }
                     else {
                         if(item) { // 找到了receiver
@@ -355,7 +389,7 @@ app.post("/share/addShareNote", function(req, res) {
                             req.db.collection('allAppData').update(query, {$addToSet:{"sharedUserInfos": anotherUserInfo}}, {upsert: true}, function(err, data) {
                                 if(err) {
                                     console.log(err);
-                                    res.end('{"msg": "DB error", "status": "fail"}');
+                                    res.end('{"msg": "Sorry, please try again in a minute", "status": "fail"}');
                                 }
                                 else {
                                     console.log("successfully update ShareUserInfos");
@@ -366,14 +400,14 @@ app.post("/share/addShareNote", function(req, res) {
                         }
                         else {
                             console.log("Note found receiver");
-                            res.end('{"msg": "receiver not found", "status": "fail"}');
+                            res.end('{"msg": "Account does not exist, please try again", "status": "fail"}');
                         }
                     }
                     });
                 }
                 else {
                     console.log("Note found sender");
-                    res.end('{"msg": "sender not found", "status": "fail"}');
+                    res.end('{"msg": "Sorry, please restart and try again", "status": "fail"}');
                 }
         }
     });
@@ -392,7 +426,7 @@ app.post("/share/addGroupShareNote", function(req, res) {
     req.db.collection("allAppData").findOne(query, function(err, item) {
         if(err) {
             console.log("err is: " + err);
-            res.end('{"msg": "DB error", "status": "fail"}');
+            res.end('{"msg": "Sorry, please try again in a minute", "status": "fail"}');
         }
         else {
             if(item) {
