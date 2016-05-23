@@ -98,7 +98,7 @@ $(document).ready(function(){
     // $("#r1").bind("change", setCheck);
     // $("#r2").bind("change", setCheck);
     // $("#disablechk").bind("change", setCheck);
-    $("#addParentBtn").bind("click", {isParent:true}, add);
+    $("#addgroupbtn").bind("click", {isParent:true}, add);
     $('#groupDialogRemote').on('hidden.bs.modal', function () {
         console.log("groupDialogRemote is dismissed");
         updateGroupInfo();
