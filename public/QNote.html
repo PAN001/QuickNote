@@ -447,13 +447,19 @@ function forwardpage(){
 <!--                                    </div>-->
 								</div>
 						</div>
-
+						<!-- iris -->
                         <div id="editorMask">  
-                            No note here.
+                        	<div id = "emptyfile">
+                        	<i class="fa fa-file-o" aria-hidden="true" style = "font-size:200px;color:#C9C9C9"></i>
+                        </div>
+                        <div>
+                        	<br/><br/>
+                            <p style = "font-size:20px;color:#C9C9C9">No Notes Here</p>
                             <br />
-                            <br />
-                            <div id="editorMaskBtns">
-                                <a class="note">New note</a>
+                        </div>
+                            <div id="editorMaskBtns"><!-- 
+                            	<p style = "font-size:20px;color:#C9C9C9">Click and Add New Notes :)</p><br/> -->
+                                <a id = "newnotebtn"class="note"><i class="fa fa-plus-circle" aria-hidden="true"></i> New Note</a>
 <!--                                <a class="markdown">New Markdown Note</a>-->
                             </div>
                             <div id="editorMaskBtnsEmpty"> 
@@ -628,27 +634,41 @@ function forwardpage(){
                         
                     </ul>
                 </div>
+                <!-- iris0523 -->
                     <div id="myTabContent" class="tab-content">
                        <div class="tab-pane fade in active" id="audioRecording">
 							<!-- <p>Audio Recording</p> -->
-					        <div id = "test" style="visibility:hidden;">
-							<audio controls="controls"></audio>
-							</div>
-							<input style="margin-left:5%;" onclick="startRecording()" type="image" class="audio-buttons" src="public\images\buttons\record.png" height=60 alt="Record" title="Record"/>
+
+<!-- 							<input style="margin-left:5%;" onclick="startRecording()" type="image" class="audio-buttons" src="public\images\buttons\record.png" height=60 alt="Record" title="Record"/>
 							
 							<input style="margin-left:5%;" onclick="stopRecording()" type="image" class="audio-buttons" src="public\images\buttons\stop.png" height=60 alt="Stop" title="Stop"/>
 							
 							<input style="margin-left:5%;" onclick="download()" type="image" class="audio-buttons" src="public\images\buttons\download.png" height=60 alt="Download" title="Download"/>
 							
 							<input style="margin-left:5%;" onclick="clearRecord()" type="image" class="audio-buttons" src="public\images\buttons\clear.png" height=60 alt="Clear" title="Clear"/><br/>
-							</br></br><b id="count"></b> <br/><br/><br/><br/><br/><br/><br/>
+							</br></br><b id="count"></b> <br/><br/><br/><br/><br/><br/><br/> -->
+						<div id = "audiobtn" class="audio-buttons" >
+							<i class="fa fa-play-circle" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" style = "font-size:70px;color:#79CDCD;"></i>
 
-							<div id = audioDoc>
+							<i class="fa fa-stop-circle" aria-hidden="true" onclick="stopRecording()" alt="Stop" title="Stop" style = "font-size:70px;color:#79CDCD;"></i>
+							<!-- <i class="fa fa-download" aria-hidden="true"></i> -->
+							<i class="fa fa-arrow-circle-down" aria-hidden="true" onclick="download()" alt="Download" title="Download" style = "font-size:70px;color:#79CDCD;"></i>
+						<!-- 	<i class="fa fa-times" aria-hidden="true"></i> -->
+							<i class="fa fa-times-circle" aria-hidden="true" onclick="clearRecord()" alt="Clear" title="Discard" style = "font-size:70px;color:#79CDCD;"></i>
+						</div>
+						<br/><br/>
+						<div id = "test" style="visibility:hidden;">
+							<audio id = "audiocontrol"controls="controls"></audio>
+						</div>
+						<br/>
+						<b id="count"></b>
+						<br/><br/>
+						<div id = "audioDoc">
 							<h1>Audio Recording</h1>
 							<h4>1. Start recording </h4>
 							<h4>2. Stop recording </h4>
 							<h4>3. Then you can download it or clear it ^ ^ </h4>
-							</div>
+						</div>
 
 
                        </div>
