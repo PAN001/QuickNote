@@ -1034,6 +1034,9 @@
 .fa-microphone-slash:before {
   content: "\f131";
 }
+.fa-cloudDisk:before {
+  content: "\f130";
+}
 .fa-shield:before {
   content: "\f132";
 }
