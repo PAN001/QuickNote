@@ -39,6 +39,15 @@ website:    http://code.google.com/p/jquerytree/
   margin: 0px;
   padding: 0 0 0 18px;
 }
+/*.groupTree .ztree li{
+  font-size: 20px;
+}*/
+.groupTree .ztree li>a.level0>span {
+  font-size: 20px;
+}
+.groupTree .ztree li>ul>li {
+  font-size: 15px;
+}
 .groupTree .ztree li a {
   padding-right: 3px;
   margin: 0;
@@ -51,15 +60,13 @@ website:    http://code.google.com/p/jquerytree/
   display: inline-block;
 }
 .groupTree .ztree li a input.rename {
-  height: 14px;
-  width: 80px;
+  height: 25px;
+  width: 200px;
   padding: 0;
   margin: 0;
-  color: #000;
+  color: #444;
   background-color: #ffffff;
-  font-size: 12px;
-  border: 1px #585956 solid;
-  *border: 0px;
+  font-size: 20px;
 }
 .groupTree .ztree li a:hover {
   text-decoration: underline;
@@ -99,6 +106,9 @@ website:    http://code.google.com/p/jquerytree/
 .groupTree .ztree li span:hover {
   color: #79CDCD;
 }
+/*.groupTree .ztree li span.node_name {
+  font-size: 20px;
+}*/
 .groupTree .ztree li span.button {
   line-height: 0;
   margin: 0;
@@ -224,13 +234,14 @@ website:    http://code.google.com/p/jquerytree/
   padding-top: 10px;
   padding-left: 2px;
   display: inline-block;
-  color: #000;
+    color: #444;
 }
 .groupTree .ztree li span.button.root_close::before {
   content: "\f115";
   padding-top: 10px;
   padding-left: 2px;
   display: inline-block;
+  color: #444;
 }
 .groupTree .ztree li span.button.roots_open::before {
   content: "\f078";
@@ -251,12 +262,14 @@ website:    http://code.google.com/p/jquerytree/
   padding-top: 10px;
   padding-left: 2px;
   display: inline-block;
+  color: #444;
 }
 .groupTree .ztree li span.button.center_close::before {
   content: "\f054";
   padding-top: 10px;
   padding-left: 2px;
   display: inline-block;
+  color: #444;
 }
 .groupTree .ztree li span.button.bottom_open::before {
   content: "\f078";
@@ -281,19 +294,19 @@ website:    http://code.google.com/p/jquerytree/
   content: "\f022";
   padding-left: 2px;
   display: inline-block;
-  color: #ffffff;
+  color: #444;
 }
 .groupTree .ztree li span.button.center_docu::before {
   padding-top: 10px;
   padding-left: 2px;
   display: inline-block;
-  color: #ffffff;
+  color: #444;
 }
 .groupTree .ztree li span.button.bottom_docu::before {
   padding-top: 10px;
   padding-left: 2px;
   display: inline-block;
-  color: #ffffff;
+  color: #444;
 }
 .groupTree .ztree li span.button.noline_docu {
   background: none;

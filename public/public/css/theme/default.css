@@ -2418,14 +2418,17 @@ textarea#wmd-input {
 
 #editorMask a {
 	display: inline-block;
-	border-radius: 3px;
-	border: 1px solid #ebeff2;
+	border-radius: 10px;
+	border: 5px solid #C9C9C9;
+/*	border: 3px;
+	border-color: #C9C9C9;*/
 	padding: 10px
 }
 
 #editorMask a:hover {
-	background-color: #65bd77;
-	color: #fff
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
 }
 
 .note-mask {
@@ -3562,3 +3565,30 @@ h1,h2,h3 {
 	background-color: #fff;
 	color: #000;
 }
+#cancelbutton {
+	background-color: #EEC900;
+	border-color: #EEC905;
+}
+#cancelbuttontd {
+	text-align: center;
+}
+#newnotebtn {
+	color:#C9C9C9;
+}
+#audiobtn {
+	width: 100%;
+	padding-top: 10%;
+}
+#audiobtn i {
+	width: 20%;
+	cursor: pointer;
+}
+#count {
+	font-size: 30px;
+	color: #79CDCD;
+}
+#audiocontrol {
+	height: 50px;
+	width: 65%;
+}
+
