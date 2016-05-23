@@ -17,14 +17,102 @@ function initEditor() {
         //theme: 'modern',
         //valid_elements: 'a[href|target=_blank]',
         skin: 'lightgray',
+//        menubar: "tools",
         plugins: [
-            'advlist autolink lists link image charmap print preview',
+            'advlist autolink lists link image charmap print preview', //fullpage not working
             'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu imagetools textcolor responsivefilemanager'
+            'insertdatetime media table contextmenu imagetools textcolor colorpicker responsivefilemanager template tabfocus mentions nonbreaking pagebreak paste spellchecker textpattern wordcount autolink autoresize codesample emoticons hr'
     //                                      去除掉“paste”，DD时正常（不会多余复制）
       ],
-        toolbar1: 'insertfile undo redo | styleselect | fontsizeselect | fontselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image ',
+        tabfocus_elements: ":prev,:next",
+        
+        
+        // link setting
+        link_assume_external_targets: true,
+        link_class_list: [
+            {title: 'None', value: ''},
+            {title: 'Dog', value: 'dog'},
+            {title: 'Cat', value: 'cat'}
+        ],
+        link_list: [
+            {title: 'UNNC', value: 'http://www.nottingham.edu.cn'}
+        ],
+        target_list: false,
+        
+        
+        // media
+        media_live_embeds: true,
+        media_filter_html: false,
+        
+        
+//        // mentions
+//        mentions_fetch: function (query, success) {
+//            // Fake a server call by using a setTimeout
+//            setTimeout(function() {
+//              console.log('Search query:', query.term);
+//
+//              success([
+//                {id: 'johndoe', name: 'johndoe', fullName: 'John Doe'},
+//                {id: 'janedoe', name: 'janedoe', fullName: 'Jane Doe'}
+//              ]);
+//            }, 0);
+//        },
 
+        // nonbreaking
+        nonbreaking_force_tab: true, // allow using tab to make space
+        
+        // pagebreak
+        pagebreak_separator: "<!-- my page break -->",
+        pagebreak_split_block: true,
+
+        // paste
+        paste_data_images: true,
+
+        // textpattern
+        // support markdown
+        textpattern_patterns: [
+            {start: '*', end: '*', format: 'italic'},
+            {start: '**', end: '**', format: 'bold'},
+            {start: '#', format: 'h1'},
+            {start: '##', format: 'h2'},
+            {start: '###', format: 'h3'},
+            {start: '####', format: 'h4'},
+            {start: '#####', format: 'h5'},
+            {start: '######', format: 'h6'},
+            {start: '1. ', cmd: 'InsertOrderedList'},
+            {start: '* ', cmd: 'InsertUnorderedList'},
+            {start: '- ', cmd: 'InsertUnorderedList'}
+        ],
+        
+        // wordcount
+        wordcount_cleanregex: /[0-9.(),;:!?%#$?\x27\x22_+=\\/\-]*/g, // ignore punctuation
+        
+        // contextmenu
+        contextmenu: "link image inserttable | cell row column deletetable",
+        
+        // image
+        image_list: function(success) {
+            success([
+                {title: 'Dog', value: 'mydog.jpg'},
+                {title: 'Cat', value: 'mycat.gif'}
+            ]);
+        },
+        image_advtab: true,
+        style_formats: [
+            {title: 'Image Left', selector: 'img', styles: {
+            'float' : 'left',
+            'margin': '0 10px 0 10px'
+            }},
+            
+            {title: 'Image Right', selector: 'img', styles: {
+            'float' : 'right',
+            'margin': '0 10px 0 10px'
+            }}
+        ],
+
+        toolbar1: 'insertfile undo redo | styleselect | fontsizeselect | fontselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | template nonbreaking pagebreak paste spellchecker codesample emoticons fullscreen',
+        
+        
         fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
         font_formats: 'Arial=arial;Helverica=helvetica;Sans-serif=sans-serif;Courier New=courier new;Courier=courier;Monospace=monospace;AkrutiKndPadmini=Akpdmi-n',
         textcolor_map: [
@@ -69,7 +157,7 @@ function initEditor() {
             "99CCFF", "Light sky blue",
             "CC99FF", "Plum"
           ],
-        media_filter_html: false,
+       
         
         // change event handler
         setup : function(ed) {
@@ -78,7 +166,7 @@ function initEditor() {
                 TrackLogRecord.newWritingRecord(ed.getContent());
             });
         },
-        
+        paste_data_images: true,
         imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io', 'www.baidu.com', 'www.ss.bdimg.com', 'ss.bdimg.com'], // enable to edit the image
         imagetools_proxy: 'proxy.php' // enable to show the image editor
 //        content_css: [
