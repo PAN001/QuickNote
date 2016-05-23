@@ -65,6 +65,12 @@ var setting = {
     },
     edit: {
         enable: true
+    },
+    callback: {
+        beforeDrag: beforeDrag,
+        beforeRemove: beforeRemove,
+        beforeRename: beforeRename
+//        onRemove: onRemove
     }
 };
 
@@ -98,6 +104,26 @@ $(document).ready(function(){
         updateGroupInfo();
     })
 });
+
+// disable dragging
+function beforeDrag(treeId, treeNodes) {
+    return false;
+}
+
+// warning before deleting
+function beforeRemove(treeId, treeNode) {
+    return confirm("Are sure to remove '" + treeNode.name + "'?");
+}
+
+function beforeRename(treeId, treeNode, newName) {
+    if (newName.length == 0) {
+        alert("This entry can not be empty.");
+        var zTree = $.fn.zTree.getZTreeObj("groupZTree");
+        setTimeout(function(){zTree.editName(treeNode)}, 10);
+        return false;
+    }
+    return true;
+}
 
 function updateGroupInfo() {
     group = [];
