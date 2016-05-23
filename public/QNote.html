@@ -112,6 +112,9 @@
 <link rel="stylesheet" href="public/css/theme/default.css" type="text/css" id="themeLink"/>
     
 <script src="public/js/dep.min.js"></script>
+<script type="text/javascript">
+    $.fn.notebookZTree = $.fn.zTree;
+</script>
 <!--定制版的JQuery；需要放在bootstrap之前-->
     
 <link href="public/css/bootstrap-min.css" rel="stylesheet" />
@@ -119,7 +122,7 @@
 
 <!--<link rel="stylesheet" href="public/css/tinymce/skin.min.css" rel="stylesheet"/> // style sheet for tinymce-->
 
-<link href="public/css/font-awesome-4.2.0/css/font-awesome-min.css" rel="stylesheet" />
+<link href="public/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
 <!--    responsible for icons-->
 
 <link href="public/css/zTreeStyle/zTreeStyle-min.css" rel="stylesheet" />
@@ -184,7 +187,7 @@
 function webaddress(){
 	//var x =document.getElementById("address");
 	var http = document.getElementById("address").value;
-	if(http.substring(0,7)!="http://"||http.substring(0,8)!="https://"){
+	if(http.substring(0,7)!="http://"&&http.substring(0,8)!="https://"){
 		http = "http://"+http;
 		document.getElementById("webpage").src = "http://"+document.getElementById("address").value;
 	}
@@ -302,7 +305,7 @@ function forwardpage(){
 						<ul class="dropdown-menu li-a" role="menu">
 							<li role="presentation" class="divider"></li>
                             <li role="presentation" onclick="listGroupInfo()">
-								<i class="fa fa-user"></i> 
+								<i class="fa fa-users"></i> 
 								Group
 							</li>
 							<li role="presentation" onclick="logout()">
@@ -333,12 +336,12 @@ function forwardpage(){
 					<a href="#writing"><span>Writing Mode</span></a>
 				</div>
 -->
-
+				<!-- iris -->
 				<div class="pull-right top-nav" id="downloadTracking">
 					<!-- <a onclick="downloadTrakcingLog()"><span>Download tracking log</span></a> -->
-					<i id = "synBtn" class = "fa fa-synchronization" title = "Synchronize Notebooks"></i>
+					<i id = "synBtn" class="fa fa-refresh" aria-hidden="true" title = "Synchronize Notebooks"></i>
 					&nbsp
-					<i class = "fa fa-downloadTracking" title = "Download Tracking Log" onclick = "downloadTrakcingLog()"></i>
+					<i id = "downloadbtn1" class="fa fa-cloud-download" aria-hidden="true" title = "Download Tracking Log" onclick = "downloadTrakcingLog()"></i>
 				</div>
 
 				<div style="clear: both"></div>
@@ -630,16 +633,14 @@ function forwardpage(){
 					        <div id = "test" style="visibility:hidden;">
 							<audio controls="controls"></audio>
 							</div>
-
-							<input onclick="startRecording()" type="image" class="audio-buttons" src="public\images\buttons\record.png" height=60 alt="Record" title="Record"/>
-							&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
-							<input onclick="stopRecording()" type="image" class="audio-buttons" src="public\images\buttons\stop.png" height=60 alt="Stop" title="Stop"/>
-							&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
-							<input onclick="download()" type="image" class="audio-buttons" src="public\images\buttons\download.png" height=60 alt="Download" title="Download"/>
-							&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
-							<input onclick="clearRecord()" type="image" class="audio-buttons" src="public\images\buttons\clear.png" height=60 alt="Clear" title="Clear"/><br/>
-
-							<b id="count"></b> <br/><br/><br/><br/><br/><br/><br/>
+							<input style="margin-left:5%;" onclick="startRecording()" type="image" class="audio-buttons" src="public\images\buttons\record.png" height=60 alt="Record" title="Record"/>
+							
+							<input style="margin-left:5%;" onclick="stopRecording()" type="image" class="audio-buttons" src="public\images\buttons\stop.png" height=60 alt="Stop" title="Stop"/>
+							
+							<input style="margin-left:5%;" onclick="download()" type="image" class="audio-buttons" src="public\images\buttons\download.png" height=60 alt="Download" title="Download"/>
+							
+							<input style="margin-left:5%;" onclick="clearRecord()" type="image" class="audio-buttons" src="public\images\buttons\clear.png" height=60 alt="Clear" title="Clear"/><br/>
+							</br></br><b id="count"></b> <br/><br/><br/><br/><br/><br/><br/>
 
 							<div id = audioDoc>
 							<h1>Audio Recording</h1>
@@ -804,18 +805,18 @@ function forwardpage(){
 
                         <div class="modal-body">
 
-                            <ul id="myTab" class="nav nav-tabs">
-                                <li class="active"><a href="#baseInfo" data-toggle="tab">Share to friends</a></li>
-                                <li class=""><a href="#groupInfo" data-toggle="tab">Share to group</a></li>
+                            <ul id="myShareTab" class="nav nav-tabs">
+                                <li class="active"><a href="#baseInfo" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
+                                <li class=""><a href="#groupInfo" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
 
                                 <!-- <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> -->
                             </ul>
 							<!-- iris -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="baseInfo">
-                                	<div id = "addfriendbutton">
-                                    	<button class="btn btn-primary" id="addShareNotebookBtn"> + Add New Friend</button>
-                                	</div>
+                                	    <div id = "addfriendbutton">
+                                    		<button class="btn btn-primary" id="addShareNotebookBtn"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Friend</button>
+                              			</div>
                                         <!-- <div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div> -->
                                         <table class="table table-hover" id="shareNotebookTable">
                                             <thead>
@@ -828,35 +829,35 @@ function forwardpage(){
                                                 <th colspan = "2" id = "optionth">Options</th>
                                               </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr id="tr1">
+                                            <tbody id="baseInfoTableBody">
+                                            <!-- <tr id="tr1"> -->
                                                 <!-- <td>#</td> -->
-                                                <td>
-                                                    <input id="friendsEmail" type="text" class="form-control" placeholder="Enter Account Name">
-                                                </td>
-<!--
-                                                <td>
-                                                    <label for="readPerm1"><input type="radio" name="perm1" checked="checked" value="0" id="readPerm1"> Read only</label> 
-                                                    <label for="writePerm1"><input type="radio" name="perm1" value="1" id="writePerm1"> Writable</label>
-                                                </td>
--->					
-												<!-- iris -->
-                                                <td id = "sharebuttontd">
+                                                <tr id="tr1">
+                                                    <td>
+                                                        <input id="friendsEmail" type="text" class="form-control" placeholder="Enter Account Name">
+                                                    </td>
+    <!--
+                                                    <td>
+                                                        <label for="readPerm1"><input type="radio" name="perm1" checked="checked" value="0" id="readPerm1"> Read only</label> 
+                                                        <label for="writePerm1"><input type="radio" name="perm1" value="1" id="writePerm1"> Writable</label>
+                                                    </td>
+    -->					
+                                                    <!-- iris -->
+                                                    <td id = "sharebuttontd">
 
-                                                    <button class="btn btn-success" data-loading-text="..." onclick="addShareNoteOrNotebook(1)" id = "sharebutton"><i class="fa fa-share" aria-hidden="true"></i>  Share</button>
-                                                    <!-- <i class="fa fa-share" aria-hidden="true" data-loading-text="..." onclick="addShareNoteOrNotebook(1)"></i> -->
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                                                </td>
-                                            </tr>
-
+                                                        <button class="btn btn-success" data-loading-text="..." onclick="addShareNoteOrNotebook(1)" id = "sharebutton"><i class="fa fa-share" aria-hidden="true"></i>  Share</button>
+                                                        <!-- <i class="fa fa-share" aria-hidden="true" data-loading-text="..." onclick="addShareNoteOrNotebook(1)"></i> -->
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table> 
                                 </div>
 
                                 <div class="tab-pane" id="groupInfo">
-                                    <p>
+                                    <p id = "groupinfop">
                                     If you share your note to group, the member belongs to group will have the right to access the note.
                                     <a href="/member/group/index" target="_blank">Manage group/member</a>
                                     </p>
@@ -878,12 +879,13 @@ function forwardpage(){
 													<label><input type="radio" name="perm_56fccc7aab64415150000de4" value="1" class="group-perm"> Writable</label>
 												</td>
 												<td>
-													<button class="btn btn-default btn-share-or-not">Not shared</button>
+													<button id = "notsharebtn" class="btn btn-default btn-share-or-not">Not shared</button>
 												</td>
 											</tr>
 -->
                                         </thead>
                                         <tbody id="groupInfoTable">
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -952,7 +954,7 @@ function forwardpage(){
 -->
 
                             <div class="tab-content">
-                                <div class="tab-pane active" id="baseInfo">
+                                <div class="tab-pane active">
                                 	<div id = "addfriendbutton">
                                     	<button class="btn btn-primary" id="addParentBtn"> + Add New Friend</button>
                                 	</div>
@@ -962,10 +964,8 @@ function forwardpage(){
                                 </div>             
                             </div>
                         </div>
-						<!-- iris -->
-                        <div class="modal-footer">
-                        
-                        	<div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div>
+                        <div class="modal-footer">                 
+                        	<div id="groupMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
                         </div>
@@ -1096,9 +1096,10 @@ function forwardpage(){
 <script>
     $("#videodownload").on("click",downloadvideo())
 </script>
-<script src="public/js/recorder/configRecorder.js"> </script>
 <script src="public/js/recorder/recorder.js"> </script>
 <script src="public/js/recorder/recorderWorker.js"> </script>
+<script src="public/js/recorder/configRecorder.js"> </script>
+
 <script src="public/js/plugins/main.min.js"></script>
 
 

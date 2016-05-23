@@ -9,6 +9,7 @@ function showGroupDialogRemote(t, e) {
         curGroupZNode.pId = 0;
         curGroupZNode.name = curGroup.GroupName;
         curGroupZNode.isParent = true;
+//        curGroupZNode.tId = "";
         var curMembers = curGroup.Members;
         zNodes.push(curGroupZNode);
         
@@ -18,6 +19,7 @@ function showGroupDialogRemote(t, e) {
             curMemberZNode.id = curMember.Email;
             curMemberZNode.pId = curGroup.GroupId;
             curMemberZNode.name = curMember.Email;
+//            curMemberZNode.tId = "";
             zNodes.push(curMemberZNode);
         }
     }
