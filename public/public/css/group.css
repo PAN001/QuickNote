@@ -361,10 +361,6 @@ website:    http://code.google.com/p/jquerytree/
   font-family: FontAwesome;
   color: #444;
 }
-.ztree li a.level0 span {
-  font-size: 20px;
-  color: #444;
-}
 
 .groupTree .ztree li span.button.add {
   margin-left: 4px;
