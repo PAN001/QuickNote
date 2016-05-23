@@ -25,10 +25,6 @@ function initEditor() {
       ],
         toolbar1: 'insertfile undo redo | styleselect | fontsizeselect | fontselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image ',
         
-        toolbar2: '| responsivefilemanager',
-        external_filemanager_path:"/Users/Mason/Desktop/filemanager/",
-		filemanager_title:"Responsive Filemanager" ,
-   		external_plugins: { "filemanager" : "/Users/Mason/Desktop/filemanager/plugin.min.js"},
 
         fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
         font_formats: 'Arial=arial;Helverica=helvetica;Sans-serif=sans-serif;Courier New=courier new;Courier=courier;Monospace=monospace;AkrutiKndPadmini=Akpdmi-n',
