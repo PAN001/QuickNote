@@ -185,6 +185,9 @@ app.post("/logIn", function(req, res) {
                                 Port: port,
                                 PId: result.pid
                             };
+                            console.log("id is " + parsedData.UserId);
+                            console.log("port is " + portTable[parsedData.UserId].Port);
+                            console.log("pid is " + portTable[parsedData.UserId].Pid);
                         }
 					}
 					else {
@@ -210,8 +213,8 @@ app.post("/logOut", function(req, res) {
     console.log(parsedData.UserId);
     console.log(thisPortInfo);
     if(thisPortInfo) {
-        var port = thisPortInfo.port;
-        var pid = thisPortInfo.pid;
+        var port = thisPortInfo.Port;
+        var pid = thisPortInfo.Pid;
         if(port && pid) {
             var result = exec("kill " + pid, function(error, stdout, stderr) {
                 if (error !== null) {
