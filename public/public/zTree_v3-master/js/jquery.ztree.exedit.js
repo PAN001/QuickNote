@@ -889,7 +889,18 @@
 					if(treeNode.level == 1) { // 一级node
 //						console.log("this is 1st level");
                         var inputValue = event.data.input.val(); // this is the input
-                        var jsonData = {"Email": inputValue}; 
+                        
+                        // disable to app oneself to the group
+                        if(inputValue == Email) {
+                            showAlert("#groupMsg", "Sorry, you cannot add yourself to the group");
+                            treeNode.name = event.data.oldValue;
+                            zTree.updateNode(treeNode);
+                            return false;
+                        }
+                        
+                        var jsonData = {
+                            Email: inputValue
+                            }; 
                         var stringifiedJson = JSON.stringify(jsonData);
                         var url = baseUrl + 'checkExistence';
                         $.ajax({
@@ -931,6 +942,14 @@
 					if(treeNode.level == 1) { // 一级node
 						console.log("this is 1st level");
                         var inputValue = event.data.input.val(); // this is the input
+                        
+                        // disable to app oneself to the group
+                        if(inputValue == Email) {
+                            showAlert("#groupMsg", "Sorry, you cannot add yourself to the group");
+                            treeNode.name = event.data.oldValue;
+                            zTree.updateNode(treeNode);
+                            return false;
+                        }
                         
                         var jsonData = {"Email": inputValue}; 
                         var stringifiedJson = JSON.stringify(jsonData);
