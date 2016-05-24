@@ -683,11 +683,22 @@ a:hover {
 /*	webkit-user-select: none;
 	-webkit-app-region: drag*/
 }
-
+/*iris0524*/
 #header a {
-	color: #ccc
+	color: #ccc;
+	background-color: #444;
+	border-radius: 10px;
+	border-color: #444;
 }
-
+#header a.new-note:hover {
+	color: #fff;
+	background-color: #79CDCD;
+	border-radius: 10px;
+	border-color: #79CDCF;
+}
+#header a.givefeedback:hover {
+	color: #64ffdf;
+}
 #header li,#header li a {
 	color: #000
 }
@@ -3571,9 +3582,6 @@ h1,h2,h3 {
 }
 #cancelbuttontd {
 	text-align: center;
-}
-#newnotebtn {
-	color:#C9C9C9;
 }
 #audiobtn {
 	width: 100%;
