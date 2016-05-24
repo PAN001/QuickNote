@@ -63,7 +63,10 @@ function logIn(e) {
         else {
             // 与本地数据不匹配或者本地没有数据,与server比对
             console.log("not match with local, check server")
-            var jsonData = {"Email": Email, "Password": Password}; 
+            var jsonData = {
+                "Email": Email, 
+                "Password": Password
+            }; 
             var stringifiedJson = JSON.stringify(jsonData);
             var url = baseUrl + 'logIn';
             $.ajax({

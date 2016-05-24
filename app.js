@@ -161,11 +161,9 @@ app.post("/logIn", function(req, res) {
 				req.db.collection('registeredUsers').findOne(findQuery2, function(err, data) {
 					if(data) { // if existent
 						console.log("log in successfully");
-						// res.end('{"msg": "Log in successfully", "status": "success"}');
-						res.json(JSON.stringify(data));
+						// res.end('{"msg": "Log in successfully", "status": "success"}');                        
                         
-                        
-                        
+                        var userId = parsedData.UserInfo.UserId;
                         var exec = require('child_process').exec;
                         var port = findPort();
                         var path = root_dir+parsedData.Email;
@@ -181,14 +179,16 @@ app.post("/logIn", function(req, res) {
                         });
                         console.log("result is " + result);
                         if(result) {
-                            portTable[parsedData.UserId] = {
+                            portTable[userId] = {
                                 Port: port,
                                 PId: result.pid
                             };
-                            console.log("id is " + parsedData.UserId);
-                            console.log("port is " + portTable[parsedData.UserId].Port);
-                            console.log("pid is " + portTable[parsedData.UserId].Pid);
+                            console.log("id is " + userId);
+                            console.log("port is " + portTable[userId].Port);
+                            console.log("pid is " + portTable[userId].Pid);
                         }
+                        
+                        res.json(JSON.stringify(data));
 					}
 					else {
 						console.log("wrong password");
