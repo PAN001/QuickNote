@@ -1870,29 +1870,48 @@ textarea#wmd-input {
 	z-index: 500;
 	display: none
 }
-
+/*iris0524*/
 #noteItemList {
-	position: absolute;
+/*	position: absolute;*/
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	width: 100%!important;
-    height: 120px;
-	overflow-y: hidden;
+	/*display: block;*/
+	display: inline;
+	white-space: nowrap;
+	width: 100%;/*
+	overflow: scroll;*/
+/*	overflow-x: scroll;
+	overflow-y:scroll; */
+	position: relative;
+/*	width: 100%!important;*/
+/*    height: 120px;*/
+/*	overflow-y: hidden;*/
 	padding: 0 5px
 }
-
+#noteItemList li{
+	display: inline-block;
+	overflow:scroll;
+/*	float: left;*/
+	list-style: none;
+/*	white-space: nowrap;*/
+}
 #noteItemList .item {
-    width: 240px;
+   /* width: 240px;*/
+   	width: 220px;
 	position: relative;
 	height: 55px;
-	overflow: hidden;
+	overflow: scroll;
+/*	overflow: hidden;*/
 	cursor: pointer;
 	border: 1px solid #ebeff2;
 	border-radius: 3px;
 	margin-top: 5px;
-	background-color: #fff
+	background-color: #fff;
+	display: inline-block;
+	overflow: scroll;
+/*	white-space: nowrap;*/
 }
 
 #noteItemList .item:hover,#noteItemList .contextmenu-hover {
@@ -2432,6 +2451,7 @@ textarea#wmd-input {
 	display: inline-block;
 	border-radius: 10px;
 	border: 5px solid #C9C9C9;
+	color: #C9C9C9;
 /*	border: 3px;
 	border-color: #C9C9C9;*/
 	padding: 10px
@@ -2896,7 +2916,6 @@ h1,h2,h3 {
 	#leftNotebook .slimScrollDiv {
 		display: block!important
 	}*/
-
 	#switcher {
 		padding-top: 0;
 		padding-right: 0
@@ -3067,7 +3086,11 @@ h1,h2,h3 {
 		display: none!important
 	}
 
-	#noteItemList,#notebook,#leftNotebook,.slimScrollDiv,#editorContent_ifr,.mce-edit-area,.mce-container-body,.mce-tinymce,#editor .mce-ifr,.wmd-input,#noteReadContent,#attachList,#tags,.wmd-input-section {
+/*	#noteItemList,#notebook,#leftNotebook,.slimScrollDiv,#editorContent_ifr,.mce-edit-area,.mce-container-body,.mce-tinymce,#editor .mce-ifr,.wmd-input,#noteReadContent,#attachList,#tags,.wmd-input-section {
+		-webkit-overflow-scrolling: touch!important;
+		overflow: auto!important
+	}*/
+		#noteItemList,#notebook,#leftNotebook,#editorContent_ifr,.mce-edit-area,.mce-container-body,.mce-tinymce,#editor .mce-ifr,.wmd-input,#noteReadContent,#attachList,#tags,.wmd-input-section {
 		-webkit-overflow-scrolling: touch!important;
 		overflow: auto!important
 	}
@@ -3141,9 +3164,15 @@ h1,h2,h3 {
 	}
 }
 
-@media screen and (max-width:1024px) {
-	#noteItemList,#notebook,#leftNotebook,.slimScrollDiv,#editorContent_ifr,.mce-edit-area,.mce-container-body,.mce-tinymce,#editor .mce-ifr,.wmd-input,#noteReadContent,#attachList,#tags {
+/*@media screen and (max-width:1024px) {
+	#noteItemList,#notebook,#leftNotebook,#editorContent_ifr,.slimScrollDiv,.mce-edit-area,.mce-container-body,.mce-tinymce,#editor .mce-ifr,.wmd-input,#noteReadContent,#attachList,#tags {
 		overflow: auto!important;
+		-webkit-overflow-scrolling: touch!important
+	}*/
+
+@media screen and (max-width:1024px) {
+	#noteItemList,#notebook,#leftNotebook,#editorContent_ifr,.slimScrollDiv,.mce-edit-area,.mce-container-body,.mce-tinymce,#editor .mce-ifr,.wmd-input,#noteReadContent,#attachList,#tags {
+		/*overflow: auto!important;*/
 		-webkit-overflow-scrolling: touch!important
 	}
 
@@ -3190,8 +3219,13 @@ h1,h2,h3 {
 	}
 }
 
-@media screen and (max-width:800px) {
+/*@media screen and (max-width:800px) {
 	#noteItemList,#notebook,#leftNotebook,.slimScrollDiv,#editorContent_ifr,.mce-edit-area,.mce-container-body,.mce-tinymce,#editor .mce-ifr,.wmd-input,#noteReadContent,#attachList,#tags,.wmd-input-section {
+		overflow: auto!important;
+		-webkit-overflow-scrolling: touch!important
+	}*/
+	@media screen and (max-width:800px) {
+	#noteItemList,#notebook,#leftNotebook,#editorContent_ifr,.mce-edit-area,.mce-container-body,.mce-tinymce,#editor .mce-ifr,.wmd-input,#noteReadContent,#attachList,#tags,.wmd-input-section {
 		overflow: auto!important;
 		-webkit-overflow-scrolling: touch!important
 	}
