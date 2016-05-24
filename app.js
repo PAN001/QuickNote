@@ -12,12 +12,14 @@ var mkdirp = require('mkdirp');
 // root address of cloud disk
 var root_dir = "/root/QuickNote/cloud/";
 
-var port_mark = new Array();
+var portMark = new Array();
 var basePort = 8080;
+var portTable = {};
+
 function findPort(){
 	for(var i=0; i<500; i++){
-		if(port_mark[i] != 1){
-			port_mark[i] = 1;
+		if(portMark[i] != 1){
+			portMark[i] = 1;
 			return basePort+i;
 		}
 	}
@@ -45,6 +47,7 @@ console.log("db starts");
 app.use('/updateAll', bodyParser.text());
 app.use('/register', bodyParser.text());
 app.use('/logIn', bodyParser.text());
+app.use('/logOut', bodyParser.text());
 app.use('/checkExistence', bodyParser.text());
 app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
@@ -142,9 +145,8 @@ app.post("/register", function(req, res) {
 app.post("/logIn", function(req, res) {
 	// res.header('Access-Control-Allow-Origin', '*'); // implementation of CORS
 	console.log("logIn activated");
-    console.log("Body is: " + req.body);
+//    console.log("Body is: " + req.body);
 	var parsedData = JSON.parse(req.body);
-
 
 
 	var findQuery = {"Email": parsedData.Email};
@@ -162,17 +164,27 @@ app.post("/logIn", function(req, res) {
 						console.log("log in successfully");
 						// res.end('{"msg": "Log in successfully", "status": "success"}');
 						res.json(JSON.stringify(data));
-
+                        
+                        
+                        
                         var exec = require('child_process').exec;
                         var port = findPort();
                         var path = root_dir+parsedData.Email;
                         console.log("Port open: "+port);
-                        exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
+                        var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
                             if (error !== null) {
                                 console.log('exec error: ', error);
                             }
+                            else {
+                                portTable[parsedData.UserId] = port;
+                            }
                         });
-
+                        if(result) {
+                            portTable[parsedData.UserId] = {
+                                Port: port,
+                                PId: result.pid
+                            };
+                        }
 					}
 					else {
 						console.log("wrong password");
@@ -188,6 +200,25 @@ app.post("/logIn", function(req, res) {
 	});
 });
 
+
+app.post("/logOut", function(req, res) {
+    console.log("logOut activated");
+
+	var parsedData = JSON.parse(req.body);
+    if(portTable[parsedData.UserId]) {
+        var port = portTable[parsedData.UserId].port;
+        var pid = portTable[parsedData.UserId].pid;
+        if(port && pid) {
+            var result = exec("kill " + pid, function(error, stdout, stderr) {
+            if (error !== null) {
+                console.log('exec error: ', error);
+            }
+            else {
+                console.log("process " + pid + "is killed");
+            }
+        }
+    }
+});
 
 app.post("/checkExistence", function(req, res) {
     console.log("/checkExistance activated");
