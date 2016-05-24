@@ -166,6 +166,7 @@ app.post("/logIn", function(req, res) {
                         var exec = require('child_process').exec;
                         var port = findPort();
                         var path = root_dir+parsedData.Email;
+                        console.log("Port open: "+port);
                         exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
                             if (error !== null) {
                                 console.log('exec error: ', error);
