@@ -210,12 +210,13 @@ app.post("/logOut", function(req, res) {
         var pid = portTable[parsedData.UserId].pid;
         if(port && pid) {
             var result = exec("kill " + pid, function(error, stdout, stderr) {
-            if (error !== null) {
-                console.log('exec error: ', error);
-            }
-            else {
-                console.log("process " + pid + "is killed");
-            }
+                if (error !== null) {
+                    console.log('exec error: ', error);
+                }
+                else {
+                    console.log("process " + pid + "is killed");
+                }
+            });
         }
     }
 });
