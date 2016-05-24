@@ -4,6 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
+var exec = require('child_process').exec;
 
 var app = express();
 
@@ -165,7 +166,6 @@ app.post("/logIn", function(req, res) {
 						// res.end('{"msg": "Log in successfully", "status": "success"}');                        
                         
                         var userId = data.UserId;
-                        var exec = require('child_process').exec;
                         var port = findPort();
                         var path = root_dir + email;
                         console.log("Port open: "+port);
