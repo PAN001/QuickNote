@@ -215,7 +215,7 @@ app.post("/logOut", function(req, res) {
     console.log(thisPortInfo);
     if(thisPortInfo) {
         var port = thisPortInfo.Port;
-        var pid = thisPortInfo.Pid;
+        var pid = thisPortInfo.PId;
         if(port && pid) {
             var result = exec("kill " + pid, function(error, stdout, stderr) {
                 if (error !== null) {
