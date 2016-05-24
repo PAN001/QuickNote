@@ -45,8 +45,10 @@ server.listen(3000, function(){
 app.use(expressMongoDb('mongodb://localhost:27017/NoteTakingApp'));
 console.log("db starts");
 
+
 app.use('/updateAll', bodyParser.text());
 app.use('/register', bodyParser.text());
+app.use('/openCloud', bodyParser.text());
 app.use('/logIn', bodyParser.text());
 app.use('/logOut', bodyParser.text());
 app.use('/checkExistence', bodyParser.text());
