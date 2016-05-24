@@ -20,7 +20,7 @@ var portTable = {};
 function findPort(){
 	for(var i=0; i<500; i++){
 		if(portMark[i] != 1){
-			portMark[i] = 1;
+//			portMark[i] = 1;
 			return basePort+i;
 		}
 	}
@@ -132,8 +132,8 @@ app.post("/register", function(req, res) {
 						else {
 							console.log("data inserted to db");
 							res.end('{"msg": "Reistered successfully", "status": "success"}');
-							mkdirp(root_dir+parsedData.Email, function(msg) { 
-								console.log("path created");
+							mkdirp(root_dir + parsedData.Email, function(msg) { 
+								console.log("directory created");
 							});
 						}
 					});
@@ -168,7 +168,7 @@ app.post("/logIn", function(req, res) {
                         var userId = data.UserId;
                         var port = findPort();
                         var path = root_dir + email;
-                        console.log("Port open: "+port);
+                        console.log("Port open: " + port);
                         var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
                             if (error !== null) {
                                 console.log('exec error: ', error);
@@ -184,6 +184,7 @@ app.post("/logIn", function(req, res) {
                                 Port: port,
                                 PId: result.pid
                             };
+                            portMark[port-basePort] = 1;
                             console.log("id is " + userId);
                             console.log("port is " + portTable[userId].Port);
                             console.log("pid is " + portTable[userId].Pid);
@@ -222,6 +223,7 @@ app.post("/logOut", function(req, res) {
                     console.log('exec error: ', error);
                 }
                 else {
+                    portMark[port - basePort] = 0;
                     console.log("process " + pid + "is killed");
                 }
             });
