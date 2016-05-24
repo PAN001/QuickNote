@@ -10,10 +10,10 @@ var app = express();
 var mkdirp = require('mkdirp');
 
 // root address of cloud disk
-var root_dir = "/Users/xuzhaoliang/Desktop/";
+var root_dir = "/root/QuickNote/cloud/";
 
 var port_mark = new Array();
-var basePort = 8000;
+var basePort = 8080;
 function findPort(){
 	for(var i=0; i<500; i++){
 		if(port_mark[i] != 1){
