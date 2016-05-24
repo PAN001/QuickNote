@@ -204,9 +204,11 @@ app.post("/logOut", function(req, res) {
     console.log("logOut activated");
 
 	var parsedData = JSON.parse(req.body);
-    if(portTable[parsedData.UserId]) {
-        var port = portTable[parsedData.UserId].port;
-        var pid = portTable[parsedData.UserId].pid;
+    var thisPortInfo = portTable[parsedData.UserId].port;   
+    console.log(thisPortInfo);
+    if(thisPortInfo) {
+        var port = thisPortInfo.port;
+        var pid = thisPortInfo.pid;
         if(port && pid) {
             var result = exec("kill " + pid, function(error, stdout, stderr) {
                 if (error !== null) {
