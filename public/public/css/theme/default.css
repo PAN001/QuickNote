@@ -683,11 +683,22 @@ a:hover {
 /*	webkit-user-select: none;
 	-webkit-app-region: drag*/
 }
-
+/*iris0524*/
 #header a {
-	color: #ccc
+	color: #ccc;
+	background-color: #444;
+	border-radius: 10px;
+	border-color: #444;
 }
-
+#header a.new-note:hover {
+	color: #fff;
+	background-color: #79CDCD;
+	border-radius: 10px;
+	border-color: #79CDCF;
+}
+#header a.givefeedback:hover {
+	color: #64ffdf;
+}
 #header li,#header li a {
 	color: #000
 }
@@ -1713,9 +1724,10 @@ textarea#wmd-input {
 	padding: 0 3px;
 	padding-bottom: 3px
 }
-
+/*iris0524*/
 #myTag .folderBody li {
-	margin-left: 10px;
+	margin-left: 25px;
+	margin-top: 5px;
 	padding: 3px;
 	line-height: normal
 }
@@ -2644,11 +2656,16 @@ textarea#wmd-input {
 #tagNav i,#tagNav em {
 	font-style: normal
 }
-
+/*iris0524*/
 #tagNav .tag-delete {
 	display: none;
 	margin-left: 3px;
 	font-size: 12px
+	margin-top:3px;
+	color: #fff;
+}
+#tagNav .tag-delete:hover {
+	color: #79CDCD;
 }
 
 #tagNav li:hover .tag-delete {
@@ -2803,7 +2820,9 @@ h1,h2,h3 {
 }
 
 .label-default {
-	background-color: #191D2B
+	background-color: #79CDCD;
+	border:#79CDCF;
+	border-radius: 10px;
 }
 
 #myShareNotebooks .folderBody {
@@ -3572,9 +3591,6 @@ h1,h2,h3 {
 #cancelbuttontd {
 	text-align: center;
 }
-#newnotebtn {
-	color:#C9C9C9;
-}
 #audiobtn {
 	width: 100%;
 	padding-top: 10%;
@@ -3591,4 +3607,15 @@ h1,h2,h3 {
 	height: 50px;
 	width: 65%;
 }
-
+#leftNotebook li>a>span.tree-title:hover {
+	color: #64ffdf;
+}
+#leftNotebook ul>li.each-user {
+	background-color: #444;
+	border: 0px;
+}
+.label-info {
+	background-color: #DB7093; 
+	border-radius: 10px;
+	border-color:#DB7099;
+}
