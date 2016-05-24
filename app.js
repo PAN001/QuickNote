@@ -175,9 +175,11 @@ app.post("/logIn", function(req, res) {
                                 console.log('exec error: ', error);
                             }
                             else {
-                                portTable[parsedData.UserId] = port;
+//                                portTable[parsedData.UserId] = port;
+                                console.log("process starts");
                             }
                         });
+                        console.log("result is " + result);
                         if(result) {
                             portTable[parsedData.UserId] = {
                                 Port: port,
