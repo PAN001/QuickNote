@@ -238,7 +238,7 @@ app.post("/share/addShareNotebook", function(req, res) {
                                 var ToUserId = targetUserInfo.UserId;
                                 console.log("receiver id is " + targetUserInfo.UserId);
                                 
-                                if(ToUserId == senderUserId) { // share note to himself
+                                if(ToUserId == senderUserInfo.UserId) { // share note to himself
                                     console.log("Share to himeself");
                                     res.end('{"msg": "Sorry, cannot share to yourself", "status": "fail"}');
                                 }
