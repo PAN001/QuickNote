@@ -27,10 +27,30 @@ function initEditor() {
 
         automatic_uploads: true,
         
-        // file picker
+//         file picker
         file_picker_callback: function(callback, value, meta) {
             myImagePicker(callback, value, meta);
         },
+        
+//        file_browser_callback: RoxyFileBrowser,
+        
+        
+        
+//        file_picker_callback: function(callback, value, meta) {
+//          if (1) {
+//            $('#upload').trigger('click');
+//            $('#upload').on('change', function() {
+//              var file = this.files[0];
+//              var reader = new FileReader();
+//              reader.onload = function(e) {
+//                callback(e.target.result, {
+//                  alt: ''
+//                });
+//              };
+//              reader.readAsDataURL(file);
+//            });
+//          }
+//        },
         
         tabfocus_elements: ":prev,:next",
         
@@ -304,14 +324,40 @@ function initEditor() {
 };
 
 function myImagePicker(callback, value, meta) {
+//    tinymce.activeEditor.windowManager.open({
+//        title: 'Image Browser',
+//        url: '/?type=' + meta.filetype,
+//        width: 800,
+//        height: 550,
+//    }, {
+//        oninsert: function (url) {
+//            callback(url);
+//        }
+//    });
+    
     tinymce.activeEditor.windowManager.open({
-        title: 'Image Browser',
-        url: '/?type=' + meta.filetype,
-        width: 800,
+        title: 'Image Picker',
+//        url: '/Users/Erin/Desktop/',
+        url: 'http://163.com',
+        width: 650,
         height: 550,
+        buttons: [
+            {
+                text: 'Insert',
+                onclick: function () {
+                    //.. do some work
+                    tinymce.activeEditor.windowManager.close();
+                }
+            }, 
+            {
+                text: 'Close',
+                onclick: 'close'
+            }
+        ],
     }, {
-        oninsert: function (url) {
-            callback(url);
+        oninsert: function (url, objVals) {
+            console.log(url);
+            callback(url, objVals);
         }
     });
 };
@@ -327,10 +373,35 @@ function mySubmit(url) {
     top.tinymce.activeEditor.windowManager.close();
 }
 
-function mySubmit (url, objVals) {
-    top.tinymce.activeEditor.windowManager.getParams().oninsert(url, objVals);
-    top.tinymce.activeEditor.windowManager.close();
-    return false;
+//function mySubmit (url, objVals) {
+//    top.tinymce.activeEditor.windowManager.getParams().oninsert(url, objVals);
+//    top.tinymce.activeEditor.windowManager.close();
+//    return false;
+//}
+
+function RoxyFileBrowser(field_name, url, type, win) {
+  var roxyFileman = '/fileman/index.html';
+  if (roxyFileman.indexOf("?") < 0) {     
+    roxyFileman += "?type=" + type;   
+  }
+  else {
+    roxyFileman += "&type=" + type;
+  }
+  roxyFileman += '&input=' + field_name + '&value=' + win.document.getElementById(field_name).value;
+  if(tinyMCE.activeEditor.settings.language){
+    roxyFileman += '&langCode=' + tinyMCE.activeEditor.settings.language;
+  }
+  tinyMCE.activeEditor.windowManager.open({
+     file: roxyFileman,
+     title: 'Roxy Fileman',
+     width: 850, 
+     height: 650,
+     resizable: "yes",
+     plugins: "media",
+     inline: "yes",
+     close_previous: "no"  
+  }, {     window: win,     input: field_name    });
+  return false; 
 }
 
 initEditor();
