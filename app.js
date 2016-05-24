@@ -204,7 +204,7 @@ app.post("/logOut", function(req, res) {
     console.log("logOut activated");
 
 	var parsedData = JSON.parse(req.body);
-    var thisPortInfo = portTable[parsedData.UserId].port;   
+    var thisPortInfo = portTable[parsedData.UserId];   
     console.log(thisPortInfo);
     if(thisPortInfo) {
         var port = thisPortInfo.port;
