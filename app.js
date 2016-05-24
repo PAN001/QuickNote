@@ -163,7 +163,7 @@ app.post("/logIn", function(req, res) {
 						console.log("log in successfully");
 						// res.end('{"msg": "Log in successfully", "status": "success"}');                        
                         
-                        var userId = parsedData.UserInfo.UserId;
+                        var userId = data.UserInfo.UserId;
                         var exec = require('child_process').exec;
                         var port = findPort();
                         var path = root_dir+parsedData.Email;
