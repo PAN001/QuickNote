@@ -6,6 +6,9 @@ $('.close').on('click', function() {
   $('.container').stop().removeClass('active');
 });
 
+
+
+
 // gernerate a hashcode as the object ID
 function getObjectId() {
     return ObjectId() // JQuery function

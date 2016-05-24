@@ -5,9 +5,24 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
 
-
 var app = express();
 
+var mkdirp = require('mkdirp');
+
+// root address of cloud disk
+var root_dir = "/Users/xuzhaoliang/Desktop/";
+
+var port_mark = new Array();
+var basePort = 8000;
+function findPort(){
+	for(var i=0; i<500; i++){
+		if(port_mark[i] != 1){
+			port_mark[i] = 1;
+			return basePort+i;
+		}
+	}
+	return -1;
+}
 
 // make "node app.js" work on local machine, this use node's static file fetching
 app.use('/', express.static ('./public'));
@@ -114,6 +129,9 @@ app.post("/register", function(req, res) {
 						else {
 							console.log("data inserted to db");
 							res.end('{"msg": "Reistered successfully", "status": "success"}');
+							mkdirp(root_dir+parsedData.Email, function(msg) { 
+								console.log("path created");
+							});
 						}
 					});
 				}
@@ -126,6 +144,8 @@ app.post("/logIn", function(req, res) {
 	console.log("logIn activated");
     console.log("Body is: " + req.body);
 	var parsedData = JSON.parse(req.body);
+
+
 
 	var findQuery = {"Email": parsedData.Email};
 	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
@@ -142,6 +162,16 @@ app.post("/logIn", function(req, res) {
 						console.log("log in successfully");
 						// res.end('{"msg": "Log in successfully", "status": "success"}');
 						res.json(JSON.stringify(data));
+
+                        var exec = require('child_process').exec;
+                        var port = findPort();
+                        var path = root_dir+parsedData.Email;
+                        exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
+                            if (error !== null) {
+                                console.log('exec error: ', error);
+                            }
+                        });
+
 					}
 					else {
 						console.log("wrong password");
