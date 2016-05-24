@@ -76,6 +76,7 @@ function logIn(e) {
                 contentType: "text/plain",
                 success: function (data) {
                     var res = jQuery.parseJSON(data);
+                    console.log(res);
                     if(res.status == "fail") { // 
                         alert(res.msg);
                     }

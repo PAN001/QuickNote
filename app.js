@@ -146,9 +146,10 @@ app.post("/logIn", function(req, res) {
 	console.log("logIn activated");
 //    console.log("Body is: " + req.body);
 	var parsedData = JSON.parse(req.body);
+    var email = parsedData.Email;
 
 
-	var findQuery = {"Email": parsedData.Email};
+	var findQuery = {"Email": email};
 	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
 		if(err) {
 			console.log(err);
@@ -157,16 +158,16 @@ app.post("/logIn", function(req, res) {
 		else {
 			if(data) { // if existent
 				console.log("email found");
-				var findQuery2 = {"Email": parsedData.Email, "Password": parsedData.Password};
+				var findQuery2 = {"Email": email, "Password": parsedData.Password};
 				req.db.collection('registeredUsers').findOne(findQuery2, function(err, data) {
 					if(data) { // if existent
 						console.log("log in successfully");
 						// res.end('{"msg": "Log in successfully", "status": "success"}');                        
                         
-                        var userId = data.UserInfo.UserId;
+                        var userId = 1;
                         var exec = require('child_process').exec;
                         var port = findPort();
-                        var path = root_dir+parsedData.Email;
+                        var path = root_dir + email;
                         console.log("Port open: "+port);
                         var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
                             if (error !== null) {
