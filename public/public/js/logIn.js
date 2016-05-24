@@ -57,6 +57,29 @@ function logIn(e) {
     localforage.getItem('allAppData', function(err, value) {
         allAppData = value;
         if(allAppData != null && allAppData.UserInfo.Email == Email && allAppData.UserInfo.Password == Password) { // 如果本地有数据且匹配
+            
+            var jsonData = {
+                "Email": Email, 
+                "Password": Password
+            }; 
+            var stringifiedJson = JSON.stringify(jsonData);
+            var url = baseUrl + 'openCloud';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: stringifiedJson,
+                contentType: "text/plain",
+                success: function (data) {
+                    var res = jQuery.parseJSON(data);
+                    if(res.Port)
+                        localStorage.port = res.Port;
+                },
+                error: function (xhr, status, error) {
+                    alert('Error: ' + error.message);
+                }
+            });
+            
+            
             localStorage.UserId = allAppData.UserInfo.UserId;
             location.href = "QNote.html";
         }
@@ -81,6 +104,8 @@ function logIn(e) {
                         alert(res.msg);
                     }
                     else {
+                        if(res.Port)
+                            localStorage.port = res.Port;
                         localStorage.UserId = res.UserId;
                         location.href = "QNote.html";
                     }

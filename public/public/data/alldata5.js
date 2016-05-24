@@ -37,7 +37,15 @@ function sleep(miliseconds) {
 var Email = localStorage.email;
 var UserId = localStorage.UserId;
 var Password = localStorage.password;
+
+// load port number for cloud disk
+var Port = localStorage.port;
+
+// update the username
 $("#username").html(Email);
+
+// update the port number
+$("#cloudPage").src = baseUrl 
 //var UserId = "56a82c7bab64417776002a5c";
 //var isConnected = true;
 var isConnected = navigator.onLine;
