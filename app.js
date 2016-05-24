@@ -74,11 +74,10 @@ app.use(function(req, res, next) {
 app.post("/updateAll", function(req, res) {
 	// res.header('Access-Control-Allow-Origin', '*'); // implementation of CORS
 	console.log("updateAll activated");
-	// console.log(req);
-    	console.log("Body is: " + req.body);
+
 	var parsedData = JSON.parse(req.body);
 	var UserId = parsedData.UserInfo.UserId;
-    	console.log("The UserId is: " + parsedData.UserInfo.UserId);
+    console.log("The UserId is: " + parsedData.UserInfo.UserId);
 
 	//req.db.collection('allAppData').insert(parsedData, function(err, data) {
 	//	if(err) console.log(err);
