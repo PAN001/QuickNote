@@ -37,11 +37,13 @@ function register(e) {
                 location.href = "QNote.html";
             } 
             else {
-                alert(res.msg);
+                bootbox.alert(res.msg, function() {
+                });
             }
         },
         error: function (xhr, status, error) {
-            alert('Error: ' + error.message);
+            bootbox.alert('Error: ' + error.message, function() {
+            });
         }
     });
 };
@@ -75,7 +77,8 @@ function logIn(e) {
                         localStorage.port = res.Port;
                 },
                 error: function (xhr, status, error) {
-                    alert('Error: ' + error.message);
+                    bootbox.alert('Error: ' + error.message, function() {
+                    });
                 }
             });
             
@@ -101,7 +104,8 @@ function logIn(e) {
                     var res = jQuery.parseJSON(data);
                     console.log(res);
                     if(res.status == "fail") { // 
-                        alert(res.msg);
+                        bootbox.alert('Error: ' + error.message, function() {
+                        });
                     }
                     else {
                         if(res.Port)
@@ -111,7 +115,8 @@ function logIn(e) {
                     }
                 },
                 error: function (xhr, status, error) {
-                    alert('Error: ' + error.message);
+                    bootbox.alert('Error: ' + error.message, function() {
+                    });
                 }
             });
         }
