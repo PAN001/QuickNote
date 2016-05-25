@@ -1894,7 +1894,8 @@ textarea#wmd-input {
 	display: inline-block;
 	overflow:scroll;
 /*	float: left;*/
-	list-style: none;
+	list-style: none;/*
+	border-radius: 10px;*/
 /*	white-space: nowrap;*/
 }
 #noteItemList .item {
@@ -1906,7 +1907,7 @@ textarea#wmd-input {
 /*	overflow: hidden;*/
 	cursor: pointer;
 	border: 1px solid #ebeff2;
-	border-radius: 3px;
+	border-radius: 10px;
 	margin-top: 5px;
 	background-color: #fff;
 	display: inline-block;
@@ -3631,7 +3632,7 @@ h1,h2,h3 {
 }
 #audiobtn i {
 	width: 20%;
-	cursor: pointer;
+/*	cursor: pointer;*/
 }
 #count {
 	font-size: 30px;
@@ -3653,3 +3654,31 @@ h1,h2,h3 {
 	border-radius: 10px;
 	border-color:#DB7099;
 }
+#addBtn:hover {
+	color: #79CDCD;
+}
+#saveBtn:hover {
+	color: #79CDCD;
+}
+#showAttach:hover {
+	color: #79CDCD;
+}
+/*#playbtn {
+	font-size: 70px;
+	color: #79CDCD;
+	cursor: pointer;
+}*/
+#audiobtn i.recordbtn {
+	font-size: 70px;
+	color: #C9C9C9;
+}
+
+.lightup {
+	color: #79CDCD!important;
+	cursor: pointer;
+}
+
+.gray {
+	color: #C9C9C9!important;
+}
+

@@ -648,13 +648,14 @@ function forwardpage(){
 							<input style="margin-left:5%;" onclick="clearRecord()" type="image" class="audio-buttons" src="public\images\buttons\clear.png" height=60 alt="Clear" title="Clear"/><br/>
 							</br></br><b id="count"></b> <br/><br/><br/><br/><br/><br/><br/> -->
 						<div id = "audiobtn" class="audio-buttons" >
-							<i class="fa fa-play-circle" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" style = "font-size:70px;color:#79CDCD;"></i>
+						<!-- 	<i class="fa fa-play-circle" id = "playbtn" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" ></i> -->
+							<i class="fa fa-dot-circle-o recordbtn lightup" id = "playbtn" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" ></i>
 
-							<i class="fa fa-stop-circle" aria-hidden="true" onclick="stopRecording()" alt="Stop" title="Stop" style = "font-size:70px;color:#79CDCD;"></i>
+							<i class="fa fa-stop-circle recordbtn" id = "stopbtn" aria-hidden="true" onclick="stopRecording()" alt="Stop" title="Stop" ></i>
 							<!-- <i class="fa fa-download" aria-hidden="true"></i> -->
-							<i class="fa fa-arrow-circle-down" aria-hidden="true" onclick="download()" alt="Download" title="Download" style = "font-size:70px;color:#79CDCD;"></i>
+							<i class="fa fa-arrow-circle-down recordbtn" id = "downbtn" aria-hidden="true" onclick="download()" alt="Download" title="Download" ></i>
 						<!-- 	<i class="fa fa-times" aria-hidden="true"></i> -->
-							<i class="fa fa-times-circle" aria-hidden="true" onclick="clearRecord()" alt="Clear" title="Discard" style = "font-size:70px;color:#79CDCD;"></i>
+							<i class="fa fa-times-circle recordbtn" id = "trashbtn" aria-hidden="true" onclick="clearRecord()" alt="Clear" title="Discard" ></i>
 						</div>
 						<br/><br/>
 						<div id = "test" style="visibility:hidden;">
@@ -1138,6 +1139,7 @@ function forwardpage(){
 <script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.exedit.js"></script>
 <script src="public/js/group.js"></script>
 <link href="public/css/group.css" rel="stylesheet" />
+
 
 </body>
 </html>

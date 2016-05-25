@@ -7,7 +7,8 @@
 			var c=0;
             var boolrecorder = true;
             var reg = /^\d$/;
-			
+			var help = 0;
+			var counter = 0;
 
 			var onFail = function(e) {
 				console.log('Rejected!', e);
@@ -33,7 +34,12 @@
 				if(boolrecorder){
                     if (navigator.getUserMedia) {
 	                    // TrackLogRecord.newStartRecordingRecord(); 
-	                    
+	                    $("#stopbtn").addClass("lightup");
+	                    $("#playbtn").removeClass("lightup");
+	                    $("#playbtn").addClass("gray");
+
+	                    $("#downbtn").addClass("gray");
+	            		$("#trashbtn").addClass("gray");
 						navigator.getUserMedia({audio: true}, onSuccess, onFail);
 						inter = window.setInterval(function (){
 							c++;
@@ -45,7 +51,7 @@
 	                        m = reg.test(m) ? "0" + m + ":" : m + ":"
 	                        var s = d.getSeconds();
 	                        s = reg.test(s) ? "0" + s : s;
-							document.getElementById("count").innerHTML = h + m + s;;
+							document.getElementById("count").innerHTML = h + m + s;
 							document.getElementById("count").style.visibility="visible";
 						},1000);
 					} else {
@@ -53,12 +59,26 @@
 					}
                 }
                 boolrecorder = false;
+                //counter = 0;
+                help = 0;
+                counter=1;
 			}
 
 			function stopRecording() {
                 boolrecorder = true;
+
                 // TrackLogRecord.newStopRecordingRecord();
-                
+
+                $("#stopbtn").removeClass("lightup");
+	            $("#playbtn").removeClass("gray");
+	            $("#playbtn").addClass("lightup");
+
+	            if(help == 0 && counter != 0){
+	            	$("#downbtn").removeClass("gray");
+	            	$("#trashbtn").removeClass("gray");
+		            $("#downbtn").addClass("lightup");
+		            $("#trashbtn").addClass("lightup");
+	        	}
 				inter = window.clearInterval(inter);
 				c=0;
 				document.getElementById("test").style.visibility="visible";
@@ -69,15 +89,27 @@
 					realaudio = s;
 					
 				});
-
+				help = 0;
 			}
 
 			function clearRecord() {
+				help = 1;
+				$("#downbtn").removeClass("lightup");
+	            $("#trashbtn").removeClass("lightup");
+	            $("#downbtn").addClass("gray");
+	            $("#trashbtn").addClass("gray");
 				recorder.clear();
 				document.getElementById("test").style.visibility="hidden";
 				document.getElementById("count").style.visibility="hidden";
+				
 			}
 
 			function download() {
+				help = 1;
+				$("#downbtn").removeClass("lightup");
+	            $("#trashbtn").removeClass("lightup");
+	           	$("#downbtn").addClass("gray");
+	            $("#trashbtn").addClass("gray");
 				Recorder.forceDownload(realaudio);
+				
 			}
