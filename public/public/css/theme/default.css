@@ -3557,4 +3557,27 @@ h1,h2,h3 {
 .pull-right>i:hover {
 	color:#64ffdf;
 }
-
+#alertDialogContent div.modal-body {
+	border-radius: 10px;
+}
+#alertDialogContent div.modal-footer{
+	padding:15px 15px;
+}
+#alertDialogContent div.bootbox-body {
+	padding-top: 20px;
+	text-align: center;
+}
+.btn-primary {
+	background-color: #fff;
+	border-color: #ccc;
+	color:#000;
+}
+.btn-primary:hover {
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+}
+#alertDialogContent div.modal-footer:focus{
+	background-color: #fff;
+	border-color: #ccc;
+	color:#000;
+}
