@@ -3460,7 +3460,7 @@ h1,h2,h3 {
 		height: 100%;
 }
 
-#webpage{
+#webpage, #cloudPage{
 	border-radius: 10px;
 	border: 3px solid #E5E5E5;
 	width: 97%; 
