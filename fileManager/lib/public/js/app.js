@@ -1,17 +1,17 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
-window.onload=function(){ 
-    // Create a proxy window to send to and receive 
-    // messages from the parent
-    windowProxy = new Porthole.WindowProxy(
-        'http://localhost:3000/proxy.html');
+// window.onload=function(){ 
+//     // Create a proxy window to send to and receive 
+//     // messages from the parent
+//     windowProxy = new Porthole.WindowProxy(
+//         'http://localhost:3000/proxy.html');
 
-    // Register an event handler to receive messages;
-    windowProxy.addEventListener(function(event) { 
-        // handle event
-    });
-};
+//     // Register an event handler to receive messages;
+//     windowProxy.addEventListener(function(event) { 
+//         // handle event
+//     });
+// };
 
-windowProxy.post({'action': 'supersizeme'});
+// windowProxy.post({'action': 'supersizeme'});
 
 FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
   function ($scope, $http, $location) {
