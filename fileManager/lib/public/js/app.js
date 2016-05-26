@@ -1,4 +1,17 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
+window.onload=function(){ 
+    // Create a proxy window to send to and receive 
+    // messages from the parent
+    windowProxy = new Porthole.WindowProxy(
+        'http://localhost:3000/proxy.html');
+
+    // Register an event handler to receive messages;
+    windowProxy.addEventListener(function(event) { 
+        // handle event
+    });
+};
+
+windowProxy.post({'action': 'supersizeme'});
 
 FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
   function ($scope, $http, $location) {
@@ -146,6 +159,14 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       }
     };
 
+    FM.insertFile = function (file) {
+      //TODO:
+      //pass the address of current file to client
+      console.log(file.relPath);
+      // $("#")
+
+    };
+
     FM.download = function () {
       for (var i in FM.selection) {
         downloadFile(FM.selection[i]);
@@ -209,6 +230,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         case 'upload_file':
         case 'create_folder':
           return false;
+        case 'insert':
+
         default:
           return true;
       }
