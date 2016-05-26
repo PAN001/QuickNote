@@ -1,4 +1,6 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
+var baseUrl = "http:\/\/115.28.134.156:" + cloudPort + "\/";
+var port; 
 
 FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
   function ($scope, $http, $location) {
@@ -48,7 +50,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
 
     var setCurFiles = function (relPath) {
       alert("relPath" + relPath);
-      $http.get('http://localhost:8080/api' + relPath)
+      $http.get(baseUrl + "api" + relPath)
         .success(function (data) {
           alert("success");
           var files = data;
@@ -134,7 +136,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     };
 
     var downloadFile = function (file) {
-      window.open('api' + file.relPath);
+      window.open(baseUrl + 'api' + file.relPath);
     };
 
     FM.clickFile = function (file) {
@@ -151,7 +153,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.insertFile = function (file) {
       //TODO:
       //pass the address of current file to client
-      console.log(file.relPath);
+      alert(file.relPath);
       // $("#")
 
     };
@@ -165,13 +167,14 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.delete = function () {
       for (var i in FM.selection) {
         var relPath = FM.selection[i].relPath;
-        var url = 'api' + relPath;
-        httpRequest('DELETE', url, null, null);
+        alert(relPath);
+        var url = baseUrl + 'api' + relPath;
+        httpRequest('DELETE', url, {type: 'DELETE'}, null);
       }
     };
 
     FM.move = function (target) {
-      var url = 'api' + target;
+      var url = baseUrl + 'api' + target;
       var src = FM.selection.map(function (file) {
         return file.relPath;
       });
@@ -179,14 +182,14 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     };
 
     FM.rename = function (newName) {
-      var url = 'api' + FM.selection[0].relPath;
+      var url = baseUrl + 'api' + FM.selection[0].relPath;
       var target = FM.curFolderPath + newName;
       console.log('rename target', target);
       httpRequest('PUT', url, {type: 'RENAME'}, {target: target});
     };
 
     FM.createFolder = function (folderName) {
-      var url = 'api' + FM.curFolderPath + folderName;
+      var url = baseUrl + 'api' + FM.curFolderPath + folderName;
       httpRequest('POST', url, {type: 'CREATE_FOLDER'}, null);
     };
 
@@ -194,7 +197,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       console.log('Upload File:', FM.uploadFile);
       var formData = new FormData();
       formData.append('upload', FM.uploadFile);
-      var url = 'api' + FM.curFolderPath + FM.uploadFile.name;
+      var url = baseUrl + 'api' + FM.curFolderPath + FM.uploadFile.name;
+      // alert("folder path" + FM.curFolderPath);
       httpRequest('POST', url, {type: 'UPLOAD_FILE'}, formData, {
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined}
