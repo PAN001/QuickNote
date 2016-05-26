@@ -1,30 +1,31 @@
  function handleDragStart(e) {
-    this.style.opacity = '0.4';  // this / e.target is the source node.
-      
-      
+    this.style.opacity = '0.4';  // this / e.target is the source node.  
     dragSrcEl = this;   
-
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
+    this.classList.remove('stop');
+    this.classList.add('moving');
   }
+
 
 function handleDragOver(e) {
   if (e.preventDefault) {
     e.preventDefault(); // Necessary. Allows us to drop.
   }
-
   e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-
   return false;
 }
 
 function handleDragEnter(e) {
   // this / e.target is the current hover target.
+  this.classList.remove('remove');
   this.classList.add('over');
 }
 
 function handleDragLeave(e) {
   this.classList.remove('over');  // this / e.target is previous target element.
+  this.classList.add('remove');
+
 }
 
 function handleDrop(e) {
@@ -43,16 +44,18 @@ function handleDrop(e) {
       
       
   }
-
+    this.classList.remove('over');
+    this.classList.remove('moving');
+    dragSrcEl.classList.remove('moving');
   return false;
 }
 
 function handleDragEnd(e) {
   // this/e.target is the source node.
     dragSrcEl.style.opacity = '1.0';
-  [].forEach.call(cols, function (col) {
-    col.classList.remove('over');
-  });
+    console.log(dragSrcEl);
+    dragSrcEl.classList.remove('moving');
+
 }
 
 function addDDListeners() {
@@ -64,7 +67,7 @@ function addDDListeners() {
       col.addEventListener('dragleave', handleDragLeave, false);
       col.addEventListener('drop', handleDrop, false);
       col.addEventListener('dragend', handleDragEnd, false);
-    });    
+    });  
 }
 
 addDDListeners();
