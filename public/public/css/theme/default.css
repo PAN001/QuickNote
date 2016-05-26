@@ -3576,8 +3576,8 @@ h1,h2,h3 {
 	background-color: #79CDCD;
 	border-color: #79CDCF;
 }
-#alertDialogContent div.modal-footer:focus{
-	background-color: #fff;
-	border-color: #ccc;
-	color:#000;
+.btn-default:hover {
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
 }
