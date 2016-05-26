@@ -24,6 +24,7 @@ function findPort(){
 	return -1;
 }
 
+
 // make "node app.js" work on local machine, this use node's static file fetching
 app.use('/', express.static ('./public'));
 //general middleware
@@ -825,5 +826,6 @@ app.get("/getAll", function(req, res) {
 	//});
 	//res.json(JSON.stringify(cursor[0]));
 });
+
 
 app.listen(8000);
