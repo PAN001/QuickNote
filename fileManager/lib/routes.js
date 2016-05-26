@@ -22,24 +22,31 @@ router.get('/files', function *() {
 });
 
 router.get('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, function *() {
+  console.log('/api/(.*)get activates');
   var p = this.request.fPath;
+  console.log('p is: ' + p);  
   var stats = yield fs.stat(p);
   if (stats.isDirectory()) {
+    console.log("here1");
     this.body = yield * FileManager.list(p);
+    console.log("here1-1");
   }
   else {
     //this.body = yield fs.createReadStream(p);
+    console.log("here2");
     this.body = origFs.createReadStream(p);
   }
 });
 
-router.del('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, function *() {
+router.del('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, function* () {
+  console.log('/api/(.*)del activates');
   var p = this.request.fPath;
   yield * FileManager.remove(p);
   this.body = 'Delete Succeed!';
 });
 
 router.put('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, bodyParser(), function* () {
+  console.log('/api/(.*)put activates');
   var type = this.query.type;
   var p = this.request.fPath;
   if (!type) {
@@ -67,7 +74,8 @@ router.put('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, bodyParser(),
   }
 });
 
-router.post('/api/(.*)', Tools.loadRealPath, Tools.checkPathNotExists, function *() {
+router.post('/api/(.*)', Tools.loadRealPath, Tools.checkPathNotExists, function* () {
+  console.log('/api/(.*)post activates');
   var type = this.query.type;
   var p = this.request.fPath;
   if (!type) {

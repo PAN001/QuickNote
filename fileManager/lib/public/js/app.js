@@ -1,17 +1,4 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
-window.onload=function(){ 
-    // Create a proxy window to send to and receive 
-    // messages from the parent
-    windowProxy = new Porthole.WindowProxy(
-        'http://localhost:3000/proxy.html');
-
-    // Register an event handler to receive messages;
-    windowProxy.addEventListener(function(event) { 
-        // handle event
-    });
-};
-
-windowProxy.post({'action': 'supersizeme'});
 
 FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
   function ($scope, $http, $location) {
@@ -60,8 +47,10 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     };
 
     var setCurFiles = function (relPath) {
-      $http.get('api' + relPath)
+      alert("relPath" + relPath);
+      $http.get('http://localhost:8080/api' + relPath)
         .success(function (data) {
+          alert("success");
           var files = data;
           files.forEach(function (file) {
             file.relPath = relPath + file.name;
@@ -73,8 +62,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
           FM.curFiles = files;
         })
         .error(function (data, status) {
-          alert('Error: ' + status + data);
-        });
+          alert('setCurFiles Error: ' + status + data);
+        })
     };
 
     var handleHashChange = function (hash) {
