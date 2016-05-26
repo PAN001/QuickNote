@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" ng-app="FMApp">
 <head>
 
 <meta charset="utf-8">
@@ -223,7 +223,7 @@ function forwardpage(){
 }
 </script>
 </head>
-<body>
+<body ng-controller="FileManagerCtr as FM">
 	<div id="page">
 		<div id="pageInner">
 
@@ -765,8 +765,8 @@ function forwardpage(){
 
                        <div class="tab-pane fade" id="cloudDisk">
                        		<!-- <iframe id="cloudPage" name = "viewframe" src="http://115.28.134.156:8080" onchange="" nwdisable nwfaketop></iframe> -->      
-                       		<html lang="en" ng-app="FMApp">
-                       		<body ng-controller="FileManagerCtr as FM">
+<!--                       		<html lang="en" ng-app="FMApp">-->
+<!--                       		<body ng-controller="FileManagerCtr as FM">-->
                        		  <div class="modal fade" id="createFolderModal">
 							    <div class="modal-dialog">
 							      <div class="modal-content">
@@ -902,8 +902,8 @@ function forwardpage(){
 
 							</div>
 <!--   <span id="insertedFilePath">qertyu</span> -->
-						</body>
-						</html>
+<!--						</body>-->
+<!--						</html>-->
                        	</div>
 
 

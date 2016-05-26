@@ -13,27 +13,23 @@ var FileManager = require('./fileManager');
 var router = new koaRouter();
 var render = views(path.join(__dirname, './views'), {map: {html: 'ejs'}});
 
-router.get('/', function *() {
-  this.redirect('files');
-});
-
-router.get('/files', function *() {
-  this.body = yield render('files');
-});
+//router.get('/', function *() {
+//  this.redirect('files');
+//});
+//
+//router.get('/files', function *() {
+//  this.body = yield render('files');
+//});
 
 router.get('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, function *() {
   console.log('/api/(.*)get activates');
   var p = this.request.fPath;
-  console.log('p is: ' + p);  
   var stats = yield fs.stat(p);
   if (stats.isDirectory()) {
-    console.log("here1");
     this.body = yield * FileManager.list(p);
-    console.log("here1-1");
   }
   else {
     //this.body = yield fs.createReadStream(p);
-    console.log("here2");
     this.body = origFs.createReadStream(p);
   }
 });
