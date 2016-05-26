@@ -39,13 +39,14 @@ var UserId = localStorage.UserId;
 var Password = localStorage.password;
 
 // load port number for cloud disk
-var Port = localStorage.port;
+var cloudPort = localStorage.cloudPort;
 
 // update the username
 $("#username").html(Email);
 
-// update the port number
-$("#cloudPage").src = "http:\/\/115.28.134.156:" + Port;
+//// update the port number
+//$("#cloudPage").src = "http:\/\/115.28.134.156:" + Port;
+
 //var UserId = "56a82c7bab64417776002a5c";
 //var isConnected = true;
 var isConnected = navigator.onLine;

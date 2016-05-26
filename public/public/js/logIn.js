@@ -109,9 +109,9 @@ function logIn(e) {
                     }
                     else {
                         if(res.Port)
-                            localStorage.port = res.Port;
-                        localStorage.UserId = res.UserId;
-                        location.href = "QNote.html";
+                            localStorage.cloudPort = res.Port;
+                            localStorage.UserId = res.UserId;
+                            location.href = "QNote.html";
                     }
                 },
                 error: function (xhr, status, error) {
