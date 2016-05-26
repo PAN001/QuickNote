@@ -466,7 +466,7 @@ a.raw:hover {
 }
 
 .b-m-mpanel {
-	border-radius: 3px
+	border-radius: 10px
 }
 
 .modal-content {
@@ -3696,4 +3696,19 @@ h1,h2,h3 {
 	border-color: #ccc;
 	color:#000;
 }
-/*>>>>>>> new_feature#8*/
+.btn-default:hover {
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+}
+#editor .drggableDiv {
+	border-radius: 10px;
+	border: 1px;
+}
+#editor .drggableDiv:hover {
+	background-color:#EAEAEA;
+}
+/*#editor .drggableDiv:focus {
+	background-color: #ccc;
+}*/
+

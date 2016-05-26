@@ -35,6 +35,14 @@
     overflow: visible;
     min-height:40px;
     align-content: center;
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+    -moz-transition: -moz-transform 0.2s ease-out;
+    -o-transition: -o-transform 0.2s ease-out;
+    -ms-transition: -ms-transform 0.2s ease-out;
+          -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
     }
   
 /*
@@ -65,6 +73,13 @@
   #editor .drggableDiv.over {
 /*    border: 2px dashed #000;*/
       background-color: #ccc;
+            -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  }
+  #editor .draggableDiv.remove {
+    background-color: #fff;
   }
   
 
@@ -72,7 +87,33 @@
       background: #a4cdff;
   }
 
-  
+/*#editor .drggableDiv.remove.moving {
+  opacity: 0.25;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -o-transform: scale(0.8);
+}
+#editor .drggableDiv.over.moving {
+  opacity: 0.25;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -o-transform: scale(0.8);
+}*/
+ #editor .drggableDiv.moving {
+  opacity: 0.25;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -o-transform: scale(0.8);
+} 
+ #editor .drggableDiv.stop {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+} 
 /*
   .column.hover {
       background-color: #DDD;
