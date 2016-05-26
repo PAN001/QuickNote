@@ -27,24 +27,33 @@ html, body {
   font-size: 12px;
 }
 .pen-title span .fa {
-  color: #00cc99;
+  /*color: #00cc99;*/
+  color: #79CDCD;
 }
 .pen-title span a {
-  color: #00cc99;
+ /* color: #00cc99;*/
+ color: #79CDCD;
   font-weight: 600;
   text-decoration: none;
 }
+#loginBtn:focus {
+  color: #fff;
+  border-radius: 10px;
+}
 
 /* Rerun */
+/*iris0526*/
 .rerun {
   margin: 0 0 30px;
   text-align: center;
 }
+
 .rerun a {
   cursor: pointer;
   display: inline-block;
-  background: #00cc99;
-  border-radius: 3px;
+/*  background: #00cc99;*/
+  background-color: #79CDCD;
+  border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   padding: 10px 20px;
   color: #fff;
@@ -54,6 +63,7 @@ html, body {
 }
 .rerun a:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  color: #fff;
 }
 
 /* Scroll To Bottom */
@@ -82,7 +92,7 @@ html, body {
 #portfolio {
   bottom: 96px;
   right: 36px;
-  background: #00cc99;
+  background: #79CDCD;
   width: 44px;
   height: 44px;
   -webkit-animation: buttonFadeInUp 1s ease;
@@ -113,7 +123,7 @@ html, body {
   width: 100%;
   min-width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 60px 0 40px;
   overflow: hidden;
 }
@@ -166,7 +176,7 @@ html, body {
 .card {
   position: relative;
   background: #ffffff;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 60px 0 40px 0;
   box-sizing: border-box;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -178,20 +188,21 @@ html, body {
   /* Footer */
   /* Alt Card */
 }
+/*iris0526*/
 .card:first-child {
-  background: #fafafa;
+  background: #79CDCD;
   height: 10px;
-  border-radius: 5px 5px 0 0;
+/*  border-radius: 5px 5px 0 0;*/
   margin: 0 10px;
   padding: 0;
 }
 .card .title {
   position: relative;
   z-index: 1;
-  border-left: 5px solid #00cc99;
+  border-left: 5px solid #79CDCD;
   margin: 0 0 35px;
   padding: 10px 0 10px 50px;
-  color: #00cc99;
+  color: #79CDCD;
   font-size: 32px;
   font-weight: 600;
   text-transform: uppercase;
@@ -205,12 +216,19 @@ html, body {
   z-index: 1;
   position: relative;
   background: none;
+  border-bottom: 1px solid #212121;
   width: 100%;
   height: 60px;
   border: 0;
   color: #212121;
   font-size: 24px;
   font-weight: 400;
+}
+#Username {
+  border-bottom: 1px solid #212121;
+}
+#Username:focus{
+  border-bottom: 2px solid #79CDCD;
 }
 .card .input-container input:focus ~ label {
   color: #9d9d9d;
@@ -247,7 +265,7 @@ html, body {
 .card .input-container .bar:before, .card .input-container .bar:after {
   content: '';
   position: absolute;
-  background: #00cc99;
+  background: #79CDCD;
   width: 0;
   height: 2px;
   -webkit-transition: .2s ease;
@@ -265,6 +283,7 @@ html, body {
 }
 .card .button-container button {
   outline: 0;
+  border-radius: 10px;
   cursor: pointer;
   position: relative;
   display: inline-block;
@@ -293,7 +312,7 @@ html, body {
   top: 50%;
   left: 50%;
   display: block;
-  background: #00cc99;
+  background: #79CDCD;
   width: 30px;
   height: 30px;
   border-radius: 100%;
@@ -303,10 +322,10 @@ html, body {
   transition: .3s ease;
 }
 .card .button-container button:hover, .card .button-container button:active, .card .button-container button:focus {
-  border-color: #00cc99;
+  border-color: #79CDCD;
 }
 .card .button-container button:hover span, .card .button-container button:active span, .card .button-container button:focus span {
-  color: #00cc99;
+  color: #79CDCD;
 }
 .card .button-container button:active span, .card .button-container button:focus span {
   color: #ffffff;
@@ -350,9 +369,11 @@ html, body {
   /* Input */
   /* Button */
 }
+/*iris0526*/
 .card.alt .toggle {
   position: relative;
-  background: #00cc99;
+/*  background: #00cc99;*/
+  background-color: #79CDCD;
   width: 140px;
   height: 140px;
   border-radius: 100%;
@@ -423,7 +444,7 @@ html, body {
   border-color: #ffffff;
 }
 .card.alt .button-container button span {
-  color: #00cc99;
+  color: #79CDCD;
 }
 .card.alt .button-container button:hover {
   background: rgba(255, 255, 255, 0.9);
@@ -444,4 +465,8 @@ html, body {
     bottom: 30px;
     opacity: 0;
   }
+}
+/*iris0526*/
+.card .input-container .bar :focus {
+  border-bottom-color: #79CDCD;
 }
