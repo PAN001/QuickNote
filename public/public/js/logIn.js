@@ -37,11 +37,13 @@ function register(e) {
                 location.href = "QNote.html";
             } 
             else {
-                alert(res.msg);
+                bootbox.alert(res.msg, function() {
+                });
             }
         },
         error: function (xhr, status, error) {
-            alert('Error: ' + error.message);
+            bootbox.alert('Error: ' + error.message, function() {
+            });
         }
     });
 };
@@ -57,13 +59,40 @@ function logIn(e) {
     localforage.getItem('allAppData', function(err, value) {
         allAppData = value;
         if(allAppData != null && allAppData.UserInfo.Email == Email && allAppData.UserInfo.Password == Password) { // 如果本地有数据且匹配
+            
+            var jsonData = {
+                "Email": Email, 
+                "Password": Password
+            }; 
+            var stringifiedJson = JSON.stringify(jsonData);
+            var url = baseUrl + 'openCloud';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: stringifiedJson,
+                contentType: "text/plain",
+                success: function (data) {
+                    var res = jQuery.parseJSON(data);
+                    if(res.Port)
+                        localStorage.port = res.Port;
+                },
+                error: function (xhr, status, error) {
+                    bootbox.alert('Error: ' + error.message, function() {
+                    });
+                }
+            });
+            
+            
             localStorage.UserId = allAppData.UserInfo.UserId;
             location.href = "QNote.html";
         }
         else {
             // 与本地数据不匹配或者本地没有数据,与server比对
             console.log("not match with local, check server")
-            var jsonData = {"Email": Email, "Password": Password}; 
+            var jsonData = {
+                "Email": Email, 
+                "Password": Password
+            }; 
             var stringifiedJson = JSON.stringify(jsonData);
             var url = baseUrl + 'logIn';
             $.ajax({
@@ -73,16 +102,21 @@ function logIn(e) {
                 contentType: "text/plain",
                 success: function (data) {
                     var res = jQuery.parseJSON(data);
+                    console.log(res);
                     if(res.status == "fail") { // 
-                        alert(res.msg);
+                        bootbox.alert(res.msg, function() {
+                        });
                     }
                     else {
+                        if(res.Port)
+                            localStorage.port = res.Port;
                         localStorage.UserId = res.UserId;
                         location.href = "QNote.html";
                     }
                 },
                 error: function (xhr, status, error) {
-                    alert('Error: ' + error.message);
+                    bootbox.alert('Error: ' + error.message, function() {
+                    });
                 }
             });
         }
