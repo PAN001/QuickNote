@@ -104,7 +104,7 @@ function logIn(e) {
                     var res = jQuery.parseJSON(data);
                     console.log(res);
                     if(res.status == "fail") { // 
-                        bootbox.alert('Error: ' + error.message, function() {
+                        bootbox.alert(res.msg, function() {
                         });
                     }
                     else {
