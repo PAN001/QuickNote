@@ -110,15 +110,18 @@
 </script>
 
 <link rel="stylesheet" href="public/css/theme/default.css" type="text/css" id="themeLink"/>
-    
+
+<!--定制版的JQuery；需要放在bootstrap之前-->
 <script src="public/js/dep.min.js"></script>
 <script type="text/javascript">
     $.fn.notebookZTree = $.fn.zTree;
 </script>
-<!--定制版的JQuery；需要放在bootstrap之前-->
     
 <link href="public/css/bootstrap-min.css" rel="stylesheet" />
 <!--    responsible for part of basic style(bootstrap)-->
+    
+<!--bootstrap wrapped alert and confirm dialog-->
+<script type="text/javascript" src="public/js/bootbox.min.js"></script>
 
 <!--<link rel="stylesheet" href="public/css/tinymce/skin.min.css" rel="stylesheet"/> // style sheet for tinymce-->
 
@@ -627,6 +630,11 @@ function forwardpage(){
                               <big><big><i class="fa fa-google"></i></big></big>
                            </a>
                         </li>
+                        <li><a href="#cloudDisk" data-toggle="tab" title= "Cloud Disk">
+                        	  <big><big><i class="fa fa-cloud"></i></big></big>
+                        	  </a>
+
+                        </li>
  <!--                        <li><a href="#cloud" data-toggle="tab" title="Cloud">
                               <big><big><i class="fa fa-google"></i></big></big>
                            </a>
@@ -752,6 +760,11 @@ function forwardpage(){
 							</div>
 						
                        </div>
+
+
+                       <div class="tab-pane fade" id="cloudDisk">
+                       		<iframe id="cloudPage" name = "viewframe" src="http://115.28.134.156:8080" onchange="" nwdisable nwfaketop></iframe>                       
+                       	</div>
 
 
 <!--                        <div class="tab-pane fade" id="cloud">

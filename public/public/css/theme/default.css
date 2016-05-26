@@ -885,21 +885,6 @@ a:hover {
 	left: 67%
 }
 
-/*<<<<<<< HEAD
-#media {
-  position: absolute;
-	bottom: 0;
-	top: 0;
-	right: 0;
-    left: 1218px;
-	padding-left: 5px;
-	overflow-y: hidden;
-	overflow-x: auto;
-	background-color: #fff;
-	border-left: 1px solid #cfcfcf;
-}
-=======
->>>>>>> new_feature#6*/
 .ace_editor,.ace_editor * {
 	font-family: Monaco,Menlo,'Ubuntu Mono',Consolas,source-code-pro,Hiragino Sans GB,"Microsoft YaHei","微软雅黑"
 }
@@ -3521,12 +3506,15 @@ h1,h2,h3 {
 		height: 100%;
 }
 
-#webpage{
+#webpage, #cloudPage{
 	border-radius: 10px;
 	border: 3px solid #E5E5E5;
 	width: 97%; 
 	height: 92%;
 	margin-left: 1.3%;
+}
+#cloudDisk {
+	height: 110%;
 }
 
 #myTabContent {
@@ -3547,7 +3535,7 @@ h1,h2,h3 {
 	border: 0 solid #fff;
 }
 .nav-tabs>li {
-	width: 20%;
+	width: 16%;
 }
 .nav-tabs>li>a {
 	border: 0 solid #fff;
@@ -3615,6 +3603,7 @@ h1,h2,h3 {
 .pull-right>i:hover {
 	color:#64ffdf;
 }
+/*<<<<<<< HEAD*/
 #groupZTree {
 	background-color: #fff;
 	color: #000;
@@ -3682,3 +3671,29 @@ h1,h2,h3 {
 	color: #C9C9C9!important;
 }
 
+/*=======*/
+#alertDialogContent div.modal-body {
+	border-radius: 10px;
+}
+#alertDialogContent div.modal-footer{
+	padding:15px 15px;
+}
+#alertDialogContent div.bootbox-body {
+	padding-top: 20px;
+	text-align: center;
+}
+.btn-primary {
+	background-color: #fff;
+	border-color: #ccc;
+	color:#000;
+}
+.btn-primary:hover {
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+}
+#alertDialogContent div.modal-footer:focus{
+	background-color: #fff;
+	border-color: #ccc;
+	color:#000;
+}
+/*>>>>>>> new_feature#8*/

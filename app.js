@@ -4,10 +4,28 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
-
+var exec = require('child_process').exec;
 
 var app = express();
 
+var mkdirp = require('mkdirp');
+
+// root address of cloud disk
+var root_dir = "/root/QuickNote/cloud/";
+
+var portMark = new Array();
+var basePort = 8080;
+var portTable = {};
+
+function findPort(){
+	for(var i=0; i<500; i++){
+		if(portMark[i] != 1){
+//			portMark[i] = 1;
+			return basePort+i;
+		}
+	}
+	return -1;
+}
 
 // make "node app.js" work on local machine, this use node's static file fetching
 app.use('/', express.static ('./public'));
@@ -27,9 +45,12 @@ server.listen(3000, function(){
 app.use(expressMongoDb('mongodb://localhost:27017/NoteTakingApp'));
 console.log("db starts");
 
+
 app.use('/updateAll', bodyParser.text());
 app.use('/register', bodyParser.text());
+app.use('/openCloud', bodyParser.text());
 app.use('/logIn', bodyParser.text());
+app.use('/logOut', bodyParser.text());
 app.use('/checkExistence', bodyParser.text());
 app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
@@ -56,11 +77,10 @@ app.use(function(req, res, next) {
 app.post("/updateAll", function(req, res) {
 	// res.header('Access-Control-Allow-Origin', '*'); // implementation of CORS
 	console.log("updateAll activated");
-	// console.log(req);
-    	console.log("Body is: " + req.body);
+
 	var parsedData = JSON.parse(req.body);
 	var UserId = parsedData.UserInfo.UserId;
-    	console.log("The UserId is: " + parsedData.UserInfo.UserId);
+    console.log("The UserId is: " + parsedData.UserInfo.UserId);
 
 	//req.db.collection('allAppData').insert(parsedData, function(err, data) {
 	//	if(err) console.log(err);
@@ -114,6 +134,9 @@ app.post("/register", function(req, res) {
 						else {
 							console.log("data inserted to db");
 							res.end('{"msg": "Reistered successfully", "status": "success"}');
+							mkdirp(root_dir + parsedData.Email, function(msg) { 
+								console.log("directory created");
+							});
 						}
 					});
 				}
@@ -124,10 +147,12 @@ app.post("/register", function(req, res) {
 app.post("/logIn", function(req, res) {
 	// res.header('Access-Control-Allow-Origin', '*'); // implementation of CORS
 	console.log("logIn activated");
-    console.log("Body is: " + req.body);
+//    console.log("Body is: " + req.body);
 	var parsedData = JSON.parse(req.body);
+    var email = parsedData.Email;
 
-	var findQuery = {"Email": parsedData.Email};
+
+	var findQuery = {"Email": email};
 	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
 		if(err) {
 			console.log(err);
@@ -136,12 +161,39 @@ app.post("/logIn", function(req, res) {
 		else {
 			if(data) { // if existent
 				console.log("email found");
-				var findQuery2 = {"Email": parsedData.Email, "Password": parsedData.Password};
+				var findQuery2 = {"Email": email, "Password": parsedData.Password};
 				req.db.collection('registeredUsers').findOne(findQuery2, function(err, data) {
 					if(data) { // if existent
 						console.log("log in successfully");
-						// res.end('{"msg": "Log in successfully", "status": "success"}');
-						res.json(JSON.stringify(data));
+						// res.end('{"msg": "Log in successfully", "status": "success"}');                        
+                        
+                        var userId = data.UserId;
+                        var port = findPort();
+                        var path = root_dir + email;
+                        console.log("Port open: " + port);
+                        var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
+                            if (error !== null) {
+                                console.log('exec error: ', error);
+                            }
+                            else {
+//                                portTable[parsedData.UserId] = port;
+                                console.log("process starts");
+                            }
+                        });
+                        console.log("result is " + result);
+                        if(result) {
+                            portTable[userId] = {
+                                Port: port,
+                                PId: result.pid
+                            };
+                            portMark[port-basePort] = 1;
+                            console.log("id is " + userId);
+                            console.log("port is " + portTable[userId].Port);
+                            console.log("pid is " + portTable[userId].Pid);
+                        }
+                        
+                        data.Port = port;
+                        res.json(JSON.stringify(data));
 					}
 					else {
 						console.log("wrong password");
@@ -157,6 +209,99 @@ app.post("/logIn", function(req, res) {
 	});
 });
 
+
+app.post("/openCloud", function(req, res) {
+	// res.header('Access-Control-Allow-Origin', '*'); // implementation of CORS
+	console.log("openCloud activated");
+//    console.log("Body is: " + req.body);
+	var parsedData = JSON.parse(req.body);
+    var email = parsedData.Email;
+
+	var findQuery = {"Email": email};
+	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
+		if(err) {
+			console.log(err);
+			res.end('{"msg": "DB error", "status": "fail"}');
+		}
+		else {
+			if(data) { // if existent
+				console.log("email found");
+				var findQuery2 = {"Email": email, "Password": parsedData.Password};
+				req.db.collection('registeredUsers').findOne(findQuery2, function(err, data) {
+					if(data) { // if existent
+						console.log("log in successfully");
+						// res.end('{"msg": "Log in successfully", "status": "success"}');                        
+                        
+                        var userId = data.UserId;
+                        var port = findPort();
+                        var path = root_dir + email;
+                        console.log("Port open: " + port);
+                        var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
+                            if (error !== null) {
+                                console.log('exec error: ', error);
+                            }
+                            else {
+//                                portTable[parsedData.UserId] = port;
+                                console.log("process starts");
+                            }
+                        });
+                        console.log("result is " + result);
+                        if(result) {
+                            portTable[userId] = {
+                                Port: port,
+                                PId: result.pid
+                            };
+                            portMark[port-basePort] = 1;
+                            console.log("id is " + userId);
+                            console.log("port is " + portTable[userId].Port);
+                            console.log("pid is " + portTable[userId].Pid);
+                        }
+                        
+                        var portInfo = {
+                            Port: port
+                        };
+                        res.json(JSON.stringify(portInfo));
+
+                    }
+					else {
+						console.log("wrong password");
+						res.end('{"msg": "wrong password", "status": "fail"}');
+					}
+				});
+			}
+			else { // if not existent
+				console.log("not found email");
+				res.end('{"msg": "wrong email", "status": "fail"}');
+			}
+		}
+	});
+});
+
+
+
+app.post("/logOut", function(req, res) {
+    console.log("logOut activated");
+
+	var parsedData = JSON.parse(req.body);
+    var thisPortInfo = portTable[parsedData.UserId];  
+    console.log(parsedData.UserId);
+    console.log(thisPortInfo);
+    if(thisPortInfo) {
+        var port = thisPortInfo.Port;
+        var pid = thisPortInfo.PId;
+        if(port && pid) {
+            var result = exec("kill " + pid, function(error, stdout, stderr) {
+                if (error !== null) {
+                    console.log('exec error: ', error);
+                }
+                else {
+                    portMark[port - basePort] = 0;
+                    console.log("process " + pid + "is killed");
+                }
+            });
+        }
+    }
+});
 
 app.post("/checkExistence", function(req, res) {
     console.log("/checkExistance activated");
