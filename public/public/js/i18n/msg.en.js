@@ -40,7 +40,7 @@ var MSG = {
     "friendEmail": "Friend email",
     "readOnly": "Read only",
     "writable": "Writable",
-    "inputFriendEmail": "Friend email is required",
+    "friendEmailMissing": "Friend email is required",
     "clickToChangePermission": "Click to change permission",
     "sendInviteEmailToYourFriend": "Send invite email to your friend",
     "friendNotExits": "Your friend hasn't %s's account, invite register link: %s",
