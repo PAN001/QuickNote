@@ -110,13 +110,7 @@ app.post("/register", function(req, res) {
     var email = parsedData.Email;
     var userId = parsedData.UserId;
 
-	//req.db.collection('allAppData').insert(parsedData, function(err, data) {
-	//	if(err) console.log(err);
-	//	else {
-	//		console.log("data saved to db");
-	//	}
-	//});
-
+    console.log("userId in register is: " + userId);
 	var findQuery = {"Email": email};
 	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
 		if(err) {
@@ -199,7 +193,7 @@ app.post("/logIn", function(req, res) {
                         var userId = data.UserId;
                         var port = findPort();
                         var path = root_dir + email;
-                        console.log("Port open: " + port);
+                        
                         var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
                             if (error !== null) {
                                 console.log('exec error: ', error);
@@ -214,10 +208,10 @@ app.post("/logIn", function(req, res) {
                                 Port: port,
                                 PId: result.pid
                             };
-                            portMark[port-basePort] = 1;
+                            portMark[port - basePort] = 1;
                             console.log("userId is " + userId);
                             console.log("port is " + portTable[userId].Port);
-                            console.log("pid is " + portTable[userId].Pid);
+                            console.log("pid is " + portTable[userId].PId);
                         }
                         
                         data.Port = port;
