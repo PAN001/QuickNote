@@ -164,11 +164,9 @@ app.post("/register", function(req, res) {
 //                                console.log("port is " + portTable[userId].Port);
 //                                console.log("pid is " + portTable[userId].Pid);
                         }
-
-                        data.Port = port;
+                        res.end('{"msg": "Reistered successfully", "status": "success", ' + '"Port": ' + port + "}");
                     }
                 });
-                res.end('{"msg": "Reistered successfully", "status": "success", ' + "Port: " + port + "}");
             }
 		}
 	});
@@ -211,7 +209,7 @@ app.post("/logIn", function(req, res) {
                                 console.log("process starts");
                             }
                         });
-                        if(result) {
+                        if(result) { // if the process starts successfully
                             portTable[userId] = {
                                 Port: port,
                                 PId: result.pid
