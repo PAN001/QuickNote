@@ -1,5 +1,6 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
-//var baseUrl = "http:\/\/115.28.134.156:" + cloudPort + "\/";
+// var cloudPort = 8080;
+// var baseUrl = "http:\/\/localhost:";
 var cloudUrl = baseUrl + cloudPort + "\/";
 var port; 
 
@@ -73,8 +74,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       if (!hash) {
         return $location.path('/');
       }
-      console.log('Hash change: ' + hash);
-      var relPath = hash.slice(1);
+      //console.log('Hash change: ' + hash);
+      var relPath = '/';//hash.slice(1);
       FM.curHashPath = hash;
       FM.curFolderPath = relPath;
       FM.curBreadCrumbPaths = hash2paths(relPath);
@@ -123,17 +124,26 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       for (var k in config) {
         if (config.hasOwnProperty(k)) {
           conf[k] = config[k];
+          console.log("k: "+k+ " value: "+config[k])
         }
       }
       console.log('request url', url);
-      $http(conf)
+      if(method === "DELETE"){
+        
+      }
+      else{
+        $http(conf)
         .success(function (data) {
           FM.successData = data;
           handleHashChange(FM.curHashPath);
+          console.log("http request success");
         })
         .error(function (data, status) {
           FM.errorData = ' ' + status + ': ' + data;
+          console.log("http request failed");
         });
+      }
+      
     };
 
     var downloadFile = function (file) {
@@ -154,7 +164,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.insertFile = function (file) {
       //TODO:
       //pass the address of current file to client
-      alert(file.relPath);
+      alert(baseUrl + cloudPort + file.relPath);
+      $('#editor').append("<iframe src = \"baseUrl + cloudPort + file.relPath\"></iframe> ")
       // $("#")
 
     };
@@ -167,10 +178,10 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
 
     FM.delete = function () {
       for (var i in FM.selection) {
-        var relPath = FM.selection[i].relPath;
-//        alert(relPath);
-        var url = cloudUrl + 'api' + relPath;
-        httpRequest('DELETE', url, {type: 'DELETE'}, null);
+        var relPath = FM.selection[0].relPath;
+        var url =  cloudUrl + 'api' +  relPath;
+        console.log("delete url: "+url);
+        httpRequest('PUT', url, {type: 'DELETE'}, null);
       }
     };
 

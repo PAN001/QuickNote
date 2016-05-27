@@ -139,6 +139,7 @@ app.post("/register", function(req, res) {
                         var port = findPort();
                         var path = root_dir + email;
                         console.log("Port open: " + port);
+                        console.log("Parh: " + path);
                         var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
                             if (error !== null) {
                                 console.log('exec error: ', error);
@@ -193,6 +194,8 @@ app.post("/logIn", function(req, res) {
                         var userId = data.UserId;
                         var port = findPort();
                         var path = root_dir + email;
+                        console.log("Port open: " + port);
+                        console.log("Parh: " + path);
                         
                         var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
                             if (error !== null) {
