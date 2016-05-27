@@ -34,6 +34,7 @@ function register(e) {
                 localStorage.email = Email;
                 localStorage.password = Password;
                 localStorage.UserId = UserId;
+                localStroage.cloudPort = res.Port;
                 location.href = "QNote.html";
             } 
             else {

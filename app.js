@@ -127,19 +127,50 @@ app.post("/register", function(req, res) {
 			}
 			else { // if not existent
 				req.db.collection('registeredUsers').insert(parsedData, function(err, data) {
-						if(err) {
-							console.log(err);
-							res.end('{"msg": "DB error", "status": "fail"}');
-						}	
-						else {
-							console.log("data inserted to db");
-							res.end('{"msg": "Reistered successfully", "status": "success"}');
-							mkdirp(root_dir + parsedData.Email, function(msg) { 
-								console.log("directory created");
-							});
-						}
-					});
-				}
+                    if(err) {
+                        console.log(err);
+                        res.end('{"msg": "DB error", "status": "fail"}');
+                    }	
+                    else {
+                        console.log("data inserted to db");
+
+                        // create the cloud directory
+                        mkdirp(root_dir + parsedData.Email, function(msg) { 
+                            console.log("directory created");
+                        });
+
+                        // find the port and start the corresponding process
+                        var userId = parsedData.UserId;
+                        var port = findPort();
+                        var path = root_dir + email;
+                        console.log("Port open: " + port);
+                        var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
+                            if (error !== null) {
+                                console.log('exec error: ', error);
+                            }
+                            else {
+//                                portTable[parsedData.UserId] = port;
+                                console.log("process starts");
+                            }
+                        });
+                        if(result) {
+                            portTable[userId] = {
+                                Port: port,
+                                PId: result.pid
+                            };
+                            portMark[port-basePort] = 1;
+//                                console.log("id is " + userId);
+//                                console.log("port is " + portTable[userId].Port);
+//                                console.log("pid is " + portTable[userId].Pid);
+                        }
+
+                        data.Port = port;
+                        res.json(JSON.stringify(data));
+                    }
+                });
+                
+                res.end('{"msg": "Reistered successfully", "status": "success", ' + "Port: " + port + "}");
+            }
 		}
 	});
 });
@@ -167,6 +198,7 @@ app.post("/logIn", function(req, res) {
 						console.log("log in successfully");
 						// res.end('{"msg": "Log in successfully", "status": "success"}');                        
                         
+                        // find the port and start the corresponding process
                         var userId = data.UserId;
                         var port = findPort();
                         var path = root_dir + email;
@@ -180,7 +212,6 @@ app.post("/logIn", function(req, res) {
                                 console.log("process starts");
                             }
                         });
-                        console.log("result is " + result);
                         if(result) {
                             portTable[userId] = {
                                 Port: port,
