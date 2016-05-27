@@ -64,6 +64,11 @@ router.put('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, bodyParser(),
     yield * FileManager.rename(p, FilePath(target));
     this.body = 'Rename Succeed!';
   }
+  else if(type === 'DELETE'){
+    console.log("here: routes.js, type = DELETE");
+    yield * FileManager.remove(p);
+    this.body = 'Delete Succeed!';
+  }
   else {
     this.status = 400;
     this.body = 'Arg Type Error!';
@@ -94,6 +99,7 @@ router.post('/api/(.*)', Tools.loadRealPath, Tools.checkPathNotExists, function*
       this.body = 'Lack Upload File!';
     }
   }
+  
   else {
     this.status = 400;
     this.body = 'Arg Type Error!';
