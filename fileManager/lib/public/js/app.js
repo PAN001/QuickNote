@@ -50,10 +50,10 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     };
 
     var setCurFiles = function (relPath) {
-      alert("relPath" + relPath);
+//      alert("relPath" + relPath);
       $http.get(cloudUrl + "api" + relPath)
         .success(function (data) {
-          alert("success");
+//          alert("success");
           var files = data;
           files.forEach(function (file) {
             file.relPath = relPath + file.name;
@@ -168,7 +168,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.delete = function () {
       for (var i in FM.selection) {
         var relPath = FM.selection[i].relPath;
-        alert(relPath);
+//        alert(relPath);
         var url = cloudUrl + 'api' + relPath;
         httpRequest('DELETE', url, {type: 'DELETE'}, null);
       }
