@@ -40,7 +40,7 @@ var Password = localStorage.password;
 
 // load port number for cloud disk
 var cloudPort = localStorage.cloudPort;
-localStorage.cloudPort = ""; // discard so that it wont be used next time accidentally
+//localStorage.cloudPort = ""; // discard so that it wont be used next time accidentally
 
 // update the username
 $("#username").html(Email);

@@ -215,7 +215,7 @@ app.post("/logIn", function(req, res) {
                                 PId: result.pid
                             };
                             portMark[port-basePort] = 1;
-                            console.log("id is " + userId);
+                            console.log("userId is " + userId);
                             console.log("port is " + portTable[userId].Port);
                             console.log("pid is " + portTable[userId].Pid);
                         }
