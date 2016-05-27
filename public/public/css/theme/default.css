@@ -3699,4 +3699,71 @@ h1,h2,h3 {
 /*>>>>>>> new_feature#8*/
 .container .btn-toolbar {
 	padding: 20px;
+		list-style: none;
+		display: inline-block;
 }
+.container .btn:hover{
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+}
+
+
+.container {
+	background-color: #fff;
+	width: auto;
+	position: relative;
+	display: inline;
+	white-space: nowrap;
+	float: left;
+}
+.container .navbar-header {
+	width: 100%;
+}
+.container .navbar-brand {
+	width: 100%;
+	text-align: center;
+}
+/*#maincontent {
+	width: 100%;
+	float: left;
+}*/
+#cloudDisk {
+	width: 100%;
+	float: left;
+
+}
+#uploadFileModal .modal-header h4 {
+	text-align: center;
+}
+
+.custom-file-upload {
+	font-size: 15px;
+    display: inline-block;
+    padding: 6px 12px;
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+	border-radius: 10px;
+}
+input[type="file"] {
+    display: none;
+}
+.modal-footer .btn {
+	background-color: #fff;
+	color: #000;
+	border-radius: 10px;
+}
+.modal-footer .btn:hover{
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+}
+.btn-primary[disabled] {
+	border-color: #ccc;
+}
+#createFolderModal input {
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+#createFolderModal 
