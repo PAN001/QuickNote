@@ -166,10 +166,8 @@ app.post("/register", function(req, res) {
                         }
 
                         data.Port = port;
-                        res.json(JSON.stringify(data));
                     }
                 });
-                
                 res.end('{"msg": "Reistered successfully", "status": "success", ' + "Port: " + port + "}");
             }
 		}
