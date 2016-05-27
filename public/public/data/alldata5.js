@@ -35,7 +35,7 @@ function sleep(miliseconds) {
 
 //加载用户名：
 var Email = localStorage.email;
-var UserId = localStorage.UserId;
+var UserId = localStorage.userId;
 var Password = localStorage.password;
 
 // load port number for cloud disk

@@ -33,7 +33,7 @@ function register(e) {
             if(res.status == "success") { // jump to homepage
                 localStorage.email = Email;
                 localStorage.password = Password;
-                localStorage.UserId = UserId;
+                localStorage.userId = UserId;
                 localStroage.cloudPort = res.Port;
                 location.href = "QNote.html";
             } 

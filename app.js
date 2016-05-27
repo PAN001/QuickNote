@@ -107,6 +107,8 @@ app.post("/register", function(req, res) {
 	console.log("register activated");
 	console.log("Body is: " + req.body);
 	var parsedData = JSON.parse(req.body);
+    var email = parsedData.Email;
+    var userId = parsedData.UserId;
 
 	//req.db.collection('allAppData').insert(parsedData, function(err, data) {
 	//	if(err) console.log(err);
@@ -115,7 +117,7 @@ app.post("/register", function(req, res) {
 	//	}
 	//});
 
-	var findQuery = {"Email": parsedData.Email};
+	var findQuery = {"Email": email};
 	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
 		if(err) {
 			console.log(err);
@@ -135,12 +137,11 @@ app.post("/register", function(req, res) {
                         console.log("data inserted to db");
 
                         // create the cloud directory
-                        mkdirp(root_dir + parsedData.Email, function(msg) { 
+                        mkdirp(root_dir + email, function(msg) { 
                             console.log("directory created");
                         });
 
                         // find the port and start the corresponding process
-                        var userId = parsedData.UserId;
                         var port = findPort();
                         var path = root_dir + email;
                         console.log("Port open: " + port);
