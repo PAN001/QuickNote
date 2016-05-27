@@ -1,6 +1,7 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
 // var cloudPort = 8080;
 // var baseUrl = "http:\/\/localhost:";
+var baseUrl = "http:\/\/115.28.134.156:" + cloudPort + "\/";
 var cloudUrl = baseUrl + cloudPort + "\/";
 var port; 
 
