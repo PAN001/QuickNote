@@ -3697,3 +3697,6 @@ h1,h2,h3 {
 	color:#000;
 }
 /*>>>>>>> new_feature#8*/
+.container .btn-toolbar {
+	padding: 20px;
+}

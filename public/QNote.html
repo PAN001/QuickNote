@@ -835,7 +835,7 @@ function forwardpage(){
 							    </div>
 							  </div>
 
-							  <nav class="navbar navbar-default navbar-static-top">
+							  <nav class="navbar navbar-default navbar-static-top" style = "margin:0px">
 							    <div class="container">
 							      <div class="navbar-header">
 							        <a class="navbar-brand" href="#">File Manager</a>
@@ -845,16 +845,16 @@ function forwardpage(){
 
 							 <div class="container">
 							    <div class="btn-toolbar">
-							      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('download')" ng-click="FM.download()"><span class="glyphicon glyphicon-download"></span> Download</button>
-							      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('delete')" ng-click="FM.delete()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-							      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('move')" data-toggle="modal" data-target="#moveModal"><span class="glyphicon glyphicon-random"></span> Move</button>
-							      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('rename')" data-toggle="modal" data-target="#renameModal"><span class="glyphicon glyphicon-font"></span> Rename</button>
-							      <button type="button" class="btn btn-default pull-right" ng-disabled="FM.btnDisabled('create_folder')" data-toggle="modal" data-target="#createFolderModal"><span class="glyphicon glyphicon-plus-sign"></span> New Folder</button>
-							      <button type="button" class="btn btn-default pull-right" ng-disabled="FM.btnDisabled('upload_file')" data-toggle="modal" data-target="#uploadFileModal"><span class="glyphicon glyphicon-upload"></span> Upload</button>
+							      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('download')" ng-click="FM.download()"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
+							      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('delete')" ng-click="FM.delete()"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+							      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('move')" data-toggle="modal" data-target="#moveModal"><i class="fa fa-exchange" aria-hidden="true"></i> Move</button>
+							      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('rename')" data-toggle="modal" data-target="#renameModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Rename</button>
+							      <button type="button" class="btn btn-default pull-right" ng-disabled="FM.btnDisabled('create_folder')" data-toggle="modal" data-target="#createFolderModal"><i class="fa fa-folder-o" aria-hidden="true"></i></span> New Folder</button>
+							      <button type="button" class="btn btn-default pull-right" ng-disabled="FM.btnDisabled('upload_file')" data-toggle="modal" data-target="#uploadFileModal"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
 							    </div>
 
 							    <ol class="breadcrumb">
-							      <span class="glyphicon glyphicon-home"></span>
+							      <i class="fa fa-folder-open-o" aria-hidden="true"></i>
 							      <li ng-repeat="p in FM.curBreadCrumbPaths"><a href={{p.path}}>{{p.name}}</a></li>
 							    </ol>
 
