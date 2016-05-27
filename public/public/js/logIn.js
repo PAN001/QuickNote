@@ -74,7 +74,7 @@ function logIn(e) {
                 success: function (data) {
                     var res = jQuery.parseJSON(data);
                     if(res.Port)
-                        localStorage.port = res.Port;
+                        localStorage.cloudPort = res.Port;
                 },
                 error: function (xhr, status, error) {
                     bootbox.alert('Error: ' + error.message, function() {
