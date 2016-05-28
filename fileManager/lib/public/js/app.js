@@ -166,8 +166,13 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       //pass the address of current file to client
       //alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
       var extension = file.relPath.substring(file.relPath.lastIndexOf('.'), file.relPath.length).toLowerCase();
-      alert(extension);
-      $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe> ");
+      if(extension == ".png" || extension == ".jpg" || extension == ".jpeg" || extension == ".bmp" || extension == ".gif"){
+        $('#editor').append("<img src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></img> ");
+      }
+      else{
+        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe> ");
+      }
+      
       // $("#")
 
     };
