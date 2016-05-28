@@ -164,8 +164,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.insertFile = function (file) {
       //TODO:
       //pass the address of current file to client
-      var reg=new RegExp(" ","g"); //创建正则RegExp对象 
-      var file.relPath=file.relPath.replace(reg,"%20");
+      file.relPath = file.relPath.replace(/[ ]/g,"%20");
       alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
       var extension = file.relPath.substring(file.relPath.lastIndexOf('.'), file.relPath.length).toLowerCase();
       if(extension == ".png" || extension == ".jpg" || extension == ".jpeg" || extension == ".bmp" || extension == ".gif"){
