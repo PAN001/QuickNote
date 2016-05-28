@@ -164,7 +164,9 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.insertFile = function (file) {
       //TODO:
       //pass the address of current file to client
-      alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
+      //alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
+      var extension = file.relPath.substring(file.relPath.lastIndexOf('.'), file.relPath.length).toLowerCase();
+      alert(extension);
       $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe> ");
       // $("#")
 
