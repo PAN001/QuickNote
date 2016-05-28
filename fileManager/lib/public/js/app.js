@@ -170,7 +170,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         $('#editor').append("<img src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></img> ");
       }
       else{
-        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe> ");
+        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=600 height=800></iframe> ");
       }
       
       // $("#")
