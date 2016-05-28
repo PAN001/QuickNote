@@ -165,7 +165,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       //TODO:
       //pass the address of current file to client
       alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
-      $('#editor').append("<iframe src = "+baseUrl+cloudPort +"/cloud/"+Email+file.relPath+"></iframe> ");
+      $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe> ");
       // $("#")
 
     };
