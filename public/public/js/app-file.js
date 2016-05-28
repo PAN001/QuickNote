@@ -74,8 +74,14 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       if (!hash) {
         return $location.path('/');
       }
-      //console.log('Hash change: ' + hash);
-      var relPath = '/';//hash.slice(1);
+      console.log('Hash change: ' + hash);
+      console.log("hash.slice(1): "+hash.slice(1));
+      if(hash.slice(1)=="cloudDisk"){
+        var relPath = '/';
+      }
+      else{
+        var relPath = hash.slice(1);
+      }
       FM.curHashPath = hash;
       FM.curFolderPath = relPath;
       FM.curBreadCrumbPaths = hash2paths(relPath);
@@ -192,7 +198,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
 
     FM.delete = function () {
       for (var i in FM.selection) {
-        var relPath = FM.selection[0].relPath;
+        var relPath = FM.selection[i].relPath;
         var url =  cloudUrl + 'api' +  relPath;
         console.log("delete url: "+url);
         httpRequest('PUT', url, {type: 'DELETE'}, null);
