@@ -66,7 +66,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
           FM.curFiles = files;
         })
         .error(function (data, status) {
-          alert('setCurFiles Error: ' + status + data);
+          //alert('setCurFiles Error: ' + status + data);
         })
     };
 
