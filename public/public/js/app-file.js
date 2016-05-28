@@ -159,7 +159,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.clickFile = function (file) {
       if (file.folder) {
         // open folder by setting url hash
-        console.log("go into the folder");
+        console.log("go into the folder: "+file.relPath);
         $location.path(decodeURIComponent(file.relPath));
       }
       else {
