@@ -169,6 +169,12 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       if(extension == ".png" || extension == ".jpg" || extension == ".jpeg" || extension == ".bmp" || extension == ".gif"){
         $('#editor').append("<img src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></img> ");
       }
+      else if(extension == ".mp3" || extension == ".wma" || extension == ".wav"){
+        $('#editor').append("<embed src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=300 height=100></embed> ");
+      }
+      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm"){
+        $('#editor').append("<video src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=800 height=600></video> ");
+      }
       else{
         $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=600 height=800></iframe> ");
       }
