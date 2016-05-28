@@ -159,11 +159,16 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.clickFile = function (file) {
       if (file.folder) {
         // open folder by setting url hash
+        console.log("go into the folder");
         $location.path(decodeURIComponent(file.relPath));
       }
       else {
         // download file
-        downloadFile(file);
+        // downloadFile(file);
+        document.getElementById("displayedFile").src = baseUrl+"3000" +"/cloud/"+Email+file.relPath;
+        window.setTimeout(function(){
+          $("#fileicon").trigger("click");
+        },0);
       }
     };
 
@@ -179,8 +184,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       else if(extension == ".mp3" || extension == ".wma" || extension == ".wav"){
         $('#editor').append("<embed src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=300 height=100></embed> ");
       }
-      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm"){
-        $('#editor').append("<video src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=800 height=600></video> ");
+      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
+        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=800 height=600></iframe> ");
       }
       else{
         $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=600 height=800></iframe> ");
