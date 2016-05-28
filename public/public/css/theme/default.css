@@ -505,7 +505,7 @@ a.raw:hover {
 }
 
 #curNotebookForNewNote {
-    color: #64ffdf
+    color: #79CDCD
 }
 
 
@@ -697,7 +697,7 @@ a:hover {
 	border-color: #79CDCF;
 }
 #header a.givefeedback:hover {
-	color: #64ffdf;
+	color: #79CDCD;
 }
 #header li,#header li a {
 	color: #000
@@ -1620,7 +1620,7 @@ textarea#wmd-input {
 	width: 35px;
 	border-right: 1px solid rgba(255,255,255,.05);
 	text-align: center;
-	color: #64ffdf
+	color: #79CDCD
 }
 
 .friend-header {
@@ -3601,7 +3601,7 @@ h1,h2,h3 {
 	cursor: pointer;
 }
 .pull-right>i:hover {
-	color:#64ffdf;
+	color:#79CDCD;
 }
 /*<<<<<<< HEAD*/
 #groupZTree {
@@ -3632,7 +3632,7 @@ h1,h2,h3 {
 	width: 65%;
 }
 #leftNotebook li>a>span.tree-title:hover {
-	color: #64ffdf;
+	color: #79CDCD;
 }
 #leftNotebook ul>li.each-user {
 	background-color: #444;
