@@ -153,11 +153,16 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.clickFile = function (file) {
       if (file.folder) {
         // open folder by setting url hash
+        console.log("go into the folder");
         $location.path(decodeURIComponent(file.relPath));
       }
       else {
         // download file
-        downloadFile(file);
+        // downloadFile(file);
+        document.getElementById("displayedFile").src = baseUrl+"3000" +"/cloud/"+Email+file.relPath;
+        window.setTimeout(function(){
+          $("#fileicon").trigger("click");
+        },0);
       }
     };
 
