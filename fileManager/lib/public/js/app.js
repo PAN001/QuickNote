@@ -165,7 +165,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       //TODO:
       //pass the address of current file to client
       file.relPath = file.relPath.replace(/[ ]/g,"%20");
-      alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
+      //alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
       var extension = file.relPath.substring(file.relPath.lastIndexOf('.'), file.relPath.length).toLowerCase();
       if(extension == ".png" || extension == ".jpg" || extension == ".jpeg" || extension == ".bmp" || extension == ".gif"){
         $('#editor').append("<img src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></img> ");
