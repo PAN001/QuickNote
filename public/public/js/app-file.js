@@ -77,10 +77,10 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       console.log('Hash change: ' + hash);
       console.log("hash.slice(1): "+hash.slice(1));
       if(hash.slice(1)=="/cloudDisk"){
-        var relPath = hash.slice(1);
+        var relPath = '/';
       }
       else{
-        var relPath = '/';
+        var relPath = hash.slice(1);
       }
       FM.curHashPath = hash;
       FM.curFolderPath = relPath;
