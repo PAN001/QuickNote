@@ -3340,11 +3340,22 @@ h1,h2,h3 {
 	margin-left: 5px;
 }
 
+#files {
+	height:100%;
+}
+#form1{
+	height: 100%;
+}
+#displayfilediv{
+	height: 100%;
+}
 .display
 {
-	width: 98%;
-	height: 600px;
-	border-radius: 7px;
+	width: 95%;
+/*	height: 800px;
+*/
+	height: 90%;
+	border-radius: 10px;
 	margin-left: 1%;
 	margin-right: 1%;
 	margin-top: 0.5%;
@@ -3352,8 +3363,11 @@ h1,h2,h3 {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	border: 1.5px solid #ccc;
+	overflow: scroll;
 }
-
+#displayfilediv {
+	overflow: scroll;
+}
 #noteItemList li{
 /*    float:left;*/
     display: inline-block;
@@ -3741,10 +3755,17 @@ h1,h2,h3 {
 	font-size: 15px;
     display: inline-block;
     padding: 6px 12px;
+	background-color: #fff;
+	border:1px solid #ccc;
+	color: #000;
+	border-radius: 10px;
+}
+
+.custom-file-upload:hover {
 	background-color: #79CDCD;
 	border-color: #79CDCF;
 	color: #fff;
-	border-radius: 10px;
+	cursor: pointer;
 }
 input[type="file"] {
     display: none;
@@ -3766,4 +3787,20 @@ input[type="file"] {
 	border: 1px solid #ccc;
 	border-radius: 10px;
 }
-#createFolderModal 
+.modal-header h4{
+	text-align: center;
+} 
+#tagColor li>span {
+	border-radius: 10px;
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+}
+#form1 {
+	padding-top: 3%;
+	padding-left: 2%;
+}
+
+
+
+
