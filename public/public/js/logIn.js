@@ -75,7 +75,7 @@ function logIn(e) {
                 success: function (data) {
                     var res = jQuery.parseJSON(data);
                     if(res.Port)
-                        localStorage.port = res.Port;
+                        localStorage.cloudPort = res.Port;
                 },
                 error: function (xhr, status, error) {
                     bootbox.alert('Sorry, server crashes so that the cloud cannot be used', function() {
@@ -107,10 +107,11 @@ function logIn(e) {
                         });
                     }
                     else {
-                        if(res.Port)
+                        if(res.Port) {
                             localStorage.cloudPort = res.Port;
-                            localStorage.UserId = res.UserId;
+                            localStorage.userId = res.UserId;
                             location.href = "QNote.html";
+                        }
                     }
                 },
                 error: function (xhr, status, error) {
