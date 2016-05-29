@@ -671,10 +671,11 @@ function forwardpage(){
 						<b id="count"></b>
 						<br/><br/>
 						<div id = "audioDoc">
-							<h1>Audio Recording</h1>
-							<h4>1. Start recording </h4>
-							<h4>2. Stop recording </h4>
-							<h4>3. Then you can download it or clear it ^ ^ </h4>
+							<h1>Audio Recording</h1><br/>
+							<h3>1. Click start icon to start recording </h3>
+							<h3>2. Click stop icon to stop recording </h3>
+							<h3>3. Click download icon to download audio record</h3>
+							<h3>4. Click discard icon to delete record</h3>
 						</div>
 
 
@@ -700,7 +701,7 @@ function forwardpage(){
                        <div class="tab-pane fade" id="files">
                           <form id="form1" runat="server">
 
-				          <label class="custom-file-upload fileupload">
+				          <label class="custom-file-upload fileupload" id="fileuploadBtn">
 						    <input type="file" id="imgInp" class="browseFile" title="Choose a file" width=400px onChange="TrackLogRecord.newOpenFileRecord()"/>
 						    <i class="fa fa-folder-open-o" aria-hidden="true"></i> Choose a file to open
 						  </label>
@@ -709,8 +710,7 @@ function forwardpage(){
 <!--                           <div id="file-caption">Click on the button to display a file</div>
  -->						<div id = "displayfilediv"> 
                           <!-- iris -->
-	                          <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="JavaScript:'yeyeyyeyyeeyey'">	
-	                          		
+	                          <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="multimediaOpenMask.html">	
 	                          </iframe>
                       		</div>
                         </form>
@@ -902,7 +902,6 @@ function forwardpage(){
 							      <button type="button" class="close" data-dismiss="alert" alert-label="Close">
 							        <span aria-hidden="true">&times</span>
 							      </button>
-							      <strong>Error!</strong>
 							      {{FM.errorData}}
 							    </div>
 
@@ -988,8 +987,8 @@ function forwardpage(){
                         <div class="modal-body">
 
                             <ul id="myShareTab" class="nav nav-tabs">
-                                <li class="active"><a href="#baseInfo" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
-                                <li class=""><a href="#groupInfo" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
+                                <li class="active"><a href="#baseInfo" class="shareLink" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
+                                <li class=""><a href="#groupInfo" class="shareLink" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
 
                                 <!-- <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> -->
                             </ul>
@@ -1168,7 +1167,7 @@ function forwardpage(){
 <script src="public/js/tinymce/js/tinymce/tinymce.min.js"></script>
 
 <script src="public/js/DND.js"></script>  
-<script src="public/js/i18n/msg.en.js?t=b"></script>
+<script src="public/js/i18n/msg.en.js"></script>
 
 <script src="public/js/app.min.js"></script>
     

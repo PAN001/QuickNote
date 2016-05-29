@@ -116,7 +116,11 @@ var MSG = {
     "click to remove this image": "click to remove this image",
     "error": "error",
     "Prev": "Prev",
-    "Next": "Next"
+    "Next": "Next",
+    "ServerCrashes": "Sorry, error connecting to the server.",
+    "DoubleShared": "Sorry, this note has already been shared to the same user",
+    "ShareFail": "Sorry, sharing failed",
+    "ShareSuccess": "Share successfully"
 };
 
 function getMsg(key, data) {
