@@ -15,16 +15,18 @@ var root_dir = "/root/QuickNote/public/cloud/";
 
 var portMark = new Array();
 var basePort = 8080;
+var portSum = 500; // number of ports in total
 var portTable = {};
 
 function findPort(){
-	for(var i=0; i<500; i++){
-		if(portMark[i] != 1){
-//			portMark[i] = 1;
-			return basePort+i;
-		}
-	}
-	return -1;
+    var counter = 0; // to avoid infinite loop because of full capacity
+    while(counter < portSum){
+        var randomNumber = Math.round(Math.random()*portSum+basePort);
+        console.log("Random Number: "+ randomNumber);
+        if(portMark[randomNumber-basePort] != 1){
+            return randomNumber;
+        }
+    }
 }
 
 // make "node app.js" work on local machine, this use node's static file fetching
