@@ -222,13 +222,13 @@ app.post("/logIn", function(req, res) {
 					}
 					else {
 						console.log("wrong password");
-						res.end('{"msg": "wrong password", "status": "fail"}');
+						res.end('{"msg": "The password is wrong, please try again", "status": "fail"}');
 					}
 				});
 			}
 			else { // if not existent
 				console.log("not found email");
-				res.end('{"msg": "wrong email", "status": "fail"}');
+				res.end('{"msg": "The account does not exist", "status": "fail"}');
 			}
 		}
 	});

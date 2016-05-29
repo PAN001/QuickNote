@@ -66,7 +66,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
           FM.curFiles = files;
         })
         .error(function (data, status) {
-          alert('setCurFiles Error: ' + status + data);
+          //alert('setCurFiles Error: ' + status + data);
         })
     };
 
@@ -74,8 +74,14 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       if (!hash) {
         return $location.path('/');
       }
-      //console.log('Hash change: ' + hash);
-      var relPath = '/';//hash.slice(1);
+      console.log('Hash change: ' + hash);
+      console.log("hash.slice(1): "+hash.slice(1));
+      if(hash.slice(1)=="/cloudDisk"){
+        var relPath = '/';
+      }
+      else{
+        var relPath = hash.slice(1);
+      }
       FM.curHashPath = hash;
       FM.curFolderPath = relPath;
       FM.curBreadCrumbPaths = hash2paths(relPath);
@@ -153,19 +159,38 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.clickFile = function (file) {
       if (file.folder) {
         // open folder by setting url hash
+        console.log("go into the folder: "+file.relPath);
         $location.path(decodeURIComponent(file.relPath));
       }
       else {
         // download file
-        downloadFile(file);
+        // downloadFile(file);
+        document.getElementById("displayedFile").src = baseUrl+"3000" +"/cloud/"+Email+file.relPath;
+        window.setTimeout(function(){
+          $("#fileicon").trigger("click");
+        },0);
       }
     };
 
     FM.insertFile = function (file) {
       //TODO:
       //pass the address of current file to client
-      alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
-      $('#editor').append("<iframe src = \"baseUrl+cloudPort +\"/cloud/\"+Email+\"/\"+file.relPath\"></iframe> ")
+      file.relPath = file.relPath.replace(/[ ]/g,"%20");
+      //alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
+      var extension = file.relPath.substring(file.relPath.lastIndexOf('.'), file.relPath.length).toLowerCase();
+      if(extension == ".png" || extension == ".jpg" || extension == ".jpeg" || extension == ".bmp" || extension == ".gif"){
+        $('#editor').append("<img src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></img> ");
+      }
+      else if(extension == ".mp3" || extension == ".wma" || extension == ".wav"){
+        $('#editor').append("<embed src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=300 height=100></embed> ");
+      }
+      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
+        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=800 height=600></iframe> ");
+      }
+      else{
+        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=600 height=800></iframe> ");
+      }
+      
       // $("#")
 
     };
@@ -178,7 +203,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
 
     FM.delete = function () {
       for (var i in FM.selection) {
-        var relPath = FM.selection[0].relPath;
+        var relPath = FM.selection[i].relPath;
         var url =  cloudUrl + 'api' +  relPath;
         console.log("delete url: "+url);
         httpRequest('PUT', url, {type: 'DELETE'}, null);
