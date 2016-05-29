@@ -114,6 +114,10 @@
 
 <!--定制版的JQuery；需要放在bootstrap之前-->
 <script src="public/js/dep.min.js"></script>
+<!--    Jquery UI-->
+<script src="public/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="public/js/jquery-ui-1.11.4/jquery-ui.min.css" type="text/css" id="themeLink"/>
+    
 <script type="text/javascript">
     $.fn.notebookZTree = $.fn.zTree;
 </script>
@@ -1253,20 +1257,28 @@ function forwardpage(){
    		document.getElementById("gscDoc").style.display="none";
    }
 
-   function cse(){
-   			$(".gs-title").unbind();
-		   	$(".gs-title").on("click","a",onClickFunc2);
+    function registerEvents(){
+        console.log("tick");
+        $(".gs-title").unbind();
+        $(".gs-title").on("click","a",onClickFunc2);
 
-		   	$("#editor a").click(onClickFunc2);
-//		   	$(".gsc-search-button").on("click",hidecontent());
+        $("#editor a").click(onClickFunc2);
+        //		   	$(".gsc-search-button").on("click",hidecontent());
         $(".gsc-input").change(hidecontent);
-		   	// $("#webpage a").click(onClickFunc2);
-		};
+        // $("#webpage a").click(onClickFunc2);
+            $(".iframeWrapper").resizable({
+        start: function(event, ui) {
+            $('iframe').css('pointer-events','none');
+        },
+        stop: function(event, ui) {
+            $('iframe').css('pointer-events','auto');
+        }
+    });
+    };
 
-   $(document).ready(function(){
-   		setInterval(cse,1000);
-   		 
-   });
+    $(document).ready(function(){
+        setInterval(registerEvents,1000);
+    });
 
 
 
