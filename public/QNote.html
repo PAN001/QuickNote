@@ -802,6 +802,7 @@ function forwardpage(){
 <!-- 							          <div class="form-inline">
 							              <input type="file" class="form-control" ng-model="FM.uploadFile">
 							          </div> -->
+
 							        </div>
 							        <div class="modal-footer">
 							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -905,11 +906,21 @@ function forwardpage(){
 							      {{FM.errorData}}
 							    </div>
 
+
+								<div ng-show="progressVisible">
+								<div class="percent">{{progress}}%</div>
+								<div class="progress-bar">
+								    <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+								</div>
+								</div>
+
+								
 							</div>
 							<!-- </div> -->
 <!--   <span id="insertedFilePath">qertyu</span> -->
 <!--						</body>-->
 <!--						</html>-->
+
                        	</div>
 
 
