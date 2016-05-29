@@ -23,6 +23,7 @@ FileManager.list = function *(dirPath) {
     stat.name = files[i];
     stats.push(stat);
   }
+  console.log(stats)
   return stats;
 };
 

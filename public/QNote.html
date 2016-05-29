@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" ng-app="FMApp">
 <head>
 
 <meta charset="utf-8">
@@ -17,8 +17,9 @@
 <!--    global values-->
 <script>
     // 不需要同步的数据
-   // var baseUrl = "http:\/\/cs-linux.nottingham.edu.cn:8000\/";
-    var baseUrl = "http:\/\/115.28.134.156:3000\/";
+    var baseUrl = "http:\/\/115.28.134.156:";
+    var basePort = "3000";
+    
     var LEA = {};
     LEA.locale = "en";
     var GlobalConfigs = {"uploadAttachSize":0,"uploadAvatarSize":0,"uploadBlogLogoSize":0,"uploadImageSize":0};
@@ -113,6 +114,10 @@
 
 <!--定制版的JQuery；需要放在bootstrap之前-->
 <script src="public/js/dep.min.js"></script>
+<!--    Jquery UI-->
+<script src="public/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="public/js/jquery-ui-1.11.4/jquery-ui.min.css" type="text/css" id="themeLink"/>
+    
 <script type="text/javascript">
     $.fn.notebookZTree = $.fn.zTree;
 </script>
@@ -153,7 +158,7 @@
 
 <script src="public/js/videoRecorder/js/videojs.record.js"></script>
 <script src="public/js/videoRecorder/js/FileSaver.js"></script> 
-<script src="https://cdn.rawgit.com/eligrey/Blob.js/master/Blob.js"></script>
+<script src="public/recorder/Blob.js"></script>
 
 <style>
 /* change player background color */
@@ -219,7 +224,7 @@ function forwardpage(){
 }
 </script>
 </head>
-<body>
+<body ng-controller="FileManagerCtr as FM">
 	<div id="page">
 		<div id="pageInner">
 
@@ -615,7 +620,7 @@ function forwardpage(){
                            </a>
                         </li>
 <!--                        <li><a href="#files" data-toggle="tab" title="Open Files"onclick="TrackLogRecord.newCheckFileRecord()"> -->
-                       <li><a href="#files" data-toggle="tab" title="Open Files">
+                       <li><a href="#files" id = "fileicon" data-toggle="tab" title="Open Files">
                               <big><big><i class="fa fa-folder"></i></big></big>
                            </a>
                         </li>
@@ -670,10 +675,11 @@ function forwardpage(){
 						<b id="count"></b>
 						<br/><br/>
 						<div id = "audioDoc">
-							<h1>Audio Recording</h1>
-							<h4>1. Start recording </h4>
-							<h4>2. Stop recording </h4>
-							<h4>3. Then you can download it or clear it ^ ^ </h4>
+							<h1>Audio Recording</h1><br/>
+							<h3>1. Click start icon to start recording </h3>
+							<h3>2. Click stop icon to stop recording </h3>
+							<h3>3. Click download icon to download audio record</h3>
+							<h3>4. Click discard icon to delete record</h3>
 						</div>
 
 
@@ -684,7 +690,7 @@ function forwardpage(){
                           <br/><br/>
                           <button id="downloadbtn" onclick = "downloadvideo()"><i class="fa fa-download" aria-hidden="true"></i> DOWNLOAD</button><br/>
 <!--                           <i id="videodownload" class = "fa fa-downloadbtn"></i>-->
-                          <div id = audioDoc>
+                          <div id = "audioDoc">
 							<h1>Video Recording</h1>
 							<h3>1. Click the camera icon to start</h3>
 							<h3>2. Click start to start recording </h3>
@@ -699,14 +705,18 @@ function forwardpage(){
                        <div class="tab-pane fade" id="files">
                           <form id="form1" runat="server">
 
-                          <input type='file' id="imgInp" class="browseFile" title="Choose a file" width=400px onChange="TrackLogRecord.newOpenFileRecord()"/>
+				          <label class="custom-file-upload fileupload" id="fileuploadBtn">
+						    <input type="file" id="imgInp" class="browseFile" title="Choose a file" width=400px onChange="TrackLogRecord.newOpenFileRecord()"/>
+						    <i class="fa fa-folder-open-o" aria-hidden="true"></i> Choose a file to open
+						  </label>
 
-                          <div id="file-caption">Click on the button to display a file</div>
 
+<!--                           <div id="file-caption">Click on the button to display a file</div>
+ -->						<div id = "displayfilediv"> 
                           <!-- iris -->
-                          <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="JavaScript:'yeyeyyeyyeeyey'" height=600px>	
-                          		
-                          </iframe>
+	                          <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="multimediaOpenMask.html">	
+	                          </iframe>
+                      		</div>
                         </form>
                        </div>
 
@@ -729,9 +739,8 @@ function forwardpage(){
                        </div>
 
                        <!-- iris -->
-                       <div class="tab-pane fade" id="searchEngine" style = "overflow-y:scroll">
-                       
-                           <gcse:search></gcse:search> 
+                       <div class="tab-pane fade" id="searchEngine" style = "overflow-y:scroll">    
+                            <gcse:search></gcse:search> 
                            
 <!--
                         <div class="top-search">
@@ -745,22 +754,175 @@ function forwardpage(){
                             </form>
                         </div>
 -->
-							<!-- iris -->
                            <div id = "gscDoc" style = "position:absolute;left:25%;top:250px">
-                            
-							<h1>Search</h1>
-							<h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
-                               <br><br>
-							<h1>Add Content</h1>
-							<h4>Drag the best elements into your note<br> and add your own content.</h4>
-							
-							</div>
+
+                                <h1>Search</h1>
+                                <h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
+                                <br><br>
+                                <h1>Add Content</h1>
+                                <h4>Drag the best elements into your note<br> and add your own content.</h4>
+
+                            </div>
 						
                        </div>
 
 
                        <div class="tab-pane fade" id="cloudDisk">
-                       		<iframe id="cloudPage" name = "viewframe" src="http://115.28.134.156:8080" onchange="" nwdisable nwfaketop></iframe>                       
+                       		<!-- <iframe id="cloudPage" name = "viewframe" src="http://115.28.134.156:8080" onchange="" nwdisable nwfaketop></iframe> -->      
+<!--                       		<html lang="en" ng-app="FMApp">-->
+<!--                       		<body ng-controller="FileManagerCtr as FM">-->
+                       		  <div class="modal fade" id="createFolderModal">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <h4>New Folder</h4>
+							        </div>
+							        <div class="modal-body">
+							          <p>Complete Path　{{FM.curFolderPath + FM.newFolderName + '/'}}</p>
+							          <label>Folder Name    <input class="input-xlarge" ng-model="FM.newFolderName" /></label>
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!FM.newFolderName" ng-click="FM.createFolder(FM.newFolderName)">OK</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+
+							  <div class="modal fade" id="uploadFileModal">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <h4>Upload File</h4>
+							        </div>
+							        <div class="modal-body">
+							          <p>Upload to {{FM.curFolderPath + FM.uploadFile.name}}</p>
+							          <label class="custom-file-upload">
+									    <input type="file" class="form-control" ng-model="FM.uploadFile">
+									    <i class="fa fa-upload" aria-hidden="true"></i> Choose a file...
+									  </label>
+<!-- 							          <div class="form-inline">
+							              <input type="file" class="form-control" ng-model="FM.uploadFile">
+							          </div> -->
+
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!FM.uploadFile" ng-click="FM.upload()">OK</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+							  <div class="modal fade" id="renameModal">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <h4>Rename</h4>
+							        </div>
+							        <div class="modal-body">
+							          <label>New Name <input class="input-xlarge" ng-model="FM.newName" placeholder={{FM.selection[0].name}} /></label>
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!FM.newName" ng-click="FM.rename(FM.newName)">OK</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+
+							  <div class="modal fade" id="moveModal">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <h4>Move</h4>
+							        </div>
+							        <div class="modal-body">
+							          <label>Target　<input class="input-xlarge" ng-model="FM.moveTarget" placeholder="{{FM.curFolderPath}}" /></label>
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!FM.moveTarget" ng-click="FM.move(FM.moveTarget)">OK</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+							  <!-- iris0527 -->
+							  <!-- <div id = "maincontent"> -->
+<!-- 								  <nav class="navbar navbar-default navbar-static-top" style = "margin:0px;border-color:#fff">
+								    <div class="container">
+								      <div class="navbar-header">
+								        <a class="navbar-brand" href="#">File Manager</a>
+								      </div>
+								    </div>
+								  </nav> -->
+
+								 <div class="container">
+								    <div class="btn-toolbar">
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('download')" ng-click="FM.download()"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('delete')" ng-click="FM.delete()"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('move')" data-toggle="modal" data-target="#moveModal"><i class="fa fa-exchange" aria-hidden="true"></i> Move</button>
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('rename')" data-toggle="modal" data-target="#renameModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Rename</button>
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('create_folder')" data-toggle="modal" data-target="#createFolderModal"><i class="fa fa-folder-o" aria-hidden="true"></i></span> New Folder</button>
+								      <button type="button" class="btn btn-default " ng-disabled="FM.btnDisabled('upload_file')" data-toggle="modal" data-target="#uploadFileModal"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
+								    </div>
+
+								    <ol class="breadcrumb">
+								      <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+								      <li ng-repeat="p in FM.curBreadCrumbPaths"><a href={{p.path}}>{{p.name}}</a></li>
+								    </ol>
+
+								    <table class="table table-hover table-striped">
+								      <thead>
+								        <tr class="sortable">
+								          <th><input type="checkbox" value="" ng-model="FM.selectAll"></th>
+								          <th>Type</th>
+								          <th>Name</th>
+								          <th>Size</th>
+								          <!--
+								          <th>Time</th>
+								          -->
+								        </tr>
+								      </thead>
+								      <tbody>
+								      <tr class="sortable" ng-repeat="file in FM.curFiles | orderBy:'folder'">
+								        <td><input type="checkbox" value="{{file.name}}" ng-model="file.selected"></td>
+								        <td ng-click="FM.clickFile(file)"><span class="{{file.folder ? 'fa fa-folder-open-o' : 'fa fa-file-o'}}"></span></td>file
+								        <td ng-click="FM.clickFile(file)"><a>{{file.name}}</a></td>
+								        <td>{{file.humanSize}}</td>
+								        <!-- 
+								        <td>{{file.humanTime}}</td>
+								        -->
+								        <td><button type="button" class="btn btn-default" ng-click="FM.insertFile(file)" data-toggle="modal" style="{{file.folder ? 'display:none;' : ''}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Insert</button></td>
+								      </tr>
+								      </tbody>
+								    </table>
+
+							    <div id="successAlert" class="alert alert-success" role="alert" style="display: none">
+							      <span>{{FM.successData}}</span>
+							    </div>
+
+							    <div id="errorAlert" class="alert alert-danger" role="alert" style="display: none">
+							      <button type="button" class="close" data-dismiss="alert" alert-label="Close">
+							        <span aria-hidden="true">&times</span>
+							      </button>
+							      {{FM.errorData}}
+							    </div>
+
+
+								<div ng-show="progressVisible">
+								<div class="percent">{{progress}}%</div>
+								<div class="progress-bar">
+								    <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+								</div>
+								</div>
+
+								
+							</div>
+							<!-- </div> -->
+<!--   <span id="insertedFilePath">qertyu</span> -->
+<!--						</body>-->
+<!--						</html>-->
+
                        	</div>
 
 
@@ -838,8 +1000,8 @@ function forwardpage(){
                         <div class="modal-body">
 
                             <ul id="myShareTab" class="nav nav-tabs">
-                                <li class="active"><a href="#baseInfo" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
-                                <li class=""><a href="#groupInfo" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
+                                <li class="active"><a href="#baseInfo" class="shareLink" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
+                                <li class=""><a href="#groupInfo" class="shareLink" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
 
                                 <!-- <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> -->
                             </ul>
@@ -1018,7 +1180,7 @@ function forwardpage(){
 <script src="public/js/tinymce/js/tinymce/tinymce.min.js"></script>
 
 <script src="public/js/DND.js"></script>  
-<script src="public/js/i18n/msg.en.js?t=b"></script>
+<script src="public/js/i18n/msg.en.js"></script>
 
 <script src="public/js/app.min.js"></script>
     
@@ -1089,7 +1251,7 @@ function forwardpage(){
 		// });
   //  }
 
-   function onClickFunc2() {
+   function refreshWebbrowser() {
    		// location.href="#webpage";
    		$(this).attr("target", "viewframe");
    		var href = $(this).attr("href");
@@ -1104,32 +1266,35 @@ function forwardpage(){
    		document.getElementById("gscDoc").style.display="none";
    }
 
-   function cse(){
-   			$(".gs-title").unbind();
-		   	$(".gs-title").on("click","a",onClickFunc2);
+    function registerEvents(){
+        console.log("tick");
+        $(".gs-title").unbind();
+//        $(".gs-title").on("click","a",refreshWebbrowser);
 
-		   	$("#editor a").click(onClickFunc2);
-//		   	$(".gsc-search-button").on("click",hidecontent());
+//        $("#editor a").click(refreshWebbrowser);
+//        $(".gsc-search-button").on("click",hidecontent());
         $(".gsc-input").change(hidecontent);
-		   	// $("#webpage a").click(onClickFunc2);
-		};
+        // $("#webpage a").click(refreshWebbrowser);
+        $(".iframeWrapper").resizable({
+            start: function(event, ui) {
+                $('iframe').css('pointer-events','none');
+            },
+            stop: function(event, ui) {
+                $('iframe').css('pointer-events','auto');
+            }
+        });
+    };
 
-   $(document).ready(function(){
-   		setInterval(cse,1000);
-   		 
-   });
+    $(document).ready(function(){
+//        setInterval(registerEvents,1000);
+        $("#editor").delegate("a","click",refreshWebbrowser);
+//        $("searchEngine").delegate(".gsc-search-button","click",hidecontent());
+        $("#searchEngine").delegate(".gsc-input","change",hidecontent); // hide the help information behind the GCSE
+    });
 
-
-
-  // $(".gs-title").on("click","a",function(){
-  //   $(this).alert("123");
-  // });
-
-</script>
-
-<script>
     $("#videodownload").on("click",downloadvideo())
 </script>
+    
 <script src="public/js/recorder/recorder.js"> </script>
 <script src="public/js/recorder/recorderWorker.js"> </script>
 <script src="public/js/recorder/configRecorder.js"> </script>
@@ -1152,7 +1317,14 @@ function forwardpage(){
 <script src="public/js/group.js"></script>
 <link href="public/css/group.css" rel="stylesheet" />
 
-
+<!--cloud disk-->
+<!-- <script src="http://cdn.bootcss.com/angular.js/1.4.5/angular.min.js"></script> -->
+<script src="public/js/angular.min.js"></script>
+<script src="public/js/angular-file.js"></script>
+<script src="public/js/app-file.js"></script>
+<!--<link href="public/css/bootstrap.v3.3.5.min.css" rel="stylesheet">-->
+<!--<link href="public/css/bootstrap.v3.3.6.min.css" rel="stylesheet">-->
+    
 </body>
 </html>
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+//#!/usr/bin/env node
 
 var koa =require('koa');
 var path = require('path');
@@ -6,7 +6,8 @@ var tracer = require('tracer');
 var mount = require('koa-mount');
 var morgan = require('koa-morgan');
 var koaStatic = require('koa-static');
-
+var cors = require('kcors');
+var cors2 = require('koa-cors');
 // Config
 var argv = require('optimist')
   .usage([
@@ -59,6 +60,15 @@ var startServer = function (app, port) {
 
 var app = koa();
 app.proxy = true;
+
+
+var options = {
+  origin: '*',
+  methods: ['GET', 'PUT', 'POST']
+};
+
+app.use(cors2(options));
+
 app.use(Tools.handelError);
 app.use(Tools.realIp);
 app.use(morgan.middleware(C.morganFormat));

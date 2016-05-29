@@ -43,6 +43,8 @@ function initEditor() {
                 callback(e.target.result, {
                   alt: ''
                 });
+//                top.tinymce.activeEditor.windowManager.close();
+//                $("#editor").append("<iframe src=" + '"' + e.target.result + '"' + ">" + "</iframe>");
               };
               reader.readAsDataURL(file);
             });

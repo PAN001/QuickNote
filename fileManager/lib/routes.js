@@ -13,15 +13,16 @@ var FileManager = require('./fileManager');
 var router = new koaRouter();
 var render = views(path.join(__dirname, './views'), {map: {html: 'ejs'}});
 
-router.get('/', function *() {
-  this.redirect('files');
-});
-
-router.get('/files', function *() {
-  this.body = yield render('files');
-});
+//router.get('/', function *() {
+//  this.redirect('files');
+//});
+//
+//router.get('/files', function *() {
+//  this.body = yield render('files');
+//});
 
 router.get('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, function *() {
+  console.log('/api/(.*)get activates');
   var p = this.request.fPath;
   var stats = yield fs.stat(p);
   if (stats.isDirectory()) {
@@ -33,13 +34,15 @@ router.get('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, function *() 
   }
 });
 
-router.del('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, function *() {
+router.del('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, function* () {
+  console.log('/api/(.*)del activates');
   var p = this.request.fPath;
   yield * FileManager.remove(p);
   this.body = 'Delete Succeed!';
 });
 
 router.put('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, bodyParser(), function* () {
+  console.log('/api/(.*)put activates');
   var type = this.query.type;
   var p = this.request.fPath;
   if (!type) {
@@ -61,13 +64,19 @@ router.put('/api/(.*)', Tools.loadRealPath, Tools.checkPathExists, bodyParser(),
     yield * FileManager.rename(p, FilePath(target));
     this.body = 'Rename Succeed!';
   }
+  else if(type === 'DELETE'){
+    console.log("here: routes.js, type = DELETE");
+    yield * FileManager.remove(p);
+    this.body = 'Delete Succeed!';
+  }
   else {
     this.status = 400;
     this.body = 'Arg Type Error!';
   }
 });
 
-router.post('/api/(.*)', Tools.loadRealPath, Tools.checkPathNotExists, function *() {
+router.post('/api/(.*)', Tools.loadRealPath, Tools.checkPathNotExists, function* () {
+  console.log('/api/(.*)post activates');
   var type = this.query.type;
   var p = this.request.fPath;
   if (!type) {
@@ -90,6 +99,7 @@ router.post('/api/(.*)', Tools.loadRealPath, Tools.checkPathNotExists, function 
       this.body = 'Lack Upload File!';
     }
   }
+  
   else {
     this.status = 400;
     this.body = 'Arg Type Error!';

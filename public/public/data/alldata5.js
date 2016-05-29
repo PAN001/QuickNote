@@ -35,17 +35,19 @@ function sleep(miliseconds) {
 
 //加载用户名：
 var Email = localStorage.email;
-var UserId = localStorage.UserId;
+var UserId = localStorage.userId;
 var Password = localStorage.password;
 
 // load port number for cloud disk
-var Port = localStorage.port;
+var cloudPort = localStorage.cloudPort;
+//localStorage.cloudPort = ""; // discard so that it wont be used next time accidentally
 
 // update the username
 $("#username").html(Email);
 
-// update the port number
-$("#cloudPage").src = "http:\/\/115.28.134.156:" + Port;
+//// update the port number
+//$("#cloudPage").src = "http:\/\/115.28.134.156:" + Port;
+
 //var UserId = "56a82c7bab64417776002a5c";
 //var isConnected = true;
 var isConnected = navigator.onLine;
@@ -56,7 +58,7 @@ UserInfo = {"UserId": UserId,"Email": Email,"Verified": true, "Username":Email, 
 function retrieveData() {
     $.ajax({
         type: 'GET', // added,
-        url: baseUrl + 'getAll',
+        url: baseUrl + basePort + '\/getAll',
         data: "UserId=" + UserId ,
     //                dataType: "json",
     //                contentType: "application/json; charset=UTF-8",

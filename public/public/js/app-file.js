@@ -1,4 +1,8 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
+// var cloudPort = 8080;
+// var baseUrl = "http:\/\/localhost:";
+var cloudUrl = baseUrl + cloudPort + "\/";
+var port; 
 
 FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
   function ($scope, $http, $location) {
@@ -47,8 +51,10 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     };
 
     var setCurFiles = function (relPath) {
-      $http.get('api' + relPath)
+//      alert("relPath" + relPath);
+      $http.get(cloudUrl + "api" + relPath)
         .success(function (data) {
+//          alert("success");
           var files = data;
           files.forEach(function (file) {
             file.relPath = relPath + file.name;
@@ -60,8 +66,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
           FM.curFiles = files;
         })
         .error(function (data, status) {
-          alert('Error: ' + status + data);
-        });
+          //alert('setCurFiles Error: ' + status + data);
+        })
     };
 
     var handleHashChange = function (hash) {
@@ -69,7 +75,13 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         return $location.path('/');
       }
       console.log('Hash change: ' + hash);
-      var relPath = hash.slice(1);
+      console.log("hash.slice(1): "+hash.slice(1));
+      if(hash.slice(1)=="/cloudDisk"){
+        var relPath = '/';
+      }
+      else{
+        var relPath = hash.slice(1);
+      }
       FM.curHashPath = hash;
       FM.curFolderPath = relPath;
       FM.curBreadCrumbPaths = hash2paths(relPath);
@@ -118,32 +130,73 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       for (var k in config) {
         if (config.hasOwnProperty(k)) {
           conf[k] = config[k];
+          console.log("k: "+k+ " value: "+config[k])
         }
       }
       console.log('request url', url);
-      $http(conf)
+      if(method === "DELETE"){
+        
+      }
+      else{
+        $http(conf)
         .success(function (data) {
           FM.successData = data;
           handleHashChange(FM.curHashPath);
+          console.log("http request success");
         })
         .error(function (data, status) {
-          FM.errorData = ' ' + status + ': ' + data;
+
+            FM.errorData = getMsg("ServerCrashes");
+            console.log("http request failed" + ' ' + status + ': ' + data);
         });
+      }
+      
     };
 
     var downloadFile = function (file) {
-      window.open('api' + file.relPath);
+      window.open(cloudUrl + 'api' + file.relPath);
     };
 
     FM.clickFile = function (file) {
       if (file.folder) {
         // open folder by setting url hash
+        console.log("go into the folder: "+file.relPath);
         $location.path(decodeURIComponent(file.relPath));
       }
       else {
         // download file
-        downloadFile(file);
+        // downloadFile(file);
+        document.getElementById("displayedFile").src = baseUrl+"3000" +"/cloud/"+Email+file.relPath;
+        window.setTimeout(function(){
+          $("#fileicon").trigger("click");
+        },0);
       }
+    };
+
+    FM.insertFile = function (file) {
+      //TODO:
+      //pass the address of current file to client
+      file.relPath = file.relPath.replace(/[ ]/g,"%20");
+      //alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
+      var extension = file.relPath.substring(file.relPath.lastIndexOf('.'), file.relPath.length).toLowerCase();
+      if(extension == ".png" || extension == ".jpg" || extension == ".jpeg" || extension == ".bmp" || extension == ".gif"){
+        $('#editor').append("<img src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></img> ");
+      }
+      else if(extension == ".mp3" || extension == ".wma" || extension == ".wav"){
+        $('#editor').append("<embed src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=300 height=100></embed> ");
+      }
+//      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
+//        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div> ");
+//      }
+//      else{
+//        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div>");
+//      }
+        else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
+            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+">");
+        }
+        else{
+            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe>");
+        }  
     };
 
     FM.download = function () {
@@ -155,13 +208,14 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     FM.delete = function () {
       for (var i in FM.selection) {
         var relPath = FM.selection[i].relPath;
-        var url = 'api' + relPath;
-        httpRequest('DELETE', url, null, null);
+        var url =  cloudUrl + 'api' +  relPath;
+        console.log("delete url: "+url);
+        httpRequest('PUT', url, {type: 'DELETE'}, null);
       }
     };
 
     FM.move = function (target) {
-      var url = 'api' + target;
+      var url = cloudUrl + 'api' + target;
       var src = FM.selection.map(function (file) {
         return file.relPath;
       });
@@ -169,14 +223,14 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
     };
 
     FM.rename = function (newName) {
-      var url = 'api' + FM.selection[0].relPath;
+      var url = cloudUrl + 'api' + FM.selection[0].relPath;
       var target = FM.curFolderPath + newName;
       console.log('rename target', target);
       httpRequest('PUT', url, {type: 'RENAME'}, {target: target});
     };
 
     FM.createFolder = function (folderName) {
-      var url = 'api' + FM.curFolderPath + folderName;
+      var url = cloudUrl + 'api' + FM.curFolderPath + folderName;
       httpRequest('POST', url, {type: 'CREATE_FOLDER'}, null);
     };
 
@@ -184,7 +238,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       console.log('Upload File:', FM.uploadFile);
       var formData = new FormData();
       formData.append('upload', FM.uploadFile);
-      var url = 'api' + FM.curFolderPath + FM.uploadFile.name;
+      var url = cloudUrl + 'api' + FM.curFolderPath + FM.uploadFile.name;
+      // alert("folder path" + FM.curFolderPath);
       httpRequest('POST', url, {type: 'UPLOAD_FILE'}, formData, {
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined}
@@ -209,6 +264,8 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         case 'upload_file':
         case 'create_folder':
           return false;
+        case 'insert':
+
         default:
           return true;
       }

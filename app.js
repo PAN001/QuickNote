@@ -11,20 +11,22 @@ var app = express();
 var mkdirp = require('mkdirp');
 
 // root address of cloud disk
-var root_dir = "/root/QuickNote/cloud/";
+var root_dir = "/root/QuickNote/public/cloud/";
 
 var portMark = new Array();
 var basePort = 8080;
+var portSum = 500; // number of ports in total
 var portTable = {};
 
 function findPort(){
-	for(var i=0; i<500; i++){
-		if(portMark[i] != 1){
-//			portMark[i] = 1;
-			return basePort+i;
-		}
-	}
-	return -1;
+    var counter = 0; // to avoid infinite loop because of full capacity
+    while(counter < portSum){
+        var randomNumber = Math.round(Math.random()*portSum+basePort);
+        console.log("Random Number: "+ randomNumber);
+        if(portMark[randomNumber-basePort] != 1){
+            return randomNumber;
+        }
+    }
 }
 
 // make "node app.js" work on local machine, this use node's static file fetching
@@ -107,15 +109,11 @@ app.post("/register", function(req, res) {
 	console.log("register activated");
 	console.log("Body is: " + req.body);
 	var parsedData = JSON.parse(req.body);
+    var email = parsedData.Email;
+    var userId = parsedData.UserId;
 
-	//req.db.collection('allAppData').insert(parsedData, function(err, data) {
-	//	if(err) console.log(err);
-	//	else {
-	//		console.log("data saved to db");
-	//	}
-	//});
-
-	var findQuery = {"Email": parsedData.Email};
+    console.log("userId in register is: " + userId);
+	var findQuery = {"Email": email};
 	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
 		if(err) {
 			console.log(err);
@@ -127,19 +125,46 @@ app.post("/register", function(req, res) {
 			}
 			else { // if not existent
 				req.db.collection('registeredUsers').insert(parsedData, function(err, data) {
-						if(err) {
-							console.log(err);
-							res.end('{"msg": "DB error", "status": "fail"}');
-						}	
-						else {
-							console.log("data inserted to db");
-							res.end('{"msg": "Reistered successfully", "status": "success"}');
-							mkdirp(root_dir + parsedData.Email, function(msg) { 
-								console.log("directory created");
-							});
-						}
-					});
-				}
+                    if(err) {
+                        console.log(err);
+                        res.end('{"msg": "DB error", "status": "fail"}');
+                    }	
+                    else {
+                        console.log("data inserted to db");
+
+                        // create the cloud directory
+                        mkdirp(root_dir + email, function(msg) { 
+                            console.log("directory created");
+                        });
+
+                        // find the port and start the corresponding process
+                        var port = findPort();
+                        var path = root_dir + email;
+                        console.log("Port open: " + port);
+                        console.log("Parh: " + path);
+                        var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
+                            if (error !== null) {
+                                console.log('exec error: ', error);
+                            }
+                            else {
+//                                portTable[parsedData.UserId] = port;
+                                console.log("process starts");
+                            }
+                        });
+                        if(result) {
+                            portTable[userId] = {
+                                Port: port,
+                                PId: result.pid
+                            };
+                            portMark[port-basePort] = 1;
+//                                console.log("id is " + userId);
+//                                console.log("port is " + portTable[userId].Port);
+//                                console.log("pid is " + portTable[userId].Pid);
+                        }
+                        res.end('{"msg": "Reistered successfully", "status": "success", ' + '"Port": ' + port + "}");
+                    }
+                });
+            }
 		}
 	});
 });
@@ -167,10 +192,13 @@ app.post("/logIn", function(req, res) {
 						console.log("log in successfully");
 						// res.end('{"msg": "Log in successfully", "status": "success"}');                        
                         
+                        // find the port and start the corresponding process
                         var userId = data.UserId;
                         var port = findPort();
                         var path = root_dir + email;
                         console.log("Port open: " + port);
+                        console.log("Parh: " + path);
+                        
                         var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
                             if (error !== null) {
                                 console.log('exec error: ', error);
@@ -180,16 +208,15 @@ app.post("/logIn", function(req, res) {
                                 console.log("process starts");
                             }
                         });
-                        console.log("result is " + result);
-                        if(result) {
+                        if(result) { // if the process starts successfully
                             portTable[userId] = {
                                 Port: port,
                                 PId: result.pid
                             };
-                            portMark[port-basePort] = 1;
-                            console.log("id is " + userId);
+                            portMark[port - basePort] = 1;
+                            console.log("userId is " + userId);
                             console.log("port is " + portTable[userId].Port);
-                            console.log("pid is " + portTable[userId].Pid);
+                            console.log("pid is " + portTable[userId].PId);
                         }
                         
                         data.Port = port;
@@ -197,13 +224,13 @@ app.post("/logIn", function(req, res) {
 					}
 					else {
 						console.log("wrong password");
-						res.end('{"msg": "wrong password", "status": "fail"}');
+						res.end('{"msg": "The password is wrong, please try again", "status": "fail"}');
 					}
 				});
 			}
 			else { // if not existent
 				console.log("not found email");
-				res.end('{"msg": "wrong email", "status": "fail"}');
+				res.end('{"msg": "The account does not exist", "status": "fail"}');
 			}
 		}
 	});

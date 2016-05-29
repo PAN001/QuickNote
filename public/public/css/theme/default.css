@@ -290,7 +290,7 @@
 	/*margin-bottom: 10px;*/
 	/*padding: 0px;*/
 	border:0px;
-	color: #CD5555;
+/*	color: #CD5555;*/
 	text-align: center;
 }
 
@@ -589,22 +589,22 @@ a.raw:hover {
 
 #audioDoc{
     color: #bbb;
-        text-align:center;
+    text-align:center;
     -moz-user-select:none;
-  -webkit-user-select:none;
-  -ms-user-select:none;
-  -khtml-user-select:none;
-  user-select:none
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    -khtml-user-select:none;
+    user-select:none
 }
 
 #gscDoc{
     color: #bbb;
-        text-align:center;
+    text-align:center;
     -moz-user-select:none;
-  -webkit-user-select:none;
-  -ms-user-select:none;
-  -khtml-user-select:none;
-  user-select:none
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    -khtml-user-select:none;
+    user-select:none
 }
 
 #audioRecording{
@@ -3340,11 +3340,22 @@ h1,h2,h3 {
 	margin-left: 5px;
 }
 
+#files {
+	height:100%;
+}
+#form1{
+	height: 100%;
+}
+#displayfilediv{
+	height: 100%;
+}
 .display
 {
-	width: 98%;
-	height: 600px;
-	border-radius: 7px;
+	width: 95%;
+/*	height: 800px;
+*/
+	height: 90%;
+	border-radius: 10px;
 	margin-left: 1%;
 	margin-right: 1%;
 	margin-top: 0.5%;
@@ -3352,8 +3363,11 @@ h1,h2,h3 {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	border: 1.5px solid #ccc;
+	overflow: scroll;
 }
-
+#displayfilediv {
+	overflow: scroll;
+}
 #noteItemList li{
 /*    float:left;*/
     display: inline-block;
@@ -3696,11 +3710,17 @@ h1,h2,h3 {
 	border-color: #ccc;
 	color:#000;
 }
-.btn-default:hover {
+.container .btn-toolbar {
+	padding: 20px;
+		list-style: none;
+		display: inline-block;
+}
+.container .btn:hover{
 	background-color: #79CDCD;
 	border-color: #79CDCF;
 	color: #fff;
 }
+
 #editor .drggableDiv {
 	border-radius: 10px;
 	border: 1px;
@@ -3712,3 +3732,130 @@ h1,h2,h3 {
 	background-color: #ccc;
 }*/
 
+.container {
+	background-color: #fff;
+	width: auto;
+	position: relative;
+	display: inline;
+	white-space: nowrap;
+	float: left;
+}
+.container .navbar-header {
+	width: 100%;
+}
+.container .navbar-brand {
+	width: 100%;
+	text-align: center;
+}
+/*#maincontent {
+	width: 100%;
+	float: left;
+}*/
+#cloudDisk {
+	width: 100%;
+	float: left;
+
+}
+#uploadFileModal .modal-header h4 {
+	text-align: center;
+}
+
+.custom-file-upload {
+	font-size: 15px;
+    display: inline-block;
+    padding: 6px 12px;
+	background-color: #fff;
+	border:1px solid #ccc;
+	color: #000;
+	border-radius: 10px;
+}
+
+.custom-file-upload:hover {
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+	cursor: pointer;
+}
+input[type="file"] {
+    display: none;
+}
+.modal-footer .btn {
+	background-color: #fff;
+	color: #000;
+	border-radius: 10px;
+}
+.modal-footer .btn:hover{
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+}
+.btn-primary[disabled] {
+	border-color: #ccc;
+}
+#createFolderModal input {
+	border: 1px solid #ccc;
+	border-radius: 10px;
+}
+.modal-header h4{
+	text-align: center;
+} 
+#tagColor li>span {
+	border-radius: 10px;
+	background-color: #79CDCD;
+	border-color: #79CDCF;
+	color: #fff;
+}
+#form1 {
+	padding-top: 3%;
+	padding-left: 2%;
+}
+#editor span {
+	border-color: #fff;
+}
+
+.iframeWrapper {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 9;
+}
+
+#editor iframe {
+/*    width: 100%;*/
+/*    height: 100%;*/
+    border: none;    
+    z-index: 1;
+    border-radius: 3px;
+    border: 5px dotted #ccc;
+}
+
+#editor iframe:hover {
+	border-color: #79CDCD;
+}
+
+/*
+#editor iframe {
+	border-color: #fff;
+    border-radius: 3px;
+	border: 5px dotted #ccc;
+}
+*/
+
+.percent {
+    position: absolute; width: 300px; height: 14px; z-index: 1; text-align: center; font-size: 0.8em; color: white;
+}
+.progress-bar {
+    width: 300px; height: 14px;
+    border-radius: 10px;
+    border: 1px solid #CCC;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#6666cc), to(#4b4b95));
+    border-image: initial;
+}
+.uploaded {
+    padding: 0;
+    height: 14px;
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#66cc00), to(#4b9500));
+    border-image: initial;
+}

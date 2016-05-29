@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>File Manager</title>
 
-  <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
   <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
   <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="//cdn.bootcss.com/angular.js/1.4.5/angular.min.js"></script>
@@ -123,7 +123,9 @@
           <th>Type</th>
           <th>Name</th>
           <th>Size</th>
+          <!--
           <th>Time</th>
+          -->
         </tr>
       </thead>
       <tbody>
@@ -132,7 +134,10 @@
         <td ng-click="FM.clickFile(file)"><span class="{{file.folder ? 'glyphicon glyphicon-folder-open' : 'glyphicon glyphicon-file'}}"></span></td>
         <td ng-click="FM.clickFile(file)"><a>{{file.name}}</a></td>
         <td>{{file.humanSize}}</td>
+        <!-- 
         <td>{{file.humanTime}}</td>
+        -->
+        <td><button type="button" class="btn btn-default" ng-click="FM.insertFile(file)" data-toggle="modal" style="{{file.folder ? 'display:none;' : ''}}">Insert</button></td>
       </tr>
       </tbody>
     </table>
@@ -150,6 +155,6 @@
     </div>
 
   </div>
-
+  <span id="insertedFilePath">qertyu</span>
 </body>
 </html>
