@@ -3800,7 +3800,17 @@ input[type="file"] {
 	padding-top: 3%;
 	padding-left: 2%;
 }
-
+#editor iframe {
+/*	border-color: #fff;*/
+		border-radius: 3px;
+	border: 5px dotted #ccc;
+}
+#editor span {
+	border-color: #fff;
+}
+#editor iframe:hover {
+	border-color: #79CDCD;
+}
 
 
 
