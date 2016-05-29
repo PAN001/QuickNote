@@ -22,13 +22,16 @@ angular.module('ur.file', []).config(['$provide', function($provide) {
     throw new Error("This browser does not support XMLHttpRequest.");
   };
 
+
+
   /**
    * Initializes XHR object with parameters from $httpBackend.
    */
   function prepXHR(method, url, headers, callback, withCredentials, type, manager) {
+    console.log("prepXHR activated");
     var xhr = new XHR();
     var status;
-
+    xhr.upload.addEventListener("progress", uploadProgress, false);
     xhr.open(method, url, true);
 
     if (type) {
@@ -142,6 +145,17 @@ angular.module('ur.file', []).config(['$provide', function($provide) {
           if (!$rootScope.$$phase) $rootScope.$apply();
         }
         // onprogress: Gee, it'd be great to get some progress support from $q...
+        // onprogress: function(e){
+        //   console.log("here~!!!!~~~~~");
+        //   deferred.reject(e);
+        //     scope.$apply(function(){
+        //       if (evt.lengthComputable) {
+        //           scope.progress = Math.round(evt.loaded * 100 / evt.total)
+        //       } else {
+        //           scope.progress = 'unable to compute'
+        //       }
+        //     });
+        // }
       });
       reader.readAsDataURL(file);
 
@@ -173,7 +187,7 @@ angular.module('ur.file', []).config(['$provide', function($provide) {
       }
       var parts = data.split(","), headers = parts[0].split(":"), body;
 
-      if (parts.length !== 2 || headers.length !== 2 || headers[0] !== "data") {
+    if (parts.length !== 2 || headers.length !== 2 || headers[0] !== "data") {
         throw new Error("Invalid data URI.");
       }
       headers = headers[1].split(";");
@@ -202,6 +216,7 @@ angular.module('ur.file', []).config(['$provide', function($provide) {
       };
     },
     register: function(xhr) {
+      console.log("register here");
       if (this.id === null) {
         return false;
       }
@@ -211,11 +226,22 @@ angular.module('ur.file', []).config(['$provide', function($provide) {
       var self = this;
 
       xhr.upload.onprogress = function(e) {
+        console.log("DJB0");
         if (e.lengthComputable) {
+          console.log("DJB1");
           self.uploads[xhr._idXhr]['loaded'] = e.loaded;
           self.uploads[xhr._idXhr]['total'] = e.total;
           self.uploads[xhr._idXhr]['percent'] = Math.round(e.loaded / e.total * 100);
           $rootScope.$apply();
+
+          scope.$apply(function(){
+            console.log("DJB2");
+            if (e.lengthComputable) {
+                scope.progress = self.uploads[xhr._idXhr]['percent'];
+            } else {
+                scope.progress = 'unable to compute';
+            }
+          });
         }
       };
       return true;
@@ -236,6 +262,22 @@ angular.module('ur.file', []).config(['$provide', function($provide) {
       return false;
     }
   });
+    // onprogress = function(e) {
+    //     console.log("DJB0");
+    //     if (e.lengthComputable) {
+    //       console.log("DJB1");
+    //       self.uploads[xhr._idXhr]['loaded'] = e.loaded;
+    //       self.uploads[xhr._idXhr]['total'] = e.total;
+    //       self.uploads[xhr._idXhr]['percent'] = Math.round(e.loaded / e.total * 100);
+    //       $rootScope.$apply();
+
+    //       scope.$apply(function(){
+    //         console.log("DJB2");
+    //         if (e.lengthComputable) {
+    //             scope.progress = self.uploads[xhr._idXhr]['percent'];
+    //         } else {
+    //             scope.progress = 'unable to compute';
+    //         }
 
 }]).directive('type', ['$parse', function urModelFileFactory($parse) {
 
@@ -339,3 +381,14 @@ angular.module('ur.file', []).config(['$provide', function($provide) {
   };
 
 }]);
+
+function uploadProgress(evt) {
+  console.log("uploadProgress activated");
+    scope.$apply(function(){
+        if (evt.lengthComputable) {
+            scope.progress = Math.round(evt.loaded * 100 / evt.total)
+        } else {
+            scope.progress = 'unable to compute'
+        }
+    })
+}
