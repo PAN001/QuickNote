@@ -43,7 +43,7 @@ function register(e) {
             }
         },
         error: function (xhr, status, error) {
-            bootbox.alert('Sorry, server crashes', function() {
+            bootbox.alert(getMsg("ServerCrashes"), function() {
             });
         }
     });
@@ -82,7 +82,7 @@ function logIn(e) {
                 error: function (xhr, status, error) {
                     localStorage.UserId = allAppData.UserInfo.UserId;
                     location.href = "QNote.html";
-                    bootbox.alert('Sorry, server crashes so that the cloud cannot be used', function() {
+                    bootbox.alert(getMsg("ServerCrashes"), function() {
                     });
                 }
             });
@@ -119,7 +119,7 @@ function logIn(e) {
                     }
                 },
                 error: function (xhr, status, error) {
-                    bootbox.alert('Sorry, server crashes', function() {
+                    bootbox.alert(getMsg("ServerCrashes"), function() {
                     });
                 }
             });

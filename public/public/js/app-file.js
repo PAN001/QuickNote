@@ -145,8 +145,9 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
           console.log("http request success");
         })
         .error(function (data, status) {
-          FM.errorData = ' ' + status + ': ' + data;
-          console.log("http request failed");
+
+            FM.errorData = getMsg("ServerCrashes");
+            console.log("http request failed" + ' ' + status + ': ' + data);
         });
       }
       
