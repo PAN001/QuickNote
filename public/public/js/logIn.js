@@ -60,7 +60,7 @@ function logIn(e) {
     localforage.getItem('allAppData', function(err, value) {
         allAppData = value;
         if(allAppData != null && allAppData.UserInfo.Email == Email && allAppData.UserInfo.Password == Password) { // 如果本地有数据且匹配
-            
+//            alert("inside"
             var jsonData = {
                 "Email": Email, 
                 "Password": Password
@@ -76,14 +76,18 @@ function logIn(e) {
                     var res = jQuery.parseJSON(data);
                     if(res.Port)
                         localStorage.cloudPort = res.Port;
+                    localStorage.UserId = allAppData.UserInfo.UserId;
+                    location.href = "QNote.html";
                 },
                 error: function (xhr, status, error) {
+                    localStorage.UserId = allAppData.UserInfo.UserId;
+                    location.href = "QNote.html";
                     bootbox.alert('Sorry, server crashes so that the cloud cannot be used', function() {
                     });
                 }
             });
-            localStorage.UserId = allAppData.UserInfo.UserId;
-            location.href = "QNote.html";
+//            localStorage.UserId = allAppData.UserInfo.UserId;
+//            location.href = "QNote.html";
         }
         else {
             // 与本地数据不匹配或者本地没有数据,与server比对

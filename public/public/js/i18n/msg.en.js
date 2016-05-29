@@ -116,7 +116,8 @@ var MSG = {
     "click to remove this image": "click to remove this image",
     "error": "error",
     "Prev": "Prev",
-    "Next": "Next"
+    "Next": "Next",
+    "ServerCrashes": "Sorry, error connecting to the server."
 };
 
 function getMsg(key, data) {
