@@ -97,7 +97,7 @@ Date.prototype.format = function(t) {
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/root/QuickNote/public/cloud/');
+        cb(null, '/root/QuickNote/public/cloud/210/');
     },
     filename: function (req, file, cb) {
         var date = new Date();
@@ -109,6 +109,7 @@ var upload = multer({ storage: storage });
 
 app.post('/upload', upload.any(), function(req, res){
     console.log("video upload received");
+    console.log(req.files);
     res.json({code: 200});
 });
 
