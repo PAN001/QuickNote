@@ -97,7 +97,7 @@ Date.prototype.format = function(t) {
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/root/QuickNote/public/cloud/'+);
+        cb(null, '/root/QuickNote/public/cloud/');
     },
     filename: function (req, file, cb) {
         var date = new Date();
