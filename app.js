@@ -86,7 +86,7 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         var date = new Date();
-        cb(null, "Video-Recording-"+toLocaleString()+".webm");
+        cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
     }
 });
 var upload = multer({ storage: storage });
