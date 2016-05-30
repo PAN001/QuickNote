@@ -79,7 +79,20 @@ app.use(function(req, res, next) {
 	next();
 });
 
-
+Date.prototype.format = function(t) {
+    var e = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        S: this.getMilliseconds()
+    };
+    /(y+)/.test(t) && (t = t.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length)));
+    for (var n in e) new RegExp("(" + n + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? e[n] : ("00" + e[n]).substr(("" + e[n]).length)));
+    return t
+};
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, '/root/QuickNote/public/cloud/210')
