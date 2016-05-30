@@ -95,21 +95,21 @@ Date.prototype.format = function(t) {
     return t
 };
 
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
-//         // console.log(req);
-//         console.log("!!!!!" + req.params.type);
-//         console.log(req.file);
-//         console.log(file);
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
+        // console.log(req);
+        console.log("!!!!!" + req.params.type);
+        console.log(req.file);
+        console.log(file);
 
-//         cb(null, '/root/QuickNote/public/cloud/' + '210' + '/');
-//     },
-//     filename: function (req, file, cb) {
-//         var date = new Date();
-//         cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
-//     }
-// });
+        cb(null, '/root/QuickNote/public/cloud/' + '210' + '/');
+    },
+    filename: function (req, file, cb) {
+        var date = new Date();
+        cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
+    }
+});
 
 // var upload = multer({   storage: storage,
 //                         // changeDest:  function(dest, req, res) {
@@ -126,26 +126,26 @@ Date.prototype.format = function(t) {
 //                         //     return newDestination;
 //                     });
 
-var upload = multer({
-    dest: './uploads/',
-    changeDest: function(dest, req, res) {
-        // console.log(req);
-        console.log(req.body);
-        var newDestination = dest + req.params.type;
-        var stat = null;
-        try {
-            stat = fs.statSync(newDestination);
-        } catch (err) {
-            fs.mkdirSync(newDestination);
-        }
-        if (stat && !stat.isDirectory()) {
-            throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
-        }
-        return newDestination
-    }
-});
+// var upload = multer({
+//     dest: './uploads/',
+//     changeDest: function(dest, req, res) {
+//         // console.log(req);
+//         console.log(req.body);
+//         var newDestination = dest + req.params.type;
+//         var stat = null;
+//         try {
+//             stat = fs.statSync(newDestination);
+//         } catch (err) {
+//             fs.mkdirSync(newDestination);
+//         }
+//         if (stat && !stat.isDirectory()) {
+//             throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
+//         }
+//         return newDestination
+//     }
+// });
 
-app.post("/upload", upload, function(req, res) {
+app.post("/upload", upload.any(), function(req, res) {
     console.log("video upload received");
     // console.log(req.files);
     // console.log(req.body.email);
