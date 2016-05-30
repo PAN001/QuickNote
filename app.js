@@ -146,6 +146,7 @@ app.post('/upload', function(req, res){
         console.log(req.files);
         console.log(req.body.email);
         console.log(req.email);
+        console.log(req.files.files.email);
 
         var currUpload = uploadFnct(req.body.email);
         currUpload(req,res,function(err){
