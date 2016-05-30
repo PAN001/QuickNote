@@ -110,6 +110,8 @@ var upload = multer({ storage: storage });
 app.post('/upload', upload.any(), function(req, res){
     console.log("video upload received");
     console.log(req.files);
+    console.log(req.body.email);
+    console.log(req.email);
     res.json({code: 200});
 });
 
