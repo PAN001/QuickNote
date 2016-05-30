@@ -5,9 +5,12 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
 var exec = require('child_process').exec;
-var fs = require('fs');
-var path = require('path');
-var multipart = require('connect-multiparty');
+// var fs = require('fs');
+// var path = require('path');
+// var multipart = require('connect-multiparty');
+var multer = require('multer');
+var upload = multer({dist: '"/root/QuickNote/public/cloud/210'});
+
 
 var app = express();
 
@@ -77,18 +80,20 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.post('/upload', multipart(), function(req, res){
+app.post('/upload', upload, function(req, res){
     console.log("video upload received");
-  //get filename
-  var filename = __dirname+req.filename;
-  //copy file to a public directory
-  var targetPath = path.dirname(__filename) + '/public/cloud/' + filename;
-  //copy file
-  fs.createReadStream(filename).pipe(fs.createWriteStream(targetPath));
-  // var is = fs.createReadStream(filename);
-  // var os = fs.createWriteStream("/root/QuickNote/public/cloud/210");
-  //return file url
-  res.json({code: 200, msg: {url: 'http://' + req.headers.host + '/' + filename}});
+  // //get filename
+  // var filename = req.files.filename;
+  // //copy file to a public directory
+  // var targetPath = path.dirname(__filename) + '/public/' + filename;
+  // //copy file
+  // fs.createReadStream(filename).pipe(fs.createWriteStream(targetPath));
+  // // var is = fs.createReadStream(filename);
+  // // var os = fs.createWriteStream("/root/QuickNote/public/cloud/210");
+  // //return file url
+  // res.json({code: 200, msg: {url: 'http://' + req.headers.host + '/' + filename}});
+
+
 
 });
 
