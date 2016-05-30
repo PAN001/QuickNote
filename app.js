@@ -80,7 +80,7 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.post('/upload', upload, function(req, res){
+app.post('/upload', upload.array('video', 12), function(req, res){
     console.log("video upload received");
   // //get filename
   // var filename = req.files.filename;
