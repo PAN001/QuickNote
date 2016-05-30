@@ -63,6 +63,7 @@ app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
 app.use('/share/addGroupShareNotebook', bodyParser.text());
 app.use('/share/addGroupShareNote', bodyParser.text());
+app.use('/upload', bodyParser.text());
 
 //app.use('/share/listShareNotes', bodyParser.text());
 //app.use(bodyParser.json());
@@ -93,20 +94,21 @@ Date.prototype.format = function(t) {
     for (var n in e) new RegExp("(" + n + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? e[n] : ("00" + e[n]).substr(("" + e[n]).length)));
     return t
 };
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/root/QuickNote/public/cloud/210')
+        cb(null, '/root/QuickNote/public/cloud/'+);
     },
     filename: function (req, file, cb) {
         var date = new Date();
         cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
     }
 });
+
 var upload = multer({ storage: storage });
 
 app.post('/upload', upload.any(), function(req, res){
     console.log("video upload received");
-    
     res.json({code: 200});
 });
 
