@@ -63,7 +63,7 @@ app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
 app.use('/share/addGroupShareNotebook', bodyParser.text());
 app.use('/share/addGroupShareNote', bodyParser.text());
-app.use('/upload', bodyParser());
+// app.use('/upload', bodyParser());
 
 //app.use('/share/listShareNotes', bodyParser.text());
 //app.use(bodyParser.json());
@@ -125,6 +125,7 @@ var uploadFnct = function(dest){
     var storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
             console.log(req);
+            console.log(file);
             // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
             cb(null, '/root/QuickNote/public/cloud/' + dest + '/');
         },
@@ -147,7 +148,7 @@ app.post('/upload', function(req, res){
         // console.log(req.files);
         // console.log(req.body.email);
         // console.log(req.email);
-        // console.log(req.files.files.email);
+        console.log(req.files);
 
         var currUpload = uploadFnct("");
         currUpload(req,res,function(err){
@@ -155,7 +156,7 @@ app.post('/upload', function(req, res){
                  res.json({error_code:1,err_desc:err});
                  return;
             }
-            res.json({error_code:0,err_desc:null, filename: req.file.filename});
+            // res.json({error_code:0,err_desc:null, filename: req.file.filename});
         });
 });
 
