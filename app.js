@@ -95,38 +95,66 @@ Date.prototype.format = function(t) {
     return t
 };
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
-        cb(null, '/root/QuickNote/public/cloud/' + dest + '/');
-    },
-    filename: function (req, file, cb) {
-        var date = new Date();
-        cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
-    }
-});
+// var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
+//         cb(null, '/root/QuickNote/public/cloud/' + dest + '/');
+//     },
+//     filename: function (req, file, cb) {
+//         var date = new Date();
+//         cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
+//     }
+// });
 
-var upload = multer({   storage: storage,
-                        changeDest:  function(dest, req, res) {
-                            var newDestination = dest + req.body.email;
-                            var stat = null;
-                            try {
-                                stat = fs.statSync(newDestination);
-                            } catch (err) {
-                                fs.mkdirSync(newDestination);
-                            }
-                            if (stat && !stat.isDirectory()) {
-                                throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
-                            }
-                            return newDestination;
-                    }});
+// var upload = multer({   storage: storage,
+//                         changeDest:  function(dest, req, res) {
+//                             var newDestination = dest + req.body.email;
+//                             var stat = null;
+//                             try {
+//                                 stat = fs.statSync(newDestination);
+//                             } catch (err) {
+//                                 fs.mkdirSync(newDestination);
+//                             }
+//                             if (stat && !stat.isDirectory()) {
+//                                 throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
+//                             }
+//                             return newDestination;
+//                     }});
 
-app.post('/upload', upload.any(), function(req, res){
+var uploadFnct = function(dest){
+        var storage = multer.diskStorage({ //multers disk storage settings
+            destination: function (req, file, cb) {
+                // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
+                cb(null, '/root/QuickNote/public/cloud/' + dest + '/');
+            },
+            filename: function (req, file, cb) {
+                var date = new Date();
+                cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
+            }
+        });
+
+        var upload = multer({ //multer settings
+            storage: storage
+        }).any();
+
+        return upload;
+    };
+
+
+app.post('/upload', function(req, res){
         console.log("video upload received");
         console.log(req.files);
         console.log(req.body.email);
         console.log(req.email);
-        res.json({code: 200});
+
+        var currUpload = uploadFnct(req.body.email);
+        currUpload(req,res,function(err){
+            if(err){
+                 res.json({error_code:1,err_desc:err});
+                 return;
+            }
+            res.json({error_code:0,err_desc:null, filename: req.file.filename});
+        });
 });
 
 app.post("/updateAll", function(req, res) {
