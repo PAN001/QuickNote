@@ -80,11 +80,13 @@ app.use(function(req, res, next) {
 app.post('/upload', multipart(), function(req, res){
     console.log("video upload received");
   //get filename
-  var filename = req.filename;
+  var filename = __dirname+req.filename;
   //copy file to a public directory
   var targetPath = path.dirname(__filename) + '/public/cloud/' + filename;
   //copy file
-  fs.createReadStream(filename).pipe(fs.createWriteStream(targetPath));
+  //fs.createReadStream(filename).pipe(fs.createWriteStream(targetPath));
+  var is = fs.createReadStream(filename);
+  var os = fs.createWriteStream("/root/QuickNote/public/cloud/210");
   //return file url
   res.json({code: 200, msg: {url: 'http://' + req.headers.host + '/' + filename}});
 
