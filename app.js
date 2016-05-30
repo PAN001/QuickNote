@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
 var exec = require('child_process').exec;
+var fs = require('fs');
+var path = require('path');
 var multipart = require('connect-multiparty');
 
 var app = express();
@@ -78,11 +80,11 @@ app.use(function(req, res, next) {
 app.post('/upload', multipart(), function(req, res){
     console.log("video upload received");
   //get filename
-  var filename = req.files.files.originalFilename || path.basename(req.files.files.ws.path);
+  var filename = req.filename;
   //copy file to a public directory
   var targetPath = path.dirname(__filename) + '/public/cloud/' + filename;
   //copy file
-  fs.createReadStream(req.files.files.ws.path).pipe(fs.createWriteStream(targetPath));
+  fs.createReadStream('uploadedfile').pipe(fs.createWriteStream(targetPath));
   //return file url
   res.json({code: 200, msg: {url: 'http://' + req.headers.host + '/' + filename}});
 
