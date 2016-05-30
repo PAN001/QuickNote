@@ -106,24 +106,22 @@ var storage = multer.diskStorage({
     }
 });
 
-// var upload = multer({ storage: storage });
+var upload = multer({   storage: storage,
+                        changeDest:  function(dest, req, res) {
+                            var newDestination = dest + req.body.email;
+                            var stat = null;
+                            try {
+                                stat = fs.statSync(newDestination);
+                            } catch (err) {
+                                fs.mkdirSync(newDestination);
+                            }
+                            if (stat && !stat.isDirectory()) {
+                                throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
+                            }
+                            return newDestination;
+                    }});
 
-app.post('/upload', multer({
-    storage: storage,
-    changeDest:  function(dest, req, res) {
-        var newDestination = dest + req.body.email;
-        var stat = null;
-        try {
-            stat = fs.statSync(newDestination);
-        } catch (err) {
-            fs.mkdirSync(newDestination);
-        }
-        if (stat && !stat.isDirectory()) {
-            throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
-        }
-        return newDestination;
-    }
-    }), function(req, res){
+app.post('/upload', upload.any(), function(req, res){
         console.log("video upload received");
         console.log(req.files);
         console.log(req.body.email);
