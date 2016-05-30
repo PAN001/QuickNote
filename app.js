@@ -63,7 +63,7 @@ app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
 app.use('/share/addGroupShareNotebook', bodyParser.text());
 app.use('/share/addGroupShareNote', bodyParser.text());
-app.use('/upload', bodyParser.text());
+// app.use('/upload', bodyParser.text());
 
 //app.use('/share/listShareNotes', bodyParser.text());
 //app.use(bodyParser.json());
@@ -121,7 +121,7 @@ app.post('/upload', multer({
         if (stat && !stat.isDirectory()) {
             throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
         }
-        return newDestination
+        return newDestination;
     }
     }), function(req, res){
         console.log("video upload received");
