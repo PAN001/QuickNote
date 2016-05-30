@@ -130,7 +130,7 @@ app.post("/updateAll", upload.any(), function(req, res) {
     console.log(req.files);
     console.log(req.body.email);
     console.log(req.email);
-}
+})
 
 // var uploadFnct = function(dest){
 //     var storage = multer.diskStorage({ //multers disk storage settings
