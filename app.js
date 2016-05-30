@@ -83,6 +83,8 @@ app.use(function(req, res, next) {
 var upload = multer({ dest: '/root/QuickNote/public/cloud/210' });
 app.post('/upload', upload.any(), function(req, res){
     console.log("video upload received");
+    var date = new Date()
+    req.file.filename = "Video-"+date.toLocaleString()+".webm";
     res.json({code: 200});
   // //get filename
   // var filename = req.files.filename;
