@@ -80,12 +80,19 @@ app.use(function(req, res, next) {
 });
 
 
-var upload = multer({ dest: '/root/QuickNote/public/cloud/210' });
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '/root/QuickNote/public/cloud/210/')
+    },
+    filename: function (req, file, cb) {
+        var date = new Date();
+        cb(null, "Video-Recording-"+date.toLocaleString()+".webm");
+    }
+});
+var upload = multer({ storage: storage });
 app.post('/upload', upload.any(), function(req, res){
     console.log("video upload received");
-    var date = new Date();
-    console.log(req.files);
-    req.files.filename = "Video-"+date.toLocaleString()+".webm";
+    
     res.json({code: 200});
   // //get filename
   // var filename = req.files.filename;
