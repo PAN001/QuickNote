@@ -125,7 +125,7 @@ var upload = multer({   storage: storage,
                         //     return newDestination;
                     });
 
-app.post("/updateAll", upload.any(), function(req, res) {
+app.post("/upload", upload.any(), function(req, res) {
     console.log("video upload received");
     console.log(req.files);
     console.log(req.body.email);
