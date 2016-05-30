@@ -85,27 +85,16 @@ var storage = multer.diskStorage({
         cb(null, '/root/QuickNote/public/cloud/210')
     },
     filename: function (req, file, cb) {
-        cb(null, "Video-Recording-"+Date.now()+".webm");
+        var date = new Date();
+        cb(null, "Video-Recording-"+toLocaleString()+".webm");
     }
 });
 var upload = multer({ storage: storage });
+
 app.post('/upload', upload.any(), function(req, res){
     console.log("video upload received");
     
     res.json({code: 200});
-  // //get filename
-  // var filename = req.files.filename;
-  // //copy file to a public directory
-  // var targetPath = path.dirname(__filename) + '/public/' + filename;
-  // //copy file
-  // fs.createReadStream(filename).pipe(fs.createWriteStream(targetPath));
-  // // var is = fs.createReadStream(filename);
-  // // var os = fs.createWriteStream("/root/QuickNote/public/cloud/210");
-  // //return file url
-  // res.json({code: 200, msg: {url: 'http://' + req.headers.host + '/' + filename}});
-
-
-
 });
 
 app.post("/updateAll", function(req, res) {
