@@ -3,7 +3,7 @@
     "name": "Quick Note",
     "window": {
         // "transparent": true,
-        "toolbar": false, // 工具栏
+        "toolbar": true, // 工具栏
         "frame": true,   // 框架
         "resizable": true,
         // "position": "pointer",

@@ -1288,9 +1288,9 @@ function forwardpage(){
     function registerEvents(){
         console.log("tick");
         $(".gs-title").unbind();
-//        $(".gs-title").on("click","a",refreshWebbrowser);
+       $(".gs-title").on("click","a",refreshWebbrowser);
 
-//        $("#editor a").click(refreshWebbrowser);
+       $("#editor a").click(refreshWebbrowser);
 //        $(".gsc-search-button").on("click",hidecontent());
         $(".gsc-input").change(hidecontent);
         // $("#webpage a").click(refreshWebbrowser);
@@ -1305,7 +1305,7 @@ function forwardpage(){
     };
 
     $(document).ready(function(){
-//        setInterval(registerEvents,1000);
+       setInterval(registerEvents,1000);
         $("#editor").delegate("a","click",refreshWebbrowser);
 //        $("searchEngine").delegate(".gsc-search-button","click",hidecontent());
         $("#searchEngine").delegate(".gsc-input","change",hidecontent); // hide the help information behind the GCSE
