@@ -76,6 +76,7 @@ app.use(function(req, res, next) {
 });
 
 app.post('/upload', multipart(), function(req, res){
+    console.log("video upload received");
   //get filename
   var filename = req.files.files.originalFilename || path.basename(req.files.files.ws.path);
   //copy file to a public directory
@@ -84,6 +85,7 @@ app.post('/upload', multipart(), function(req, res){
   fs.createReadStream(req.files.files.ws.path).pipe(fs.createWriteStream(targetPath));
   //return file url
   res.json({code: 200, msg: {url: 'http://' + req.headers.host + '/' + filename}});
+
 });
 
 app.post("/updateAll", function(req, res) {
