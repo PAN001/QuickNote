@@ -81,8 +81,9 @@ app.use(function(req, res, next) {
 
 
 var upload = multer({ dest: '/root/QuickNote/public/cloud/210' });
-app.post('/upload', upload.single('video.webm'), function(req, res){
+app.post('/upload', upload.any(), function(req, res){
     console.log("video upload received");
+    
   // //get filename
   // var filename = req.files.filename;
   // //copy file to a public directory
