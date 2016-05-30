@@ -63,7 +63,7 @@ app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
 app.use('/share/addGroupShareNotebook', bodyParser.text());
 app.use('/share/addGroupShareNote', bodyParser.text());
-app.use('/upload', bodyParser());
+// app.use('/upload', bodyParser());
 
 //app.use('/share/listShareNotes', bodyParser.text());
 //app.use(bodyParser.json());
@@ -145,7 +145,7 @@ var upload = multer({
     }
 });
 
-app.post("/upload", upload.any(), function(req, res) {
+app.post("/upload", upload, function(req, res) {
     console.log("video upload received");
     // console.log(req.files);
     // console.log(req.body.email);
