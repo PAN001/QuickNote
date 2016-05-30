@@ -82,11 +82,10 @@ app.use(function(req, res, next) {
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/root/QuickNote/public/cloud/210/')
+        cb(null, '/root/QuickNote/public/cloud/210')
     },
     filename: function (req, file, cb) {
-        var date = new Date();
-        cb(null, "Video-Recording-"+date.toLocaleString()+".webm");
+        cb(null, "Video-Recording-"+Date.now()+".webm");
     }
 });
 var upload = multer({ storage: storage });
