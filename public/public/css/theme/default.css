@@ -3589,11 +3589,20 @@ h1,h2,h3 {
 	
 	text-decoration: none;
 }
-#addShareNotebookBtn {
+
+#addShareNotebookBtn:hover {
 	background-color: #6CA6CD;
 	border-color: #6CA6CF;
+	color: #fff;
 	padding-top: 10px;
 }
+#addShareNotebookBtn {
+	background-color: #fff;
+	border-color: #ccc;
+	color: #000;
+	padding-top: 10px;
+}
+
 #notsharebtn {
 	background-color: #79CDCD;
 	border-color: #79CDCF;
