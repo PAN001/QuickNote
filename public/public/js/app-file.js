@@ -243,6 +243,19 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       });
     };
 
+    FM.uploadVideo = function(video){
+      var formData = new FormData();
+      var date = new Date();
+      video.name = date+".webm";
+      formData.append('upload', video);
+      var url = cloudUrl + 'api' + FM.curFolderPath + video.name;
+      // alert("folder path" + FM.curFolderPath);
+      httpRequest('POST', url, {type: 'UPLOAD_FILE'}, formData, {
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+      });
+    }
+
     FM.btnDisabled = function (btnName) {
       switch (btnName) {
         case 'download':

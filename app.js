@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
 var exec = require('child_process').exec;
+var multipart = require('connect-multiparty');
 
 var app = express();
 
@@ -74,7 +75,16 @@ app.use(function(req, res, next) {
 	next();
 });
 
-
+app.post('/upload', multipart(), function(req, res){
+  //get filename
+  var filename = req.files.files.originalFilename || path.basename(req.files.files.ws.path);
+  //copy file to a public directory
+  var targetPath = path.dirname(__filename) + '/public/cloud/' + filename;
+  //copy file
+  fs.createReadStream(req.files.files.ws.path).pipe(fs.createWriteStream(targetPath));
+  //return file url
+  res.json({code: 200, msg: {url: 'http://' + req.headers.host + '/' + filename}});
+});
 
 app.post("/updateAll", function(req, res) {
 	// res.header('Access-Control-Allow-Origin', '*'); // implementation of CORS

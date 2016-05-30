@@ -1225,12 +1225,31 @@ function forwardpage(){
         // the blob object contains the recorded data that
         // can be downloaded by the user, stored on server etc.
         console.log('finished recording: ', player.recordedData);
+        FM.uplaodVideo(player.recordedData.video);
     });
 
     function downloadvideo(){
+    	uploadVideo();
         saveAs(player.recordedData.video,"output.webm");
         saveAs(player.recordedData.audio,"output.wav");
     }
+
+	function uploadVideo() {
+        var fileObj = player.recordedData.video; // 获取文件对象
+        var FileController = baseUrl+basePort+'/cloud/'+'xzl123';                    // 接收上传文件的后台地址 
+        // FormData 对象
+        var form = new FormData();
+        form.append("file", fileObj);                           // 文件对象
+        // XMLHttpRequest 对象
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", FileController, true);
+        xhr.onload = function () {
+            alert("上传完成!");
+        };
+        xhr.send(form);
+  	 }
+
+
 </script>
 
 <script>
