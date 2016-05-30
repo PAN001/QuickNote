@@ -185,18 +185,18 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       else if(extension == ".mp3" || extension == ".wma" || extension == ".wav"){
         $('#editor').append("<embed src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=300 height=100></embed> ");
       }
-//      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
-//        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div> ");
-//      }
-//      else{
-//        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div>");
-//      }
-        else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
-            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+">");
-        }
-        else{
-            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe>");
-        }  
+      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
+        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div> ");
+      }
+      else{
+        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div>");
+      }
+//        else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
+//            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+">");
+//        }
+//        else{
+//            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe>");
+//        }  
     };
 
     FM.download = function () {

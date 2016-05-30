@@ -1275,7 +1275,21 @@ function forwardpage(){
 //        $(".gsc-search-button").on("click",hidecontent());
         $(".gsc-input").change(hidecontent);
         // $("#webpage a").click(refreshWebbrowser);
+
+    };
+    
+    function enableResize() {
+        console.log("enableResize activated");
+//        $(".iframeWrapper").resizable({
+//            animate: true,
+//            animateEasing: 'swing',
+//            imateDuration: 500
+//        });
+        
         $(".iframeWrapper").resizable({
+            animate: true,
+            animateEasing: 'swing',
+            imateDuration: 500,
             start: function(event, ui) {
                 $('iframe').css('pointer-events','none');
             },
@@ -1283,16 +1297,17 @@ function forwardpage(){
                 $('iframe').css('pointer-events','auto');
             }
         });
-    };
+        
+    }
 
     $(document).ready(function(){
-//        setInterval(registerEvents,1000);
+        setInterval(enableResize,1000);
         $("#editor").delegate("a","click",refreshWebbrowser);
 //        $("searchEngine").delegate(".gsc-search-button","click",hidecontent());
         $("#searchEngine").delegate(".gsc-input","change",hidecontent); // hide the help information behind the GCSE
     });
 
-    $("#videodownload").on("click",downloadvideo())
+    $("#videodownload").on("click",downloadvideo());
 </script>
     
 <script src="public/js/recorder/recorder.js"> </script>
