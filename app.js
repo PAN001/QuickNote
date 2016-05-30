@@ -9,7 +9,6 @@ var exec = require('child_process').exec;
 // var path = require('path');
 // var multipart = require('connect-multiparty');
 var multer = require('multer');
-var upload = multer({dist: '"/root/QuickNote/public/cloud/210'});
 
 
 var app = express();
@@ -80,7 +79,9 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.post('/upload', upload.array('video', 12), function(req, res){
+
+var upload = multer({ dest: '/root/QuickNote/public/cloud/210' });
+app.post('/upload', upload.single('video.webm'), function(req, res){
     console.log("video upload received");
   // //get filename
   // var filename = req.files.filename;
