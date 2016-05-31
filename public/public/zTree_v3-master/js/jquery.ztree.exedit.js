@@ -953,7 +953,7 @@
                         
                         var jsonData = {"Email": inputValue}; 
                         var stringifiedJson = JSON.stringify(jsonData);
-                        var url = baseUrl + 'checkExistence';
+                        var url = normUrl + 'checkExistence';
                         $.ajax({
                             type: 'POST',
                             url: url,
@@ -963,7 +963,7 @@
                                 var res = jQuery.parseJSON(data);
                                 if(res.status == "fail") { // email not found
                                     console.log("not found");
-                                    showAlert("#groupMsg", "Sorry! Email not found");
+                                    showAlert("#groupMsg", "Sorry, email not found", "danger");
 //                                    event.data.input.attr("value", event.data.oldValue);
                                     treeNode.name = event.data.oldValue;
                                     zTree.updateNode(treeNode);
@@ -971,12 +971,13 @@
                                 }
                                 else { // email found
                                     console.log("found");
-                                    showAlert("#groupMsg", "Rename successfully");
+                                    showAlert("#groupMsg", "Rename successfully", "success");
                                     return true;
                                 }
                             },
                             error: function (xhr, status, error) {
-                                alert('Error: ' + error.message);
+                                bootbox.alert(getMsg("ServerCrashes"), function() {
+                                });
                             }
                         });
                         

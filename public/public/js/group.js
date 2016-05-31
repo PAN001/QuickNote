@@ -117,6 +117,8 @@ function beforeRemove(treeId, treeNode) {
 
 function beforeRename(treeId, treeNode, newName) {
     if (newName.length == 0) {
+        bootbox.alert(getMsg("ServerCrashes"), function() {
+        });
         alert("This entry can not be empty.");
         var zTree = $.fn.zTree.getZTreeObj("groupZTree");
         setTimeout(function(){zTree.editName(treeNode)}, 10);

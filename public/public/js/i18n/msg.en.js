@@ -120,7 +120,8 @@ var MSG = {
     "ServerCrashes": "Sorry, error connecting to the server.",
     "DoubleShared": "Sorry, this note has already been shared to the same user",
     "ShareFail": "Sorry, sharing failed",
-    "ShareSuccess": "Share successfully"
+    "ShareSuccess": "Share successfully",
+    "CannotBeEmpty"
 };
 
 function getMsg(key, data) {
