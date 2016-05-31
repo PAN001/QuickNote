@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
 var exec = require('child_process').exec;
-// var fs = require('fs');
+ var fs = require('fs');
 // var path = require('path');
 // var multipart = require('connect-multiparty');
 var multer = require('multer');
@@ -95,6 +95,7 @@ Date.prototype.format = function(t) {
     return t
 };
 
+var tmpPath = '/root/tmp/';
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
@@ -103,11 +104,12 @@ var storage = multer.diskStorage({
         console.log(req.file);
         console.log(file);
 
-        cb(null, '/root/QuickNote/public/cloud/' + '210' + '/');
+        cb(null, tmpPath);
     },
     filename: function (req, file, cb) {
         var date = new Date();
-        cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
+        var videoName  = "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm";
+        cb(null, videoName);
     }
 });
 
@@ -148,8 +150,15 @@ var storage = multer.diskStorage({
 app.post("/upload", upload.any(), function(req, res) {
     console.log("video upload received");
     // console.log(req.files);
-    // console.log(req.body.email);
-    // console.log(req.email);
+    console.log(req.body.email);
+    // move
+    fs.rename(tmpPath+videoName,'root/QuickNote/public/cloud/'+req.body.email+'/'+videoName, function(err){
+        if(err){
+            throw err;
+        }
+        console.log('done!');
+    })
+
 })
 
 // var uploadFnct = function(dest){
