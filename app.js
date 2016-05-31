@@ -161,7 +161,7 @@ app.post("/upload", upload.any(), function(req, res) {
             throw err;
         }
     });
-    //res.json({code: 200, path: relPath});
+    res.json({code: 200, path: relPath});
 
 
 })
