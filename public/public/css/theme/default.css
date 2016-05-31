@@ -283,8 +283,13 @@
 
 #addgroupbtn{
 	border-radius: 10px;
+	background-color: #fff;
+	border-color: #ccc;
+}
+#addgroupbtn:hover{
 	background-color: #6CA6CD;
 	border-color: #6CA6CF;
+	color: #fff;
 }
 .alert {
 	/*margin-bottom: 10px;*/
@@ -3850,6 +3855,9 @@ input[type="file"] {
 
 #editor iframe:hover {
 	border-color: #79CDCD;
+}
+.li-a li{
+	cursor: pointer;
 }
 
 /*
