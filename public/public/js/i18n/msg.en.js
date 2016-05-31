@@ -121,7 +121,7 @@ var MSG = {
     "DoubleShared": "Sorry, this note has already been shared to the same user",
     "ShareFail": "Sorry, sharing failed",
     "ShareSuccess": "Share successfully",
-    "CannotBeEmpty"
+    "CannotBeEmpty": "Sorry, this entry cannot be empty"
 };
 
 function getMsg(key, data) {

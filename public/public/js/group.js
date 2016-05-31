@@ -112,14 +112,20 @@ function beforeDrag(treeId, treeNodes) {
 
 // warning before deleting
 function beforeRemove(treeId, treeNode) {
-    return confirm("Are sure to remove '" + treeNode.name + "'?");
+    bootbox.confirm("Please confirm to remove: " + treeNode.name, function(result) {
+        if(result) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }); 
 }
 
 function beforeRename(treeId, treeNode, newName) {
     if (newName.length == 0) {
-        bootbox.alert(getMsg("ServerCrashes"), function() {
+        bootbox.alert(getMsg("CannotBeEmpty"), function() {
         });
-        alert("This entry can not be empty.");
         var zTree = $.fn.zTree.getZTreeObj("groupZTree");
         setTimeout(function(){zTree.editName(treeNode)}, 10);
         return false;
