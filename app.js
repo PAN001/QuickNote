@@ -136,7 +136,7 @@ var audioStorage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         var date = new Date();
-        audioName  = "Audio-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm";
+        audioName  = "Audio-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".wav";
         cb(null, audioName);
     }
 });
