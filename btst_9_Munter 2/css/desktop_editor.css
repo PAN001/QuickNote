@@ -35,7 +35,7 @@ body {
                   text-decoration: none;
                   font-size: 15px;
                   letter-spacing: 2px;
-                  color: #555;
+                  color: #ffffff;
                   border: 1px solid #dddddd;
                   border-radius: 5px;
                   padding: 0.8em 1.6em;
@@ -44,13 +44,14 @@ body {
                   #header .buttons a img {
                     border: none; }
                     #header .buttons a:hover {
-                      color: indianred;
-                      border-color: indianred; }
+                      color: #79CDCD;
+                      border-color: #79CDCD; }
                       #header .buttons a:last-child {
                         margin-right: 20px; }
                 #header .content {
                   position: relative;
-                  left: 100px; }
+                  /*left: 100px; */
+                }
                   #header .content h1 {
                     margin-top: 150px;
                     text-align: center;
@@ -60,7 +61,7 @@ body {
                       font-size: 18px;
                       color: #666; }
                       #header .content .buttons {
-                        margin-top: 120px;
+                        margin-top: 10px;
                         text-align: center; }
                 #header .image {
                   position: relative;

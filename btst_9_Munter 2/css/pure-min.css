@@ -263,7 +263,20 @@ table {
 }
 
 .pure-g {
-	background-color: white;
+	background-color: #444444;
+	letter-spacing: -.31em;
+	*letter-spacing: normal;
+	*word-spacing: -.43em;
+	text-rendering: optimizespeed;
+	font-family: FreeSans,Arimo,"Droid Sans",Helvetica,Arial,sans-serif;
+	display: -webkit-flex;
+	-webkit-flex-flow: row wrap;
+	display: -ms-flexbox;
+	-ms-flex-flow: row wrap
+}
+
+.pure-g1 {
+	background-color: #ffffff;
 	letter-spacing: -.31em;
 	*letter-spacing: normal;
 	*word-spacing: -.43em;
@@ -279,6 +292,10 @@ table {
 	word-spacing: -.43em
 }
 
+.opera-only :-o-prefocus,.pure-g1 {
+	word-spacing: -.43em
+}
+
 .pure-u {
 	display: inline-block;
 	*display: inline;
@@ -290,6 +307,9 @@ table {
 }
 
 .pure-g [class *="pure-u"] {
+	font-family: sans-serif
+}
+.pure-g1 [class *="pure-u"] {
 	font-family: sans-serif
 }
 
