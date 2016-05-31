@@ -138,6 +138,10 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         FM.successData = data;
         handleHashChange(FM.curHashPath);
         console.log("http request success");
+        if(params.type=="UPLOAD_FILE"){
+          document.getElementById("uploadingMsg").style.display="none";
+          console.log("httprequest: upload success");
+        }
       })
       .error(function (data, status) {
           FM.errorData = getMsg("ServerCrashes");
@@ -226,6 +230,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
 
     FM.upload = function () {
       console.log('Upload File:', FM.uploadFile);
+      document.getElementById("uploadingMsg").style.display="";
       var formData = new FormData();
       formData.append('upload', FM.uploadFile);
       var url = cloudUrl + 'api' + FM.curFolderPath + FM.uploadFile.name;
