@@ -160,7 +160,7 @@ tinymce.PluginManager.add('media', function(editor, url) {
 		embedTextBox[embedChange] = updateValueOnChange;
 
 		win = editor.windowManager.open({
-			title: 'Insert/edit video',
+			title: 'Insert/edit media',
 			data: data,
 			bodyType: 'tabpanel',
 			body: [
@@ -837,14 +837,14 @@ tinymce.PluginManager.add('media', function(editor, url) {
 	});
 
 	editor.addButton('media', {
-		tooltip: 'Insert/edit video',
+		tooltip: 'Insert/edit media',
 		onclick: showDialog,
 		stateSelector: ['img[data-mce-object]', 'span[data-mce-object]']
 	});
 
 	editor.addMenuItem('media', {
 		icon: 'media',
-		text: 'Insert/edit video',
+		text: 'Insert/edit media',
 		onclick: showDialog,
 		context: 'insert',
 		prependToContext: true
