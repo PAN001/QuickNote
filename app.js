@@ -154,12 +154,13 @@ app.post("/upload", upload.any(), function(req, res) {
     // console.log(req.files);
     console.log(req.body.email);
     // move
-    fs.rename(tmpPath+videoName,'/root/QuickNote/public/cloud/'+req.body.email+'/'+videoName, function(err){
+    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+videoName;
+    fs.rename(tmpPath+videoName,destPath, function(err){
         if(err){
             throw err;
         }
     });
-    res.json({code: 200});
+    res.json({code: 200, path: destPath});
 
 
 })
