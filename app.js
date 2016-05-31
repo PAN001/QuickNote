@@ -112,7 +112,7 @@ var storage = multer.diskStorage({
         cb(null, videoName);
     }
 });
-var upload = {{storage: storage}};
+var upload = {storage: storage};
 // var upload = multer({   storage: storage,
 //                         // changeDest:  function(dest, req, res) {
 //                         //     var newDestination = dest + req.body.email;
