@@ -1279,30 +1279,31 @@ function forwardpage(){
     };
     
     function enableResize() {
-        console.log("enableResize activated");
+//        console.log("enableResize activated");
 //        $(".iframeWrapper").resizable({
 //            animate: true,
 //            animateEasing: 'swing',
 //            imateDuration: 500
 //        });
-        
-        $(".iframeWrapper").resizable({
-            animate: true,
-            animateEasing: 'swing',
-            imateDuration: 500,
-            start: function(event, ui) {
-                $('iframe').css('pointer-events','none');
-            },
-            stop: function(event, ui) {
-                $('iframe').css('pointer-events','auto');
-            }
-        });
-        
+        if($(".iframeWrapper")) {
+            $(".iframeWrapper").resizable({
+                animate: true,
+                animateEasing: 'swing',
+                imateDuration: 500,
+                start: function(event, ui) {
+                    $('iframe').css('pointer-events','none');
+                },
+                stop: function(event, ui) {
+                    $('iframe').css('pointer-events','auto');
+                }
+            });
+        }
     }
 
     $(document).ready(function(){
-        setInterval(enableResize,1000);
+        // setInterval(enableResize,1000);
         $("#editor").delegate("a","click",refreshWebbrowser);
+        $("#searchEngine").delegate("a","click",refreshWebbrowser);
 //        $("searchEngine").delegate(".gsc-search-button","click",hidecontent());
         $("#searchEngine").delegate(".gsc-input","change",hidecontent); // hide the help information behind the GCSE
     });
