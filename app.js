@@ -158,8 +158,9 @@ app.post("/upload", upload.any(), function(req, res) {
         if(err){
             throw err;
         }
-        console.log('done!');
-    })
+    });
+    res.json({code: 200});
+
 
 })
 
