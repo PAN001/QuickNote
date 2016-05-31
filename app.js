@@ -104,7 +104,7 @@ var storage = multer.diskStorage({
         console.log(req.file);
         console.log(file);
 
-        cb(null, videoPath);
+        cb(null, tmpPath);
     },
     filename: function (req, file, cb) {
         var date = new Date();
@@ -149,7 +149,6 @@ var upload = multer({storage: storage});
 app.post("/upload", upload.any(), function(req, res) {
     console.log("video upload received");
     var videoName  = "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm";
-    var videoPath = '/root/QuickNote/public/cloud/' + req.body.email + '/';
     // console.log(req.files);
     console.log(req.body.email);
     // move
