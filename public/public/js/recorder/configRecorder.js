@@ -64,9 +64,8 @@
                 counter=1;
 			}
 
-			function stopRecording() {
+			function stopRecording(email) {
                 boolrecorder = true;
-
                 // TrackLogRecord.newStopRecordingRecord();
 
                 $("#stopbtn").removeClass("lightup");
@@ -87,9 +86,40 @@
 					audio.src = window.URL.createObjectURL(s);
 					//Recorder.forceDownload(s);
 					realaudio = s;
+
+					document.getElementById("audioRecordingMsg").style.display="";
+			    	var data = new FormData();
+				    data.append("file", s);
+				    data.append("originalname", "audio.wav");
+				    data.append("email", email);
+				    $.ajax({
+					    url: baseUrl+basePort+'/uploadAudio',
+					    type: 'POST',
+					    data: data,
+					    async: true,
+					    cache: false,
+					    contentType: false,
+					    processData: false,
+					    success: function(data){
+					      if(data.code == 200) {
+					        console.log("upload audio success: "+data.path);
+					        $('#editor').append("<iframe src = "+baseUrl+basePort+data.path+" width=400 height=75></iframe> ");
+					        document.getElementById("audioRecordingMsg").style.display="none";
+					      } else {
+					        console.log("upload audio fail");
+					      }
+					    },
+					    error: function(){
+					      console.log("upload audio error");
+					    }
+			  		});
 					
 				});
 				help = 0;
+				
+				//upload
+				
+		    	
 			}
 
 			function clearRecord() {

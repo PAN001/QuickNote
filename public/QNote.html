@@ -657,7 +657,7 @@ function forwardpage(){
 						<!-- 	<i class="fa fa-play-circle" id = "playbtn" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" ></i> -->
 							<i class="fa fa-dot-circle-o recordbtn lightup" id = "playbtn" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" ></i>
 
-							<i class="fa fa-stop-circle recordbtn" id = "stopbtn" aria-hidden="true" onclick="stopRecording()" alt="Stop" title="Stop" ></i>
+							<i class="fa fa-stop-circle recordbtn" id = "stopbtn" aria-hidden="true" onclick="stopRecording(Email)" alt="Stop" title="Stop" ></i>
 							<!-- <i class="fa fa-download" aria-hidden="true"></i> -->
 							<i class="fa fa-arrow-circle-down recordbtn" id = "downbtn" aria-hidden="true" onclick="download()" alt="Download" title="Download" ></i>
 						<!-- 	<i class="fa fa-times" aria-hidden="true"></i> -->
@@ -670,6 +670,11 @@ function forwardpage(){
 						<br/>
 						<b id="count"></b>
 						<br/><br/>
+
+						<div id = "audioRecordingMsg" style="display: none;">
+                          <h4><img src = "public/images/loading-24.gif">Saving and uploading to the cloud...</h4>
+                        </div>
+
 						<div id = "audioDoc">
 							<h1>Audio Recording</h1><br/>
 							<h3>1. Click start icon to start recording </h3>
@@ -1246,6 +1251,7 @@ function forwardpage(){
         saveAs(player.recordedData.audio,"output.wav");
     }
 
+
 	function uploadVideo(){
 
 	  // var data = {};
@@ -1261,7 +1267,7 @@ function forwardpage(){
 	  data.append("email", Email);
 	  console.log(data);
 	  $.ajax({
-	    url: baseUrl+basePort+'/upload',
+	    url: baseUrl+basePort+'/uploadVideo',
 	    type: 'POST',
 	    data: data,
 	    async: true,
