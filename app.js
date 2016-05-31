@@ -96,6 +96,7 @@ Date.prototype.format = function(t) {
 };
 
 var tmpPath = '/root/tmp/';
+var videoName;
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
@@ -108,6 +109,7 @@ var storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         var date = new Date();
+        videoName  = "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm";
         cb(null, videoName);
     }
 });
@@ -148,7 +150,7 @@ var upload = multer({storage: storage});
 
 app.post("/upload", upload.any(), function(req, res) {
     console.log("video upload received");
-    var videoName  = "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm";
+    
     // console.log(req.files);
     console.log(req.body.email);
     // move
