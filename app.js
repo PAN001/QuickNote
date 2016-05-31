@@ -154,7 +154,7 @@ app.post("/upload", upload.any(), function(req, res) {
     // console.log(req.files);
     console.log(req.body.email);
     // move
-    fs.rename(tmpPath+videoName,'root/QuickNote/public/cloud/'+req.body.email+'/'+videoName, function(err){
+    fs.rename(tmpPath+videoName,'/root/QuickNote/public/cloud/'+req.body.email+'/'+videoName, function(err){
         if(err){
             throw err;
         }
