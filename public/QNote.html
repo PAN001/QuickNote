@@ -114,10 +114,6 @@
 
 <!--定制版的JQuery；需要放在bootstrap之前-->
 <script src="public/js/dep.min.js"></script>
-<!--    Jquery UI-->
-<script src="public/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="public/js/jquery-ui-1.11.4/jquery-ui.min.css" type="text/css" id="themeLink"/>
-    
 <script type="text/javascript">
     $.fn.notebookZTree = $.fn.zTree;
 </script>
@@ -687,7 +683,11 @@ function forwardpage(){
                        <div class="tab-pane fade" id="videoRecording">
                           <!-- <p>Video Recording</p>  --><br/>
                           <video id="myVideo" class="video-js vjs-default-skin"></video>
-                          <br/><br/>
+                          <br/>
+                          <div id = "videoRecordingMsg" style="display: none;">
+                          <img src = "public/images/loading-24.gif"><h4>Saving and uploading to cloud...</h4>
+                          </div>
+                          <br/>
                           <button id="downloadbtn" onclick = "downloadvideo()"><i class="fa fa-download" aria-hidden="true"></i> DOWNLOAD</button><br/>
 <!--                           <i id="videodownload" class = "fa fa-downloadbtn"></i>-->
                           <div id = "audioDoc">
@@ -739,8 +739,9 @@ function forwardpage(){
                        </div>
 
                        <!-- iris -->
-                       <div class="tab-pane fade" id="searchEngine" style = "overflow-y:scroll">    
-                            <gcse:search></gcse:search> 
+                       <div class="tab-pane fade" id="searchEngine" style = "overflow-y:scroll">
+                       
+                           <gcse:search></gcse:search> 
                            
 <!--
                         <div class="top-search">
@@ -754,15 +755,16 @@ function forwardpage(){
                             </form>
                         </div>
 -->
+							<!-- iris -->
                            <div id = "gscDoc" style = "position:absolute;left:25%;top:250px">
-
-                                <h1>Search</h1>
-                                <h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
-                                <br><br>
-                                <h1>Add Content</h1>
-                                <h4>Drag the best elements into your note<br> and add your own content.</h4>
-
-                            </div>
+                            
+							<h1>Search</h1>
+							<h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
+                               <br><br>
+							<h1>Add Content</h1>
+							<h4>Drag the best elements into your note<br> and add your own content.</h4>
+							
+							</div>
 						
                        </div>
 
@@ -813,6 +815,7 @@ function forwardpage(){
 							      </div>
 							    </div>
 							  </div>
+
 							  <div class="modal fade" id="renameModal">
 							    <div class="modal-dialog">
 							      <div class="modal-content">
@@ -829,6 +832,12 @@ function forwardpage(){
 							      </div>
 							    </div>
 							  </div>
+
+
+							  <!-- <div id = "uploadingMsg" style="display: ;">
+	                          	<h4><img src = "public/images/loading-24.gif">&nbsp;&nbsp;Uploading to the cloud. Please wait...</h4>
+	                          </div> -->
+
 
 							  <div class="modal fade" id="moveModal">
 							    <div class="modal-dialog">
@@ -1226,30 +1235,54 @@ function forwardpage(){
     {
         // the blob object contains the recorded data that
         // can be downloaded by the user, stored on server etc.
+        document.getElementById("videoRecordingMsg").style.display="";
+        uploadVideo();
         console.log('finished recording: ', player.recordedData);
-        FM.uplaodVideo(player.recordedData.video);
     });
 
     function downloadvideo(){
-    	uploadVideo();
+    	
         saveAs(player.recordedData.video,"output.webm");
         saveAs(player.recordedData.audio,"output.wav");
     }
 
-	function uploadVideo() {
-        var fileObj = player.recordedData.video; // 获取文件对象
-        var FileController = baseUrl+basePort+'/cloud/'+'xzl123';                    // 接收上传文件的后台地址 
-        // FormData 对象
-        var form = new FormData();
-        form.append("file", fileObj);                           // 文件对象
-        // XMLHttpRequest 对象
-        var xhr = new XMLHttpRequest();
-        xhr.open("post", FileController, true);
-        xhr.onload = function () {
-            alert("上传完成!");
-        };
-        xhr.send(form);
-  	 }
+	function uploadVideo(){
+
+	  // var data = {};
+	  // data[Email] = Email;
+	  // data[File] = new FormData();
+	  // data[File].append("file", player.recordedData.video);
+	  // data[File].append("originalname", "video.webm");
+  	  // var stringifiedJson = JSON.stringify(data);	
+  	  
+	  var data = new FormData();
+	  data.append("file", player.recordedData.video);
+	  data.append("originalname", "video.webm");
+	  data.append("email", Email);
+	  console.log(data);
+	  $.ajax({
+	    url: baseUrl+basePort+'/upload',
+	    type: 'POST',
+	    data: data,
+	    async: true,
+	    cache: false,
+	    contentType: false,
+	    processData: false,
+	    success: function(data){
+	      if(data.code == 200) {
+	        console.log("upload video success: "+data.path);
+	        $('#editor').append("<iframe src = "+baseUrl+basePort+data.path+" width=400 height=300></iframe> ");
+	        document.getElementById("videoRecordingMsg").style.display="none";
+	      } else {
+	        console.log("upload video fail");
+	      }
+	    },
+	    error: function(){
+	      console.log("upload video error");
+	    }
+	  });
+	  
+	}
 
 
 </script>
@@ -1270,7 +1303,7 @@ function forwardpage(){
 		// });
   //  }
 
-   function refreshWebbrowser() {
+   function onClickFunc2() {
    		// location.href="#webpage";
    		$(this).attr("target", "viewframe");
    		var href = $(this).attr("href");
@@ -1285,35 +1318,32 @@ function forwardpage(){
    		document.getElementById("gscDoc").style.display="none";
    }
 
-    function registerEvents(){
-        console.log("tick");
-        $(".gs-title").unbind();
-       $(".gs-title").on("click","a",refreshWebbrowser);
+   function cse(){
+   			$(".gs-title").unbind();
+		   	$(".gs-title").on("click","a",onClickFunc2);
 
-       $("#editor a").click(refreshWebbrowser);
-//        $(".gsc-search-button").on("click",hidecontent());
+		   	$("#editor a").click(onClickFunc2);
+//		   	$(".gsc-search-button").on("click",hidecontent());
         $(".gsc-input").change(hidecontent);
-        // $("#webpage a").click(refreshWebbrowser);
-        $(".iframeWrapper").resizable({
-            start: function(event, ui) {
-                $('iframe').css('pointer-events','none');
-            },
-            stop: function(event, ui) {
-                $('iframe').css('pointer-events','auto');
-            }
-        });
-    };
+		   	// $("#webpage a").click(onClickFunc2);
+		};
 
-    $(document).ready(function(){
-       setInterval(registerEvents,1000);
-        $("#editor").delegate("a","click",refreshWebbrowser);
-//        $("searchEngine").delegate(".gsc-search-button","click",hidecontent());
-        $("#searchEngine").delegate(".gsc-input","change",hidecontent); // hide the help information behind the GCSE
-    });
+   $(document).ready(function(){
+   		setInterval(cse,1000);
+   		 
+   });
 
+
+
+  // $(".gs-title").on("click","a",function(){
+  //   $(this).alert("123");
+  // });
+
+</script>
+
+<script>
     $("#videodownload").on("click",downloadvideo())
 </script>
-    
 <script src="public/js/recorder/recorder.js"> </script>
 <script src="public/js/recorder/recorderWorker.js"> </script>
 <script src="public/js/recorder/configRecorder.js"> </script>

@@ -125,7 +125,6 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         url: url,
         params: params,
         data: data,
-        timeout: 10000
       };
       for (var k in config) {
         if (config.hasOwnProperty(k)) {
@@ -134,22 +133,16 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         }
       }
       console.log('request url', url);
-      if(method === "DELETE"){
-        
-      }
-      else{
-        $http(conf)
-        .success(function (data) {
-          FM.successData = data;
-          handleHashChange(FM.curHashPath);
-          console.log("http request success");
-        })
-        .error(function (data, status) {
-
-            FM.errorData = getMsg("ServerCrashes");
-            console.log("http request failed" + ' ' + status + ': ' + data);
-        });
-      }
+      $http(conf)
+      .success(function (data) {
+        FM.successData = data;
+        handleHashChange(FM.curHashPath);
+        console.log("http request success");
+      })
+      .error(function (data, status) {
+          FM.errorData = getMsg("ServerCrashes");
+          console.log("http request failed" + ' ' + status + ': ' + data);
+      });
       
     };
 
@@ -185,18 +178,15 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       else if(extension == ".mp3" || extension == ".wma" || extension == ".wav"){
         $('#editor').append("<embed src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=300 height=100></embed> ");
       }
-//      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
-//        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div> ");
-//      }
-//      else{
-//        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div>");
-//      }
-        else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
-            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+">");
-        }
-        else{
-            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe>");
-        }  
+      else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
+        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=800 height=600></iframe> ");
+      }
+      else{
+        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=600 height=800></iframe> ");
+      }
+      
+      // $("#")
+
     };
 
     FM.download = function () {
@@ -245,19 +235,6 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         headers: {'Content-Type': undefined}
       });
     };
-
-    FM.uploadVideo = function(video){
-      var formData = new FormData();
-      var date = new Date();
-      video.name = date+".webm";
-      formData.append('upload', video);
-      var url = cloudUrl + 'api' + FM.curFolderPath + video.name;
-      // alert("folder path" + FM.curFolderPath);
-      httpRequest('POST', url, {type: 'UPLOAD_FILE'}, formData, {
-        transformRequest: angular.identity,
-        headers: {'Content-Type': undefined}
-      });
-    }
 
     FM.btnDisabled = function (btnName) {
       switch (btnName) {
