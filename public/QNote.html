@@ -1301,8 +1301,9 @@ function forwardpage(){
     }
 
     $(document).ready(function(){
-        setInterval(enableResize,1000);
+        // setInterval(enableResize,1000);
         $("#editor").delegate("a","click",refreshWebbrowser);
+        $("#searchEngine").delegate("a","click",refreshWebbrowser);
 //        $("searchEngine").delegate(".gsc-search-button","click",hidecontent());
         $("#searchEngine").delegate(".gsc-input","change",hidecontent); // hide the help information behind the GCSE
     });

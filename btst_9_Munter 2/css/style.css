@@ -212,7 +212,8 @@ body {
 }
 
 #slide-1 {
-	background-image: url('../images/bg1.jpg');
+/*	background-image: url('../images/bg1.jpg');*/
+    background-color:#444444;
 	color: #ffffff;
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
@@ -434,7 +435,7 @@ body {
 }
 
 #slide-4 {
-	background-color: #34495e;
+	background-color: #ffffff;
 	color: #e4e6e5;
 	padding-top: 90px;
 }
@@ -446,7 +447,7 @@ body {
 
 
 #slide-5 {
-	background-color: #f39c12;
+	background-color: #ffffff;
 	color: #e4e6e5;
 	padding-top: 90px;
 }
