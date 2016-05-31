@@ -142,7 +142,7 @@ var audioStorage = multer.diskStorage({
 });
 var audioUpload = multer({storage: audioStorage});
 
-app.post("/uploadVideo", audioUpload.any(), function(req, res) {
+app.post("/uploadAudio", audioUpload.any(), function(req, res) {
     console.log("audio upload received");
     // move
     var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+audioName;
