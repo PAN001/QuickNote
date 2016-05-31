@@ -21,7 +21,7 @@ function initEditor() {
         plugins: [
             'advlist autolink lists link image charmap print preview', //fullpage not working
             'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu imagetools textcolor colorpicker responsivefilemanager template tabfocus mentions nonbreaking pagebreak paste spellchecker textpattern wordcount autolink autoresize codesample emoticons hr'
+            'insertdatetime media table contextmenu imagetools textcolor colorpicker responsivefilemanager template tabfocus mentions nonbreaking pagebreak paste textpattern wordcount autolink autoresize codesample emoticons hr'
     //                                      去除掉“paste”，DD时正常（不会多余复制）
       ],
         automatic_uploads: true,
@@ -50,6 +50,7 @@ function initEditor() {
             });
           }
         },
+        file_picker_types: 'file image media',
         
         tabfocus_elements: ":prev,:next",
         
@@ -174,16 +175,18 @@ function initEditor() {
         
         // link setting
         link_assume_external_targets: true,
-        link_class_list: [
-            {title: 'None', value: ''},
-            {title: 'Dog', value: 'dog'},
-            {title: 'Cat', value: 'cat'}
-        ],
+//        link_class_list: [
+//            {title: 'None', value: ''},
+//            {title: 'Dog', value: 'dog'},
+//            {title: 'Cat', value: 'cat'}
+//        ],
         link_list: [
             {title: 'UNNC', value: 'http://www.nottingham.edu.cn'}
         ],
         target_list: false,
         
+        // spellchecker
+        browser_spellcheck : true,
         
         // media
         media_live_embeds: true,
@@ -213,8 +216,7 @@ function initEditor() {
         // paste
         paste_data_images: true,
 
-        // textpattern
-        // support markdown
+        // textpattern: support markdown
         textpattern_patterns: [
             {start: '*', end: '*', format: 'italic'},
             {start: '**', end: '**', format: 'bold'},
@@ -255,7 +257,7 @@ function initEditor() {
             }}
         ],
 
-        toolbar1: 'insertfile undo redo | styleselect | fontsizeselect | fontselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | template nonbreaking pagebreak paste spellchecker codesample emoticons fullscreen mybutton',
+        toolbar1: 'insertfile undo redo | styleselect | fontsizeselect | fontselect | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | template nonbreaking pagebreak paste codesample emoticons fullscreen mybutton',
 
         fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
         font_formats: 'Arial=arial;Helverica=helvetica;Sans-serif=sans-serif;Courier New=courier new;Courier=courier;Monospace=monospace;AkrutiKndPadmini=Akpdmi-n',

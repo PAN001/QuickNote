@@ -3839,9 +3839,20 @@ input[type="file"] {
     height: 100%;
 }
 
-#editor iframe {
+.iframeWrapper iframe {
     width: 100% !important;
     height: 100% !important;
+    border: none;    
+    z-index: 1;
+    border-radius: 3px;
+    border: 5px dotted #ccc;
+}
+
+.iframeWrapper iframe:hover {
+	border-color: #79CDCD;
+}
+
+#editor iframe {
     border: none;    
     z-index: 1;
     border-radius: 3px;
@@ -3851,6 +3862,7 @@ input[type="file"] {
 #editor iframe:hover {
 	border-color: #79CDCD;
 }
+
 
 /*
 #editor iframe {
