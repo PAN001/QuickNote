@@ -260,7 +260,7 @@ tinymce.PluginManager.add('link', function(editor) {
 			body: [
 				{
 					name: 'href',
-					type: 'filepicker',
+					type: 'textbox',
 					filetype: 'file',
 					size: 40,
 					autofocus: true,

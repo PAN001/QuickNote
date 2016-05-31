@@ -50,7 +50,7 @@ function initEditor() {
             });
           }
         },
-        
+        file_picker_types: 'file image media',
         tabfocus_elements: ":prev,:next",
         
         setup: function(editor) {
