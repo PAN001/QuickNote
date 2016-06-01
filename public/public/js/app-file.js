@@ -125,7 +125,6 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         url: url,
         params: params,
         data: data,
-        timeout: 10000
       };
       for (var k in config) {
         if (config.hasOwnProperty(k)) {
@@ -134,22 +133,20 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         }
       }
       console.log('request url', url);
-      if(method === "DELETE"){
-        
-      }
-      else{
-        $http(conf)
-        .success(function (data) {
-          FM.successData = data;
-          handleHashChange(FM.curHashPath);
-          console.log("http request success");
-        })
-        .error(function (data, status) {
-
-            FM.errorData = getMsg("ServerCrashes");
-            console.log("http request failed" + ' ' + status + ': ' + data);
-        });
-      }
+      $http(conf)
+      .success(function (data) {
+        FM.successData = data;
+        handleHashChange(FM.curHashPath);
+        console.log("http request success");
+        if(params.type=="UPLOAD_FILE"){
+          document.getElementById("uploadingMsg").style.display="none";
+          console.log("httprequest: upload success");
+        }
+      })
+      .error(function (data, status) {
+          FM.errorData = getMsg("ServerCrashes");
+          console.log("http request failed" + ' ' + status + ': ' + data);
+      });
       
     };
 
@@ -236,6 +233,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
 
     FM.upload = function () {
       console.log('Upload File:', FM.uploadFile);
+      document.getElementById("uploadingMsg").style.display="";
       var formData = new FormData();
       formData.append('upload', FM.uploadFile);
       var url = cloudUrl + 'api' + FM.curFolderPath + FM.uploadFile.name;

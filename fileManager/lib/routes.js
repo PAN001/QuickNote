@@ -88,6 +88,7 @@ router.post('/api/(.*)', Tools.loadRealPath, Tools.checkPathNotExists, function*
     this.body = 'Create Folder Succeed!';
   }
   else if (type === 'UPLOAD_FILE') {
+
     var formData = yield formParser(this.req);
     if (formData.fieldname === 'upload'){
       var writeStream = origFs.createWriteStream(p);

@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
 var exec = require('child_process').exec;
+ var fs = require('fs');
+// var path = require('path');
+// var multipart = require('connect-multiparty');
+var multer = require('multer');
+
 
 var app = express();
 
@@ -58,6 +63,7 @@ app.use('/share/addShareNotebook', bodyParser.text());
 app.use('/share/addShareNote', bodyParser.text());
 app.use('/share/addGroupShareNotebook', bodyParser.text());
 app.use('/share/addGroupShareNote', bodyParser.text());
+// app.use('/upload', bodyParser());
 
 //app.use('/share/listShareNotes', bodyParser.text());
 //app.use(bodyParser.json());
@@ -70,11 +76,127 @@ app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
 //    res.header( 'Content-Type' ,'application/x-www-form-urlencoded; charset=UTF-8');
 	//res.header('Access-Control-Allow-Headers', 'X-Requested_With'); 
-	// console.log(req);
+    // console.log(req);
 	next();
 });
 
+Date.prototype.format = function(t) {
+    var e = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        S: this.getMilliseconds()
+    };
+    /(y+)/.test(t) && (t = t.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length)));
+    for (var n in e) new RegExp("(" + n + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? e[n] : ("00" + e[n]).substr(("" + e[n]).length)));
+    return t
+};
 
+var tmpPath = '/root/tmp/';
+var videoName;
+var videoStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
+        // console.log(req);
+        cb(null, tmpPath);
+    },
+    filename: function (req, file, cb) {
+        var date = new Date();
+        videoName  = "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm";
+        cb(null, videoName);
+    }
+});
+var videoUpload = multer({storage: videoStorage});
+
+app.post("/uploadVideo", videoUpload.any(), function(req, res) {
+    console.log("video upload received");
+    
+    // console.log(req.files);
+    console.log(req.body.email);
+    // move
+    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+videoName;
+    var relPath = '/cloud/'+req.body.email+'/'+videoName;
+    fs.rename(tmpPath+videoName,destPath, function(err){
+        if(err){
+            throw err;
+        }
+    });
+    res.json({code: 200, path: relPath});
+
+
+});
+
+var audioName;
+var audioStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, tmpPath);
+    },
+    filename: function (req, file, cb) {
+        var date = new Date();
+        audioName  = "Audio-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".wav";
+        cb(null, audioName);
+    }
+});
+var audioUpload = multer({storage: audioStorage});
+
+app.post("/uploadAudio", audioUpload.any(), function(req, res) {
+    console.log("audio upload received");
+    // move
+    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+audioName;
+    var relPath = '/cloud/'+req.body.email+'/'+audioName;
+    fs.rename(tmpPath+audioName,destPath, function(err){
+        if(err){
+            throw err;
+        }
+    });
+    res.json({code: 200, path: relPath});
+
+
+});
+
+
+
+// var uploadFnct = function(dest){
+//     var storage = multer.diskStorage({ //multers disk storage settings
+//         destination: function (req, file, cb) {
+//             console.log(req);
+//             console.log(file);
+//             // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
+//             cb(null, '/root/QuickNote/public/cloud/' + dest + '/');
+//         },
+//         filename: function (req, file, cb) {
+//             var date = new Date();
+//             cb(null, "Video-Recording-"+date.format("yyyy-MM-dd-hh-mm-ss")+".webm");
+//         }
+//     });
+
+//     var upload = multer({ //multer settings
+//         storage: storage
+//     }).any();
+
+//     return upload;
+// };
+
+
+// app.post('/upload', function(req, res){
+//         console.log("video upload received");
+//         // console.log(req.files);
+//         // console.log(req.body.email);
+//         // console.log(req.email);
+//         console.log(req.files);
+
+//         var currUpload = uploadFnct("");
+//         currUpload(req,res,function(err){
+//             if(err){
+//                  res.json({error_code:1,err_desc:err});
+//                  return;
+//             }
+//             // res.json({error_code:0,err_desc:null, filename: req.file.filename});
+//         });
+// });
 
 app.post("/updateAll", function(req, res) {
 	// res.header('Access-Control-Allow-Origin', '*'); // implementation of CORS

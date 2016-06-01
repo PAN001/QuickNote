@@ -114,10 +114,6 @@
 
 <!--定制版的JQuery；需要放在bootstrap之前-->
 <script src="public/js/dep.min.js"></script>
-<!--    Jquery UI-->
-<script src="public/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="public/js/jquery-ui-1.11.4/jquery-ui.min.css" type="text/css" id="themeLink"/>
-    
 <script type="text/javascript">
     $.fn.notebookZTree = $.fn.zTree;
 </script>
@@ -659,7 +655,7 @@ function forwardpage(){
 						<!-- 	<i class="fa fa-play-circle" id = "playbtn" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" ></i> -->
 							<i class="fa fa-dot-circle-o recordbtn lightup" id = "playbtn" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" ></i>
 
-							<i class="fa fa-stop-circle recordbtn" id = "stopbtn" aria-hidden="true" onclick="stopRecording()" alt="Stop" title="Stop" ></i>
+							<i class="fa fa-stop-circle recordbtn" id = "stopbtn" aria-hidden="true" onclick="stopRecording(Email)" alt="Stop" title="Stop" ></i>
 							<!-- <i class="fa fa-download" aria-hidden="true"></i> -->
 							<i class="fa fa-arrow-circle-down recordbtn" id = "downbtn" aria-hidden="true" onclick="download()" alt="Download" title="Download" ></i>
 						<!-- 	<i class="fa fa-times" aria-hidden="true"></i> -->
@@ -672,6 +668,11 @@ function forwardpage(){
 						<br/>
 						<b id="count"></b>
 						<br/><br/>
+
+						<div id = "audioRecordingMsg" style="display: none;">
+                          <h4><img src = "public/images/loading-24.gif">Saving and uploading to the cloud...</h4>
+                        </div>
+
 						<div id = "audioDoc">
 							<h1>Audio Recording</h1><br/>
 							<h3>1. Click start icon to start recording </h3>
@@ -685,7 +686,11 @@ function forwardpage(){
                        <div class="tab-pane fade" id="videoRecording">
                           <!-- <p>Video Recording</p>  --><br/>
                           <video id="myVideo" class="video-js vjs-default-skin"></video>
-                          <br/><br/>
+                          <br/>
+                          <div id = "videoRecordingMsg" style="display: none;">
+                          <img src = "public/images/loading-24.gif"><h4>Saving and uploading to cloud...</h4>
+                          </div>
+                          <br/>
                           <button id="downloadbtn" onclick = "downloadvideo()"><i class="fa fa-download" aria-hidden="true"></i> DOWNLOAD</button><br/>
 <!--                           <i id="videodownload" class = "fa fa-downloadbtn"></i>-->
                           <div id = "audioDoc">
@@ -737,8 +742,9 @@ function forwardpage(){
                        </div>
 
                        <!-- iris -->
-                       <div class="tab-pane fade" id="searchEngine" style = "overflow-y:scroll">    
-                            <gcse:search></gcse:search> 
+                       <div class="tab-pane fade" id="searchEngine" style = "overflow-y:scroll">
+                       
+                           <gcse:search></gcse:search> 
                            
 <!--
                         <div class="top-search">
@@ -752,15 +758,16 @@ function forwardpage(){
                             </form>
                         </div>
 -->
+							<!-- iris -->
                            <div id = "gscDoc" style = "position:absolute;left:25%;top:250px">
-
-                                <h1>Search</h1>
-                                <h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
-                                <br><br>
-                                <h1>Add Content</h1>
-                                <h4>Drag the best elements into your note<br> and add your own content.</h4>
-
-                            </div>
+                            
+							<h1>Search</h1>
+							<h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
+                               <br><br>
+							<h1>Add Content</h1>
+							<h4>Drag the best elements into your note<br> and add your own content.</h4>
+							
+							</div>
 						
                        </div>
 
@@ -811,6 +818,7 @@ function forwardpage(){
 							      </div>
 							    </div>
 							  </div>
+
 							  <div class="modal fade" id="renameModal">
 							    <div class="modal-dialog">
 							      <div class="modal-content">
@@ -827,6 +835,12 @@ function forwardpage(){
 							      </div>
 							    </div>
 							  </div>
+
+
+							  <div id = "uploadingMsg" style="display: none;">
+	                          	<h4>&nbsp;&nbsp;&nbsp;&nbsp;<img src = "public/images/loading-24.gif">&nbsp;&nbsp;Uploading... Please wait.</h4>
+	                          </div>
+
 
 							  <div class="modal fade" id="moveModal">
 							    <div class="modal-dialog">
@@ -1223,13 +1237,57 @@ function forwardpage(){
     {
         // the blob object contains the recorded data that
         // can be downloaded by the user, stored on server etc.
+        document.getElementById("videoRecordingMsg").style.display="";
+        uploadVideo();
         console.log('finished recording: ', player.recordedData);
     });
 
     function downloadvideo(){
+    	
         saveAs(player.recordedData.video,"output.webm");
         saveAs(player.recordedData.audio,"output.wav");
     }
+
+
+	function uploadVideo(){
+
+	  // var data = {};
+	  // data[Email] = Email;
+	  // data[File] = new FormData();
+	  // data[File].append("file", player.recordedData.video);
+	  // data[File].append("originalname", "video.webm");
+  	  // var stringifiedJson = JSON.stringify(data);	
+  	  
+	  var data = new FormData();
+	  data.append("file", player.recordedData.video);
+	  data.append("originalname", "video.webm");
+	  data.append("email", Email);
+	  console.log(data);
+	  $.ajax({
+	    url: baseUrl+basePort+'/uploadVideo',
+	    type: 'POST',
+	    data: data,
+	    async: true,
+	    cache: false,
+	    contentType: false,
+	    processData: false,
+	    success: function(data){
+	      if(data.code == 200) {
+	        console.log("upload video success: "+data.path);
+	        $('#editor').append("<iframe src = "+baseUrl+basePort+data.path+" width=400 height=300></iframe> ");
+	        document.getElementById("videoRecordingMsg").style.display="none";
+	      } else {
+	        console.log("upload video fail");
+	      }
+	    },
+	    error: function(){
+	      console.log("upload video error");
+	    }
+	  });
+	  
+	}
+
+
 </script>
 
 <script>
@@ -1248,7 +1306,7 @@ function forwardpage(){
 		// });
   //  }
 
-   function refreshWebbrowser() {
+   function onClickFunc2() {
    		// location.href="#webpage";
    		$(this).attr("target", "viewframe");
    		var href = $(this).attr("href");
@@ -1263,13 +1321,12 @@ function forwardpage(){
    		document.getElementById("gscDoc").style.display="none";
    }
 
-    function registerEvents(){
-        console.log("tick");
-        $(".gs-title").unbind();
-//        $(".gs-title").on("click","a",refreshWebbrowser);
+   function cse(){
+   			$(".gs-title").unbind();
+		   	$(".gs-title").on("click","a",onClickFunc2);
 
-//        $("#editor a").click(refreshWebbrowser);
-//        $(".gsc-search-button").on("click",hidecontent());
+		   	$("#editor a").click(onClickFunc2);
+//		   	$(".gsc-search-button").on("click",hidecontent());
         $(".gsc-input").change(hidecontent);
         // $("#webpage a").click(refreshWebbrowser);
 
@@ -1307,7 +1364,6 @@ function forwardpage(){
 
     $("#videodownload").on("click",downloadvideo());
 </script>
-    
 <script src="public/js/recorder/recorder.js"> </script>
 <script src="public/js/recorder/recorderWorker.js"> </script>
 <script src="public/js/recorder/configRecorder.js"> </script>
