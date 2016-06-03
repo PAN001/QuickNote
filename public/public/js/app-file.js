@@ -180,7 +180,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         $('#editor').append("<img src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></img> ");
       }
       else if(extension == ".mp3" || extension == ".wma" || extension == ".wav"){
-        $('#editor').append("<embed src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=300 height=100></embed> ");
+        $('#editor').append("<iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+" width=400 height=75></iframe> ");
       }
       else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
         $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+"3000" +"/cloud/"+Email+file.relPath+"></iframe></div> ");
