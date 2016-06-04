@@ -157,6 +157,39 @@ app.post("/uploadAudio", audioUpload.any(), function(req, res) {
 
 });
 
+var imageName;
+var imageStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
+        // console.log(req);
+        cb(null, tmpPath);
+    },
+    filename: function (req, file, cb) {
+        var date = new Date();
+        imageName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
+        cb(null, imageName);
+    }
+});
+var imageUpload = multer({storage: imageStorage});
+
+app.post("/uploadImage", imageUpload.any(), function(req, res) {
+    console.log("image upload received");
+    
+    // console.log(req.files);
+    console.log(req.body.email);
+    // move
+    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+imageName;
+    var relPath = '/cloud/'+req.body.email+'/'+imageName;
+    fs.rename(tmpPath+imageName,destPath, function(err){
+        if(err){
+            throw err;
+        }
+    });
+    res.json({code: 200, path: relPath});
+
+
+});
+
 
 
 // var uploadFnct = function(dest){
