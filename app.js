@@ -172,18 +172,12 @@ var imageStorage = multer.diskStorage({
 });
 var imageUpload = multer({storage: imageStorage});
 
-app.post("/uploadImage", imageUpload.single('file'), function(req, res) {
+app.post("/uploadImage", imageUpload.any(), function(req, res) {
     console.log("image upload received");
     
-    console.log(req.file);
+    console.log(req.files);
     console.log(req.body.email);
-    var raw = new Buffer(req.file.buffer.toString(), 'base64')
 
-    fs.writeFile('/root/tmp/upload.png', raw, function (err) {
-    if (err) return next(err)
-
-    res.end('Success!')
-  })
     // move
     var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+imageName;
     var relPath = '/cloud/'+req.body.email+'/'+imageName;
