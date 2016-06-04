@@ -114,7 +114,7 @@ var videoUpload = multer({storage: videoStorage});
 app.post("/uploadVideo", videoUpload.any(), function(req, res) {
     console.log("video upload received");
     
-    // console.log(req.files);
+     console.log(req.files);
     console.log(req.body.email);
     // move
     var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+videoName;
