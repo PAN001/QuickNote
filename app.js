@@ -52,7 +52,7 @@ server.listen(3000, function(){
 app.use(expressMongoDb('mongodb://localhost:27017/NoteTakingApp'));
 console.log("db starts");
 
-app.use('/uploadImage', bodyParser.text());
+app.use('/uploadImage', bodyParser.json({limit: 10000}));
 app.use('/updateAll', bodyParser.text());
 app.use('/register', bodyParser.text());
 app.use('/openCloud', bodyParser.text());
