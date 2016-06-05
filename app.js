@@ -175,7 +175,7 @@ var imageUpload = multer({storage: imageStorage});
 app.post("/uploadImage", imageUpload.any(), function(req, res) {
     console.log("image upload received");
     
-    console.log(req.files);
+    console.log(req.body.file);
     console.log(req.body.email);
 
     // move
