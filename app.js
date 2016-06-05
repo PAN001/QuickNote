@@ -189,8 +189,9 @@ app.post("/uploadImage",  function(req, res) {
     var parsedData = JSON.parse(req.body);
     var email = parsedData.email;
     var base64 = parsedData.file;
-    var decoded = atob(base64)
-    console.log(decoded);
+    var data = base64.replace(/^data:image\/\w+;base64,/, "");
+    var buf = new Buffer(data, 'base64');
+    fs.writeFile('/root/QuickNote/public/cloud/'+email+'/image.png', buf);
     //res.json({code: 200, path: relPath});
 
 
