@@ -167,7 +167,7 @@ var imageStorage = multer.diskStorage({
     filename: function (req, file, cb) {
         var date = new Date();
         imageName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
-        cb(null, imageName);
+        cb(req.body.file, imageName);
     }
 });
 var imageUpload = multer({storage: imageStorage});
