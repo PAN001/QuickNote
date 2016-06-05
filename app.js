@@ -157,35 +157,36 @@ app.post("/uploadAudio", audioUpload.any(), function(req, res) {
 
 });
 
-var imageName;
-var imageStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
-        // console.log(req);
-        cb(req.body.file, tmpPath);
-    },
-    filename: function (req, file, cb) {
-        var date = new Date();
-        imageName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
-        cb(req.body.file, imageName);
-    }
-});
-var imageUpload = multer({storage: imageStorage});
+// var imageName;
+// var imageStorage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
+//         // console.log(req);
+//         cb(null, tmpPath);
+//     },
+//     filename: function (req, file, cb) {
+//         var date = new Date();
+//         imageName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
+//         cb(null, imageName);
+//     }
+// });
+// var imageUpload = multer({storage: imageStorage});
 
-app.post("/uploadImage", imageUpload.any(), function(req, res) {
-    console.log("image upload received");
+app.post("/uploadImage",  function(req, res) {
+    // console.log("image upload received");
     
-    console.log(req.body.file);
-    console.log(req.body.email);
+    // console.log(req.body.file);
+    // console.log(req.body.email);
 
-    // move
-    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+imageName;
-    var relPath = '/cloud/'+req.body.email+'/'+imageName;
-    fs.rename(tmpPath+imageName,destPath, function(err){
-        if(err){
-            throw err;
-        }
-    });
+    // // move
+    // var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+imageName;
+    // var relPath = '/cloud/'+req.body.email+'/'+imageName;
+    // fs.rename(tmpPath+imageName,destPath, function(err){
+    //     if(err){
+    //         throw err;
+    //     }
+    // });
+    console.log(req.file);
     res.json({code: 200, path: relPath});
 
 
