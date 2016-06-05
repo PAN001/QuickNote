@@ -52,7 +52,7 @@ server.listen(3000, function(){
 app.use(expressMongoDb('mongodb://localhost:27017/NoteTakingApp'));
 console.log("db starts");
 
-//app.use('/uploadImage', bodyParser.text());
+app.use('/uploadImage', bodyParser.text());
 app.use('/updateAll', bodyParser.text());
 app.use('/register', bodyParser.text());
 app.use('/openCloud', bodyParser.text());
@@ -187,10 +187,10 @@ app.post("/uploadImage",  function(req, res) {
     //     }
     // });
     console.log(req.body);
-    //var parsedData = JSON.parse(req.body);
-    // var email = parsedData.email;
-    // var base64 = parsedData.file;
-    // console.log(base64);
+    var parsedData = JSON.parse(req.body);
+    var email = parsedData.email;
+    var base64 = parsedData.file;
+    console.log(base64);
     //res.json({code: 200, path: relPath});
 
 
