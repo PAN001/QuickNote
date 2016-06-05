@@ -188,8 +188,8 @@ app.post("/uploadImage",  function(req, res) {
     // });
     var parsedData = JSON.parse(req.body);
     var email = parsedData.email;
-    var base64 = parsedData.file;
-    console.log(base64);
+    //var base64 = parsedData.file;
+    console.log(email);
     //res.json({code: 200, path: relPath});
 
 
