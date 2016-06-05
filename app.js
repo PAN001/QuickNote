@@ -162,7 +162,7 @@ var imageStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
         // console.log(req);
-        cb(null, tmpPath);
+        cb(req.body.file, tmpPath);
     },
     filename: function (req, file, cb) {
         var date = new Date();
