@@ -191,8 +191,11 @@ app.post("/uploadImage",  function(req, res) {
     var base64 = parsedData.file;
     var data = base64.replace(/^data:image\/\w+;base64,/, "");
     var buf = new Buffer(data, 'base64');
-    fs.writeFile('/root/QuickNote/public/cloud/'+email+'/image.png', buf);
-    //res.json({code: 200, path: relPath});
+    var date = new Date();
+    photoName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
+    fs.writeFile('/root/QuickNote/public/cloud/'+email+'/'+photoName, buf);
+    var relPath = '/cloud/'+email+'/'+photoName;
+    res.json({code: 200, path: relPath});
 
 
 });
