@@ -52,7 +52,7 @@ server.listen(3000, function(){
 app.use(expressMongoDb('mongodb://localhost:27017/NoteTakingApp'));
 console.log("db starts");
 
-
+app.use('/uploadImage', bodyParser.text({limit: 100000000}));
 app.use('/updateAll', bodyParser.text());
 app.use('/register', bodyParser.text());
 app.use('/openCloud', bodyParser.text());
@@ -157,35 +157,44 @@ app.post("/uploadAudio", audioUpload.any(), function(req, res) {
 
 });
 
-var imageName;
-var imageStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
-        // console.log(req);
-        cb(req.body.file, tmpPath);
-    },
-    filename: function (req, file, cb) {
-        var date = new Date();
-        imageName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
-        cb(req.body.file, imageName);
-    }
-});
-var imageUpload = multer({storage: imageStorage});
+// var imageName;
+// var imageStorage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         // cb(null, '/root/QuickNote/public/cloud/' + req.body.email + '/');
+//         // console.log(req);
+//         cb(null, tmpPath);
+//     },
+//     filename: function (req, file, cb) {
+//         var date = new Date();
+//         imageName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
+//         cb(null, imageName);
+//     }
+// });
+// var imageUpload = multer({storage: imageStorage});
 
-app.post("/uploadImage", imageUpload.any(), function(req, res) {
-    console.log("image upload received");
+app.post("/uploadImage",  function(req, res) {
+    // console.log("image upload received");
     
-    console.log(req.body.file);
-    console.log(req.body.email);
+    // console.log(req.body.file);
+    // console.log(req.body.email);
 
-    // move
-    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+imageName;
-    var relPath = '/cloud/'+req.body.email+'/'+imageName;
-    fs.rename(tmpPath+imageName,destPath, function(err){
-        if(err){
-            throw err;
-        }
-    });
+    // // move
+    // var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+imageName;
+    // var relPath = '/cloud/'+req.body.email+'/'+imageName;
+    // fs.rename(tmpPath+imageName,destPath, function(err){
+    //     if(err){
+    //         throw err;
+    //     }
+    // });
+    var parsedData = JSON.parse(req.body);
+    var email = parsedData.email;
+    var base64 = parsedData.file;
+    var data = base64.replace(/^data:image\/\w+;base64,/, "");
+    var buf = new Buffer(data, 'base64');
+    var date = new Date();
+    photoName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
+    fs.writeFile('/root/QuickNote/public/cloud/'+email+'/'+photoName, buf);
+    var relPath = '/cloud/'+email+'/'+photoName;
     res.json({code: 200, path: relPath});
 
 
