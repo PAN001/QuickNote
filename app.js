@@ -187,7 +187,7 @@ app.post("/uploadImage",  function(req, res) {
     //     }
     // });
     console.log(req.file);
-    res.json({code: 200, path: relPath});
+    //res.json({code: 200, path: relPath});
 
 
 });
