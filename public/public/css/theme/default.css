@@ -591,6 +591,9 @@ a.raw:hover {
     text-align: center
 }
 
+#photoRecording{
+	text-align: center
+}
 
 #audioDoc{
     color: #bbb;
@@ -3488,6 +3491,23 @@ h1,h2,h3 {
     -webkit-border-radius: 10px;
     cursor:pointer
 }
+#downloadbtn2{
+    width:150px;
+    font-family:Helvetica ;
+    font-size: 17px;
+    color: #fff;
+/*    font-weight: bold;*/
+    /*padding: 0 8px;*/
+    text-align: center;
+    height: 40px;
+    min-width: 54px;
+    background-color: #79CDCD;
+    border: 1px solid #79CDCF;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    cursor:pointer
+}
 #address {
     font-size: 15px;
     padding: 5px;
@@ -3554,7 +3574,7 @@ h1,h2,h3 {
 	border: 0 solid #fff;
 }
 .nav-tabs>li {
-	width: 16%;
+	width: 14%;
 }
 .nav-tabs>li>a {
 	border: 0 solid #fff;

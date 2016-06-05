@@ -161,6 +161,12 @@
 }
 </style>
 
+<style>
+  /* change player background color */
+  #myImage {
+      background-color: #79CDCD;
+  }
+  </style>
 
 <script>
     // dynamic style sheets
@@ -613,6 +619,11 @@ function forwardpage(){
                               <big><big><i class="fa fa-video-camera"></i></big></big>
                            </a>
                         </li>
+
+                        <li><a href="#photoRecording" data-toggle="tab" title="Image Recording">
+                              <big><big><i class="fa fa-photo"></i></big></big>
+                           </a>
+                        </li>
 <!--                        <li><a href="#files" data-toggle="tab" title="Open Files"onclick="TrackLogRecord.newCheckFileRecord()"> -->
                        <li><a href="#files" id = "fileicon" data-toggle="tab" title="Open Files">
                               <big><big><i class="fa fa-folder"></i></big></big>
@@ -685,10 +696,13 @@ function forwardpage(){
                        </div>
                        <div class="tab-pane fade" id="videoRecording">
                           <!-- <p>Video Recording</p>  --><br/>
+                          <!-- <video id="myImage" class="video-js vjs-default-skin"></video> -->
+
                           <video id="myVideo" class="video-js vjs-default-skin"></video>
+
                           <br/>
                           <div id = "videoRecordingMsg" style="display: none;">
-                          <img src = "public/images/loading-24.gif"><h4>Saving and uploading to cloud...</h4>
+                          <img src = "public/images/loading-24.gif"><h4>Saving and uploading to the cloud...</h4>
                           </div>
                           <br/>
                           <button id="downloadbtn" onclick = "downloadvideo()"><i class="fa fa-download" aria-hidden="true"></i> DOWNLOAD</button><br/>
@@ -701,6 +715,29 @@ function forwardpage(){
 							<h3>4. Click play/pause to play/pause the recorded video </h3>
 							<h3>5. Click download to download the video </h3>
 							<p>P.S. Two files will be downloaded. One for video and another for audio.</p>
+							</div>
+
+                       </div>
+
+                       <div class="tab-pane fade" id="photoRecording">
+                          <!-- <p>Video Recording</p>  --><br/>
+                          <!-- <video id="myImage" class="video-js vjs-default-skin"></video> -->
+
+                          <video id="myImage" class="video-js vjs-default-skin"></video>
+
+                          <br/>
+                          <div id = "photoMsg" style="display: none;">
+                          <img src = "public/images/loading-24.gif"><h4>Saving and uploading to the cloud...</h4>
+                          </div>
+                          <br/>
+                          <button id="downloadbtn2" onclick = "downloadImage()"><i class="fa fa-download" aria-hidden="true"></i>DOWNLOAD</button><br/>
+<!--                           <i id="videodownload" class = "fa fa-downloadbtn"></i>-->
+                          <div id = "audioDoc">
+							<h1>Photo taking</h1>
+							<h3>1. Click the recording icon to start</h3>
+							<h3>2. Click camera button to take a photo </h3>
+							<h3>3. Click refresh button if you want to take another photo</h3>
+							<h3>5. Click download to download the photo </h3>
 							</div>
 
                        </div>
@@ -1208,6 +1245,26 @@ function forwardpage(){
 </script>
     
 <script>
+
+    var player1 = videojs("myImage",
+	{
+	    controls: true,
+	    width: 477,
+	    height: 360,
+	    controlBar: {
+	        volumeMenuButton: false,
+	        fullscreenToggle: false
+	    },
+	    plugins: {
+	        record: {
+	            audio: false,
+                video: false,
+                image: true,
+                debug: true
+	        }
+	    }
+	});
+	
     var player = videojs("myVideo",
     {
         controls: true,
@@ -1217,12 +1274,16 @@ function forwardpage(){
             record: {
                 audio: true,
                 video: true,
-                maxLength: 20,
+                maxLength: 600,
+                image: false,
                 debug: true
             }
         }
     });
-    // error handling
+
+    
+
+
     player.on('deviceError', function()
     {
         console.log('device error:', player.deviceErrorCode);
@@ -1239,15 +1300,51 @@ function forwardpage(){
         // can be downloaded by the user, stored on server etc.
         document.getElementById("videoRecordingMsg").style.display="";
         uploadVideo();
-        console.log('finished recording: ', player.recordedData);
+        // console.log('finished recording: ', player.recordedData);
+    });
+
+
+    player1.on('deviceError', function()
+    {
+        console.log('device error:', player.deviceErrorCode);
+    });
+    // user clicked the record button and started recording
+    player1.on('startRecord', function()
+    {
+        console.log('started recording!');
+    });
+    // user completed recording and stream is available
+    player1.on('finishRecord', function()
+    {
+        // the blob object contains the recorded data that
+        // can be downloaded by the user, stored on server etc.
+        document.getElementById("photoMsg").style.display="";
+        uploadImage();
+        // console.log('finished recording: ', player.recordedData);
     });
 
     function downloadvideo(){
-    	
+    	// saveBase64AsFile(player.recordedData,"output.png");
+    	// console.log(player.recordedData);
         saveAs(player.recordedData.video,"output.webm");
         saveAs(player.recordedData.audio,"output.wav");
     }
 
+    function downloadImage(){
+    	saveBase64AsFile(player1.recordedData,"output.png");
+    	// console.log(player.recordedData);
+    }
+
+
+
+    function saveBase64AsFile(base64, fileName) {
+
+	    var link = document.createElement("a");
+
+	    link.setAttribute("href", base64);
+	    link.setAttribute("download", fileName);
+	    link.click();
+	}
 
 	function uploadVideo(){
 
@@ -1282,6 +1379,44 @@ function forwardpage(){
 	    },
 	    error: function(){
 	      console.log("upload video error");
+	    }
+	  });
+	  
+	}
+
+
+	function uploadImage(){
+	//var image = convertDataURIToBinary(player1.recordedData);
+	//console.log(player1.recordedData);
+	  // var data = new FormData();
+	  // data.append("file", image, "image");
+	  // var xhr = new XMLHttpRequest();
+	  // xhr.open("POST", baseUrl+basePort+'/uploadImage', true);
+
+	  // data.append("file", image);
+	  // data.append("originalname", "photo.png");
+	  // data.append("email", Email);
+	  //console.log(player1.recordedData);
+
+	  var data = {"email": Email, "file": player1.recordedData};
+	  var stringifiedJson = JSON.stringify(data);
+	  $.ajax({
+	  	type: 'POST',
+	    url: baseUrl+basePort+'/uploadImage',
+	    processData: false,
+	    data: stringifiedJson,
+	    contentType: "text/plain",
+	    success: function(data){
+	      if(data.code == 200) {
+	        console.log("upload photo success: "+data.path);
+	        $('#editor').append("<img src = "+baseUrl+basePort+data.path+" width=400 height=300></img> ");
+	        document.getElementById("photoMsg").style.display="none";
+	      } else {
+	        console.log("upload photo fail");
+	      }
+	    },
+	    error: function(){
+	      console.log("upload photo error");
 	    }
 	  });
 	  
@@ -1362,7 +1497,7 @@ function forwardpage(){
         $("#searchEngine").delegate(".gsc-input","change",hidecontent); // hide the help information behind the GCSE
     });
 
-    $("#videodownload").on("click",downloadvideo());
+    // $("#videodownload").on("click",downloadvideo());
 </script>
 <script src="public/js/recorder/recorder.js"> </script>
 <script src="public/js/recorder/recorderWorker.js"> </script>
