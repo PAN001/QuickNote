@@ -186,11 +186,11 @@ app.post("/uploadImage",  function(req, res) {
     //         throw err;
     //     }
     // });
-    console.log(req.body);
     var parsedData = JSON.parse(req.body);
     var email = parsedData.email;
     var base64 = parsedData.file;
-    console.log(base64);
+    var decoded = atob(base64)
+    console.log(decoded);
     //res.json({code: 200, path: relPath});
 
 
