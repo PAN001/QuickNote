@@ -149,7 +149,8 @@ body {
       margin-left: 0; }
     .description .case .right {
       width: 85%;
-      margin-left: 15%; }
+      margin-left: 15%;
+      font-family:cambria; }
   @media  screen and (min-width:1280px) {
     .description .case .case_container {
       width: 80%;   }
