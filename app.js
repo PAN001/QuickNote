@@ -288,6 +288,10 @@ app.post("/register", function(req, res) {
 			if(data) { // if existent
 				res.end('{"msg": "Email has already been registered", "status": "fail"}');
 			}
+            else if(parsedData.Password != parsedData.RepeatPassword){
+                console.log("wrongrp");
+                 res.end('{"msg": "Wrong repeat password", "status": "wrongrp"}');
+            }
 			else { // if not existent
 				req.db.collection('registeredUsers').insert(parsedData, function(err, data) {
                     if(err) {
