@@ -151,7 +151,7 @@ body {
 	}
 	
 	.active-menu {
-		display: none !important;
+		/*display: none !important;*/
 	}
 	
 	.navbar-toggle {
@@ -212,8 +212,8 @@ body {
 }
 
 #slide-1 {
-/*	background-image: url('../images/bg1.jpg');*/
-    background-color:#444444;
+	background-image: url('../images/1.jpg');
+/*    background-color:#444444;*/
 	color: #ffffff;
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
@@ -299,8 +299,10 @@ body {
 }
 
 #slide-2 {
-	background-color: #1abc9c;
-	color: #e4e6e5;
+	/*background-color: #1abc9c;
+	color: #e4e6e5;*/
+	background-color: #ccc;
+	color: #000;
 	padding-top: 90px;
 }
 
@@ -506,7 +508,7 @@ body {
 	}
 	
 	#contact-row-4 .col-12 .hover-text {
-		display: none;
+		/*display: none;*/
 		font-size: 20px;
 	}
 
@@ -527,7 +529,7 @@ body {
 }
 
 .with-hover-text span {
-	display: none;
+	/*display: none;*/
 }
 
 .zoom {
@@ -606,3 +608,4 @@ body {
 .navigation-slide {
 	cursor: pointer;
 }
+
