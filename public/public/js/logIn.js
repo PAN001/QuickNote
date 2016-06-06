@@ -16,7 +16,7 @@ function register(e) {
     e.preventDefault();
     var Email = $("#Username2").val();
     var Password = $("#Password2").val();
-    var RepeatPassword = $("#Repeat Password").val();
+    var RepeatPassword = $("#RepeatPassword").val();
     var UserId = getObjectId();
     var jsonData = {"Email": Email, "Password": Password, "UserId": UserId, "RepeatPassword": RepeatPassword};
     var stringifiedJson = JSON.stringify(jsonData);
@@ -36,6 +36,14 @@ function register(e) {
                 localStorage.cloudPort = res.Port;
                 location.href = "QNote.html";
             } 
+            else if(res.status == "emptyemail"){
+                bootbox.alert(getMsg(res.msg), function() {
+                });
+            }
+            else if(res.status == "emptypassword"){
+                bootbox.alert(getMsg(res.msg), function() {
+                });
+            }
             else if(res.status == "wrongrp"){
                 bootbox.alert(getMsg(res.msg), function() {
                 });

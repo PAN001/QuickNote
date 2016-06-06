@@ -281,6 +281,15 @@ app.post("/register", function(req, res) {
 
     console.log("userId in register is: " + userId);
 	var findQuery = {"Email": email};
+    if(email===""){
+        res.end('{"msg": "Empty email", "status": "emptyemail"}');
+    }
+    if(parsedData.Password===""){
+        res.end('{"msg": "Empty password", "status": "emptypassword"}');
+    }
+    if(parsedData.Password != parsedData.RepeatPassword){
+        res.end('{"msg": "Wrong repeat password", "status": "wrongrp"}');
+    }
 	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
 		if(err) {
 			console.log(err);
@@ -290,9 +299,6 @@ app.post("/register", function(req, res) {
 			if(data) { // if existent
 				res.end('{"msg": "Email has already been registered", "status": "fail"}');
 			}
-            else if(parsedData.Password != parsedData.RepeatPassword){
-                 res.end('{"msg": "Wrong repeat password", "status": "wrongrp"}');
-            }
 			else { // if not existent
 				req.db.collection('registeredUsers').insert(parsedData, function(err, data) {
                     if(err) {

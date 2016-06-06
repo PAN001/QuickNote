@@ -122,7 +122,9 @@ var MSG = {
     "ShareFail": "Sorry, sharing failed",
     "ShareSuccess": "Share successfully",
     "CannotBeEmpty": "Sorry, this entry cannot be empty",
-    "Wrong repeat password": "The password was not correctly confirmed. Please be sure that the confirmation password exactly matches the password."
+    "Wrong repeat password": "The password was not correctly confirmed. Please be sure that the confirmation password exactly matches the password.",
+    "Empty email": "Email cannot be empty",
+    "Empty password": "Password cannot be empty"
 };
 
 function getMsg(key, data) {
