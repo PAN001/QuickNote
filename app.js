@@ -276,6 +276,8 @@ app.post("/register", function(req, res) {
 	var parsedData = JSON.parse(req.body);
     var email = parsedData.Email;
     var userId = parsedData.UserId;
+    console.log("Password: "+parsedData.Password);
+    console.log("Repeat Password: "+parsedData.RepeatPassword);
 
     console.log("userId in register is: " + userId);
 	var findQuery = {"Email": email};
@@ -289,7 +291,6 @@ app.post("/register", function(req, res) {
 				res.end('{"msg": "Email has already been registered", "status": "fail"}');
 			}
             else if(parsedData.Password != parsedData.RepeatPassword){
-                console.log("wrongrp");
                  res.end('{"msg": "Wrong repeat password", "status": "wrongrp"}');
             }
 			else { // if not existent
