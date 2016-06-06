@@ -276,73 +276,73 @@ app.post("/register", function(req, res) {
 	var parsedData = JSON.parse(req.body);
     var email = parsedData.Email;
     var userId = parsedData.UserId;
-    console.log("Password: "+parsedData.Password);
-    console.log("Repeat Password: "+parsedData.RepeatPassword);
-
-    console.log("userId in register is: " + userId);
-	var findQuery = {"Email": email};
+	
     if(email===""){
         res.end('{"msg": "Empty email", "status": "emptyemail"}');
     }
-    if(parsedData.Password===""){
+    else if(parsedData.Password===""){
         res.end('{"msg": "Empty password", "status": "emptypassword"}');
     }
-    if(parsedData.Password != parsedData.RepeatPassword){
+    else if(parsedData.Password != parsedData.RepeatPassword){
         res.end('{"msg": "Wrong repeat password", "status": "wrongrp"}');
     }
-	req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
-		if(err) {
-			console.log(err);
-			res.end('{"msg": "DB error", "status": "fail"}');
-		}
-		else {
-			if(data) { // if existent
-				res.end('{"msg": "Email has already been registered", "status": "fail"}');
-			}
-			else { // if not existent
-				req.db.collection('registeredUsers').insert(parsedData, function(err, data) {
-                    if(err) {
-                        console.log(err);
-                        res.end('{"msg": "DB error", "status": "fail"}');
-                    }	
-                    else {
-                        console.log("data inserted to db");
-
-                        // create the cloud directory
-                        mkdirp(root_dir + email, function(msg) { 
-                            console.log("directory created");
-                        });
-
-                        // find the port and start the corresponding process
-                        var port = findPort();
-                        var path = root_dir + email;
-                        console.log("Port open: " + port);
-                        console.log("Parh: " + path);
-                        var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
-                            if (error !== null) {
-                                console.log('exec error: ', error);
-                            }
-                            else {
-//                                portTable[parsedData.UserId] = port;
-                                console.log("process starts");
-                            }
-                        });
-                        if(result) {
-                            portTable[userId] = {
-                                Port: port,
-                                PId: result.pid
-                            };
-                            portMark[port-basePort] = 1;
-//                                console.log("id is " + userId);
-//                                console.log("port is " + portTable[userId].Port);
-//                                console.log("pid is " + portTable[userId].Pid);
-                        }
-                        res.end('{"msg": "Reistered successfully", "status": "success", ' + '"Port": ' + port + "}");
-                    }
-                });
+    else{
+        var findQuery = {"Email": email};
+        req.db.collection('registeredUsers').findOne(findQuery, function(err, data) {
+            if(err) {
+                console.log(err);
+                res.end('{"msg": "DB error", "status": "fail"}');
             }
-		}
-	});
+            else {
+                if(data) { // if existent
+                    res.end('{"msg": "Email has already been registered", "status": "fail"}');
+                }
+                else { // if not existent
+                    req.db.collection('registeredUsers').insert(parsedData, function(err, data) {
+                        if(err) {
+                            console.log(err);
+                            res.end('{"msg": "DB error", "status": "fail"}');
+                        }   
+                        else {
+                            console.log("data inserted to db");
+
+                            // create the cloud directory
+                            mkdirp(root_dir + email, function(msg) { 
+                                console.log("directory created");
+                            });
+
+                            // find the port and start the corresponding process
+                            var port = findPort();
+                            var path = root_dir + email;
+                            console.log("Port open: " + port);
+                            console.log("Parh: " + path);
+                            var result = exec("node --harmony fileManager/lib/index.js -p "+port+" -d "+path, function(error, stdout, stderr) {
+                                if (error !== null) {
+                                    console.log('exec error: ', error);
+                                }
+                                else {
+    //                                portTable[parsedData.UserId] = port;
+                                    console.log("process starts");
+                                }
+                            });
+                            if(result) {
+                                portTable[userId] = {
+                                    Port: port,
+                                    PId: result.pid
+                                };
+                                portMark[port-basePort] = 1;
+    //                                console.log("id is " + userId);
+    //                                console.log("port is " + portTable[userId].Port);
+    //                                console.log("pid is " + portTable[userId].Pid);
+                            }
+                            res.end('{"msg": "Reistered successfully", "status": "success", ' + '"Port": ' + port + "}");
+                        }
+                    });
+                }
+            }
+    });
+    }
+	
 });
 
 app.post("/logIn", function(req, res) {
