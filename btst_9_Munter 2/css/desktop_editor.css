@@ -131,13 +131,13 @@ body {
       margin: 0 auto 0 auto;
       padding: 85px 0; }
       .description .case .case_container h2 {
-        font-size: 18px;
+        font-size: 20px;
         line-height: 2;
         margin-bottom: 5px;
         font-weight: normal;
         color: #111; }
         .description .case .case_container p {
-          font-size: 14px;
+          font-size: 17px;
           color: #555;
           line-height: 1.5; }
           .description .case .case_container img {
@@ -150,7 +150,8 @@ body {
     .description .case .right {
       width: 85%;
       margin-left: 15%;
-      font-family:cambria; }
+      font-family:cambria; 
+    }
   @media  screen and (min-width:1280px) {
     .description .case .case_container {
       width: 80%;   }

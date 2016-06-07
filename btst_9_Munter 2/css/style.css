@@ -44,7 +44,7 @@ body {
 }
 
 .navbar {
-	background-color: #e4e6e5;
+/*	background-color: #e4e6e5;*/
 	background-color: rgba( 228, 230, 229, .85 );
 	border-bottom: 0 none;
 	font-size: 12px;
@@ -326,6 +326,7 @@ body {
 	
 	.content-row {
 		padding-top: 45px;
+		font-family: cambria;
 	}
 	
 	.content-row i,
@@ -608,4 +609,23 @@ body {
 .navigation-slide {
 	cursor: pointer;
 }
-
+#logo {
+	padding-top: 1%;
+	padding-bottom: 1%;
+	padding-left: 3%;
+}
+#bio div {
+	white-space: nowrap;
+/*	padding-top: 5%;*/
+}
+#bio i {
+	display: inline-block;
+	padding-top: 5%;
+}
+#bio i:hover{
+	color: 		#121212;
+	cursor: pointer;
+}
+#biop {
+	padding-top: 5%;
+}
