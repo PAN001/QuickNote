@@ -119,12 +119,12 @@ var MSG = {
     "Next": "Next",
     "ServerCrashes": "Sorry, error connecting to the server.",
     "DoubleShared": "Sorry, this note has already been shared to the same user",
-    "ShareFail": "Sorry, sharing failed",
-    "ShareSuccess": "Share successfully",
-    "CannotBeEmpty": "Sorry, this entry cannot be empty",
-    "Wrong repeat password": "The password was not correctly confirmed. Please be sure that the confirmation password exactly matches the password.",
-    "Empty email": "Email cannot be empty",
-    "Empty password": "Password cannot be empty"
+    "ShareFail": "Sorry, sharing failed.",
+    "ShareSuccess": "Share successfully.",
+    "CannotBeEmpty": "Sorry, this entry cannot be empty.",
+    "Wrong repeat password": "The password does not match. Please try again.",
+    "Empty email": "Email cannot be empty. Please try again.",
+    "Empty password": "Password cannot be empty. Please try again."
 };
 
 function getMsg(key, data) {
