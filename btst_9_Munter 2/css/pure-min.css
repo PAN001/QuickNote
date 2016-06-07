@@ -106,7 +106,7 @@ mark {
 }
 
 p,pre {
-	margin: 1em 0
+	/*margin: 1em 0*/
 }
 
 code,kbd,pre,samp {
