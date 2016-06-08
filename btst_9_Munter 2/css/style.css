@@ -616,6 +616,7 @@ body {
 }
 #bio div {
 	white-space: nowrap;
+
 /*	padding-top: 5%;*/
 }
 #bio i {
@@ -628,4 +629,37 @@ body {
 }
 #biop {
 	padding-top: 5%;
+	font-size: 20px;
+	font-family:Arial
 }
+blockquote {
+
+width: 500px;
+/*margin: 0.25em 0;*/
+/*padding: 0.25em 40px;*/
+line-height: 1.45;
+position: relative;
+color: #383838;
+border-left: none;
+width: 100%;
+}
+/*blockquote:before {
+/*s*/
+content: "\201C";
+font-size: 20px;
+position: absolute;
+/*left: 10px;*/
+top: 0px;
+left: 15%;
+color: #7a7a7a;
+}*/
+/*blockquote cite {
+color: #999999;
+font-size: 14px;
+display: block;
+margin-top: 5px;
+}
+ 
+blockquote cite:before {
+content: "\2014 \2009";
+}*/
