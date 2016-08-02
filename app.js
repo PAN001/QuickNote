@@ -1,4 +1,4 @@
-var port = Number(process.env.PORT || 3000);
+var port = Number(process.env.PORT || 443);
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
