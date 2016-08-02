@@ -1,4 +1,4 @@
-var port = Number(process.env.PORT || 443);
+var port = Number(process.env.PORT || 80);
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -43,7 +43,7 @@ app.use('/', express.static ('./public'));
 
 
 var server = http.createServer(app);
-server.listen(443, function(){
+server.listen(80, function(){
   console.log('-----> SERVER STARTED ON PORT:', port, '<-----');
   console.log('-----> PROCESS PID:', process.pid, '<-----');
 });
