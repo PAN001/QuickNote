@@ -16,7 +16,7 @@ var app = express();
 var mkdirp = require('mkdirp');
 
 // root address of cloud disk
-var root_dir = "/root/QuickNote/public/cloud/";
+var root_dir = "/root/Public/QuickNote/public/cloud/";
 
 var portMark = new Array();
 var basePort = 8080;
@@ -117,7 +117,7 @@ app.post("/uploadVideo", videoUpload.any(), function(req, res) {
      console.log(req.files);
     console.log(req.body.email);
     // move
-    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+videoName;
+    var destPath = '/root/Public/QuickNote/public/cloud/'+req.body.email+'/'+videoName;
     var relPath = '/cloud/'+req.body.email+'/'+videoName;
     fs.rename(tmpPath+videoName,destPath, function(err){
         if(err){
@@ -193,7 +193,7 @@ app.post("/uploadImage",  function(req, res) {
     var buf = new Buffer(data, 'base64');
     var date = new Date();
     photoName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
-    fs.writeFile('/root/QuickNote/public/cloud/'+email+'/'+photoName, buf);
+    fs.writeFile('/root/Public/QuickNote/public/cloud/'+email+'/'+photoName, buf);
     var relPath = '/cloud/'+email+'/'+photoName;
     res.json({code: 200, path: relPath});
 
