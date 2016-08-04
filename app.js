@@ -145,7 +145,7 @@ var audioUpload = multer({storage: audioStorage});
 app.post("/uploadAudio", audioUpload.any(), function(req, res) {
     console.log("audio upload received");
     // move
-    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+audioName;
+    var destPath = '/root/Public/QuickNote/public/cloud/'+req.body.email+'/'+audioName;
     var relPath = '/cloud/'+req.body.email+'/'+audioName;
     fs.rename(tmpPath+audioName,destPath, function(err){
         if(err){
