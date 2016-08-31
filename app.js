@@ -194,7 +194,9 @@ app.post("/uploadImage",  function(req, res) {
     var date = new Date();
     photoName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
     console.log('/root/Public/QuickNote/public/cloud/'+email+'/'+photoName);
-    fs.writeFile('/root/Public/QuickNote/public/cloud/'+email+'/'+photoName, buf);
+    fs.writeFile('/root/Public/QuickNote/public/cloud/'+email+'/'+photoName, buf, function(err){
+        
+    });
     var relPath = '/cloud/'+email+'/'+photoName;
     res.json({code: 200, path: relPath});
 
