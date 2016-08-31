@@ -1,4 +1,4 @@
-var port = Number(process.env.PORT || 3000);
+var port = Number(process.env.PORT || 80);
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -16,7 +16,7 @@ var app = express();
 var mkdirp = require('mkdirp');
 
 // root address of cloud disk
-var root_dir = "/root/QuickNote/public/cloud/";
+var root_dir = "/root/Public/QuickNote/public/cloud/";
 
 var portMark = new Array();
 var basePort = 8080;
@@ -43,7 +43,7 @@ app.use('/', express.static ('./public'));
 
 
 var server = http.createServer(app);
-server.listen(3000, function(){
+server.listen(80, function(){
   console.log('-----> SERVER STARTED ON PORT:', port, '<-----');
   console.log('-----> PROCESS PID:', process.pid, '<-----');
 });
@@ -117,7 +117,7 @@ app.post("/uploadVideo", videoUpload.any(), function(req, res) {
      console.log(req.files);
     console.log(req.body.email);
     // move
-    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+videoName;
+    var destPath = '/root/Public/QuickNote/public/cloud/'+req.body.email+'/'+videoName;
     var relPath = '/cloud/'+req.body.email+'/'+videoName;
     fs.rename(tmpPath+videoName,destPath, function(err){
         if(err){
@@ -145,7 +145,7 @@ var audioUpload = multer({storage: audioStorage});
 app.post("/uploadAudio", audioUpload.any(), function(req, res) {
     console.log("audio upload received");
     // move
-    var destPath = '/root/QuickNote/public/cloud/'+req.body.email+'/'+audioName;
+    var destPath = '/root/Public/QuickNote/public/cloud/'+req.body.email+'/'+audioName;
     var relPath = '/cloud/'+req.body.email+'/'+audioName;
     fs.rename(tmpPath+audioName,destPath, function(err){
         if(err){
@@ -193,7 +193,10 @@ app.post("/uploadImage",  function(req, res) {
     var buf = new Buffer(data, 'base64');
     var date = new Date();
     photoName  = "Photo-"+date.format("yyyy-MM-dd-hh-mm-ss")+".png";
-    fs.writeFile('/root/QuickNote/public/cloud/'+email+'/'+photoName, buf);
+    console.log('/root/Public/QuickNote/public/cloud/'+email+'/'+photoName);
+    fs.writeFile('/root/Public/QuickNote/public/cloud/'+email+'/'+photoName, buf, function(err){
+        
+    });
     var relPath = '/cloud/'+email+'/'+photoName;
     res.json({code: 200, path: relPath});
 
