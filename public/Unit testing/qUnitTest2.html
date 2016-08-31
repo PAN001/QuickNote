@@ -1,0 +1,424 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>QUnit Example</title>
+<script src="dep.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.23.0.css">
+<script>
+    var baseUrl = "http:\/\/115.28.134.156:3000\/";
+</script>
+<script src="https://code.jquery.com/qunit/qunit-1.23.0.js"></script>
+<script src="msg.en.js"></script>
+<script src="../public/data/localForage-1.4.0/dist/localforage.js"></script>
+<script src="alldata5.js"></script>
+<script>
+    var LEA = {};
+    LEA.sPath = "https:\/\/dn-leanote.qbox.me";
+    LEA.locale = "en";
+    var UrlPrefix = 'http:\/\/leanote.com';
+    var GlobalConfigs = {"uploadAttachSize":0,"uploadAvatarSize":0,"uploadBlogLogoSize":0,"uploadImageSize":0};
+//    var tinyMCEPreInit = {base: 'https:\/\/dn-leanote.qbox.me/tinymce_4.1.9/js/tinymce', suffix: '.min'};
+    var curNoteId = "";
+    var curNotebookId = "";
+    var curSharedNoteNotebookId = "";
+    var curSharedUserId = "";
+    var noteContentJson = [];
+
+    //需要同步的初始数据
+    var UserInfo = {"UserId":"","Email":"me@nottingham.edu.cn","Verified":false,"Username":"unknown","UsernameRaw":"","CreatedTime":"0001-01-01T00:00:00Z","Logo":"http://leanote.com/images/blog/default_avatar.png","Theme":"","NotebookWidth":0,"NoteListWidth":0,"MdEditorWidth":0,"LeftIsMin":false,"ThirdUserId":"","ThirdUsername":"","ThirdType":0,"FromUserId":"","NoteCnt":0,"Usn":10,"FullSyncBefore":"0001-01-01T00:00:00Z","BlogUrl":"","PostUrl":"", "Password":"unknown"};
+
+    var notebooks = [];
+
+    var shareNotebooks = {};
+    
+    var sharedUserInfos = [];
+    
+    var shareNotebookDefault = {};
+
+    var notes = [];
+
+    var latestNotes = [];
+
+    var tagsJson = [];
+
+    var trackingLog = [];
+    
+    var allAppData = {};
+    
+    //initial data    
+    allAppData.UserInfo = UserInfo;
+    allAppData.notebooks = notebooks;
+    allAppData.shareNotebooks = shareNotebooks;
+    allAppData.sharedUserInfos = sharedUserInfos;
+    allAppData.notes = notes;
+    allAppData.latestNotes = latestNotes;
+    allAppData.tagsJson = tagsJson;
+    allAppData.trackingLog = trackingLog;
+    allAppData.shareNotebookDefault = shareNotebookDefault;
+</script>
+<script src="app.min.js"></script>
+
+
+<style>body { width: 500px; margin-left: auto; margin-right: auto; background-color: #f0f3f9; }</style>
+<script type="text/javascript">
+	
+</script>
+
+<script type="text/javascript">
+	
+    function sleep(miliseconds) {
+       var currentTime = new Date().getTime();
+
+       while (currentTime + miliseconds >= new Date().getTime()) {
+       }
+    }
+    
+    var baseUrl = "http:\/\/115.28.134.156:3000\/";
+    
+</script>   
+
+<script>
+test("Save into local storage", function(assert) {
+    var done = assert.async();
+    
+//    localforage.clear();
+//    sleep(500);
+    
+//    there are two notebooks
+    Notebook.doAddNotebook("Notebook1", "testNotebook1", "");
+    Notebook.doAddNotebook("-1", "trash", "");
+    
+    ok(2 == Object.getOwnPropertyNames(Notebook.cache).length, "2 notebooks created successfully");
+    ok("testNotebook1" == Notebook.cache["Notebook1"].Title, "2 notebooks created successfully");
+    ok("trash" == Notebook.cache["-1"].Title, "2 notebooks created successfully");
+    
+//    there are 2 notes
+    Note.newNote("Notebook1");
+    Note.newNote("Notebook1");
+    ok(2 == Object.getOwnPropertyNames(Note.cache).length, "2 notes created successfully");
+
+//    there are 1 tag
+    var newTag = {
+        Count: 1,
+        CreatedTime: getCurDate(),
+        IsDeleted: false,
+        Tag: "Red",
+        TagId: "testTag1",
+        UpdatedTime: getCurDate(),
+        UserId: "",
+        Usn: 94
+    };
+    Tag.addTagNav(newTag);
+    ok(1 == Tag.tags.length, "1 tag created successfully!");
+    Tag.renderTagNav(Tag.tags);
+    
+    saveIntoLocal();
+    
+    localforage.getItem('allAppData', function(err, value) {
+        if(value != null) { //如果本地有数据，使用本地的
+            allAppData = value;
+            UserInfo = allAppData.UserInfo;
+            notebooks = allAppData.notebooks;
+            shareNotebooks = allAppData.shareNotebooks;
+            sharedUserInfos = allAppData.sharedUserInfos;
+            notes = allAppData.notes;
+            latestNotes = allAppData.latestNotes;
+            tagsJson = allAppData.tagsJson;
+            trackingLog = allAppData.trackingLog;
+            shareNotebookDefault = allAppData.shareNotebookDefault;
+
+            ok(2 == notebooks.length, "Notebooks in the local storage are correct");
+            ok(2 == notes.length, "Notes in the local storage are correct");
+            ok(1 == tagsJson.length, "Tags in the local storage are correct");
+            done();
+        }
+        else {
+            ok(0, "get local data successfully");
+            done();
+        }
+    });
+});
+
+test("Server side: Log in", function(assert) {
+    var done = assert.async();
+    var done1 = assert.async();
+    var done2 = assert.async();
+
+    var Email = "whiteBoxTester";
+    var inexistentEmai = "inexistent";
+    var correctPassword = "";
+    var incorrectPassword = "wrong";
+    var correctJsonData = {"Email": Email, "Password": correctPassword}; 
+    var incorrectJsonData1= {"Email": Email, "Password": incorrectPassword}; // correct email but wrong password
+    var incorrectJsonData2= {"Email": inexistentEmai, "Password": correctPassword}; // wrong email but correct password
+    var correctUserId = "570b56f8d922a8399d000000";
+    var stringifiedJson = JSON.stringify(correctJsonData);
+    var incorrectStringifiedJson1 = JSON.stringify(incorrectJsonData1);
+    var incorrectStringifiedJson2 = JSON.stringify(incorrectJsonData2);
+    var url = baseUrl + 'logIn';
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: stringifiedJson,
+        contentType: "text/plain",
+        success: function (data) {
+            var res = jQuery.parseJSON(data);
+            if(res.status == "fail") {
+                ok(0, "Log in successfully, UserId is correct");
+                done();
+            }
+            else {
+                localStorage.UserId = res.UserId;
+                UserId = res.UserId;
+                ok(correctUserId == res.UserId, "Log in successfully and returned UserId is correct")
+                done();
+            }
+        },
+        error: function (xhr, status, error) {
+            ok(0, "Log in successfully, UserId is correct");
+            done();
+        }
+    });
+    
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: incorrectStringifiedJson1,
+        contentType: "text/plain",
+        success: function (data) {
+            var res = jQuery.parseJSON(data);
+            if(res.status == "fail") {
+                ok("wrong password" == res.msg, "Log in faid because of the wrong password");
+                done1();
+            }
+            else {
+                localStorage.UserId = res.UserId;
+                ok(0, "Log in failed because of the wrong password");
+                done1();
+            }
+        },
+        error: function (xhr, status, error) {
+            ok(0, "Log in successfully, UserId is correct");
+            done1();
+        }
+    });
+    
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: incorrectStringifiedJson2,
+        contentType: "text/plain",
+        success: function (data) {
+            var res = jQuery.parseJSON(data);
+            if(res.status == "fail") {
+                ok("wrong email" == res.msg, "Log in faid because of the inexistent email");
+                done2();
+            }
+            else {
+                localStorage.UserId = res.UserId;
+                ok(0, "Log in faid because of the inexistent email");
+                done2();
+            }
+        },
+        error: function (xhr, status, error) {
+            ok(0, "Log in faid because of the inexistent email");
+            done2();
+        }
+    });
+});
+    
+test("Server side: retrieve user data", function(assert) {
+    var done = assert.async();
+    
+    $.ajax({
+        type: 'GET', // added,
+        url: baseUrl + 'getAll',
+        data: "UserId=" + UserId ,
+        contentType: "text/plain", 
+        async:false, 
+        success: function (data) {
+            var parsedData = jQuery.parseJSON(data);
+            if(parsedData.status && parsedData.status == "fail") { // 服务端没有数据：使用初始数据
+                console.log("not found data");
+                //使用初始数据
+                //initial data    
+                allAppData.UserInfo = UserInfo;
+                allAppData.notebooks = notebooks;
+                allAppData.shareNotebooks = shareNotebooks;
+                allAppData.sharedUserInfos = sharedUserInfos;
+                allAppData.notes = notes;
+                allAppData.latestNotes = latestNotes;
+                allAppData.tagsJson = tagsJson;
+                allAppData.trackingLog = trackingLog;
+                allAppData.shareNotebookDefault = shareNotebookDefault;
+                console.log("using initial data");
+                console.log("call initPage()");
+                initPage();
+                localforage.setItem("allAppData", allAppData, function(err, value) {
+                    console.log("allAppData saved");
+                });
+                return;
+            } 
+            allAppData = parsedData;    
+            console.log(allAppData.UserInfo.UserId);
+
+            console.log("allAppData loaded from server");
+
+            UserInfo = allAppData.UserInfo;
+            console.log("UserInfo updated from server");
+            notebooks = allAppData.notebooks;
+            console.log("notebooks updated from server");
+            shareNotebooks = allAppData.shareNotebooks;
+            console.log("shareNotebooks updated from server");
+            sharedUserInfos = allAppData.sharedUserInfos;
+            console.log("sharedUserInfos updated from server");
+            notes = allAppData.notes;
+            console.log("notes updated from server");
+            latestNotes = allAppData.latestNotes;
+            console.log("latestNotes updated from server");
+            tagsJson = allAppData.tagsJson;
+            console.log("tagsJson updated from server");
+            trackingLog = allAppData.trackingLog;
+            console.log("trackingLog updated from server");
+            shareNotebookDefault = allAppData.shareNotebookDefault;
+            console.log("shareNotebookDefault updated from server");
+            console.log("call initPage()");
+            localforage.setItem("allAppData", allAppData, function(err, value) {
+                console.log("allAppData saved");
+            });
+    
+//            test notebooks
+            ok(5 == notebooks.length, "Data is retrieved from the server successfully: number of notebooks is correct");
+            ok("Newest" == notebooks[0].Title, "Data is retrieved from the server successfully: title of notebooks is correct");
+            ok("Welcome" == notebooks[1].Title, "Data is retrieved from the server successfully: title of notebooks is correct");
+            ok("Trash" == notebooks[2].Title, "Data is retrieved from the server successfully: title of notebooks is correct");
+            ok("testnotebook1" == notebooks[3].Title, "Data is retrieved from the server successfully: title of notebooks is correct");
+            ok("testnotebook2" == notebooks[4].Title, "Data is retrieved from the server successfully: title of notebooks is correct");
+    
+//            test notes
+            ok(3 == notes.length, "Data is retrieved from the server successfully: number of notes is correct");
+            ok("Welcome" == notes[0].Title, "Data is retrieved from the server successfully: title of notes is correct");
+            ok("test1" == notes[1].Title, "Data is retrieved from the server successfully: title of notes is correct");
+            ok("test2" == notes[2].Title, "Data is retrieved from the server successfully: title of notes is correct");
+            ok(null != notes[0].Content, "Data is retrieved from the server successfully: content of notes is correct");
+            ok(null != notes[1].Content, "Data is retrieved from the server successfully: content of notes is correct");
+            ok(null != notes[2].Content, "Data is retrieved from the server successfully: content of notes is correct");
+    
+//            test tags
+            ok(2 == tagsJson.length, "Data is retrieved from the server successfully: number of tags is correct");
+            ok("default" == tagsJson[0].Tag, "Data is retrieved from the server successfully: title of tag is correct");
+            ok("test" == tagsJson[1].Tag, "Data is retrieved from the server successfully: title of tag is correct");
+    
+            done();
+        },
+        error: function (xhr, status, error) {
+            console.log('Error: ' + error.message);
+
+            localforage.getItem('allAppData', function(err, value) {
+                console.log("check");
+                if(value != null) { //如果本地有数据，使用本地的
+                        allAppData = value;
+                        console.log("allAppData loaded from local");
+
+                        UserInfo = allAppData.UserInfo;
+                        console.log("UserInfo updated from local");
+                        notebooks = allAppData.notebooks;
+                        console.log("notebooks updated from local");
+                        shareNotebooks = allAppData.shareNotebooks;
+                        console.log("shareNotebooks updated from local");
+                        sharedUserInfos = allAppData.sharedUserInfos;
+                        console.log("sharedUserInfos updated from local");
+                        notes = allAppData.notes;
+                        console.log("notes updated from local");
+                        latestNotes = allAppData.latestNotes;
+                        console.log("latestNotes updated from local");
+                        tagsJson = allAppData.tagsJson;
+                        console.log("tagsJson updated from local");
+                        trackingLog = allAppData.trackingLog;
+                        console.log("trackingLog updated from local");
+                        shareNotebookDefault = allAppData.shareNotebookDefault;
+                        console.log("shareNotebookDefault updated from local");
+                        console.log("call initPage() from local");
+                        localforage.setItem("allAppData", allAppData, function(err, value) {
+                            console.log("allAppData saved");
+                        });
+                }
+                else { //使用初始数据
+                    //initial data    
+                    allAppData.UserInfo = UserInfo;
+                    allAppData.notebooks = notebooks;
+                    allAppData.shareNotebooks = shareNotebooks;
+                    allAppData.sharedUserInfos = sharedUserInfos;
+                    allAppData.notes = notes;
+                    allAppData.latestNotes = latestNotes;
+                    allAppData.tagsJson = tagsJson;
+                    allAppData.trackingLog = trackingLog;
+                    allAppData.shareNotebookDefault = shareNotebookDefault;
+                    console.log("using initial data");
+                    console.log("call initPage()");
+                    localforage.setItem("allAppData", allAppData, function(err, value) {
+                        console.log("allAppData saved");
+                    });
+                }
+            });
+        }
+    });   
+});
+    
+
+test("Server side: upload user data", function(assert) {
+    var done = assert.async();
+    var Server = {};
+    Server.transfer = function (jsonData) {
+        var stringifiedJson = JSON.stringify(jsonData);
+        var url1 = baseUrl + "updateAll";
+        var url2 = 'http://localhost:8000';
+        $.ajax({
+            type: 'POST',
+            url: url1,
+            data: stringifiedJson,
+            contentType: "text/plain",
+            success: function (data) {
+                var res = jQuery.parseJSON(data);
+                ok("success" == res.status, "Data is updated to the server successfully");
+                ok("Synchronized successfully" == res.msg, "Data is updated to the server successfully: returned message is correct");
+                done();
+            },
+            error: function (xhr, status, error) {
+                ok(0, "Data is updated to the server successfully");
+                done();
+            }
+        });
+    };
+
+    Server.uploadToServer = function() {
+        var newAllAppData = {};
+        newAllAppData.UserInfo = UserInfo;
+        newAllAppData.notebooks = transform(Notebook.cache);
+        newAllAppData.shareNotebooks = shareNotebooks;
+        newAllAppData.sharedUserInfos = sharedUserInfos;
+        newAllAppData.notes = transform(Note.cache);
+        newAllAppData.latestNotes = transform(Note.cache);
+        newAllAppData.tagsJson = clone(Tag.tags);
+
+    //    trackingLog.add(TrackLogbook); // if upload when use exits, it should already be added in by calling saveIntoLocal
+        newAllAppData.trackingLog = trackingLog;
+        newAllAppData.shareNotebookDefault = shareNotebookDefault;
+
+        Server.transfer(newAllAppData);
+    }
+    
+    Server.uploadToServer();
+});
+</script>
+</head>
+
+<body>
+<div id="qunit"></div>
+ <div id="qunit-fixture"></div>
+</body>
+</html>

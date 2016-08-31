@@ -1,0 +1,243 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>QUnit Example</title>
+<script src="dep.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.23.0.css">
+<script src="https://code.jquery.com/qunit/qunit-1.23.0.js"></script>
+<script src="msg.en.js"></script>
+<script type="">
+	
+	var baseUrl = "http:\/\/115.28.134.156:3000\/";
+    var LEA = {};
+    LEA.sPath = "https:\/\/dn-leanote.qbox.me";
+    LEA.locale = "en";
+    var UrlPrefix = 'http:\/\/leanote.com';
+    var GlobalConfigs = {"uploadAttachSize":0,"uploadAvatarSize":0,"uploadBlogLogoSize":0,"uploadImageSize":0};
+//    var tinyMCEPreInit = {base: 'https:\/\/dn-leanote.qbox.me/tinymce_4.1.9/js/tinymce', suffix: '.min'};
+    var curNoteId = "";
+    var curNotebookId = "";
+    var curSharedNoteNotebookId = "";
+    var curSharedUserId = "";
+    var noteContentJson = [];
+
+    //需要同步的初始数据
+    var UserInfo = {"UserId":"","Email":"me@nottingham.edu.cn","Verified":false,"Username":"unknown","UsernameRaw":"","CreatedTime":"0001-01-01T00:00:00Z","Logo":"http://leanote.com/images/blog/default_avatar.png","Theme":"","NotebookWidth":0,"NoteListWidth":0,"MdEditorWidth":0,"LeftIsMin":false,"ThirdUserId":"","ThirdUsername":"","ThirdType":0,"FromUserId":"","NoteCnt":0,"Usn":10,"FullSyncBefore":"0001-01-01T00:00:00Z","BlogUrl":"","PostUrl":"", "Password":"unknown"};
+
+    var notebooks = [];
+
+    var shareNotebooks = {};
+    
+    var sharedUserInfos = [];
+    
+    var shareNotebookDefault = {};
+
+
+    var notes = [
+    {"NoteId":"56a831ae03f3314265000003","UserId":"unknown","CreatedUserId":"GRPDT","NotebookId":"56a82c7bab64417776002a5f","Title":"Welcome","Desc":"Welcome","ImgSrc":"","Tags":[""],"IsTrash":false,"IsBlog":false,"UrlTitle":"2d7a82199fb9","IsRecommend":false,"IsTop":false,"HasSelfDefined":false,"ReadNum":0,"LikeNum":0,"CommentNum":0,"IsMarkdown":false,"AttachNum":0,"CreatedTime":"2016-01-27T10:55:38.656+08:00","UpdatedTime":"2016-01-27T17:40:20.762+08:00","RecommendTime":"0001-01-01T00:00:00Z","PublicTime":"2016-01-27T10:55:38.656+08:00","UpdatedUserId":"56a82c7bab64417776002a5c","Usn":10,"IsDeleted":false, "Content":"Welcome to QuickWrite"}
+    ];
+
+    var latestNotes = [
+    {"NoteId":"56a831ae03f3314265000003","UserId":"unknown","CreatedUserId":"GRPDT","NotebookId":"56a82c7bab64417776002a5f","Title":"Welcome","Desc":"Welcome","ImgSrc":"","Tags":[""],"IsTrash":false,"IsBlog":false,"UrlTitle":"2d7a82199fb9","IsRecommend":false,"IsTop":false,"HasSelfDefined":false,"ReadNum":0,"LikeNum":0,"CommentNum":0,"IsMarkdown":false,"AttachNum":0,"CreatedTime":"2016-01-27T10:55:38.656+08:00","UpdatedTime":"2016-01-27T17:40:20.762+08:00","RecommendTime":"0001-01-01T00:00:00Z","PublicTime":"2016-01-27T10:55:38.656+08:00","UpdatedUserId":"56a82c7bab64417776002a5c","Usn":10,"IsDeleted":false, "Content":"Welcome to QuickWrite"}
+    ];
+//        {"NoteId":"56a831ae03f3314265000003","UserId":"unknown","CreatedUserId":"","NotebookId":"56a82c7bab64417776002a5f","Title":"Default note","Desc":"Default note","ImgSrc":"","Tags":[""],"IsTrash":false,"IsBlog":false,"UrlTitle":"2d7a82199fb9","IsRecommend":false,"IsTop":false,"HasSelfDefined":false,"ReadNum":0,"LikeNum":0,"CommentNum":0,"IsMarkdown":false,"AttachNum":0,"CreatedTime":"2016-01-27T10:55:38.656+08:00","UpdatedTime":"2016-01-27T17:40:20.762+08:00","RecommendTime":"0001-01-01T00:00:00Z","PublicTime":"2016-01-27T10:55:38.656+08:00","UpdatedUserId":"56a82c7bab64417776002a5c","Usn":10,"IsDeleted":false, "Content":"9"}
+
+
+    var tagsJson = [{"TagId":"56e22e02ab64415add000da6","UserId":"unknown","Tag":"test","Usn":90,"Count":1,"CreatedTime":"2016-03-11T10:31:30.348+08:00","UpdatedTime":"2016-03-11T10:31:30.348+08:00","IsDeleted":false},{"TagId":"56d13aabab64417fb100002d","UserId":"unknown","Tag":"welcome","Usn":41,"Count":1,"CreatedTime":"2016-02-27T13:56:59.078+08:00","UpdatedTime":"2016-02-27T13:56:59.078+08:00","IsDeleted":false}];
+
+    var trackingLog = [];
+    var allAppData = {};
+    
+    //initial data    
+    allAppData.UserInfo = UserInfo;
+    allAppData.notebooks = notebooks;
+    allAppData.shareNotebooks = shareNotebooks;
+    allAppData.sharedUserInfos = sharedUserInfos;
+    allAppData.notes = notes;
+    allAppData.latestNotes = latestNotes;
+    allAppData.tagsJson = tagsJson;
+    allAppData.trackingLog = trackingLog;
+    allAppData.shareNotebookDefault = shareNotebookDefault;
+</script>
+<script src="app.min.js"></script>
+
+
+<style>body { width: 500px; margin-left: auto; margin-right: auto; background-color: #f0f3f9; }</style>
+<script type="text/javascript">
+	
+</script>
+
+
+<script>
+test("New Notebook", function() {
+    Notebook.doAddNotebook("Notebook1", "testNotebook1", "");
+    Notebook.doAddNotebook("-1", "trash", "");
+    ok(2 == Object.getOwnPropertyNames(Notebook.cache).length, "Create \"Notebook1\" and \"trash\" successfully!");
+    ok("testNotebook1" == Notebook.cache["Notebook1"].Title, "Title of Notebook1 is correct!");
+    ok("trash" == Notebook.cache["-1"].Title, "Title of trash is correct!");
+});
+
+test("New Notebook (stress testing)", function() {
+    
+    for(var i = 0; i<100; i++){
+        Notebook.doAddNotebook(i.toString(), "Notebook"+i.toString(), "");
+    }
+    ok(102 == Object.getOwnPropertyNames(Notebook.cache).length, "Create 100 notebooks successfully!");
+    ok("Notebook18" == Notebook.cache["18"].Title, "Title of NO.18 notebook is correct!");
+
+    for(var j = 101; j<1101; j++){
+        Notebook.doAddNotebook(j.toString(), "Notebook"+j.toString(), "");
+    }
+    ok(1102 == Object.getOwnPropertyNames(Notebook.cache).length, "Create 1000 notebooks successfully!" );
+    ok("Notebook555" == Notebook.cache["555"].Title, "Title of NO.555 notebook is correct!");
+
+});
+
+test("New Note",function(){
+    // ok("NoteId" == Note.cache["NoteId"].NoteId, "PASSED!");
+    Note.newNote("Notebook1");
+    ok(1==Object.getOwnPropertyNames(Note.cache).length, "Create 1 note successfully!");
+
+});
+
+test("New Note (stess testing)", function(){
+
+    for(var a = 0; a<100; a++){
+        Note.newNote("Notebook1");
+    }
+    ok(101 == Object.getOwnPropertyNames(Note.cache).length, "Create 100 notes successfully!");
+
+    for(var b = 100; b<1000; b++){
+        Note.newNote("Notebook1");
+    }
+    ok(1001 == Object.getOwnPropertyNames(Note.cache).length, "Create 1000 notes successfully!");
+})
+
+test("Delete Note",function(){
+    // Note.moveNoteWithId("NoteId","-1");
+    // ok(1 == Object.getOwnPropertyNames(Note.cache).length, "PASSED!");
+    for(var noteId in Note.cache) {
+        // Note.moveNoteWithId(noteId,"-1");
+        delete Note.cache[noteId];
+        break;
+    }
+    ok(1000 == Object.getOwnPropertyNames(Note.cache).length, "Delete 1 notes successfully!");
+
+});
+
+test("Delete Note (stress testing)",function(){
+    var counter = 0;
+    for(var noteId in Note.cache){
+        delete Note.cache[noteId];
+        counter++;
+        if(counter==100) break;
+    }
+    ok(900 == Object.getOwnPropertyNames(Note.cache).length, "Delete 100 notes successfully!");
+
+    for(var noteId in Note.cache){
+        delete Note.cache[noteId];
+    }
+    ok(0 == Object.getOwnPropertyNames(Note.cache).length, "Delete 1000 notes successfully!");
+});
+
+test("Delete Notebook", function(){
+    delete Notebook.cache["Notebook1"];
+    ok(1101 == Object.getOwnPropertyNames(Notebook.cache).length, "Delete \"Notebook1\" successfully!");
+    delete Notebook.cache["-1"];
+    ok(1100 == Object.getOwnPropertyNames(Notebook.cache).length, "Delete \"trash\" successfully!");
+
+});
+
+test("Delete Notebook (stress testing)", function(){
+    for(var i =0; i<100; i++){
+        delete Notebook.cache[i.toString()];
+    }
+    ok(1000 == Object.getOwnPropertyNames(Notebook.cache).length, "Delete 100 notebooks successfully!");
+    
+    for(var j =100; j<1101; j++){
+        delete Notebook.cache[j.toString()];
+    }
+    ok(0 == Object.getOwnPropertyNames(Notebook.cache).length, "Delete 1000 notebooks successfully!");
+    
+});
+
+test("New Tag",function(){
+    var newTag = {
+        Count: 1,
+        CreatedTime: getCurDate(),
+        IsDeleted: false,
+        Tag: "Red",
+        TagId: "testTag1",
+        UpdatedTime: getCurDate(),
+        UserId: "",
+        Usn: 94
+    };
+    Tag.addTagNav(newTag);
+    ok(1 == Tag.tags.length, "Create 1 tag successfully!");
+    ok("Red" == Tag.tags[0].Tag,"Name of the first tag is correct!");
+});
+
+test("New Tag (stress testing)",function(){
+    for(var i=0; i<100; i++){
+        var newTag = {
+            Count: 1,
+            CreatedTime: getCurDate(),
+            IsDeleted: false,
+            Tag: "tag"+i.toString(),
+            TagId: "testTag"+i.toString(),
+            UpdatedTime: getCurDate(),
+            UserId: "",
+            Usn: 94
+        };
+    Tag.addTagNav(newTag);
+    }
+    ok(101 == Tag.tags.length, "Create 100 tags successfully!");
+    ok("tag31" == Tag.tags[68].Tag,"Name of NO.68 tag is correct!");
+
+    for(var j=101; j<1101; j++){
+        var newTag = {
+            Count: 1,
+            CreatedTime: getCurDate(),
+            IsDeleted: false,
+            Tag: "tag"+j.toString(),
+            TagId: "testTag"+j.toString(),
+            UpdatedTime: getCurDate(),
+            UserId: "",
+            Usn: 94
+        };
+    Tag.addTagNav(newTag);
+    }
+    ok(1101 == Tag.tags.length, "Create 1000 tags successfully!");
+     ok("tag500" == Tag.tags[600].Tag,"Name of NO.500 tag is correct!");
+});
+
+test("Delete Tag",function(){
+    Tag.deleteTagNav("Red");
+    ok(1100 == Tag.tags.length, "Delete 1 tag successfully!")
+});
+
+test("Delete Tag (stess testing)",function(){
+    for(var i=0; i<100; i++){
+        Tag.deleteTagNav("tag"+i.toString());
+    }
+    
+    ok(1000 == Tag.tags.length, "Delete 100 tags successfully!");
+
+    for(var j=101; j< 1101; j++){
+        Tag.deleteTagNav("tag"+j.toString());
+    }
+    ok(0 == Tag.tags.length,"Delete 1000 tags successfully!");
+});
+
+
+</script>
+</head>
+
+<body>
+<div id="qunit"></div>
+ <div id="qunit-fixture"></div>
+</body>
+</html>
