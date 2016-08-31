@@ -1,0 +1,1539 @@
+
+<!DOCTYPE html>
+<html lang="zh" ng-app="FMApp">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name=”apple-mobile-web-app-capable” content=”yes” />
+<meta name="keywords" content="Q-Note,Quick Note">
+<meta name="description" content="Q-Note">
+<title>Q-Note</title>
+<link rel="shortcut icon" href="public/images/favicon3.ico" type="image/x-icon" />
+
+
+<!--    global values-->
+<script>
+    // 不需要同步的数据
+    // var baseUrl = "http:\/\/115.28.134.156:";
+    var baseUrl = "http:\/\/10.160.1.25:";
+    var basePort = "80";
+    
+    var LEA = {};
+    LEA.locale = "en";
+    var GlobalConfigs = {"uploadAttachSize":0,"uploadAvatarSize":0,"uploadBlogLogoSize":0,"uploadImageSize":0};
+    var curNoteId = "";
+    var curNotebookId = "";
+    var curSharedNoteNotebookId = "";
+    var curSharedUserId = "";
+    var noteContentJson = [];
+
+    //需要同步的初始数据
+    var UserInfo = {"UserId":"","Email":"me@nottingham.edu.cn","Verified":false,"Username":"unknown","UsernameRaw":"","CreatedTime":"0001-01-01T00:00:00Z","Logo":"public/images/blog/Avatar.png","Theme":"","NotebookWidth":0,"NoteListWidth":0,"MdEditorWidth":0,"LeftIsMin":false,"ThirdUserId":"","ThirdUsername":"","ThirdType":0,"FromUserId":"","NoteCnt":0,"Usn":10,"FullSyncBefore":"0001-01-01T00:00:00Z","BlogUrl":"","PostUrl":"", "Password":"unknown"};
+
+    var notebooks = [{"NotebookId":"0","UserId":"56a82c7bab64417776002a5c","Title":"All","UrlTitle":"","NumberNotes":1,"CreatedTime":"0001-01-01T00:00:00Z", "drop":!1, "drag":!1},
+//    {"NotebookId":"56a82c7bab64417776002a5d","UserId":"unknown","ParentNotebookId":"","Seq":-1,"Title":"life","UrlTitle":"","NumberNotes":0,"IsTrash":false,"IsBlog":false,"CreatedTime":"0001-01-01T00:00:00Z","UpdatedTime":"0001-01-01T00:00:00Z","Usn":0,"IsDeleted":false,"Subs":[]},        
+//     {"NotebookId":"56a82c7bab64417776002a5e","UserId":"unknown","ParentNotebookId":"","Seq":-1,"Title":"study","UrlTitle":"","NumberNotes":0,"IsTrash":false,"IsBlog":false,"CreatedTime":"0001-01-01T00:00:00Z","UpdatedTime":"0001-01-01T00:00:00Z","Usn":0,"IsDeleted":false,"Subs":[]},
+//
+    {"NotebookId":"56a82c7bab64417776002a5f","UserId":"GRPDT","ParentNotebookId":"","Seq":-1,"Title":"Welcome","UrlTitle":"","NumberNotes":1,"IsTrash":false,"IsBlog":false,"CreatedTime":"0001-01-01T00:00:00Z","UpdatedTime":"0001-01-01T00:00:00Z","Usn":0,"IsDeleted":false,"Subs":[]},
+
+    {"NotebookId":"-1","UserId":"56a82c7bab64417776002a5c","Title":"Trash","UrlTitle":"","NumberNotes":0,"CreatedTime":"0001-01-01T00:00:00Z","drop":!1, "drag":!1}];
+
+//    var shareNotebooks = {"52d26b4e99c37b609a000001":[{"ParentNotebookId":"","Title":"Welcome","UrlTitle":"","NumberNotes":0,"IsTrash":false,"IsBlog":false,"UpdatedTime":"0001-01-01T00:00:00Z","Usn":0,"IsDeleted":false,"ShareNotebookId":"56a82c7b0431099237ea62bd","ToUserId":"56a82c7bab64417776002a5c","ToGroupId":"","ToGroup":{"GroupId":"","UserId":"","Title":"","UserCount":0,"CreatedTime":"0001-01-01T00:00:00Z","Users":null},"Perm":1,"Subs":null,"Seq":0,"NotebookId":"52d270c7bcbf214cfa000000","IsDefault":false},
+//    ]};
+    
+    var sharedUserInfos = [{"UserId":"57178cd5d922a859a7000000","Email":"QuickNote","Verified":true,"Username":"QuickNote","UsernameRaw":"ownertinymce","CreatedTime":"2014-01-14T21:20:39.225+08:00","Logo":"","Theme":"default","NotebookWidth":201,"NoteListWidth":241,"MdEditorWidth":477,"LeftIsMin":false,"ThirdUserId":"","ThirdUsername":"","ThirdType":0,"FromUserId":"","NoteCnt": 5,"Usn":203042,"FullSyncBefore":"0001-01-01T00:00:00Z"}];
+
+    // store notebooks shared from other users
+    var shareNotebooks = {"57178cd5d922a859a7000000":[{"ParentNotebookId":"","Title":"User Guide","UrlTitle":"","NumberNotes":5,"IsTrash":false,"IsBlog":false,"UpdatedTime":"0001-01-01T00:00:00Z","Usn":0,"IsDeleted":false,"ShareNotebookId":"5715d63ac1f4d07f58000000","ToUserId":"56a82c7bab64417776002a5c","ToGroupId":"","ToGroup":{"GroupId":"","UserId":"","Title":"","UserCount":0,"CreatedTime":"0001-01-01T00:00:00Z","Users":null},"Perm":1,"Subs":null,"Seq":0,"NotebookId":"5715d63ac1f4d07f58000000", "IsDefault":false}
+    ]};
+
+    
+//    var shareNotebooks = {};
+    
+//    var sharedUserInfos = [{"UserId":"56fb70aed922a81ac2000000","Email":"qy","Verified":true,"Username":"qy","UsernameRaw":"qy","CreatedTime":"2014-01-14T21:20:39.225+08:00","Logo":"public/upload/520/52d26b4e99c37b609a000001/images/logo/3fa3ca0e0a431b81ede3351cd091f17d.jpg","Theme":"default","NotebookWidth":201,"NoteListWidth":241,"MdEditorWidth":477,"LeftIsMin":false,"ThirdUserId":"","ThirdUsername":"","ThirdType":0,"FromUserId":"","NoteCnt":276,"Usn":203042,"FullSyncBefore":"0001-01-01T00:00:00Z"}];
+    
+//    var sharedUserInfos = [];
+    
+    // store notes shared from other users
+    // Each attribute is the id of the receiver
+    var shareNotebookDefault = {};
+
+
+    var notes = [
+    {"NoteId":"56a831ae03f3314265000003","UserId":"unknown","CreatedUserId":"GRPDT","NotebookId":"56a82c7bab64417776002a5f","Title":"Welcome","Desc":"Welcome","ImgSrc":"","Tags":[""],"IsTrash":false,"IsBlog":false,"UrlTitle":"2d7a82199fb9","IsRecommend":false,"IsTop":false,"HasSelfDefined":false,"ReadNum":0,"LikeNum":0,"CommentNum":0,"IsMarkdown":false,"AttachNum":0,"CreatedTime":"2016-01-27T10:55:38.656+08:00","UpdatedTime":"2016-01-27T17:40:20.762+08:00","RecommendTime":"0001-01-01T00:00:00Z","PublicTime":"2016-01-27T10:55:38.656+08:00","UpdatedUserId":"56a82c7bab64417776002a5c","Usn":10,"IsDeleted":false, "Content":"Welcome to QuickWrite"}
+    ];
+
+    var latestNotes = [
+    // {"NoteId":"56a831ae03f3314265000003","UserId":"unknown","CreatedUserId":"GRPDT","NotebookId":"56a82c7bab64417776002a5f","Title":"Welcome","Desc":"Welcome","ImgSrc":"","Tags":[""],"IsTrash":false,"IsBlog":false,"UrlTitle":"2d7a82199fb9","IsRecommend":false,"IsTop":false,"HasSelfDefined":false,"ReadNum":0,"LikeNum":0,"CommentNum":0,"IsMarkdown":false,"AttachNum":0,"CreatedTime":"2016-01-27T10:55:38.656+08:00","UpdatedTime":"2016-01-27T17:40:20.762+08:00","RecommendTime":"0001-01-01T00:00:00Z","PublicTime":"2016-01-27T10:55:38.656+08:00","UpdatedUserId":"56a82c7bab64417776002a5c","Usn":10,"IsDeleted":false, "Content":"Welcome to QuickWrite"}
+    ];
+//        {"NoteId":"56a831ae03f3314265000003","UserId":"unknown","CreatedUserId":"","NotebookId":"56a82c7bab64417776002a5f","Title":"Default note","Desc":"Default note","ImgSrc":"","Tags":[""],"IsTrash":false,"IsBlog":false,"UrlTitle":"2d7a82199fb9","IsRecommend":false,"IsTop":false,"HasSelfDefined":false,"ReadNum":0,"LikeNum":0,"CommentNum":0,"IsMarkdown":false,"AttachNum":0,"CreatedTime":"2016-01-27T10:55:38.656+08:00","UpdatedTime":"2016-01-27T17:40:20.762+08:00","RecommendTime":"0001-01-01T00:00:00Z","PublicTime":"2016-01-27T10:55:38.656+08:00","UpdatedUserId":"56a82c7bab64417776002a5c","Usn":10,"IsDeleted":false, "Content":"9"}
+
+    var tagsJson = [];
+//    var tagsJson = [{"TagId":"56e22e02ab64415add000da6","UserId":"unknown","Tag":"test","Usn":90,"Count":1,"CreatedTime":"2016-03-11T10:31:30.348+08:00","UpdatedTime":"2016-03-11T10:31:30.348+08:00","IsDeleted":false},{"TagId":"56d13aabab64417fb100002d","UserId":"unknown","Tag":"welcome","Usn":41,"Count":1,"CreatedTime":"2016-02-27T13:56:59.078+08:00","UpdatedTime":"2016-02-27T13:56:59.078+08:00","IsDeleted":false}];
+
+    var trackingLog = [];
+
+    // var group = [
+    //     {"GroupId": "56fccc7aab64415150000de4", "GroupName": "default1", "Members": [{"Email":"70"}, {"Email":"71"}]},
+    //     {"GroupId": "56fccc7aab64415150000de5", "GroupName": "default2", "Members": [{"Email":"72"}, {"Email":"73"}]}
+    // ];
+
+    var group = [];
+
+    var allAppData = {};
+    
+    //initial data    
+    allAppData.UserInfo = UserInfo;
+    allAppData.notebooks = notebooks;
+    allAppData.shareNotebooks = shareNotebooks;
+    allAppData.sharedUserInfos = sharedUserInfos;
+    allAppData.notes = notes;
+    allAppData.latestNotes = latestNotes;
+    allAppData.tagsJson = tagsJson;
+    allAppData.trackingLog = trackingLog;
+    allAppData.shareNotebookDefault = shareNotebookDefault;
+    allAppData.group = group;
+
+</script>   
+    
+<!--Google custome search engine-->
+<script>
+  (function() {
+    var cx = '002556101758618985822:mbg5wo_jkvg';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+<link rel="stylesheet" href="public/css/theme/default.css" type="text/css" id="themeLink"/>
+
+<!--定制版的JQuery；需要放在bootstrap之前-->
+<script src="public/js/dep.min.js"></script>
+<link rel="stylesheet" type="text/css" href="public/js/jquery-ui-1.11.4/jquery-ui.css">
+<script src="public/js/jquery-ui-1.11.4/jquery-ui.js"></script>
+<script type="text/javascript">
+    $.fn.notebookZTree = $.fn.zTree;
+</script>
+    
+<link href="public/css/bootstrap-min.css" rel="stylesheet" />
+<!--    responsible for part of basic style(bootstrap)-->
+    
+<!--bootstrap wrapped alert and confirm dialog-->
+<script type="text/javascript" src="public/js/bootbox.min.js"></script>
+
+<link href="public/css/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+<!--    responsible for icons-->
+
+<link href="public/css/zTreeStyle/zTreeStyle-min.css" rel="stylesheet" />
+<!--    use part of open source: zTreeStyle-->
+
+<link href="public/css/DND.css" rel="stylesheet" />
+<!--    responsible for darg-and-drop part-->
+
+<!--<link href="public/md/themes/default-min.css?t=h" rel="stylesheet" /> // related to markdown to-do list-->
+
+<link rel="stylesheet" href="public/js/contextmenu/css/contextmenu-min.css?id=1" type="text/css" />
+<!--    选项按钮-->
+    
+<!--    load data -->
+<script src="public/data/localForage-1.4.0/dist/localforage.js"></script>
+<!--<script src="public/data/alldata.js"></script>-->
+<!--<script src="public/data/alldata4.js"></script>-->
+
+<link href="public/js/videoRecorder/css/video-js.css" rel="stylesheet">
+<link href="public/js/videoRecorder/css/videojs.record.css" rel="stylesheet">
+<link href="public/js/videoRecorder/css/style.css" rel="stylesheet">
+
+<script src="public/js/videoRecorder/js/video.min.js"></script>
+<script src="public/js/videoRecorder/js/RecordRTC.js"></script>
+
+<script src="public/js/videoRecorder/js/videojs.record.js"></script>
+<script src="public/js/videoRecorder/js/FileSaver.js"></script> 
+<script src="public/recorder/Blob.js"></script>
+
+<style>
+/* change player background color */
+#myVideo {
+  background-color: #79CDCD;
+}
+</style>
+
+<style>
+  /* change player background color */
+  #myImage {
+      background-color: #79CDCD;
+  }
+  </style>
+
+<script>
+    // dynamic style sheets
+    var hash = location.hash;
+    if(hash.indexOf("writing") >= 0) {
+        var files = '<link rel="stylesheet" href="public/css/theme/writting-overwrite.css?t=b" type="text/css" id="themeLink" />'; // unknown usage
+    } else {
+        var files ='<link rel="stylesheet" href="public/css/theme/default.css?t=d" type="text/css" id="themeLink" />'; // the most important basic style
+    }
+    document.write(files);
+</script>
+
+<script>
+    function log(o) {
+
+    }
+</script>
+
+<script>
+	var array= new Array();
+	var countweb;
+	var current;
+</script>
+
+<script>
+function webaddress(){
+	//var x =document.getElementById("address");
+	var http = document.getElementById("address").value;
+	if(http.substring(0,7)!="http://"&&http.substring(0,8)!="https://"){
+		http = "http://"+http;
+		document.getElementById("webpage").src = "http://"+document.getElementById("address").value;
+	}
+	else{
+		document.getElementById("webpage").src = document.getElementById("address").value;
+	}
+	array.push(http);
+	current = array.length;
+	countweb=current-1;
+}
+
+function backpage(){
+	if(countweb>0){
+		document.getElementById("address").value = array[countweb-1]
+		document.getElementById("webpage").src = array[countweb-1];
+		countweb--;
+	}
+}
+
+function forwardpage(){
+	if(countweb<current-1){
+				document.getElementById("address").value = array[countweb+1]
+		document.getElementById("webpage").src = array[countweb+1];
+		countweb++;
+	}
+}
+</script>
+</head>
+<body ng-controller="FileManagerCtr as FM">
+	<div id="page">
+		<div id="pageInner">
+
+
+			<div id="header">
+
+				<div id="logo" class="pull-left">
+					<img src="public/images/logo/Quicknote.png" height=35>
+				</div>
+
+				<div id="switcher" class="pull-left">
+					<!-- iris -->
+					<i class="fa fa-expand" aria-hidden="true" id="leftSwitcher" title="Fullscreen Display"></i>
+					<!--<i class="fa fa-align-justify" id="leftSwitcher" title="Hide sidebar"></i> -->
+<!-- 					<span id="leftSwitcher2" title="Show sidebar"><img src="public/images/logo/quickwrite10.png" height=25></span> -->
+					<i class="fa fa-compress" aria-hidden="true" id="leftSwitcher2" title="Display Sidebar"></i>
+				</div>
+
+<!--
+				<div class="pull-left" id="searchWrap">
+					<form class="navbar-form form-inline col-lg-2" id="searchNote">
+						<input class="form-control" placeholder="Search Note" type="text" id="searchNoteInput">
+					</form>
+				</div>
+-->
+
+				<div class="pull-left" style="" id="newNoteWrap">
+
+					<div id="newMyNote">
+						<a class="new-note" id="newNoteBtn" title="Add New Note">
+
+							<span class="new-note-text"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Note</span>
+							<span class="new-note-text-abbr">New</span>
+						</a>
+						
+						<span class="new-split">|</span>
+						&nbsp &nbsp
+<!--
+						<a class="new-note new-markdown" id="newNoteMarkdownBtn" title="New markdown note">
+
+							<span class="new-markdown-text">New markdown note</span>
+							<span class="new-markdown-text-abbr">Md</span>
+						</a>
+-->
+						<i class="fa fa-book" aria-hidden="true"></i>
+						<span class="for-split"> Current: </span>
+
+<!--                        为了方便获取当前notebookId：用于创建新note-->
+						<span id="curNotebookForNewNote" notebookId=""></span>
+
+					</div>
+
+
+					<div id="newSharedNote" style="display: none">
+						<a id="newSharedNoteBtn" class="new-note">
+
+							<span class="new-note-text">New note</span>
+							<span class="new-note-text-abbr">New</span>
+						</a>
+						<span class="new-split">|</span>
+						<!-- <a id="newShareNoteMarkdownBtn" class="new-note new-markdown" title="New markdown note"> -->
+							<!-- <span class="new-markdown-text">New markdown note</span> -->
+							<!-- <span class="new-markdown-text-abbr">Md</span> -->
+						<!-- </a> -->
+						<span class="for-split"> - </span>
+						<span id="curNotebookForNewSharedNote" notebookId="" userId=""></span>
+
+					</div>
+				</div>
+
+				<div class="pull-left" id="leanoteMsg">
+					<span id="msg" style="display: inline-block;"></span>
+					<span id="loading">
+					</span>
+				</div>
+
+				<div class="pull-right" style="margin: 0 10px" id="myProfile">
+					<div class="dropdown">
+						<a class="dropdown-toggle" title="My Profile" data-toggle="dropdown" style="line-height: 60px;">
+							<img alt="" title="" src="public/images/supermario.jpg" id="myAvatar"/>
+							<span class="username" id="username"> 
+<!--								pan.atopos@outlook.com-->
+							</span>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu li-a" role="menu">
+							<li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="listGroupInfo()">
+								<i class="fa fa-users"></i> 
+								Group
+							</li>
+							<li role="presentation" onclick="logout()">
+								<i class="fa fa-sign-out"></i>
+								Logout
+							</li>
+						</ul>
+					</div>
+				</div>
+
+<!--                go to the feedback questionaire-->
+				<div class="pull-right top-nav writting-hide lea-blog">
+					<a target="_blank" class = "givefeedback" href="http://www.sojump.com/jq/7951507.aspx" title = "Give Feedback">
+						<!-- Q-Note Home -->
+						Give Us Feedback
+					</a>
+				</div>
+<!--
+				<div class="pull-right top-nav writting-hide" id="myBlog">
+					<a target="_blank" href="">
+						Blog
+					</a>
+				</div>
+-->
+<!--                切换模式的button-->
+<!--
+				<div class="pull-right toggle-editor-mode top-nav" id="toggleEditorMode">
+					<a href="#writing"><span>Writing Mode</span></a>
+				</div>
+-->
+				<!-- iris -->
+				<div class="pull-right top-nav" id="downloadTracking">
+					<!-- <a onclick="downloadTrakcingLog()"><span>Download tracking log</span></a> -->
+					<i id = "synBtn" class="fa fa-refresh" aria-hidden="true" title = "Synchronize Notebooks"></i>
+					&nbsp
+					<i id = "downloadbtn1" class="fa fa-cloud-download" aria-hidden="true" title = "Download Tracking Log" onclick = "downloadTrakcingLog()"></i>
+				</div>
+
+				<div style="clear: both"></div>
+			</div>
+
+			<div id="mainContainer" class="clearfix">
+				<div id="mainMask">
+					<img src="public\images\loading-30.gif" />
+					<br />
+					<br />
+					loading...
+				</div>
+
+				<div id="leftNotebook">
+					<div id="notebook">
+						<div class="folderNote opened" id="myNotebooks">
+							<div class="folderHeader clearfix">
+								<i class="fa fa-book pull-left fa-left"></i>
+								<span class="pull-left">
+									Notebook
+								</span>
+								<div class="pull-right" id="addNotebookPlus" title="Add notebook">
+									<i class="fa  fa-plus" title="Add notebook"></i>
+								</div>
+							</div>
+
+							<div class="folderBody">
+								<input type="text" class="form-control" id="searchNotebookForList" placeholder="Search Notebook"/>
+								<ul class="ztree" id="notebookList"></ul>
+								<ul class="ztree" id="notebookListForSearch"></ul>
+							</div>
+						</div>
+
+						<div class="folderNote closed" id="myTag">
+							<div class="folderHeader">
+								<i class="fa fa-bookmark fa-left"></i>
+								<span>
+									Tag
+								</span>
+							</div>
+
+							<ul class="folderBody clearfix" id="tagNav">
+								<li data-tag="red"><a> <span class="label label-red">red</span></a></li>
+								<li data-tag="blue"><a> <span class="label label-blue">blue</span></a></li>
+								<li data-tag="yellow"><a> <span class="label label-yellow">yellow</span></a></li>
+								<li data-tag="green"><a> <span class="label label-green">green</span></a></li>
+							</ul>
+						</div>
+
+						<div class="folderNote closed" id="myShareNotebooks">
+							<div class="folderHeader">
+								<i class="fa fa-user fa-left"></i>
+								<span>
+									Share
+								</span>
+							</div>
+
+							<ul class="folderBody" id="shareNotebooks">
+
+							</ul>
+						</div>
+
+					</div>
+
+
+					<div id="notebookMin">
+
+						<div target="#notebookList" title="Notebook" class="minContainer">
+							<i class="fa fa-book"></i>
+							<ul class="dropdown-menu" id="minNotebookList">
+							</ul>
+						</div>
+						<div target="#tagNav" title="My tag" class="minContainer">
+							<i class="fa fa-bookmark"></i>
+							<ul class="dropdown-menu" id="minTagNav">
+							</ul>
+						</div>
+						<div id="minShareNotebooks">
+							<div class="minContainer" target="#friendContainer0" title="Share">
+								<i class="fa fa-user"></i>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+<!--                左一split-->
+				<div class="noteSplit" id="notebookSplitter"></div>
+
+<!--                笔记list+笔记部分-->
+				<div id="noteAndEditor">
+					<div id="noteAndEditorMask">
+						<img src="public\images\loading-24.gif"/>
+						<br />
+						loading...
+					</div>
+						<div id="noteList">            
+                                <div id="noteItemListWrap" >
+						<!-- iris0524 -->
+                                    <ul id="noteItemList" >
+
+									</ul>
+								</div>
+						</div>
+						<!-- iris -->
+                        <div id="editorMask">  
+                        	<div id = "emptyfile">
+                        	<i class="fa fa-file-o" aria-hidden="true" style = "font-size:200px;color:#C9C9C9"></i>
+                        </div>
+                        <div>
+                        	<br/><br/>
+                            <p style = "font-size:20px;color:#C9C9C9">No Notes Here</p>
+                            <br />
+                        </div>
+                            <div id="editorMaskBtns"><!-- 
+                            	<p style = "font-size:20px;color:#C9C9C9">Click and Add New Notes :)</p><br/> -->
+                                <a id = "newnotebtn"class="note"><i class="fa fa-plus-circle" aria-hidden="true"></i> New Note</a>
+<!--                                <a class="markdown">New Markdown Note</a>-->
+                            </div>
+                            <div id="editorMaskBtnsEmpty"> 
+<!--                                appear when ti is in trash-->
+                                
+                            </div>
+                        </div>
+						
+                        <div id="batchMask" class="note-mask">  
+                            <div class="batch-ctn" id="batchCtn"></div>
+                            <div class="batch-info">
+                                <span></span> notes selected
+                                <p><i class="fa fa-cog"></i></p>
+                            </div>
+                        </div>
+
+                        <!-- <div id="noteTop"> -->
+                            <div id="tool" class="clearfix">
+                                <div class="pull-left" id="tag">
+                                    <div id="tags" style="display: inline-block; line-height: 25px;">
+                                    </div>
+                                    <div class="dropdown" style="display: inline-block"
+                                        id="tagDropdown">
+                                        <i class="fa fa-bookmark-o"></i> 
+                                        <a
+                                            class="metro-a dropdown-toggle" data-toggle="dropdown"
+                                            id="addTagTrigger" style="cursor: text; padding-left: 0">
+                                            <span class="add-tag-text">
+                                            Click to add Tag
+                                            </span>
+                                        </a> 
+                                        <input type="text" id="addTagInput" />
+                                        <ul class="dropdown-menu" role="menu" id="tagColor">
+                                            <li role="presentation"><span class="label label-red">red</span>
+                                            </li>
+                                            <li role="presentation"><span class="label label-blue">blue</span>
+                                            </li>
+                                            <li role="presentation"><span class="label label-yellow">yellow</span></li>
+                                            <li role="presentation"><span class="label label-green">green</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <ul class="pull-right" id="editorTool">
+                                    <li><a class="ios7-a " id="addBtn" data-toggle="dropdown" title="Add a new paragraph">
+                                        <span class="fa fa-plus"></span></a></li>
+                                    
+<!--
+                                    <li><a class="ios7-a " id="editBtn"
+                                        data-toggle="dropdown" title="ctrl/cmd+e Toggle Modify with Readonly">
+                                        <span class="fa"></span></a></li>
+-->
+                                    
+                                    <li><a class="ios7-a " id="saveBtn"
+                                        data-toggle="dropdown" title="Save locally">
+                                        <span class="fa fa-save"></span></a></li>
+                                    
+                                    <li class="dropdown" id="noteInfoDropdown">
+                                        <a class="ios7-a dropdown-toggle" id="infoDropdownBtn" data-toggle="dropdown" title="Information">
+                                            <span class="fa fa-info"></span>
+                                        </a>
+                                        <div class="dropdown-menu" id="noteInfo"></div>
+                                    </li>
+                                    
+
+                                    <li class="dropdown" id="attachDropdown">
+                                        <a class="ios7-a dropdown-toggle" data-toggle="dropdown" id="showAttach" title="Attachments">
+                                            <span class="fa fa-paperclip"></span>
+                                            <span id="attachNum"></span>
+                                        </a>
+                                        <div class="dropdown-menu" id="attachMenu">
+                                            <ul id="attachList">
+                                            </ul>
+                                            <form id="uploadAttach" method="post" action="/attach/UploadAttach" enctype="multipart/form-data">
+                                                <div id="dropAttach" class="dropzone">
+                                                    <a class="btn btn-success btn-choose-file">
+                                                        <i class="fa fa-upload"></i>
+                                                        <span>Choose File</span>
+                                                    </a>
+                                                    <a class="btn btn-default" id="downloadAllBtn">
+                                                        <i class="fa fa-download"></i>
+                                                        <span>Download All</span>
+                                                    </a>
+
+                                                    <input type="file" name="file" multiple/>
+                                                </div>
+                                                <div id="attachUploadMsg">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+
+
+<!--
+                                    <li><a class="ios7-a " id="contentHistory"
+                                        data-toggle="dropdown" title="Histories">
+                                        <span class="fa fa-history"></span></a></li>
+-->
+<!--
+                                    <li><a class="ios7-a " id="tipsBtn"
+                                        data-toggle="dropdown" title="Tips">
+                                        <span class="fa fa-question"></span></a></li>
+-->
+                                </ul>
+                            </div>
+                            <div id="noteTitleDiv">
+                                <input name="noteTitle" id="noteTitle" value="" placeholder="UnTitled" tabindex="1" />
+                            </div>
+
+
+                            <div id="noteReadTop">
+                                <h2 id="noteReadTitle"></h2>
+                                <div class="clearfix" id="noteReadInfo">
+                                    <i class="fa fa-bookmark-o"></i>
+                                    <span id="noteReadTags"></span>
+
+
+                                    <i class="fa fa-clock-o"></i> Update 
+                                    <span id="noteReadUpdatedTime"></span>  
+
+
+                                    <i class="fa fa-clock-o"></i> Create 
+                                    <span id="noteReadCreatedTime"></span>
+                                </div>
+                            </div>
+                        <!-- </div> -->
+                        
+<!--                        editor !!!! ! ! ! ! !-->
+                        <div id="editor"> 
+<!--                    删除class="read-only"-->
+<!--                            <h1>A</h1>-->
+<!--                            <div draggable="true">B</div>-->
+<!--                            <div draggable="true">C</div>-->
+                        </div>
+					<!-- </div> -->
+				</div>
+                <div class="noteSplit" id="mediaSplitter"></div>
+
+                <div id="media">
+                	<!-- iris -->
+                	<div id = "mytabdiv">
+                    <ul id="myTab" class="nav nav-tabs">
+                       <li class="active">
+                          <a href="#audioRecording" data-toggle="tab" title="Audio Recording">
+                             <big><big><i class="fa fa-microphone"></i></big></big>
+                          </a>
+                       </li>
+                       <li><a href="#videoRecording" data-toggle="tab" title="Video Recording">
+                              <big><big><i class="fa fa-video-camera"></i></big></big>
+                           </a>
+                        </li>
+
+                        <li><a href="#photoRecording" data-toggle="tab" title="Image Recording">
+                              <big><big><i class="fa fa-photo"></i></big></big>
+                           </a>
+                        </li>
+<!--                        <li><a href="#files" data-toggle="tab" title="Open Files"onclick="TrackLogRecord.newCheckFileRecord()"> -->
+                       <li><a href="#files" id = "fileicon" data-toggle="tab" title="Open Files">
+                              <big><big><i class="fa fa-folder"></i></big></big>
+                           </a>
+                        </li>
+                        <li><a id ="webicon" href="#webBrowser" data-toggle="tab" title="Web Browser">
+                              <big><big><i class="fa fa-globe"></i></big></big>
+                           </a>
+                        </li>
+                        <li><a href="#searchEngine" data-toggle="tab" title="Google Search">
+                              <big><big><i class="fa fa-google"></i></big></big>
+                           </a>
+                        </li>
+                        <li><a href="#cloudDisk" data-toggle="tab" title= "Cloud Disk">
+                        	  <big><big><i class="fa fa-cloud"></i></big></big>
+                        	  </a>
+
+                        </li>
+ <!--                        <li><a href="#cloud" data-toggle="tab" title="Cloud">
+                              <big><big><i class="fa fa-google"></i></big></big>
+                           </a>
+                        </li> -->
+                        
+                    </ul>
+                </div>
+                <!-- iris0523 -->
+                    <div id="myTabContent" class="tab-content">
+                       <div class="tab-pane fade in active" id="audioRecording">
+							<!-- <p>Audio Recording</p> -->
+
+<!-- 							<input style="margin-left:5%;" onclick="startRecording()" type="image" class="audio-buttons" src="public\images\buttons\record.png" height=60 alt="Record" title="Record"/>
+							
+							<input style="margin-left:5%;" onclick="stopRecording()" type="image" class="audio-buttons" src="public\images\buttons\stop.png" height=60 alt="Stop" title="Stop"/>
+							
+							<input style="margin-left:5%;" onclick="download()" type="image" class="audio-buttons" src="public\images\buttons\download.png" height=60 alt="Download" title="Download"/>
+							
+							<input style="margin-left:5%;" onclick="clearRecord()" type="image" class="audio-buttons" src="public\images\buttons\clear.png" height=60 alt="Clear" title="Clear"/><br/>
+							</br></br><b id="count"></b> <br/><br/><br/><br/><br/><br/><br/> -->
+						<div id = "audiobtn" class="audio-buttons" >
+						<!-- 	<i class="fa fa-play-circle" id = "playbtn" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" ></i> -->
+							<i class="fa fa-dot-circle-o recordbtn lightup" id = "playbtn" aria-hidden="true" onclick="startRecording()" alt="Record" title="Start" ></i>
+
+							<i class="fa fa-stop-circle recordbtn" id = "stopbtn" aria-hidden="true" onclick="stopRecording(Email)" alt="Stop" title="Stop" ></i>
+							<!-- <i class="fa fa-download" aria-hidden="true"></i> -->
+							<i class="fa fa-arrow-circle-down recordbtn" id = "downbtn" aria-hidden="true" onclick="download()" alt="Download" title="Download" ></i>
+						<!-- 	<i class="fa fa-times" aria-hidden="true"></i> -->
+							<i class="fa fa-times-circle recordbtn" id = "trashbtn" aria-hidden="true" onclick="clearRecord()" alt="Clear" title="Discard" ></i>
+						</div>
+						<br/><br/>
+						<div id = "test" style="visibility:hidden;">
+							<audio id = "audiocontrol"controls="controls"></audio>
+						</div>
+						<br/>
+						<b id="count"></b>
+						<br/><br/>
+
+						<div id = "audioRecordingMsg" style="display: none;">
+                          <h4><img src = "public/images/loading-24.gif">Saving and uploading to the cloud...</h4>
+                        </div>
+
+						<div id = "audioDoc">
+							<h1>Audio Recording</h1><br/>
+							<h3>1. Click start icon to start recording </h3>
+							<h3>2. Click stop icon to stop recording </h3>
+							<h3>3. Click download icon to download audio record</h3>
+							<h3>4. Click discard icon to delete record</h3>
+						</div>
+
+
+                       </div>
+                       <div class="tab-pane fade" id="videoRecording">
+                          <!-- <p>Video Recording</p>  --><br/>
+                          <!-- <video id="myImage" class="video-js vjs-default-skin"></video> -->
+
+                          <video id="myVideo" class="video-js vjs-default-skin"></video>
+
+                          <br/>
+                          <div id = "videoRecordingMsg" style="display: none;">
+                          <img src = "public/images/loading-24.gif"><h4>Saving and uploading to the cloud...</h4>
+                          </div>
+                          <br/>
+                          <button id="downloadbtn" onclick = "downloadvideo()"><i class="fa fa-download" aria-hidden="true"></i> DOWNLOAD</button><br/>
+<!--                           <i id="videodownload" class = "fa fa-downloadbtn"></i>-->
+                          <div id = "audioDoc">
+							<h1>Video Recording</h1>
+							<h3>1. Click the camera icon to start</h3>
+							<h3>2. Click start to start recording </h3>
+							<h3>3. Click finish to finish recording </h3>
+							<h3>4. Click play/pause to play/pause the recorded video </h3>
+							<h3>5. Click download to download the video </h3>
+							<p>P.S. Two files will be downloaded. One for video and another for audio.</p>
+							</div>
+
+                       </div>
+
+                       <div class="tab-pane fade" id="photoRecording">
+                          <!-- <p>Video Recording</p>  --><br/>
+                          <!-- <video id="myImage" class="video-js vjs-default-skin"></video> -->
+
+                          <video id="myImage" class="video-js vjs-default-skin"></video>
+
+                          <br/>
+                          <div id = "photoMsg" style="display: none;">
+                          <img src = "public/images/loading-24.gif"><h4>Saving and uploading to the cloud...</h4>
+                          </div>
+                          <br/>
+                          <button id="downloadbtn2" onclick = "downloadImage()"><i class="fa fa-download" aria-hidden="true"></i>DOWNLOAD</button><br/>
+<!--                           <i id="videodownload" class = "fa fa-downloadbtn"></i>-->
+                          <div id = "audioDoc">
+							<h1>Photo taking</h1>
+							<h3>1. Click the recording icon to start</h3>
+							<h3>2. Click camera button to take a photo </h3>
+							<h3>3. Click refresh button if you want to take another photo</h3>
+							<h3>5. Click download to download the photo </h3>
+							</div>
+
+                       </div>
+
+                       <div class="tab-pane fade" id="files">
+                          <form id="form1" runat="server">
+
+				          <label class="custom-file-upload fileupload" id="fileuploadBtn">
+						    <input type="file" id="imgInp" class="browseFile" title="Choose a file" width=400px onChange="TrackLogRecord.newOpenFileRecord()"/>
+						    <i class="fa fa-folder-open-o" aria-hidden="true"></i> Choose a file to open
+						  </label>
+
+
+<!--                           <div id="file-caption">Click on the button to display a file</div>
+ -->						<div id = "displayfilediv"> 
+                          <!-- iris -->
+	                          <iframe id="displayedFile" class="display" name="awindow" frameborder=1 src="multimediaOpenMask.html">	
+	                          </iframe>
+                      		</div>
+                        </form>
+                       </div>
+
+                        <!-- iris -->
+                       <div class="tab-pane fade" id="webBrowser">
+                       	   <!-- <i class="fa fa-webback" onclick="backpage()"></i>
+                       	   <i class="fa fa-webforward" onclick="forwardpage()"></i> -->
+                       	   <br/>
+                       	   &nbsp;&nbsp;
+                       	   <i class="fa fa-arrow-left" aria-hidden="true" onclick="backpage()"></i>
+                       	   &nbsp;&nbsp;
+                       	   <i class="fa fa-arrow-right" aria-hidden="true" onclick="forwardpage()"></i>
+                       	   &nbsp;&nbsp;
+                           <input id="address" type="text" placeholder="Enter Address..." size="22" onkeydown="if(event.keyCode==13) {webaddress();return false;}"/>
+                           &nbsp;
+                           <button id="addressbtn" onclick="webaddress()">Go</button>
+                           <br/><br/>
+                           <iframe id="webpage" name = "viewframe" src="http://baidu.com" onchange="" nwdisable nwfaketop></iframe>
+                              <!-- <iframe id="webpage" class="display" src="http://baidu.com"></iframe> -->
+                       </div>
+
+                       <!-- iris -->
+                       <div class="tab-pane fade" id="searchEngine" style = "overflow-y:scroll">
+                       
+                           <gcse:search></gcse:search> 
+                           
+<!--
+                        <div class="top-search">
+                            <form method="get" id="searchform" id="searchbox_002556101758618985822:mbg5wo_jkvg" action="search-result.html">
+                                <div>
+                                    <input value="002556101758618985822:mbg5wo_jkvg" name="cx" type="hidden"/>
+                                    <input value="FORID:11" name="cof" type="hidden"/>
+                                    <input type="text" value="Search..." name="s" id="s" onfocus="defaultInput(this)" onblur="clearInput(this)" />
+                                    <input type="submit" id="searchsubmit" value=" " />
+                                </div>
+                            </form>
+                        </div>
+-->
+							<!-- iris -->
+                           <div id = "gscDoc" style = "position:absolute;left:25%;top:250px">
+                            
+							<h1>Search</h1>
+							<h4>This is a google custom search engine.<br> You can use it as Google.<br> Of course, you need VPN.</h4>
+                               <br><br>
+							<h1>Add Content</h1>
+							<h4>Drag the best elements into your note<br> and add your own content.</h4>
+							
+							</div>
+						
+                       </div>
+
+
+                       <div class="tab-pane fade" id="cloudDisk">
+                       		<!-- <iframe id="cloudPage" name = "viewframe" src="http://115.28.134.156:8080" onchange="" nwdisable nwfaketop></iframe> -->      
+<!--                       		<html lang="en" ng-app="FMApp">-->
+<!--                       		<body ng-controller="FileManagerCtr as FM">-->
+                       		  <div class="modal fade" id="createFolderModal">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <h4>New Folder</h4>
+							        </div>
+							        <div class="modal-body">
+							          <p>Complete Path　{{FM.curFolderPath + FM.newFolderName + '/'}}</p>
+							          <label>Folder Name    <input class="input-xlarge" ng-model="FM.newFolderName" /></label>
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!FM.newFolderName" ng-click="FM.createFolder(FM.newFolderName)">OK</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+
+							  <div class="modal fade" id="uploadFileModal">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <h4>Upload File</h4>
+							        </div>
+							        <div class="modal-body">
+							          <p>Upload to {{FM.curFolderPath + FM.uploadFile.name}}</p>
+							          <label class="custom-file-upload">
+									    <input type="file" class="form-control" ng-model="FM.uploadFile">
+									    <i class="fa fa-upload" aria-hidden="true"></i> Choose a file...
+									  </label>
+<!-- 							          <div class="form-inline">
+							              <input type="file" class="form-control" ng-model="FM.uploadFile">
+							          </div> -->
+
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!FM.uploadFile" ng-click="FM.upload()">OK</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+
+							  <div class="modal fade" id="renameModal">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <h4>Rename</h4>
+							        </div>
+							        <div class="modal-body">
+							          <label>New Name <input class="input-xlarge" ng-model="FM.newName" placeholder={{FM.selection[0].name}} /></label>
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!FM.newName" ng-click="FM.rename(FM.newName)">OK</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+
+
+							  <div id = "uploadingMsg" style="display: none;">
+	                          	<h4>&nbsp;&nbsp;&nbsp;&nbsp;<img src = "public/images/loading-24.gif">&nbsp;&nbsp;Uploading... Please wait.</h4>
+	                          </div>
+
+
+							  <div class="modal fade" id="moveModal">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <div class="modal-header">
+							          <h4>Move</h4>
+							        </div>
+							        <div class="modal-body">
+							          <label>Target　<input class="input-xlarge" ng-model="FM.moveTarget" placeholder="{{FM.curFolderPath}}" /></label>
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							          <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!FM.moveTarget" ng-click="FM.move(FM.moveTarget)">OK</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+							  <!-- iris0527 -->
+							  <!-- <div id = "maincontent"> -->
+<!-- 								  <nav class="navbar navbar-default navbar-static-top" style = "margin:0px;border-color:#fff">
+								    <div class="container">
+								      <div class="navbar-header">
+								        <a class="navbar-brand" href="#">File Manager</a>
+								      </div>
+								    </div>
+								  </nav> -->
+
+								 <div class="container">
+								    <div class="btn-toolbar">
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('download')" ng-click="FM.download()"><i class="fa fa-download" aria-hidden="true"></i> Download</button>
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('delete')" ng-click="FM.delete()"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('move')" data-toggle="modal" data-target="#moveModal"><i class="fa fa-exchange" aria-hidden="true"></i> Move</button>
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('rename')" data-toggle="modal" data-target="#renameModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Rename</button>
+								      <button type="button" class="btn btn-default" ng-disabled="FM.btnDisabled('create_folder')" data-toggle="modal" data-target="#createFolderModal"><i class="fa fa-folder-o" aria-hidden="true"></i></span> New Folder</button>
+								      <button type="button" class="btn btn-default " ng-disabled="FM.btnDisabled('upload_file')" data-toggle="modal" data-target="#uploadFileModal"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
+								    </div>
+
+								    <ol class="breadcrumb">
+								      <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+								      <li ng-repeat="p in FM.curBreadCrumbPaths"><a href={{p.path}}>{{p.name}}</a></li>
+								    </ol>
+
+								    <table class="table table-hover table-striped">
+								      <thead>
+								        <tr class="sortable">
+								          <th><input type="checkbox" value="" ng-model="FM.selectAll"></th>
+								          <th>Type</th>
+								          <th>Name</th>
+								          <th>Size</th>
+								          <!--
+								          <th>Time</th>
+								          -->
+								        </tr>
+								      </thead>
+								      <tbody>
+								      <tr class="sortable" ng-repeat="file in FM.curFiles | orderBy:'folder'">
+								        <td><input type="checkbox" value="{{file.name}}" ng-model="file.selected"></td>
+								        <td ng-click="FM.clickFile(file)"><span class="{{file.folder ? 'fa fa-folder-open-o' : 'fa fa-file-o'}}"></span></td>file
+								        <td ng-click="FM.clickFile(file)"><a>{{file.name}}</a></td>
+								        <td>{{file.humanSize}}</td>
+								        <!-- 
+								        <td>{{file.humanTime}}</td>
+								        -->
+								        <td><button type="button" class="btn btn-default" ng-click="FM.insertFile(file)" data-toggle="modal" style="{{file.folder ? 'display:none;' : ''}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Insert</button></td>
+								      </tr>
+								      </tbody>
+								    </table>
+
+							    <div id="successAlert" class="alert alert-success" role="alert" style="display: none">
+							      <span>{{FM.successData}}</span>
+							    </div>
+
+							    <div id="errorAlert" class="alert alert-danger" role="alert" style="display: none">
+							      <button type="button" class="close" data-dismiss="alert" alert-label="Close">
+							        <span aria-hidden="true">&times</span>
+							      </button>
+							      {{FM.errorData}}
+							    </div>
+
+
+								<div ng-show="progressVisible">
+								<div class="percent">{{progress}}%</div>
+								<div class="progress-bar">
+								    <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+								</div>
+								</div>
+
+								
+							</div>
+							<!-- </div> -->
+<!--   <span id="insertedFilePath">qertyu</span> -->
+<!--						</body>-->
+<!--						</html>-->
+
+                       	</div>
+
+
+<!--                        <div class="tab-pane fade" id="cloud">
+                         	<form action="" method="post" enctype="multipart/form-data">
+							<input type='text' name='textfield' id='textfield' class='txt' />  
+							<input type='button' class='btn' value='浏览...' />
+							<input type="file" name="fileField" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
+							<input type="submit" name="submit" class="btn" value="上传" />
+							</form>
+                       </div> -->
+
+                    </div>
+                </div>
+			</div>
+
+			<div class="modal fade modal-insert-image">
+			    <div class="modal-dialog"  style="width: 840px;max-width:100%;">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal"
+			                    aria-hidden="true">&times;</button>
+			                <h4 class="modal-title">Image</h4>
+			            </div>
+			            <div class="modal-body" style="padding-top: 0; padding-bottom: 0">
+			            	<iframe name="mdImageManager" style="width: 100%; height: 350px" scrolling="no" id="leauiIfrForMD" src="" frameborder="0"></iframe>
+			            </div>
+			            <div class="modal-footer">
+			                 <a href="#" class="btn btn-default"
+			                    data-dismiss="modal">Cancel</a> <a href="#"
+			                    class="btn btn-primary action-insert-image" data-dismiss="modal">Insert Image</a>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+
+			<div class="modal fade bs-modal-sm" id="editorDialog" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+				    <div class="modal-content">
+
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="editorDialog-title"></h4>
+				      </div>
+				      <div class="modal-body">
+							<p></p>
+							<div class="input-group">
+							  <span class="input-group-addon">
+							  	<i></i>
+							  </span>
+							  <input type="text" class="form-control" placeholder="">
+							</div>
+				      </div>
+
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				        <button type="button" class="btn btn-primary" id="editorDialog-confirm">Confirm</button>
+				      </div>
+
+				    </div>
+				  </div>
+			</div>		
+            
+<!--            share开始-->
+            <div class="modal fade bs-modal-sm in" id="leanoteDialogRemote" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">  
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="modalTitle">Share Your Notes or Notebooks</h4>
+                        </div>
+
+
+                        <div class="modal-body">
+
+                            <ul id="myShareTab" class="nav nav-tabs">
+                                <li class="active"><a href="#baseInfo" class="shareLink" data-toggle="tab"><i class="fa fa-user" aria-hidden="true"></i> Share to Friend</a></li>
+                                <li class=""><a href="#groupInfo" class="shareLink" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i> Share to Group</a></li>
+
+                                <!-- <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> -->
+                            </ul>
+							<!-- iris -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="baseInfo">
+                                	    <div id = "addfriendbutton">
+                                    		<button class="btn btn-primary" id="addShareNotebookBtn"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Friend</button>
+                              			</div>
+                                        <!-- <div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div> -->
+                                        <table class="table table-hover" id="shareNotebookTable">
+                                            <thead>
+                                              <tr>
+                                                <!-- <th>#</th> -->
+
+                                                <th id = "friendth">Friend Account</th>
+<!--                                                <th>Permission</th>-->
+
+                                                <th colspan = "2" id = "optionth">Operations</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="baseInfoTableBody">
+                                            <!-- <tr id="tr1"> -->
+                                                <!-- <td>#</td> -->
+                                                <tr id="tr1">
+                                                    <td>
+                                                        <input id="friendsEmail" type="text" class="form-control" placeholder="Enter Account Name">
+                                                    </td>
+    <!--
+                                                    <td>
+                                                        <label for="readPerm1"><input type="radio" name="perm1" checked="checked" value="0" id="readPerm1"> Read only</label> 
+                                                        <label for="writePerm1"><input type="radio" name="perm1" value="1" id="writePerm1"> Writable</label>
+                                                    </td>
+    -->					
+                                                    <!-- iris -->
+                                                    <td id = "sharebuttontd">
+
+                                                        <button class="btn btn-success" data-loading-text="..." onclick="addShareNoteOrNotebook(1)" id = "sharebutton"><i class="fa fa-share" aria-hidden="true"></i>  Share</button>
+                                                        <!-- <i class="fa fa-share" aria-hidden="true" data-loading-text="..." onclick="addShareNoteOrNotebook(1)"></i> -->
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-warning" onclick="deleteShareNoteOrNotebook(1)" id = "deletebutton"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table> 
+                                </div>
+
+                                <div class="tab-pane" id="groupInfo">
+                                    <p id = "groupinfop">
+                                    If you share your note to group, the member belongs to group will have the right to access the note.
+                                    <a href="/member/group/index" target="_blank">Manage group/member</a>
+                                    </p>
+
+                                    <table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Group Name</th>
+												<th>Permission</th>
+												<th width="150px">Operation</th>
+											</tr>
+<!--
+											<tr data-id="56fccc7aab64415150000de4" data-uid="56d53e56ab64417fb1001e21">
+												<td>
+													mk
+												</td>
+												<td>
+													<label><input type="radio" name="perm_56fccc7aab64415150000de4" checked="checked" value="0" class="group-perm"> Read only</label> 
+													<label><input type="radio" name="perm_56fccc7aab64415150000de4" value="1" class="group-perm"> Writable</label>
+												</td>
+												<td>
+													<button id = "notsharebtn" class="btn btn-default btn-share-or-not">Not shared</button>
+												</td>
+											</tr>
+-->
+                                        </thead>
+                                        <tbody id="groupInfoTable">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+<!--
+                                <div class="tab-pane" id="shareInfo">
+                                    <p>
+                                        <button class="btn btn-primary" id="genShareLink">Get link and password</button>
+                                        <button class="btn btn-danger" id="disableShare" disabled="disabled">Cancel</button>
+                                    </p>
+
+                                    <form class="form-horizontal">
+                                      <div class="form-group">
+                                        <label for="shareLink" class="col-sm-2 control-label">Share link</label>
+                                        <div class="col-sm-10">
+                                          <input type="text" class="form-control" id="shareLink">
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="sharePass" class="col-sm-2 control-label">Access password</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="sharePass">	
+                                        </div>
+                                      </div>
+                                    </form>
+                                </div>
+-->
+                                
+                            </div>
+                        </div>
+						<!-- iris -->
+                        <div class="modal-footer">
+                        
+                        	<div id="shareMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+<!--            share结束-->
+            
+            
+            
+<!--            member开始-->
+            <div class="modal fade bs-modal-sm in" id="groupDialogRemote" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">  
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="modalTitle">Manage Your Groups</h4>
+                        </div>
+
+
+                        <div class="modal-body">
+
+<!--
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active"><a href="#baseInfo" data-toggle="tab">Share to friends</a></li>
+                                <li class=""><a href="#groupInfo" data-toggle="tab">Share to group</a></li>
+
+                                 <li class=""><a href="#shareInfo" data-toggle="tab">Share by password</a></li> 
+                            </ul>
+-->
+
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                	<div id = "addfriendbutton">
+                                    	<button id = "addgroupbtn" class="btn btn-primary" id="addParentBtn"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New Group</button>
+                                	</div>
+                                    <div class="groupTree">
+                                        <ul id="groupZTree" class="ztree"></ul>
+                                    </div>
+                                </div>             
+                            </div>
+                        </div>
+                        <div class="modal-footer">                 
+                        	<div id="groupMsg" class="alert alert-danger" style="display: none; margin: 5px 0 0 0;"></div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            member结束-->
+			<div class="display: hidden">
+			<div class="hide" id="copyDiv"></div>
+                
+            <input name="image" type="file" id="upload" class="hidden" onchange="">
+		</div>
+	</div>
+</div>
+
+<script src="public/js/tinymce/js/tinymce/tinymce.min.js"></script>
+<!-- <link rel="stylesheet" href="public/css/tinymce/skin.min.css" rel="stylesheet"/> -->
+
+<script src="public/js/DND.js"></script>  
+<script src="public/js/i18n/msg.en.js"></script>
+
+<script src="public/js/app.min.js"></script>
+    
+<script src="public/js/async.js"></script>
+<script src="public/data/alldata5.js"></script>
+<script src="public/js/editor.js"></script>
+
+
+<script>
+    retrieveData();
+    //require('nw.gui').Window.get().showDevTools() 
+    require('nw.gui').Window.get().resizeTo(1600,900);
+    require('nw.gui').Window.get().setResizable(true);  
+</script>
+    
+<script>
+
+    var player1 = videojs("myImage",
+	{
+	    controls: true,
+	    width: 477,
+	    height: 360,
+	    controlBar: {
+	        volumeMenuButton: false,
+	        fullscreenToggle: false
+	    },
+	    plugins: {
+	        record: {
+	            audio: false,
+                video: false,
+                image: true,
+                debug: true
+	        }
+	    }
+	});
+	
+    var player = videojs("myVideo",
+    {
+        controls: true,
+        width: 477,
+        height: 360,
+        plugins: {
+            record: {
+                audio: true,
+                video: true,
+                maxLength: 600,
+                image: false,
+                debug: true
+            }
+        }
+    });
+
+    
+
+
+    player.on('deviceError', function()
+    {
+        console.log('device error:', player.deviceErrorCode);
+    });
+    // user clicked the record button and started recording
+    player.on('startRecord', function()
+    {
+        console.log('started recording!');
+    });
+    // user completed recording and stream is available
+    player.on('finishRecord', function()
+    {
+        // the blob object contains the recorded data that
+        // can be downloaded by the user, stored on server etc.
+        document.getElementById("videoRecordingMsg").style.display="";
+        uploadVideo();
+        // console.log('finished recording: ', player.recordedData);
+    });
+
+
+    player1.on('deviceError', function()
+    {
+        console.log('device error:', player.deviceErrorCode);
+    });
+    // user clicked the record button and started recording
+    player1.on('startRecord', function()
+    {
+        console.log('started recording!');
+    });
+    // user completed recording and stream is available
+    player1.on('finishRecord', function()
+    {
+        // the blob object contains the recorded data that
+        // can be downloaded by the user, stored on server etc.
+        document.getElementById("photoMsg").style.display="";
+        uploadImage();
+        // console.log('finished recording: ', player.recordedData);
+    });
+
+    function downloadvideo(){
+    	// saveBase64AsFile(player.recordedData,"output.png");
+    	// console.log(player.recordedData);
+        saveAs(player.recordedData.video,"output.webm");
+        saveAs(player.recordedData.audio,"output.wav");
+    }
+
+    function downloadImage(){
+    	saveBase64AsFile(player1.recordedData,"output.png");
+    	// console.log(player.recordedData);
+    }
+
+
+
+    function saveBase64AsFile(base64, fileName) {
+
+	    var link = document.createElement("a");
+
+	    link.setAttribute("href", base64);
+	    link.setAttribute("download", fileName);
+	    link.click();
+	}
+
+	function uploadVideo(){
+
+	  // var data = {};
+	  // data[Email] = Email;
+	  // data[File] = new FormData();
+	  // data[File].append("file", player.recordedData.video);
+	  // data[File].append("originalname", "video.webm");
+  	  // var stringifiedJson = JSON.stringify(data);	
+  	  
+	  var data = new FormData();
+	  data.append("file", player.recordedData.video);
+	  data.append("originalname", "video.webm");
+	  data.append("email", Email);
+	  console.log(data);
+	  $.ajax({
+	    url: baseUrl+basePort+'/uploadVideo',
+	    type: 'POST',
+	    data: data,
+	    async: true,
+	    cache: false,
+	    contentType: false,
+	    processData: false,
+	    success: function(data){
+	      if(data.code == 200) {
+	        console.log("upload video success: "+data.path);
+	        $('#editor').append("<iframe src = "+baseUrl+basePort+data.path+" width=400 height=300></iframe> ");
+	        document.getElementById("videoRecordingMsg").style.display="none";
+	      } else {
+	        console.log("upload video fail");
+	      }
+	    },
+	    error: function(){
+	      console.log("upload video error");
+	    }
+	  });
+	  
+	}
+
+
+	function uploadImage(){
+	//var image = convertDataURIToBinary(player1.recordedData);
+	//console.log(player1.recordedData);
+	  // var data = new FormData();
+	  // data.append("file", image, "image");
+	  // var xhr = new XMLHttpRequest();
+	  // xhr.open("POST", baseUrl+basePort+'/uploadImage', true);
+
+	  // data.append("file", image);
+	  // data.append("originalname", "photo.png");
+	  // data.append("email", Email);
+	  //console.log(player1.recordedData);
+
+	  var data = {"email": Email, "file": player1.recordedData};
+	  var stringifiedJson = JSON.stringify(data);
+	  $.ajax({
+	  	type: 'POST',
+	    url: baseUrl+basePort+'/uploadImage',
+	    processData: false,
+	    data: stringifiedJson,
+	    contentType: "text/plain",
+	    success: function(data){
+	      if(data.code == 200) {
+	        console.log("upload photo success: "+data.path);
+	        $('#editor').append("<img src = "+baseUrl+basePort+data.path+" width=400 height=300></img> ");
+	        document.getElementById("photoMsg").style.display="none";
+	      } else {
+	        console.log("upload photo fail");
+	      }
+	    },
+	    error: function(){
+	      console.log("upload photo error");
+	    }
+	  });
+	  
+	}
+
+
+</script>
+
+<script>
+
+   // $(".gs-title").on("click","a",function(){
+   //    alert("asdf");
+   // });
+
+  //  function bindEvent(func){
+  //  		onClickFunc = func;
+  //  	}
+
+  //  function onClickFunc() {
+		// bindEvent(function(){
+		// 	alert("123");
+		// });
+  //  }
+
+   function refreshWebbrowser() {
+   		// location.href="#webpage";
+   		$(this).attr("target", "viewframe");
+   		var href = $(this).attr("href");
+   		document.getElementById("address").value = href;
+   		webaddress();
+   		//$("#webBrowser").click();
+   		$("#webicon").trigger("click");
+   		//$(this).attr("href", "#webBrowser");
+   }
+
+   function hidecontent(){
+   		document.getElementById("gscDoc").style.display="none";
+   }
+
+//   function cse(){
+//   			$(".gs-title").unbind();
+//		   	$(".gs-title").on("click","a",onClickFunc2);
+//
+//		   	$("#editor a").click(onClickFunc2);
+////		   	$(".gsc-search-button").on("click",hidecontent());
+//        $(".gsc-input").change(hidecontent);
+//        // $("#webpage a").click(refreshWebbrowser);
+//
+//    };
+    
+    function enableResize() {
+//        console.log("enableResize activated");
+//        $(".iframeWrapper").resizable({
+//            animate: true,
+//            animateEasing: 'swing',
+//            imateDuration: 500
+//        });
+        if($(".iframeWrapper")) {
+            $(".iframeWrapper").resizable({
+                animate: true,
+                animateEasing: 'swing',
+                imateDuration: 500,
+                start: function(event, ui) {
+                    $('iframe').css('pointer-events','none');
+                },
+                stop: function(event, ui) {
+                    $('iframe').css('pointer-events','auto');
+                }
+            });
+        }
+    }
+
+    $(document).ready(function(){
+        setInterval(enableResize,1000);
+        $("#editor").delegate("a","click",refreshWebbrowser);
+        $("#searchEngine").delegate("a","click",refreshWebbrowser);
+//        $("searchEngine").delegate(".gsc-search-button","click",hidecontent());
+        $("#searchEngine").delegate(".gsc-input","change",hidecontent); // hide the help information behind the GCSE
+    });
+
+    // $("#videodownload").on("click",downloadvideo());
+</script>
+<script src="public/js/recorder/recorder.js"> </script>
+<script src="public/js/recorder/recorderWorker.js"> </script>
+<script src="public/js/recorder/configRecorder.js"> </script>
+
+<script src="public/js/plugins/main.min.js"></script>
+
+
+<script src="public/js/media.js"></script>
+<!--    Media Window (must be put after the initPage()-->
+    
+<!--    tracking-->
+<script src="public/js/tracking/Blob.js" ></script>
+<script src="public/js/tracking/FileSaver.js" ></script>
+<script src="public/js/tracking/tracking.js" ></script>
+    
+<!--group-->
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="public/zTree_v3-master/js/jquery.ztree.exedit.js"></script>
+<script src="public/js/group.js"></script>
+<link href="public/css/group.css" rel="stylesheet" />
+
+<!--cloud disk-->
+<!-- <script src="http://cdn.bootcss.com/angular.js/1.4.5/angular.min.js"></script> -->
+<script src="public/js/angular.min.js"></script>
+<script src="public/js/angular-file.js"></script>
+<script src="public/js/app-file.js"></script>
+<!--<link href="public/css/bootstrap.v3.3.5.min.css" rel="stylesheet">-->
+<!--<link href="public/css/bootstrap.v3.3.6.min.css" rel="stylesheet">-->
+    
+</body>
+</html>
+
