@@ -76,8 +76,10 @@
 			        <!-- <div class="vcenter pure-u-1 pure-u-sm-1-2"> -->
 			          <div class="content">
 			            <div class="buttons">
-				            <a href= "http://115.28.134.156:3000/download/mac/Q-Note.zip" target="_blank">MacOS</a>
-				            <a href= "https://www.farbox.com/service/app/desktop_editor?action=download&amp;version=0.5.3.6&amp;platform=win" target="_blank">Windows</a>
+				            <!-- <a href= "http://115.28.134.156:3000/download/mac/Q-Note.zip" target="_blank">MacOS</a>
+				            <a href= "https://www.farbox.com/service/app/desktop_editor?action=download&amp;version=0.5.3.6&amp;platform=win" target="_blank">Windows</a> -->
+				            <a href= "#" onclick="disp_prompt()">MacOS</a>
+				            <a href= "#" onclick="disp_prompt()">Windows</a>
 				            <a href= "http://10.160.1.25/LogIn.html" target="_blank">Web</a>
 			            </div>
 			          </div>
@@ -93,10 +95,10 @@
 	</div><!-- /slide1 -->
 	
 	<!-- === Slide 2 === -->
-	<div class="slide story" id="slide-2" data-slide="2" style = "width:100%">
-		<div class="container" style = "width:100%;">
+	<div class="slide story" id="slide-2" data-slide="2" style = "width:100%;padding-bottom:0px">
+		<div class="container" style = "width:100%;max-width:100%">
 			<div class="row title-row">
-				<div class="col-12 font-thin">We Are Team <span class="font-semibold">XXX</span></div>
+				<div class="col-12 font-thin">we are team <span class="font-semibold" style = "font-style: italic;">CEIL</span></div>
 			</div><!-- /row -->
 			<div class="row line-row">
 				<div class="hr">&nbsp;</div>
@@ -106,7 +108,7 @@
 			</div><!-- /row -->
 
 			<div class="row content-row">
-			    <div class="template-Home_reviews text-center padded-content">
+			    <div class="template-Home_reviews text-center padded-content" style = "margin-left:10%;width:80%;padding-bottom:5%">
 
 
     <div id="review-carousel" class="slick-initialized slick-slider" style = "width:100%">
@@ -317,15 +319,10 @@
 	          <div class="vcenter pure-u-1 pure-u-sm-1-2">
 	            <div class="right">
 	              <h2>DRAG&DROP</h2>
-<!-- 	              <p>DRAG and DROP anything into notes with one click</p> -->
+
 	              <p>From multiple resources</p>
 	              <p>In form of picture, video, link, PDF...</p>
 	              <p>Saving TIME is saving LIFE</p>
-	              
-<!-- 	              <p>符合人类的想象</p>
-	              <p>本地图片亦或网页中的，拖入即可</p>
-	              <p>若关联了云端，图片会自动同步，无需繁琐的手工上传</p>
-	              <p>吃惊的是，这仍然遵循着Markdown的语法...</p> -->
 	            </div>
 	          </div>
 	        </div>
@@ -339,11 +336,6 @@
 	        <div class="case_container">
 	          <div class="vcenter pure-u-1 pure-u-sm-1-2">
 	            <h2>CLOUD</h2>
-<!-- 	            <p>有人说，这是一种有趣的风骚</p>
-	            <p>程序员和非程序员</p>
-	            <p>两种平行的世界，在写作这领域</p>
-	            <p>此刻，彼此共存，却毫无干扰</p> -->
-<!-- 	            <p>Synchronise automatically</p> -->
               	<p>Upload and download at ANYTIME, ANYWHERE</p>
              	<p>Higher file availability & Lower laptop storage occupancy</p>
               	<p>Storage burdern on PC is light as CLOUD</p>
@@ -376,7 +368,7 @@
 		</div>
 		<div style = "margin-bottom:-13%">
 			<p>Quick Note is copyright @ 2015-2016 TEAM NAME<p>
-				<div>License CC BY-NC-ND <img src="homepage_images/by-nc-nd.png" height=35></div>
+				<div>License CC BY-SA <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a></div>
 		</div>
 
 	</div>
@@ -410,6 +402,10 @@
 		});
 	
 	});
+
+	function disp_prompt(){
+		alert("Sorry, the application is currently under maintenance. \nPlease try web version.");
+	}
 	</script>
 
 </html>
