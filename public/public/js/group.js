@@ -1,8 +1,10 @@
 var zNodes = [];
 
+// 参数t和e本来是用来提取数据的参数，现在作废
 function showGroupDialogRemote(t, e) {
     zNodes = []; // initialize
     for(var i in group) {
+        console.log(i);
         var curGroup = group[i];
         var curGroupZNode = {};
         curGroupZNode.id = curGroup.GroupId;
@@ -36,13 +38,16 @@ function showGroupDialogRemote(t, e) {
         zTree.destroy();
         $("#groupZTree").empty(); 
     }
-    $.fn.zTree.init($("#groupZTree"), setting, zNodes);
 
-    e = e || {},
-    t += "?";
-    for (var n in e) t += n + "=" + e[n] + "&";
+    $.fn.zTree.init($("#groupZTree"), setting, zNodes);
+    console.log("ztree is initialized");
+
+    // e = e || {},
+    // t += "?";
+    // for (var n in e) t += n + "=" + e[n] + "&";
+
     $("#groupDialogRemote").modal({
-        remote: t
+        // remote: t
     })
 }
 
