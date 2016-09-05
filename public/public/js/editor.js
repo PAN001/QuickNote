@@ -26,10 +26,10 @@ function initEditor() {
 //            responsivefilemanager 去掉
       ],
         
-//         file picker
-//        file_picker_callback: function(callback, value, meta) {
-//            myImagePicker(callback, value, meta);
-//        },
+       //  // file picker
+       // file_picker_callback: function(callback, value, meta) {
+       //     myImagePicker(callback, value, meta);
+       // },
 //        
 //        file_browser_callback: RoxyFileBrowser,
         
@@ -76,6 +76,11 @@ function initEditor() {
         // media
         media_live_embeds: true,
         media_filter_html: false,
+        media_alt_source: false,
+        media_poster: false,
+        audio_template_callback: function(data) {
+            return '<audio controls>' + '\n<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' + '</audio>';
+        },
         
         
 //        // mentions
@@ -368,7 +373,7 @@ function myImagePicker(callback, value, meta) {
     
     tinymce.activeEditor.windowManager.open({
         title: 'Image Picker',
-        url: '/Users/Erin/Desktop/',
+        // url: '/Users/Erin/Desktop/',
 //        url: 'http://163.com'
         width: 650,
         height: 550,
