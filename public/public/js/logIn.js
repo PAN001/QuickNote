@@ -34,7 +34,7 @@ function register(e) {
                 localStorage.password = Password;
                 localStorage.userId = UserId;
                 localStorage.cloudPort = res.Port;
-                location.href = "QNote.html";
+                location.href = "qnote.html";
             } 
             else if(res.status == "emptyemail"){
                 bootbox.alert(getMsg(res.msg), function() {
@@ -90,11 +90,11 @@ function logIn(e) {
                         localStorage.cloudPort = res.Port;
                     
                     localStorage.UserId = allAppData.UserInfo.UserId;
-                    location.href = "QNote.html";
+                    location.href = "qnote.html";
                 },
                 error: function (xhr, status, error) {
                     localStorage.UserId = allAppData.UserInfo.UserId;
-                    location.href = "QNote.html";
+                    location.href = "qnote.html";
                     bootbox.alert(getMsg("ServerCrashes"), function() {
                     });
                 }
@@ -127,7 +127,7 @@ function logIn(e) {
                         if(res.Port) {
                             localStorage.cloudPort = res.Port;
                             localStorage.userId = res.UserId;
-                            location.href = "QNote.html";
+                            location.href = "qnote.html";
                         }
                     }
                 },
