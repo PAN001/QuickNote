@@ -1,5 +1,5 @@
 # Quick Note
-
+# Directory 
 The server configuration codes are all placed in the root directory (/piblic).
 The client side condes are put in the public directory (/public/public) in the root directory.
 
@@ -15,3 +15,13 @@ The client side condes are put in the public directory (/public/public) in the r
 3. images directory includes all related images used in the application.
 4. js directory includes all js files.
 5. logIn directory includes all js and css files for the LogIn.html.
+
+# ToDo List
+1. The useless(redundant) code needs to be cleaned.
+2. The media insertion mechanism needs to be improved:
+  * Media files should not be saved as blob within the note; instead, they should be uploaded to the server and saved as a url to this file on the server. 
+3. Security isses need to be addressed:
+  * Anything should be encoded when transimitting through http protocol.
+4. Synchronization mechanism needs to be improved:
+  * Each time, only the changed note/notebook should be synchronized rather than "alldata".
+
