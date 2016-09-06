@@ -12,10 +12,6 @@ var multer = require('multer');
 var app = express();
 var mkdirp = require('mkdirp');
 
-// set the limitation
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
 // root address of cloud disk
 var root_dir = "/root/Public/QuickNote/public/cloud/";
 
@@ -54,7 +50,7 @@ app.use(expressMongoDb('mongodb://localhost:27017/NoteTakingApp'));
 console.log("db starts");
 
 app.use('/uploadImage', bodyParser.text({limit: 100000000}));
-app.use('/updateAll', bodyParser.text());
+app.use('/updateAll', bodyParser.text({limit: '50mb'}));
 app.use('/register', bodyParser.text());
 app.use('/openCloud', bodyParser.text());
 app.use('/logIn', bodyParser.text());
