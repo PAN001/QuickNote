@@ -707,7 +707,6 @@ tinymce.PluginManager.add('media', function(editor, url) {
 	}
 
 	function createPreviewNode(node) {
-		console.log("here!!!!!");
 		var previewWrapper, previewNode, shimNode, name = node.name;
 
 		previewWrapper = new tinymce.html.Node('span', 1);

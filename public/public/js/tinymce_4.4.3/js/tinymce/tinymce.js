@@ -5959,9 +5959,10 @@ define("tinymce/html/Styles", [], function() {
 							return "";
 						}
 
-						if (!settings.allow_svg_data_urls && /^data:image\/svg/i.test(scriptUrl)) {
-							return "";
-						}
+						// Eason: allow image data
+						// if (!settings.allow_svg_data_urls && /^data:image\/svg/i.test(scriptUrl)) {
+						// 	return "";
+						// }
 					}
 
 					// Convert the URL to relative/absolute depending on config
@@ -12728,9 +12729,10 @@ define("tinymce/html/SaxParser", [
 						return;
 					}
 
-					if (!settings.allow_html_data_urls && dataUriRegExp.test(uri) && !/^data:image\//i.test(uri)) {
-						return;
-					}
+					// Eason: allow non-image data:
+					// if (!settings.allow_html_data_urls && dataUriRegExp.test(uri) && !/^data:image\//i.test(uri)) {
+					// 	return;
+					// }
 				}
 
 				// Add attribute to list and map
@@ -23136,6 +23138,7 @@ define("tinymce/InsertContent", [
 	var isTableCell = NodeType.matchNodeNames('td th');
 
 	var insertHtmlAtCaret = function(editor, value, details) {
+		console.log(value);
 		var parser, serializer, parentNode, rootNode, fragment, args;
 		var marker, rng, node, node2, bookmarkHtml, merge;
 		var textInlineElements = editor.schema.getTextInlineElements();

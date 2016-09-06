@@ -2,6 +2,10 @@ var port = Number(process.env.PORT || 80);
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
+// set the limitation
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
 var exec = require('child_process').exec;
@@ -495,7 +499,7 @@ app.post("/logOut", function(req, res) {
         var port = thisPortInfo.Port;
         var pid = thisPortInfo.PId;
         if(port && pid) {
-            var result = exec("kill -9 " + pid, function(error, stdout, stderr) {
+            var result = exec("kill" + pid, function(error, stdout, stderr) {
                 if (error !== null) {
                     console.log('exec error: ', error);
                 }
