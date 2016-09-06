@@ -2,10 +2,6 @@ var port = Number(process.env.PORT || 80);
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
-// set the limitation
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
 var cookieParser = require('cookie-parser');
 var expressMongoDb = require("express-mongo-db");
 var exec = require('child_process').exec;
@@ -13,10 +9,12 @@ var exec = require('child_process').exec;
 // var path = require('path');
 // var multipart = require('connect-multiparty');
 var multer = require('multer');
-
-
 var app = express();
 var mkdirp = require('mkdirp');
+
+// set the limitation
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // root address of cloud disk
 var root_dir = "/root/Public/QuickNote/public/cloud/";
