@@ -28,3 +28,4 @@ The client side condes are put in the public directory (/public/public) in the r
 # Bugs
 1. When copying the shared note to user's own notebook.
 2. In notebook hierarchy, the number of notes in the child-notebook is incorrect after first refreshing.
+3. tinymce.js cannot be compressed - media insertion fails.
