@@ -183,10 +183,14 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
         $('#editor').append("<iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+" width=400 height=75></iframe> ");
       }
       else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
-        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe></div> ");
+        // $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe></div> ");
+        $('#editor').append("<iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe>");
+
       }
       else{
-        $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe></div>");
+        // $('#editor').append("<object class='iframeWrapper' data= "+baseUrl+port +"/cloud/"+Email+file.relPath+"></object>");
+        // $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe></div>");
+        $('#editor').append("<iframe style='display: block;' src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe>");
       }
 //        else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
 //            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+port +"/cloud/"+Email+file.relPath+">");

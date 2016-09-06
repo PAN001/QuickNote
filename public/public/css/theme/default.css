@@ -3859,7 +3859,8 @@ input[type="file"] {
     z-index: 9;
 }
 
-.iframeWrapper span, .mce-object-iframe{
+/*去掉了.mce-object-iframe*/
+.iframeWrapper span{
     width: 100%;
     height: 100%;
 }

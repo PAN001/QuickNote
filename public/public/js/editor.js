@@ -21,10 +21,16 @@ function initEditor() {
         plugins: [
             'advlist autolink lists link image charmap print preview', //fullpage not working
             'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu imagetools textcolor colorpicker template tabfocus mentions nonbreaking pagebreak paste textpattern wordcount autolink autoresize codesample emoticons hr'
+            'insertdatetime media table contextmenu imagetools textcolor colorpicker template tabfocus nonbreaking pagebreak paste textpattern wordcount autolink autoresize codesample emoticons hr'
     //                                      去除掉“paste”，DD时正常（不会多余复制）
 //            responsivefilemanager 去掉
       ],
+      // mode: "exact",
+      autoresize: true,
+      // media_strict: false, 
+      convert_urls: false, 
+      // valid_elements : "*[*]\\",
+      extended_valid_elements: "iframe[src|width|height|name|align|frameborder],object[classid|codebase|width|height|align],param[name|value],embed[quality|type|pluginspage|width|height|src|align|allowFullScreen|flashvars|wmode]",
         
        //  // file picker
        // file_picker_callback: function(callback, value, meta) {
@@ -74,7 +80,7 @@ function initEditor() {
         browser_spellcheck : true,
         
         // media
-        media_live_embeds: true,
+        // media_live_embeds: true,
         media_filter_html: false,
         media_alt_source: false,
         media_poster: false,
