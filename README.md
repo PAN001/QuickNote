@@ -24,4 +24,7 @@ The client side condes are put in the public directory (/public/public) in the r
   * Anything should be encoded when transimitting through http protocol.
 4. Synchronization mechanism needs to be improved:
   * Each time, only the changed note/notebook should be synchronized rather than "alldata".
+ 
+# Bugs
+1. When copying the shared note to user's own notebook.
 
