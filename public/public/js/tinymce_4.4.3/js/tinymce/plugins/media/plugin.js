@@ -290,43 +290,87 @@ tinymce.PluginManager.add('media', function(editor, url) {
 				data[key] = editor.dom.encode(value);
 			});
 
-			if (data.type == "iframe") {
-				var allowFullscreen = data.allowFullscreen ? ' allowFullscreen="1"' : '';
-				html += '<iframe src="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '"' + allowFullscreen + '></iframe>';
-			} else if (data.source1mime == "application/x-shockwave-flash") {
-				html += '<object data="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '" type="application/x-shockwave-flash">';
+			// origin version:
+			// if (data.type == "iframe") {
+			// 	var allowFullscreen = data.allowFullscreen ? ' allowFullscreen="1"' : '';
+			// 	html += '<iframe src="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '"' + allowFullscreen + '></iframe>';
+			// } else if (data.source1mime == "application/x-shockwave-flash") {
+			// 	html += '<object data="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '" type="application/x-shockwave-flash">';
 
-				if (data.poster) {
-					html += '<img src="' + data.poster + '" width="' + data.width + '" height="' + data.height + '" />';
-				}
+			// 	if (data.poster) {
+			// 		html += '<img src="' + data.poster + '" width="' + data.width + '" height="' + data.height + '" />';
+			// 	}
 
-				html += '</object>';
-			} else if (data.source1mime.indexOf('audio') != -1) {
-				if (editor.settings.audio_template_callback) {
-					html = editor.settings.audio_template_callback(data);
-				} else {
-					html += (
-						'<audio controls="controls" src="' + data.source1 + '">' +
-							(data.source2 ? '\n<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') +
-						'</audio>'
-					);
-				}
-			} else if (data.type == "script") {
-				html += '<script src="' + data.source1 + '"></script>';
-			} else {
-				if (editor.settings.video_template_callback) {
-					html = editor.settings.video_template_callback(data);
-				} else {
-					html = (
-						'<video width="' + data.width + '" height="' + data.height + '"' + (data.poster ? ' poster="' + data.poster + '"' : '') + ' controls="controls">\n' +
-							'<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' +
-							(data.source2 ? '<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') +
-						'</video>'
-					);
-				}
-			}
+			// 	html += '</object>';
+			// } else if (data.source1mime.indexOf('audio') != -1) {
+			// 	if (editor.settings.audio_template_callback) {
+			// 		html = editor.settings.audio_template_callback(data);
+			// 	} else {
+			// 		html += (
+			// 			'<audio controls="controls" src="' + data.source1 + '">' +
+			// 				(data.source2 ? '\n<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') +
+			// 			'</audio>'
+			// 		);
+			// 	}
+			// } else if (data.type == "script") {
+			// 	html += '<script src="' + data.source1 + '"></script>';
+			// } else {
+			// 	if (editor.settings.video_template_callback) {
+			// 		html = editor.settings.video_template_callback(data);
+			// 	} else {
+			// 		html = (
+			// 			'<video width="' + data.width + '" height="' + data.height + '"' + (data.poster ? ' poster="' + data.poster + '"' : '') + ' controls="controls">\n' +
+			// 				'<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' +
+			// 				(data.source2 ? '<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') +
+			// 			'</video>'
+			// 		);
+			// 	}
+			// }
+
+
+			// Eason: only use iframe
+			var allowFullscreen = data.allowFullscreen ? ' allowFullscreen="1"' : '';
+			html += '<iframe src="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '"' + allowFullscreen + '></iframe>';
+
+			// if (data.type == "iframe") {
+			// 	var allowFullscreen = data.allowFullscreen ? ' allowFullscreen="1"' : '';
+			// 	html += '<iframe src="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '"' + allowFullscreen + '></iframe>';
+			// } else if (data.source1mime == "application/x-shockwave-flash") {
+			// 	html += '<iframe src="' + data.source1 + '" width="' + data.width + '" height="' + data.height+ '>';
+
+			// 	if (data.poster) {
+			// 		html += '<img src="' + data.poster + '" width="' + data.width + '" height="' + data.height + '" />';
+			// 	}
+
+			// 	html += '</iframe>';
+			// } else if (data.source1mime.indexOf('audio') != -1) {
+			// 	if (editor.settings.audio_template_callback) {
+			// 		html = editor.settings.audio_template_callback(data);
+			// 	} else {
+			// 		html += (
+			// 			'<audio controls="controls" src="' + data.source1 + '">' +
+			// 				(data.source2 ? '\n<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') +
+			// 			'</audio>'
+			// 		);
+			// 	}
+			// } else if (data.type == "script") {
+			// 	html += '<script src="' + data.source1 + '"></script>';
+			// } else {
+			// 	if (editor.settings.video_template_callback) {
+			// 		html = editor.settings.video_template_callback(data);
+			// 	} else {
+			// 		html = (
+			// 			'<iframe width="' + data.width + '" height="' + data.height + '"' + (data.poster ? ' poster="' + data.poster + '"' : '') + ' controls="controls">\n' +
+			// 				'<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' +
+			// 				(data.source2 ? '<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') +
+			// 			'</iframe>'
+			// 		);
+			// 	}
+			// }
 		}
 
+		// console.log("source1 is: " + data.source1);
+		// console.log("html is: " + html);
 		return html;
 	}
 

@@ -80,7 +80,7 @@ function initEditor() {
         browser_spellcheck : true,
         
         // media
-        // media_live_embeds: true,
+        media_live_embeds: true,
         media_filter_html: false,
         media_alt_source: false,
         media_poster: false,

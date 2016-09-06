@@ -12,7 +12,6 @@ var multer = require('multer');
 
 
 var app = express();
-
 var mkdirp = require('mkdirp');
 
 // root address of cloud disk
@@ -496,7 +495,7 @@ app.post("/logOut", function(req, res) {
         var port = thisPortInfo.Port;
         var pid = thisPortInfo.PId;
         if(port && pid) {
-            var result = exec("kill " + pid, function(error, stdout, stderr) {
+            var result = exec("kill -9 " + pid, function(error, stdout, stderr) {
                 if (error !== null) {
                     console.log('exec error: ', error);
                 }

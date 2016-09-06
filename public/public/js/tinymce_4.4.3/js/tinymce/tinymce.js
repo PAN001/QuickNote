@@ -15344,7 +15344,7 @@ define("tinymce/dom/ControlSelection", [
 			}
 
 			if (typeof selector != 'string') {
-				selector = 'table,img,div,iframe,span'; // Eason: add iframe
+				selector = 'table,img,div,iframe'; // Eason: add iframe
 			}
 
 			if (elm.getAttribute('data-mce-resize') === 'false') {
@@ -15355,7 +15355,7 @@ define("tinymce/dom/ControlSelection", [
 				return false;
 			}
 
-			console.log("isResizable!!");
+			// console.log("isResizable!!");
 			return editor.dom.is(elm, selector);
 		}
 
@@ -15375,7 +15375,7 @@ define("tinymce/dom/ControlSelection", [
 			width = width < 5 ? 5 : width;
 			height = height < 5 ? 5 : height;
 
-			if (selectedElm.nodeName == "IMG" || selectedElm.nodeName == "IFRAME" || selectedElm.nodeName == "DIV" && editor.settings.resize_img_proportional !== false) { // Eason: add IFRAME
+			if (selectedElm.nodeName == "IMG" || selectedElm.nodeName == "IFRAME" && editor.settings.resize_img_proportional !== false) { // Eason: add IFRAME
 				proportional = !VK.modifierPressed(e);
 			} else {
 				proportional = VK.modifierPressed(e) || (selectedElm.nodeName == "IMG" && selectedHandle[2] * selectedHandle[3] !== 0);
@@ -15643,7 +15643,7 @@ define("tinymce/dom/ControlSelection", [
 			});
 
 			controlElm = e.type == 'mousedown' ? e.target : selection.getNode();
-			controlElm = dom.$(controlElm).closest(isIE ? 'table' : 'table,img,hr,iframe,div')[0]; // Eason
+			controlElm = dom.$(controlElm).closest(isIE ? 'table' : 'table,img,hr,iframe')[0]; // Eason
 
 			if (isChildOrEqual(controlElm, rootElement)) {
 				disableGeckoResize();
@@ -15732,8 +15732,8 @@ define("tinymce/dom/ControlSelection", [
 					return;
 				}
 
-				if (target.nodeName == 'IMG' || target.nodeName == 'TABLE' || target.nodeName == 'IFRAME' || target.nodeName == 'DIV') { // Eason: added target.nodeName == 'IFRAME'
-					console.log("resize here !!!");
+				if (target.nodeName == 'IMG' || target.nodeName == 'TABLE' || target.nodeName == 'IFRAME') { // Eason: added target.nodeName == 'IFRAME'
+					// console.log("resize here !!!");
 					hideResizeRect();
 					selectedElm = target;
 					attachEvent(target, 'resizestart', resizeNativeStart);
@@ -15808,7 +15808,7 @@ define("tinymce/dom/ControlSelection", [
 					editor.on('mousedown click', function(e) {
 						var target = e.target, nodeName = target.nodeName;
 
-						if (!resizeStarted && /^(TABLE|IMG|HR|IFRAME|DIV)$/.test(nodeName) && !isWithinContentEditableFalse(target)) { // Eason: add IFRAME
+						if (!resizeStarted && /^(TABLE|IMG|HR|IFRAME)$/.test(nodeName) && !isWithinContentEditableFalse(target)) { // Eason: add IFRAME
 							editor.selection.select(target, nodeName == 'TABLE');
 
 							// Only fire once since nodeChange is expensive
@@ -15831,7 +15831,7 @@ define("tinymce/dom/ControlSelection", [
 							return;
 						}
 
-						if (/^(TABLE|IMG|HR|IFRAME|DIV)$/.test(e.target.nodeName)) { // Eason: add IFRAME
+						if (/^(TABLE|IMG|HR|IFRAME)$/.test(e.target.nodeName)) { // Eason: add IFRAME
 							e.preventDefault();
 
 							// This moves the selection from being a control selection to a text like selection like in WebKit #6753
@@ -18857,7 +18857,7 @@ define("tinymce/Formatter", [
 						inherit: false,
 						defaultBlock: 'div'
 					},
-					{selector: 'img,table,iframe,div', collapsed: false, styles: {'float': 'left'}} //Eason
+					{selector: 'img,table,iframe', collapsed: false, styles: {'float': 'left'}} //Eason
 				],
 
 				aligncenter: [
@@ -18872,7 +18872,6 @@ define("tinymce/Formatter", [
 					{selector: 'figure.image', collapsed: false, classes: 'align-center', ceFalseOverride: true},
 					{selector: 'img', collapsed: false, styles: {display: 'block', marginLeft: 'auto', marginRight: 'auto'}},
 					{selector: 'iframe', collapsed: false, styles: {display: 'block', marginLeft: 'auto', marginRight: 'auto'}}, // Eason
-					{selector: 'div', collapsed: false, styles: {display: 'block', marginLeft: 'auto', marginRight: 'auto'}}, // Eason
 					{selector: 'table', collapsed: false, styles: {marginLeft: 'auto', marginRight: 'auto'}}
 				],
 
@@ -32981,7 +32980,7 @@ define("tinymce/util/Quirks", [
 				var value, node = selection.getNode();
 
 				// Moved styles to attributes on IMG eements
-				if (node.nodeName == 'IMG' || node.nodeName == 'IFRAME' || node.nodeName == 'DIV') { // Eason: add IFRAME
+				if (node.nodeName == 'IMG' || node.nodeName == 'IFRAME') { // Eason: add IFRAME
 					// Convert style width to width attribute
 					if ((value = dom.getStyle(node, 'width'))) {
 						dom.setAttrib(node, 'width', value.replace(/[^0-9%]+/g, ''));
