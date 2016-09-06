@@ -493,7 +493,7 @@ app.post("/logOut", function(req, res) {
         var port = thisPortInfo.Port;
         var pid = thisPortInfo.PId;
         if(port && pid) {
-            var result = exec("kill" + pid, function(error, stdout, stderr) {
+            var result = exec("kill " + pid, function(error, stdout, stderr) {
                 if (error !== null) {
                     console.log('exec error: ', error);
                 }
