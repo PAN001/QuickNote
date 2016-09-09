@@ -200,7 +200,7 @@ function addHoverDom(treeId, treeNode) {
         return false;
     });
 };
+
 function removeHoverDom(treeId, treeNode) {
     $("#addBtn_"+treeNode.tId).unbind().remove();
 };
-//-->

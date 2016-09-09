@@ -23138,7 +23138,7 @@ define("tinymce/InsertContent", [
 	var isTableCell = NodeType.matchNodeNames('td th');
 
 	var insertHtmlAtCaret = function(editor, value, details) {
-		console.log(value);
+		// console.log(value);
 		var parser, serializer, parentNode, rootNode, fragment, args;
 		var marker, rng, node, node2, bookmarkHtml, merge;
 		var textInlineElements = editor.schema.getTextInlineElements();
