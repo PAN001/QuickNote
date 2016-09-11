@@ -40,7 +40,7 @@ var MSG = {
     "friendEmail": "Friend email",
     "readOnly": "Read only",
     "writable": "Writable",
-    "inputFriendEmail": "Friend email is required",
+    "friendEmailMissing": "Friend email is required",
     "clickToChangePermission": "Click to change permission",
     "sendInviteEmailToYourFriend": "Send invite email to your friend",
     "friendNotExits": "Your friend hasn't %s's account, invite register link: %s",
@@ -116,7 +116,15 @@ var MSG = {
     "click to remove this image": "click to remove this image",
     "error": "error",
     "Prev": "Prev",
-    "Next": "Next"
+    "Next": "Next",
+    "ServerCrashes": "Sorry, error connecting to the server.",
+    "DoubleShared": "Sorry, this note has already been shared to the same user",
+    "ShareFail": "Sorry, sharing failed.",
+    "ShareSuccess": "Share successfully.",
+    "CannotBeEmpty": "Sorry, this entry cannot be empty.",
+    "Wrong repeat password": "The password does not match. Please try again.",
+    "Empty email": "Email cannot be empty. Please try again.",
+    "Empty password": "Password cannot be empty. Please try again."
 };
 
 function getMsg(key, data) {
