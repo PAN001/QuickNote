@@ -25,9 +25,11 @@ The client side condes are put in the public directory (/public/public) in the r
 4. Synchronization mechanism needs to be improved:
   * Each time, only the changed note/notebook should be synchronized rather than "alldata".
 5. For the Windows version: 
+  * The recorded audio cannot be downloaded.
+6. For both Mac and Windows versions:
   * The file management part cannot fit the screen perfectly.
   * There is an unknown scroll bar outside the note.
- 
+  
 # Bugs
 1. When copying the shared note to user's own notebook.
 2. In notebook hierarchy, the number of notes in the child-notebook is incorrect after first refreshing.
