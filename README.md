@@ -1,6 +1,6 @@
 # Quick Note
 # Directory 
-The server configuration codes are all placed in the root directory (/piblic).
+The server configuration codes are not here.
 The client side condes are put in the public directory (/public/public) in the root directory.
 
 ## /public:
