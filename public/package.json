@@ -1,17 +1,14 @@
 {
-    "main": "LogIn.html", // 启动页面
-    "name": "Quick Note",
+    "main": "LogIn.html",
+    "name": "QuickNote",
     "window": {
-        // "transparent": true,
-        "toolbar": true, // 工具栏
-        "frame": true,   // 框架
+        "toolbar": true,
+        "frame": true, 
         "resizable": true,
-        // "position": "pointer",
         "show_in_taskbar": true,
         "width": 400,
         "height": 600  
     },
-    //"chromium-args": "--ppapi-flash-path=plugins/PepperFlashPlayer.plugin --ppapi-flash-version=21.0.0.182",
     "webkit": {
         "plugin": true
     },
@@ -29,9 +26,6 @@
         "win": {
            "url": "http://quicknote.cc/releases/1.0.1/Q-Note_Windows_x64_1.0.1.zip"
         }
-        // "linux32": {
-        //    "url": "http://quicknote.cc/releases/updapp/linux32/updapp.tar.gz"
-        // }
     }
 
 }

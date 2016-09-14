@@ -7,3 +7,5 @@ public/cloud/*
 uploads/*
 files_not_synchronized
 files_not_synchronized/*
+build/*
+node_modules/nw-builder/cache/*
