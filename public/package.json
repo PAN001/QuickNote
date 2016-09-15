@@ -1,5 +1,5 @@
 {
-    "main": "LogIn.html",
+    "main": "login.html",
     "name": "QuickNote",
     "window": {
         "toolbar": true,
