@@ -12,7 +12,7 @@
     "webkit": {
         "plugin": true
     },
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Yichen PAN <pan.atopos@outlook.com>",
     "contributors" :[
         "Yu QU <zy13261@nottingham.edu.cn>"
@@ -21,10 +21,10 @@
     "manifestUrl": "http://quicknote.cc/package.json",
     "packages": {
         "mac": {
-           "url": "http://quicknote.cc/release/1.0.1/Q-Note_MAC_1.0.1.zip"
+           "url": "http://quicknote.cc/release/1.0.2/Q-Note_MAC_1.0.2.zip"
         },
         "win": {
-           "url": "http://quicknote.cc/release/1.0.1/Q-Note_Windows_x64_1.0.1.zip"
+           "url": "http://quicknote.cc/release/1.0.2/Q-Note_Windows_x64_1.0.2.zip"
         }
     }
 
