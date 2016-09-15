@@ -111,6 +111,8 @@
         copyPath = gui.App.argv[0];
         execPath = gui.App.argv[1];
 
+        alert("copyPath is: " + copyPath);
+        alert("the copy destination is: " + upd.getAppPath());
         // Replace old app, Run updated app from original location and close temp instance
         upd.install(copyPath, function(err) {
             if(!err) {
