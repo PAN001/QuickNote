@@ -100,7 +100,7 @@
     */
 
     var gui = require('nw.gui');
-    var pkg = require('package.json'); // Insert your app's manifest here
+    var pkg = require('package.json');
     var updater = require('node-webkit-updater');
     var upd = new updater(pkg);
     var copyPath, execPath;
@@ -145,8 +145,18 @@
                             if (!error) {
                                 console.log("unpack successfully");
                                 // ------------- Step 4 -------------
-                                alert("newAppPath is: " + newAppPath);
-                                newAppPath = "/var/folders/qk/y0_813td04l3s63yb0qqnk180000gn/T/Q-Note_MAC_1.0.2/QuickNote.app"
+                                // alert("newAppPath is: " + newAppPath);
+                                // newAppPath = "/var/folders/qk/y0_813td04l3s63yb0qqnk180000gn/T/Q-Note_MAC_1.0.2/QuickNote.app"
+                                newAppPathSplitted = newAppPath.split("/");
+                                appName = newAppPathSplitted.pop();
+                                if(appName!="QuickNote.app") {
+                                  newAppPath = "";
+                                  for(index in newAppPathSplitted) {
+                                    newAppPath = newAppPath + newAppPathSplitted[index] + "/";
+                                  }
+                                  newAppPath = newAppPath + "QuickNote.app";
+                                }
+
                                 upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{}); // 传递参数，启动下载下来的nwjs app（B）
                                 gui.App.quit(); // 关掉旧的app（A）
 

@@ -18,7 +18,7 @@
         "Yu QU <zy13261@nottingham.edu.cn>"
     ],
     "homepage": "http://quicknote.cc",
-    "manifestUrl": "http://quicknote.cc/package_latest.json",
+    "manifestUrl": "http://quicknote.cc/package.json",
     "packages": {
         "mac": {
            "url": "http://quicknote.cc/releases/1.0.2/Q-Note_MAC_1.0.2.zip"
