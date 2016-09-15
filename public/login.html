@@ -112,8 +112,8 @@
         copyPath = gui.App.argv[0];
         execPath = gui.App.argv[1];
 
-        alert("copyPath is: " + copyPath);
-        alert("the copy destination is: " + upd.getAppPath());
+        // alert("copyPath is: " + copyPath);
+        // alert("the copy destination is: " + upd.getAppPath());
 
         // Replace old app, Run updated app from original location and close temp instance 将A替换为B
         upd.install(copyPath, function(err) {
@@ -128,7 +128,7 @@
               alert(err);
             }
         });
-        alert("our of installing");
+        // alert("our of installing");
     }
     else { // if no arguments were passed to the app
         // 正在运行的是旧的nwjs app（A）
@@ -145,10 +145,9 @@
                             if (!error) {
                                 console.log("unpack successfully");
                                 // ------------- Step 4 -------------
-                                console.log("newAppPath is: " + newAppPath);
+                                alert("newAppPath is: " + newAppPath);
                                 newAppPath = "/var/folders/qk/y0_813td04l3s63yb0qqnk180000gn/T/Q-Note_MAC_1.0.2/QuickNote.app"
                                 upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{}); // 传递参数，启动下载下来的nwjs app（B）
-                                console.log("run successfully");
                                 gui.App.quit(); // 关掉旧的app（A）
 
                                 // console.log("copyPath is: " + copyPath);
