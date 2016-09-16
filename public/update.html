@@ -14,12 +14,23 @@
 				<canvas id="activeProgress" class="progress-active"  height="275px" width="275px"></canvas>
 				<p>0%</p>
 			</div>
-			<div id="progressControllerContainer">
+<!-- 			<div id="progressControllerContainer">
 				<input type="range" id="progressController" min="0" max="100" value="15" />
-			</div>
+			</div> -->
 		</div>
     <script src='public/js/dep.min.js'></script>
     <script src="public/js/update/update.js"></script> 
+    <script type="text/javascript">
+    	var percentage = 0;
+        // var $pc = $('#progressController');
+		var $pCaption = $('.progress-bar p');
+		var iProgress = document.getElementById('inactiveProgress');
+		var aProgress = document.getElementById('activeProgress');
+		var iProgressCTX = iProgress.getContext('2d');
+        drawProgress(aProgress, percentage, $pCaption);
+
+    </script>
+
 	<script>
 	    /*
 
@@ -74,6 +85,7 @@
 	              var newVersion = upd.download(function(error, filename) {
 	                  if (!error) {
 	                      console.log("download successfully");
+
 	                      // ------------- Step 3 -------------
 	                      upd.unpack(filename, function(error, newAppPath) {
 	                          if (!error) {
@@ -94,6 +106,10 @@
 	                              upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{}); // 传递参数，启动下载下来的nwjs app（B）
 	                              gui.App.quit(); // 关掉旧的app（A）
 	                          }
+	                          else {
+	                          	console.log("unpack failed");
+	                          	console.log(err);
+	                          }
 	                      }, manifest);
 	                  }
 	                  else {
@@ -101,9 +117,16 @@
 	                  }
 	              }, manifest);
 
+	              var loaded = 0;
 	              newVersion.on('data', function(chunk){
-	                var loaded = 0;
 	                loaded += chunk.length;
+	                var percentage = loaded / newVersion['content-length'];
+	              	// console.log(percentage + "%");
+					var $pCaption = $('.progress-bar p');
+					var iProgress = document.getElementById('inactiveProgress');
+					var aProgress = document.getElementById('activeProgress');
+					var iProgressCTX = iProgress.getContext('2d');
+	                drawProgress(aProgress, percentage, $pCaption);
 	                // document.getElementById('loaded').innerHTML = "New version loading " + Math.floor(loaded / newVersion['content-length'] * 100) + '%';
 	              })
 	          }
