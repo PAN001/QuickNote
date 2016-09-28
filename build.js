@@ -35,7 +35,7 @@ var nw = new NwBuilder({
     macIcns: './icons/app.icns',
     // macPlist: {mac_bundle_id: 'myPkg'},
     // platforms: ['win32', 'win64', 'osx64']
-    platforms: ['osx64'],
+    platforms: ['win64', 'osx64', 'linux64'],
     buildDir: './build'
 });
 
