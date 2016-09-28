@@ -29,6 +29,7 @@ The client side condes are put in the public directory (/public/public) in the r
 6. For both Mac and Windows versions:
   * The file management part cannot fit the screen perfectly.
   * There is an unknown scroll bar outside the note.
+7. Serverside: each cloud handler program needs to be closed whenever the user leaves/refreshes the page; in this case, the handler should be activated whenever the page is loaded, rather than during loging in. 
   
 # Bugs
 1. When copying the shared note to user's own notebook.
