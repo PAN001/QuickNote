@@ -29,6 +29,7 @@ The client side condes are put in the public directory (/public/public) in the r
 6. For both Mac and Windows versions:
   * The file management part cannot fit the screen perfectly.
   * There is an unknown scroll bar outside the note.
+  * Online video cannot be inserted, showing as image.
 7. Serverside: each cloud handler program needs to be closed whenever the user leaves/refreshes the page; in this case, the handler should be activated whenever the page is loaded, rather than during loging in. 
 8. It should allow the user to choose the camera, rahter than only use the default one.
   
