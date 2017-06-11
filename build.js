@@ -30,7 +30,7 @@ var NwBuilder = require('nw-builder');
 
 
 var nw = new NwBuilder({
-    // version: '0.14.6',
+    version: '0.17.4',
     files: './public/**',
     macIcns: './icons/app.icns',
     // macPlist: {mac_bundle_id: 'myPkg'},
