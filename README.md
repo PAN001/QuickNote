@@ -1,5 +1,5 @@
 # Quick Note
-http://panatopos.com/images/dragdrop.gif
+![](http://panatopos.com/images/dragdrop.gif)
 
 # Directory 
 The server configuration codes are not here.
