@@ -1,4 +1,6 @@
 # Quick Note
+http://panatopos.com/images/dragdrop.gif
+
 # Directory 
 The server configuration codes are not here.
 The client side condes are put in the public directory (/public/public) in the root directory.
