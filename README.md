@@ -1,7 +1,13 @@
 # Quick Note
-![](http://quicknote.org/homepage_images/cloud.gif)
 ## Introduction
 QuickNote is a cross-platform scientific note-taking application, which supports a number of distinct features, including integration of multimedia, dragging and dropping, cloud storgae, and embeded web searching. It is currently being deployed at University of Notitngham, either for pratical and research usage.
+
+## Highlighted Features
+- Tagging
+- Cloud Storage
+- Dragging & Dropping
+- Sharing
+- Integration of multimedia
 
 # Development
 ## Directory 
