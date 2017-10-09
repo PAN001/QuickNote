@@ -7,9 +7,12 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 ## Highlighted Features
 - Tagging
 - Cloud Storage
+![](/public/homepage_images/cloud.gif)
 - Dragging & Dropping
+![](/public/homepage_images/dragdrop.gif)
 - Sharing
 - Integration of multimedia
+![](/public/homepage_images/multimedia.gif)
 
 # Development
 ## Directory 
