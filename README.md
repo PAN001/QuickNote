@@ -1,22 +1,38 @@
 # Quick Note
-# Directory 
+![](/public/homepage_images/dragdrop.gif)
+
+## Introduction
+QuickNote is a cross-platform scientific note-taking application, which supports a number of distinct features, including integration of multimedia, dragging and dropping, cloud storgae, and embeded web searching. It is currently being deployed at University of Notitngham, either for pratical and research usage.
+
+## Highlighted Features
+- Tagging
+- Cloud Storage
+![](/public/homepage_images/cloud.gif)
+- Dragging & Dropping
+![](/public/homepage_images/dragdrop.gif)
+- Sharing
+- Integration of multimedia
+![](/public/homepage_images/multimedia.gif)
+
+# Development
+## Directory 
 The server configuration codes are not here.
 The client side condes are put in the public directory (/public/public) in the root directory.
 
-## /public:
+### /public:
 1. LogIn.html is the log in/register interface of Quick Note. 
 2. QNote.html is the main interface of Quick Note.
 3. Unit testing directory includes unit tests.
 4. All related js and css files are put in the public directory.
 
-## /public/public/:
+### /public/public/:
 1. css directory includes all css style sheets for the application.
 2. data directory includes js files which handles sychronization of the application.
 3. images directory includes all related images used in the application.
 4. js directory includes all js files.
 5. logIn directory includes all js and css files for the LogIn.html.
 
-# ToDo List
+## ToDo List
 1. The useless(redundant) code needs to be cleaned.
 2. The media insertion mechanism needs to be improved:
   * Media files should not be saved as blob within the note; instead, they should be uploaded to the server and saved as a url to this file on the server. 
@@ -31,10 +47,15 @@ The client side condes are put in the public directory (/public/public) in the r
   * There is an unknown scroll bar outside the note.
   * Online video cannot be inserted, showing as image.
 7. Serverside: each cloud handler program needs to be closed whenever the user leaves/refreshes the page; in this case, the handler should be activated whenever the page is loaded, rather than during loging in. 
+<<<<<<< HEAD
 8. It should allow the user to choose the camera, rahter than only use the default one.
 9. Note context menu needs to be improved: export to pdf, information.
   
 # Bugs
+=======
+  
+## Bugs
+>>>>>>> develop
 1. When copying the shared note to user's own notebook.
 2. In notebook hierarchy, the number of notes in the child-notebook is incorrect after first refreshing.
 3. tinymce.js cannot be compressed - media insertion fails.
