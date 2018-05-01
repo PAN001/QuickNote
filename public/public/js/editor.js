@@ -24,21 +24,35 @@ function initEditor() {
             'insertdatetime media table contextmenu imagetools textcolor colorpicker template tabfocus nonbreaking pagebreak paste textpattern wordcount autolink autoresize codesample emoticons hr'
     //                                      去除掉“paste”，DD时正常（不会多余复制）
 //            responsivefilemanager 去掉
-      ],
-      // mode: "exact",
-      autoresize: true,
-      // media_strict: false, 
-      convert_urls: false, 
-      // valid_elements : "*[*]\\",
-      extended_valid_elements: "iframe[src|width|height|name|align|frameborder],object[classid|codebase|width|height|align],param[name|value],embed[quality|type|pluginspage|width|height|src|align|allowFullScreen|flashvars|wmode]",
-        
-       //  // file picker
-       // file_picker_callback: function(callback, value, meta) {
-       //     myImagePicker(callback, value, meta);
-       // },
-//        
-//        file_browser_callback: RoxyFileBrowser,
-        
+        ],
+        // mode: "exact",
+        autoresize: true,
+        // media_strict: false, 
+        convert_urls: false, 
+        // valid_elements : "*[*]\\",
+        extended_valid_elements: "iframe[src|width|height|name|align|frameborder],object[classid|codebase|width|height|align],param[name|value],embed[quality|type|pluginspage|width|height|src|align|allowFullScreen|flashvars|wmode]",
+
+        // 上传图片后调用
+        images_upload_handler: function (blobInfo, success, failure) {
+            var formData;
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+            $.ajax({
+                url: haystackFrontWebUrl + "uploadFile",
+                type: 'POST',
+                data: formData,
+                contentType: "multipart/form-data",
+                async: false,
+                success: function (data) {
+                    fileId = data;
+                    success(haystackFrontWebUrl + 'getFile?id=' + fileId) // 替换插入img src值
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        },
+
         // file picker
         automatic_uploads: true,
         file_picker_callback: function(callback, value, meta) {
@@ -379,8 +393,6 @@ function myImagePicker(callback, value, meta) {
     
     tinymce.activeEditor.windowManager.open({
         title: 'Image Picker',
-        // url: '/Users/Erin/Desktop/',
-//        url: 'http://163.com'
         width: 650,
         height: 550,
         buttons: [
