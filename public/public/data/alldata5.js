@@ -58,7 +58,7 @@ UserInfo = {"UserId": UserId,"Email": Email,"Verified": true, "Username":Email, 
 function retrieveData() {
     $.ajax({
         type: 'GET', // added,
-        url: baseUrl + basePort + '\/getAll',
+        url: baseUrl + 'getAll',
         data: "UserId=" + UserId ,
     //                dataType: "json",
     //                contentType: "application/json; charset=UTF-8",

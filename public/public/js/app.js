@@ -2,7 +2,6 @@ var Server = {};
 Server.transfer = function (jsonData) {
         var stringifiedJson = JSON.stringify(jsonData);
         var url = baseUrl + "updateAll";
-//        var url2 = 'http://localhost:8000';
         $.ajax({
             type: 'POST',
             url: url,

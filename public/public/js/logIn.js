@@ -73,7 +73,6 @@ function logIn(e) {
     localforage.getItem('allAppData', function(err, value) {
         allAppData = value;
         if(allAppData != null && allAppData.UserInfo.Email == Email && allAppData.UserInfo.Password == Password) { // 如果本地有数据且匹配
-//            alert("inside"
             var jsonData = {
                 "Email": Email, 
                 "Password": Password
@@ -112,6 +111,7 @@ function logIn(e) {
             }; 
             var stringifiedJson = JSON.stringify(jsonData);
             var url = baseUrl + 'logIn';
+            console.log(url);
             $.ajax({
                 type: 'POST',
                 url: url,

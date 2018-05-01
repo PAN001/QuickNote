@@ -1,8 +1,5 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
-// var cloudPort = 8080;
-// var baseUrl = "http:\/\/localhost:";
-var cloudUrl = baseUrl + cloudPort + "\/";
-var port = "80"; 
+var cloudUrl = "http:\/\/" + serverIp + ":" + cloudPort + "\/";
 
 FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
   function ($scope, $http, $location) {
@@ -163,7 +160,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       else {
         // download file
         // downloadFile(file);
-        document.getElementById("displayedFile").src = baseUrl+port +"/cloud/"+Email+file.relPath;
+        document.getElementById("displayedFile").src = baseUrl+"cloud/"+Email+file.relPath;
         window.setTimeout(function(){
           $("#fileicon").trigger("click");
         },0);
@@ -177,10 +174,10 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       //alert(baseUrl+cloudPort +"/cloud/"+Email+"/"+file.relPath);
       var extension = file.relPath.substring(file.relPath.lastIndexOf('.'), file.relPath.length).toLowerCase();
       if(extension == ".png" || extension == ".jpg" || extension == ".jpeg" || extension == ".bmp" || extension == ".gif"){
-        $('#editor').append("<img src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></img> ");
+        $('#editor').append("<img src = "+baseUrl+"cloud/"+Email+file.relPath+"></img> ");
       }
       else if(extension == ".mp3" || extension == ".wma" || extension == ".wav"){
-        $('#editor').append("<iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+" width=400 height=75></iframe> ");
+        $('#editor').append("<iframe src = "+baseUrl+"cloud/"+Email+file.relPath+" width=400 height=75></iframe> ");
       }
       else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
         // $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe></div> ");
@@ -190,7 +187,7 @@ FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
       else{
         // $('#editor').append("<object class='iframeWrapper' data= "+baseUrl+port +"/cloud/"+Email+file.relPath+"></object>");
         // $('#editor').append("<div class='iframeWrapper' width='600px' height='800px'><iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe></div>");
-        $('#editor').append("<iframe src = "+baseUrl+port +"/cloud/"+Email+file.relPath+"></iframe>");
+        $('#editor').append("<iframe src = "+baseUrl+"cloud/"+Email+file.relPath+"></iframe>");
       }
 //        else if(extension == ".avi" || extension == ".mp4" || extension == ".wmv" || extension == ".rmvb" || extension == ".rm" || extension == ".mov"){
 //            $('#editor').append("<iframe width='300px' height='400px' src = "+baseUrl+port +"/cloud/"+Email+file.relPath+">");
