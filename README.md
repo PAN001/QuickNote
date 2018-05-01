@@ -50,7 +50,7 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 - [ ] It should allow the user to choose the camera, rahter than only use the default one.
 - [ ] Note context menu needs to be improved: export to pdf, information.
 - [x] Save uploaded files to haystack storage system rather than hard encoding them as blob.
-- [ ] When inserting an image into editor, UI needs to be improved - progress bar perhaps.
+- [x] When inserting an image into editor, UI needs to be improved - progress bar perhaps.
   
 ## Bugs
 1. When copying the shared note to user's own notebook.
