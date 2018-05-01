@@ -1236,7 +1236,8 @@ function forwardpage(){
 <script src="public/js/DND.js"></script>  
 <script src="public/js/i18n/msg.en.js"></script>
 
-<script src="public/js/app.min.js"></script>
+<script src="public/js/app.js"></script>
+<!-- <script src="public/js/app.min.js"></script> -->
     
 <script src="public/js/async.js"></script>
 <script src="public/data/alldata5.js"></script>
@@ -1366,7 +1367,7 @@ function forwardpage(){
 	  data.append("email", Email);
 	  console.log(data);
 	  $.ajax({
-	    url: baseUrl+basePort+'/uploadVideo',
+	    url: baseUrl + 'uploadVideo',
 	    type: 'POST',
 	    data: data,
 	    async: true,
@@ -1376,7 +1377,7 @@ function forwardpage(){
 	    success: function(data){
 	      if(data.code == 200) {
 	        console.log("upload video success: "+data.path);
-	        $('#editor').append("<iframe src = "+baseUrl+basePort+data.path+" width=400 height=300></iframe> ");
+	        $('#editor').append("<iframe src = "+baseUrl+data.path+" width=400 height=300></iframe> ");
 	        document.getElementById("videoRecordingMsg").style.display="none";
 	      } else {
 	        console.log("upload video fail");
@@ -1407,14 +1408,14 @@ function forwardpage(){
 	  var stringifiedJson = JSON.stringify(data);
 	  $.ajax({
 	  	type: 'POST',
-	    url: baseUrl+basePort+'/uploadImage',
+	    url: baseUrl + 'uploadImage',
 	    processData: false,
 	    data: stringifiedJson,
 	    contentType: "text/plain",
 	    success: function(data){
 	      if(data.code == 200) {
 	        console.log("upload photo success: "+data.path);
-	        $('#editor').append("<img src = "+baseUrl+basePort+data.path+" width=400 height=300></img> ");
+	        $('#editor').append("<img src = "+baseUrl+data.path+" width=400 height=300></img> ");
 	        document.getElementById("photoMsg").style.display="none";
 	      } else {
 	        console.log("upload photo fail");

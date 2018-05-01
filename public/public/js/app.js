@@ -1,8 +1,7 @@
-var normUrl = baseUrl + basePort + "\/";
 var Server = {};
 Server.transfer = function (jsonData) {
         var stringifiedJson = JSON.stringify(jsonData);
-        var url = normUrl + "updateAll";
+        var url = baseUrl + "updateAll";
 //        var url2 = 'http://localhost:8000';
         $.ajax({
             type: 'POST',
@@ -488,7 +487,7 @@ function logout() {
                 UserId: UserId
             };
             var stringifiedJson = JSON.stringify(data);
-            var url = normUrl + "logOut";
+            var url = baseUrl + "logOut";
             $.ajax({
                 type: 'POST', 
                 url: url,
@@ -4704,7 +4703,7 @@ function addShareNoteOrNotebook(e) {
                 Perm: shareOption
             };
             var stringifiedJson = JSON.stringify(shareData);
-            var url = normUrl + "share/addShareNotebook";
+            var url = baseUrl + "share/addShareNotebook";
              $.ajax({
                 type: 'POST', 
                 url: url,
@@ -4740,7 +4739,7 @@ function addShareNoteOrNotebook(e) {
                 Perm: shareOption
             };
             var stringifiedJson = JSON.stringify(shareData);
-            var url = normUrl + "share/addShareNote";
+            var url = baseUrl + "share/addShareNote";
              $.ajax({
                 type: 'POST', 
                 url: url,
@@ -5025,7 +5024,7 @@ Share.changeNotebook = function(e, t, o) {
 //    var UserId = e;
     
 //    var stringifiedJson = JSON.stringify(data);
-    var url = normUrl + 'share/listShareNotes';
+    var url = baseUrl + 'share/listShareNotes';
     // var notebookId = 
     $.ajax({
         type: 'GET',
@@ -5321,7 +5320,7 @@ $(function() {
         }
 
 
-        url = normUrl + url;
+        url = baseUrl + url;
         var stringifiedJson = JSON.stringify(shareData);
         $.ajax({
             type: 'POST', 
