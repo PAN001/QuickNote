@@ -21,6 +21,7 @@ function register(e) {
     var jsonData = {"Email": Email, "Password": Password, "UserId": UserId, "RepeatPassword": RepeatPassword};
     var stringifiedJson = JSON.stringify(jsonData);
     var url = baseUrl + 'register';
+    console.log(url);
     $.ajax({
         type: 'POST',
         url: url,
