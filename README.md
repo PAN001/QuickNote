@@ -34,10 +34,10 @@ The client side condes are put in the public directory (/public/public) in the r
 
 ## ToDo List
 - [ ] The useless(redundant) code needs to be cleaned.
-- [ ] The media insertion mechanism needs to be improved:
+- [x] The media insertion mechanism needs to be improved:
 Media files should not be saved as blob within the note; instead, they should be uploaded to the server and saved as a url to this file on the server. 
 - [ ] Security isses need to be addressed:
-Anything should be encoded when transimitting through http protocol.
+Anything should be encoded when transmitting through https protocol.
 - [ ] Synchronization mechanism needs to be improved:
 Each time, only the changed note/notebook should be synchronized rather than "alldata".
 - [ ] For the Windows version: 
