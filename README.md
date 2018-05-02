@@ -36,7 +36,7 @@ The client side condes are put in the public directory (/public/public) in the r
 - [ ] The useless(redundant) code needs to be cleaned.
 - [x] The media insertion mechanism needs to be improved:
 Media files should not be saved as blob within the note; instead, they should be uploaded to the server and saved as a url to this file on the server. 
-- [ ] Security isses need to be addressed:
+- [x] Security isses need to be addressed:
 Anything should be encoded when transmitting through https protocol.
 - [ ] Synchronization mechanism needs to be improved:
 Each time, only the changed note/notebook should be synchronized rather than "alldata".
@@ -51,6 +51,8 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 - [ ] Note context menu needs to be improved: export to pdf, information.
 - [x] Save uploaded files to haystack storage system rather than hard encoding them as blob.
 - [x] When inserting an image into editor, UI needs to be improved - progress bar perhaps.
+- [ ] Server error code needs to be regulated.
+- [ ] Session authentication mechanism. 
   
 ## Bugs
 1. When copying the shared note to user's own notebook.
