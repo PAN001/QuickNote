@@ -133,7 +133,9 @@ function logIn(e) {
                     }
 
                 },
-                error: function (xhr, status, error) {
+                error: function (data) {
+                    console.log(data);
+                    var res = jQuery.parseJSON(data.responseText);
                     bootbox.alert(res.msg, function() {});
                 }
             });
