@@ -17,8 +17,12 @@ function register(e) {
     var Email = $("#Username2").val();
     var Password = $("#Password2").val();
     var RepeatPassword = $("#RepeatPassword").val();
+    if(Password != RepeatPassword) {
+        bootbox.alert(getMsg(res.msg), function() {});
+        return;
+    }
     var UserId = getObjectId();
-    var jsonData = {"Email": Email, "Password": Password, "UserId": UserId, "RepeatPassword": RepeatPassword};
+    var jsonData = {"Email": Email, "Password": Password, "UserId": UserId};
     var stringifiedJson = JSON.stringify(jsonData);
     var url = baseUrl + 'register';
     console.log(url);
@@ -42,10 +46,6 @@ function register(e) {
                 });
             }
             else if(res.status == "emptypassword"){
-                bootbox.alert(getMsg(res.msg), function() {
-                });
-            }
-            else if(res.status == "wrongrp"){
                 bootbox.alert(getMsg(res.msg), function() {
                 });
             }
