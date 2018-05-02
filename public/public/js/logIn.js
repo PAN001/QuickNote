@@ -117,21 +117,21 @@ function logIn(e) {
                 url: url,
                 data: stringifiedJson,
                 contentType: "text/plain",
-                success: function (data) {
-                    var res = jQuery.parseJSON(data);
-                    console.log(res);
-                    if(res.status == "fail") { // 
-                        bootbox.alert(res.msg, function() {
-                        });
-                    }
-                    else {
-                        if(res.Port) {
-                            localStorage.cloudPort = res.Port;
-                            localStorage.userId = res.UserId;
-                            location.href = "qnote.html";
-                        }
-                    }
-                },
+                // success: function (data) {
+                //     var res = jQuery.parseJSON(data);
+                //     console.log(res);
+                //     if(res.status == "fail") { // 
+                //         bootbox.alert(res.msg, function() {
+                //         });
+                //     }
+                //     else {
+                //         if(res.Port) {
+                //             localStorage.cloudPort = res.Port;
+                //             localStorage.userId = res.UserId;
+                //             location.href = "qnote.html";
+                //         }
+                //     }
+                // },
                 error: function (xhr, status, error) {
                     bootbox.alert(getMsg("ServerCrashes"), function() {
                     });
