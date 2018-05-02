@@ -1,25 +1,25 @@
 var Server = {};
 Server.transfer = function (jsonData) {
-        var stringifiedJson = JSON.stringify(jsonData);
-        var url = baseUrl + "updateAll";
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: stringifiedJson,
-            contentType: "text/plain",
-            success: function (data) {
-                var res = jQuery.parseJSON(data);
-                if(res.status == "success") {
-                    showMsg(getMsg(res.msg));
-                }
-                else {
-                    showMsg(getMsg(res.msg));
-                }
-            },
-            error: function (xhr, status, error) {
-                showMsg(getMsg(error));
+    var stringifiedJson = JSON.stringify(jsonData);
+    var url = baseUrl + "updateAll";
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: stringifiedJson,
+        contentType: "text/plain",
+        success: function (data) {
+            var res = jQuery.parseJSON(data);
+            if(res.status == "success") {
+                showMsg(getMsg(res.msg));
             }
-        });
+            else {
+                showMsg(getMsg(res.msg));
+            }
+        },
+        error: function (xhr, status, error) {
+            showMsg(getMsg(error));
+        }
+    });
 };
 
 Server.uploadToServer = function() {

@@ -53,6 +53,7 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 - [x] When inserting an image into editor, UI needs to be improved - progress bar perhaps.
 - [ ] Server error code needs to be regulated.
 - [ ] Session authentication mechanism. 
+- [x] Hash passwords before storing to db.
   
 ## Bugs
 1. When copying the shared note to user's own notebook.
