@@ -18,7 +18,7 @@ function register(e) {
     var Password = $("#Password2").val();
     var RepeatPassword = $("#RepeatPassword").val();
     if(Password != RepeatPassword) {
-        bootbox.alert(getMsg(res.msg), function() {});
+        bootbox.alert(getMsg("Wrong repeat password"), function() {});
         return;
     }
     var UserId = getObjectId();
