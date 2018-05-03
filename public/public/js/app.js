@@ -2532,12 +2532,6 @@ $(function() {
         Note.curChangedSaveIt(!0); //!0 == true
 //        Server.uploadToServer();
         saveIntoLocal();
-    }),
-        
-    // register event to 'synBtn'
-    $("#synBtn").click(function() {
-        Note.curChangedSaveIt(!0); //!0 == true
-        Server.uploadToServer();
         
         tinymce.activeEditor.notificationManager.open({
             text: 'Save locally',
@@ -2545,10 +2539,20 @@ $(function() {
             timeout: 1500
         });
         
-//        bootbox.alert("Synchronized successfully", function() {
-//        });
+    }),
+        
+    // register event to 'synBtn'
+    $("#synBtn").click(function() {
+        Note.curChangedSaveIt(!0); //!0 == true
+        Server.uploadToServer();
         
         saveIntoLocal();
+        
+        tinymce.activeEditor.notificationManager.open({
+            text: 'Save locally',
+            type: 'info',
+            timeout: 1500
+        });
     }),
 
     // register event to 'addBtn'
