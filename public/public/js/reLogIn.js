@@ -27,7 +27,13 @@ function reLogIn(e) {
             }
             else {
                 // same to preious user
-                // do nothing
+                // hide the bootbox for relogin
+                bootbox.hideAll()
+                tinymce.activeEditor.notificationManager.open({
+                    text: 'Signin Successfully',
+                    type: 'info',
+                    timeout: 1500
+                });
             }
 
         },
