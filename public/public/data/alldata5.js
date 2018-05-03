@@ -121,7 +121,7 @@ function retrieveData() {
                 // should not happen normally
 
                 bootbox.alert("Authentication failed. Please log in again", function() {
-                    location.href = "logIn.html";
+                    location.href = "login.html";
                 });
             }
             else { // offline or other server errors
