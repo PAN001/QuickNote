@@ -13,16 +13,15 @@ Server.transfer = function (jsonData) {
             if(res.status == "success") {
                 showMsg(getMsg(res.msg));
             }
-            else {
-                showMsg(getMsg(res.msg));
-            }
         },
-        error: function (xhr, status, error) {
-            console.log("updateAll fail: " + status);
-            if(status == 401) {
+        error: function (data) {
+            if(data.status == 0) {
                 bootbox.alert("Authentication failed. Please sign in first.", function() {});
             }
-            showMsg(getMsg(error));
+            else {
+                var res = jQuery.parseJSON(data.responseText);
+                showMsg(getMsg(res.msg));
+            }
         }
     });
 };
