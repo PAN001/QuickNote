@@ -44,12 +44,6 @@ var cloudPort = localStorage.cloudPort;
 
 // update the username
 $("#username").html(Email);
-
-//// update the port number
-//$("#cloudPage").src = "http:\/\/115.28.134.156:" + Port;
-
-//var UserId = "56a82c7bab64417776002a5c";
-//var isConnected = true;
 var isConnected = navigator.onLine;
 
 UserInfo = {"UserId": UserId,"Email": Email,"Verified": true, "Username":Email, "UsernameRaw":"","CreatedTime":"0001-01-01T00:00:00Z","Logo":"http://leanote.com/images/blog/default_avatar.png","Theme":"","NotebookWidth":0,"NoteListWidth":0,"MdEditorWidth":0,"LeftIsMin":false,"ThirdUserId":"","ThirdUsername":"","ThirdType":0,"FromUserId":"","NoteCnt":0,"Usn":10,"FullSyncBefore":"0001-01-01T00:00:00Z","BlogUrl":"","PostUrl":"", "Password": Password};

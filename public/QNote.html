@@ -1246,7 +1246,7 @@ function forwardpage(){
 
 
 <script>
-    retrieveData();
+    retrieveData(); // retrieve anyway: if offline, use local data
     //require('nw.gui').Window.get().showDevTools() 
     require('nw.gui').Window.get().resizeTo(1600,900);
     require('nw.gui').Window.get().setResizable(true);  
