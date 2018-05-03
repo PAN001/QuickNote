@@ -16,7 +16,28 @@ Server.transfer = function (jsonData) {
         },
         error: function (data) {
             if(data.status == 401) {
-                bootbox.alert("Authentication failed. Please sign in first.", function() {});
+//                bootbox.alert("Authentication failed. Please sign in first.", function() {});
+                
+                bootbox
+                .dialog({
+                    title: 'Authentication failed. Please sign in first',
+                    message: $('#loginForm'),
+                    show: false /* We will show it manually later */
+                })
+                .on('shown.bs.modal', function() {
+                    $('#loginForm')
+                        .show()                             /* Show the login form */
+                        .formValidation('resetForm', true); /* Reset form */
+                })
+                .on('hide.bs.modal', function(e) {
+                    /**
+                     * Bootbox will remove the modal (including the body which contains the login form)
+                     * after hiding the modal
+                     * Therefor, we need to backup the form
+                     */
+                    $('#loginForm').hide().appendTo('body');
+                })
+                .modal('show');
             }
             else {
                 var res = jQuery.parseJSON(data.responseText);
