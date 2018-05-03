@@ -37,6 +37,7 @@ function sleep(miliseconds) {
 var Email = localStorage.email;
 var UserId = localStorage.userId;
 var Password = localStorage.password;
+console.log("Password at alldata5.js: " + Password);
 
 // load port number for cloud disk
 var cloudPort = localStorage.cloudPort;
@@ -54,10 +55,6 @@ function retrieveData() {
         type: 'GET', // added,
         url: baseUrl + 'getAll',
         data: "UserId=" + UserId ,
-    //                dataType: "json",
-    //                contentType: "application/json; charset=UTF-8",
-        //dataType: 'jsonp' - removed
-        //jsonpCallback: 'callback' - removed
         contentType: "text/plain", 
         async:false, 
         success: function (data) {
