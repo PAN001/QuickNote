@@ -105,16 +105,25 @@ function logIn(e) {
         error: function (data) {
             console.log(data);
             var res = jQuery.parseJSON(data.responseText);
-            // bootbox.alert(res.msg, function() {});
-
-            // check locally
-            localforage.getItem('allAppData', function(err, value) {
-                allAppData = value;
-                if(allAppData != null && allAppData.UserInfo.Email == Email && allAppData.UserInfo.Password == Password) { // 如果本地有数据且密码匹配
-                    localStorage.UserId = allAppData.UserInfo.UserId;
-                    // location.href = "qnote.html";
-                }
-            });
+            if(data.status != 0) {
+                bootbox.alert(res.msg, function() {});
+            }
+            else {
+                // offline
+                // check locally
+                console.log("offline so check locally");
+                localforage.getItem('allAppData', function(err, value) {
+                    allAppData = value;
+                    if(allAppData != null && allAppData.UserInfo.Email == Email && allAppData.UserInfo.Password == Password) { // 如果本地有数据且密码匹配
+                        console.log("match locally");
+                        localStorage.UserId = allAppData.UserInfo.UserId;
+                        // location.href = "qnote.html";
+                    }
+                    else {
+                        console.log("does not match locally");
+                    }
+                });
+            }
         }
     });
 
