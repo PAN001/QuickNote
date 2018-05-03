@@ -5514,22 +5514,13 @@ function saveIntoLocal() {
 //    });
 }
 
-// for refreshing page
+// when refreshing and logging out
 window.onbeforeunload = onbeforeunload_handler;
 
 function onbeforeunload_handler(){
 
-//    saveIntoLocal();
-//    Server.uploadToServer();
-//    var warning = "Please confirm to leave Q-Note";              
-//    return warning;
-
-    bootbox.confirm("Do you want to save changes?", function(result) {
-        if(result) {
-            saveIntoLocal(); // save locally
-            Server.uploadToServer(); // save to server
-        }
-    });
+    saveIntoLocal(); // save locally
+    Server.uploadToServer(); // save to server
     
     // for nw.js
     // if (process && process.versions['node-webkit']) {
