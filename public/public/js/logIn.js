@@ -97,7 +97,7 @@ function logIn(e) {
                 if(res.Port) {
                     localStorage.cloudPort = res.Port;
                     localStorage.userId = res.UserId;
-                    // location.href = baseUrl + 'qnote';
+                    location.href = baseUrl + 'qnote';
                 }
             }
 
@@ -117,7 +117,7 @@ function logIn(e) {
                     if(allAppData != null && allAppData.UserInfo.Email == Email && allAppData.UserInfo.Password == Password) { // 如果本地有数据且密码匹配
                         console.log("match locally");
                         localStorage.UserId = allAppData.UserInfo.UserId;
-                        // location.href = "qnote.html";
+                        location.href = "qnote.html";
                     }
                     else {
                         console.log("does not match locally");
