@@ -124,7 +124,8 @@ var MSG = {
     "CannotBeEmpty": "Sorry, this entry cannot be empty.",
     "Wrong repeat password": "The password does not match. Please try again.",
     "Empty email": "Email cannot be empty. Please try again.",
-    "Empty password": "Password cannot be empty. Please try again."
+    "Empty password": "Password cannot be empty. Please try again.",
+    "Unauthorized": "Authentication fail"
 };
 
 function getMsg(key, data) {
