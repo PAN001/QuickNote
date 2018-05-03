@@ -61,7 +61,7 @@ function retrieveData() {
         success: function (data) {
             var parsedData = jQuery.parseJSON(data);
             console.log(parsedData)
-            
+
             allAppData = parsedData;    
             console.log(allAppData.UserInfo.UserId);
 
@@ -95,7 +95,7 @@ function retrieveData() {
             });
         },
         error: function (data) {
-            if(data.status == 401) { // 服务端没有数据：使用初始数据
+            if(data.status == 404) { // 服务端没有数据：使用初始数据
                 console.log("not found data");
                 //使用初始数据
                 //initial data    
