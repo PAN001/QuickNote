@@ -1,5 +1,5 @@
 var FMApp = angular.module('FMApp', ['ur.file']);
-var cloudUrl = "https:\/\/" + domain + ":" + cloudPort + "\/";
+var cloudUrl = "http:\/\/" + domain + ":" + cloudPort + "\/";
 
 FMApp.controller('FileManagerCtr', ['$scope', '$http', '$location',
   function ($scope, $http, $location) {
