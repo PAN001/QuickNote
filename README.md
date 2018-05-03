@@ -32,6 +32,20 @@ The client side condes are put in the public directory (/public/public) in the r
 4. js directory includes all js files.
 5. logIn directory includes all js and css files for the LogIn.html.
 
+## Technical Details
+### Session authentication
+
+Express.js + Passport.js
+
+### Security
+
+HTTPS + bcrypt.js
+
+### Storage System
+
+- Files in notes: PanFS (custom Facebook Haystack based distributed file storage system)
+- Cloud storage: disk based file system
+
 ## ToDo List
 - [ ] The useless(redundant) code needs to be cleaned.
 - [x] The media insertion mechanism needs to be improved:

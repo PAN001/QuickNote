@@ -98,7 +98,7 @@ function logIn(e) {
                     localStorage.cloudPort = res.Port;
                     localStorage.userId = res.UserId;
                     // location.href = baseUrl + 'qnote';
-                    location.href = "qnote.html";
+//                    location.href = "qnote.html";
                 }
             }
 
