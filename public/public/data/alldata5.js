@@ -61,28 +61,7 @@ function retrieveData() {
         success: function (data) {
             var parsedData = jQuery.parseJSON(data);
             console.log(parsedData)
-            if(parsedData.status && parsedData.status == "fail") { // 服务端没有数据：使用初始数据
-                console.log("not found data");
-                //使用初始数据
-                //initial data    
-                allAppData.UserInfo = UserInfo;
-                allAppData.notebooks = notebooks;
-                allAppData.shareNotebooks = shareNotebooks;
-                allAppData.sharedUserInfos = sharedUserInfos;
-                allAppData.notes = notes;
-                allAppData.latestNotes = latestNotes;
-                allAppData.tagsJson = tagsJson;
-                allAppData.trackingLog = trackingLog;
-                allAppData.shareNotebookDefault = shareNotebookDefault;
-                allAppData.group = group;
-                console.log("using initial data");
-                console.log("call initPage()");
-                initPage();
-                localforage.setItem("allAppData", allAppData, function(err, value) {
-                    console.log("allAppData saved");
-                });
-                return;
-            } 
+            
             allAppData = parsedData;    
             console.log(allAppData.UserInfo.UserId);
 
@@ -115,10 +94,38 @@ function retrieveData() {
                 console.log("allAppData saved");
             });
         },
-        error: function (xhr, status, error) {
-            console.log('Error: ' + error.message);
+        error: function (data) {
+            if(data.status == 401) { // 服务端没有数据：使用初始数据
+                console.log("not found data");
+                //使用初始数据
+                //initial data    
+                allAppData.UserInfo = UserInfo;
+                allAppData.notebooks = notebooks;
+                allAppData.shareNotebooks = shareNotebooks;
+                allAppData.sharedUserInfos = sharedUserInfos;
+                allAppData.notes = notes;
+                allAppData.latestNotes = latestNotes;
+                allAppData.tagsJson = tagsJson;
+                allAppData.trackingLog = trackingLog;
+                allAppData.shareNotebookDefault = shareNotebookDefault;
+                allAppData.group = group;
+                console.log("using initial data");
+                console.log("call initPage()");
+                initPage();
+                localforage.setItem("allAppData", allAppData, function(err, value) {
+                    console.log("allAppData saved");
+                });
+                return;
+            } 
+            else if(data.status == 401) { // unauthorized
+                // should not happen normally
 
-            localforage.getItem('allAppData', function(err, value) {
+                bootbox.alert("Authentication failed. Please log in again", function() {
+                    location.href = "logIn.html";
+                });
+            }
+            else { // offline or other server errors
+                localforage.getItem('allAppData', function(err, value) {
                 console.log("check");
                 if(value != null) { //如果本地有数据，使用本地的
                         allAppData = value;
@@ -150,28 +157,29 @@ function retrieveData() {
                         localforage.setItem("allAppData", allAppData, function(err, value) {
                             console.log("allAppData saved");
                         });
-                }
-                else { //使用初始数据
-                    //initial data    
-                    allAppData.UserInfo = UserInfo;
-                    allAppData.notebooks = notebooks;
-                    allAppData.shareNotebooks = shareNotebooks;
-                    allAppData.sharedUserInfos = sharedUserInfos;
-                    allAppData.notes = notes;
-                    allAppData.latestNotes = latestNotes;
-                    allAppData.tagsJson = tagsJson;
-                    allAppData.trackingLog = trackingLog;
-                    allAppData.shareNotebookDefault = shareNotebookDefault;
-                    allAppData.group = group;
-                    
-                    console.log("using initial data");
-                    console.log("call initPage()");
-                    initPage();
-                    localforage.setItem("allAppData", allAppData, function(err, value) {
-                        console.log("allAppData saved");
-                    });
-                }
-            });
+                    }
+                    else { //使用初始数据
+                        //initial data    
+                        allAppData.UserInfo = UserInfo;
+                        allAppData.notebooks = notebooks;
+                        allAppData.shareNotebooks = shareNotebooks;
+                        allAppData.sharedUserInfos = sharedUserInfos;
+                        allAppData.notes = notes;
+                        allAppData.latestNotes = latestNotes;
+                        allAppData.tagsJson = tagsJson;
+                        allAppData.trackingLog = trackingLog;
+                        allAppData.shareNotebookDefault = shareNotebookDefault;
+                        allAppData.group = group;
+                        
+                        console.log("using initial data");
+                        console.log("call initPage()");
+                        initPage();
+                        localforage.setItem("allAppData", allAppData, function(err, value) {
+                            console.log("allAppData saved");
+                        });
+                    }
+                });
+            }
         }
     });   
 }

@@ -15,6 +15,7 @@ Server.transfer = function (jsonData) {
             }
         },
         error: function (data) {
+            // unauthorized
             if(data.status == 401) {
 //                bootbox.alert("Authentication failed. Please sign in first.", function() {});
                 
