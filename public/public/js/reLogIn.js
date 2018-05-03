@@ -40,7 +40,7 @@ function reLogIn(e) {
         error: function (data) {
             console.log(data);
             var res = jQuery.parseJSON(data.responseText);
-            bootbox.alert(res.msg, function() {}).css({'background-color': '#79CDCD'});
+            bootbox.alert(res.msg, function() {});
         }
     });
 };

@@ -122,7 +122,7 @@ function retrieveData() {
 
                 bootbox.alert("Authentication failed. Please log in again", function() {
                     location.href = "login.html";
-                });
+                }).css({'background-color': '#79CDCD'});
             }
             else { // offline or other server errors
                 localforage.getItem('allAppData', function(err, value) {
