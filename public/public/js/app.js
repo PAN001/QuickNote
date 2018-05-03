@@ -8,6 +8,7 @@ Server.transfer = function (jsonData) {
         data: stringifiedJson,
         contentType: "text/plain",
         success: function (data) {
+            console.log("updateAll suceess");
             var res = jQuery.parseJSON(data);
             if(res.status == "success") {
                 showMsg(getMsg(res.msg));
@@ -17,6 +18,7 @@ Server.transfer = function (jsonData) {
             }
         },
         error: function (xhr, status, error) {
+            console.log("updateAll fail");
             showMsg(getMsg(error));
         }
     });
