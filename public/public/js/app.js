@@ -2518,8 +2518,16 @@ $(function() {
     $("#synBtn").click(function() {
         Note.curChangedSaveIt(!0); //!0 == true
         Server.uploadToServer();
-        bootbox.alert("Synchronized successfully", function() {
+        
+        tinymce.activeEditor.notificationManager.open({
+            text: 'Save locally',
+            type: 'info',
+            timeout: 1500
         });
+        
+//        bootbox.alert("Synchronized successfully", function() {
+//        });
+        
         saveIntoLocal();
     }),
 
