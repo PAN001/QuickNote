@@ -118,7 +118,7 @@ function logIn(e) {
                     if(allAppData != null && allAppData.UserInfo.Email == Email && allAppData.UserInfo.Password == Password) { // 如果本地有数据且密码匹配
                         console.log("match locally");
                         localStorage.userId = allAppData.UserInfo.UserId;
-                        location.href = "qnote.html";
+                        location.href = "qnote.html"; // TODO: it seems has to use local webpage rather than request for it from server (otherwise localstorage would be wrong)
                     }
                     else {
                         console.log("does not match locally");
