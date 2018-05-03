@@ -70,6 +70,7 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 - [x] Hash passwords before storing to db.
 - [ ] HTTPS over koa server.
 - [ ] Figure out why localstorage would be problematic if requesting webpage from server rather than load local one.
+- [ ] Session/Cookies seems not working for desktop version because they can not be set for local html files.
   
 ## Bugs
 1. When copying the shared note to user's own notebook.
