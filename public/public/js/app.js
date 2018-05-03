@@ -18,7 +18,7 @@ Server.transfer = function (jsonData) {
             }
         },
         error: function (xhr, status, error) {
-            console.log("updateAll fail");
+            console.log("updateAll fail: " + status);
             if(status == 401) {
                 bootbox.alert("Authentication failed. Please sign in first.", function() {});
             }
