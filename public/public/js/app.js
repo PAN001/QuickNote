@@ -5514,8 +5514,8 @@ function saveIntoLocal() {
 //    });
 }
 
+// for refreshing page
 window.onbeforeunload = onbeforeunload_handler;
-//window.onunload = onunload_handler;
 
 function onbeforeunload_handler(){
 
@@ -5524,6 +5524,13 @@ function onbeforeunload_handler(){
 //    var warning = "Please confirm to leave Q-Note";              
 //    return warning;
 
+    bootbox.confirm("Do you want to save changes?", function(result) {
+        if(result) {
+            saveIntoLocal(); // save locally
+            Server.uploadToServer(); // save to server
+        }
+    });
+    
     // for nw.js
     // if (process && process.versions['node-webkit']) {
     //     var win = require('nw.gui').Window.get();
