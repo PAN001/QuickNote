@@ -16,11 +16,11 @@ Server.transfer = function (jsonData) {
         },
         error: function (data) {
             if(data.status == 401) { // unauthorized
-//                bootbox.alert("Authentication failed. Please sign in first.", function() {});
+//                bootbox.alert("Authentication failed. Please log in first.", function() {});
                 
                 bootbox
                 .dialog({
-                    title: 'Authentication failed. Please sign in first',
+                    title: 'Authentication failed. Please log in first',
                     message: $('#loginForm'),
                     show: false /* We will show it manually later */
                 })
@@ -124,7 +124,7 @@ function formSerializeDataToJson(t) {
 }
 function _ajaxCallback(t, e, n) {
     if (t === !0 || "true" == t || "object" == typeof t) {
-        if (t && "object" == typeof t && "NOTLOGIN" == t.Msg) return void alert(getMsg("Please sign in firstly!"));
+        if (t && "object" == typeof t && "NOTLOGIN" == t.Msg) return void alert(getMsg("Please log in firstly!"));
         "function" == typeof e && e(t)
     } else "function" == typeof n ? n(t) : alert("error!")
 }
