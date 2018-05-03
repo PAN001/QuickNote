@@ -15,8 +15,7 @@ Server.transfer = function (jsonData) {
             }
         },
         error: function (data) {
-            // unauthorized
-            if(data.status == 401) {
+            if(data.status == 401) { // unauthorized
 //                bootbox.alert("Authentication failed. Please sign in first.", function() {});
                 
                 bootbox
@@ -5520,10 +5519,10 @@ window.onbeforeunload = onbeforeunload_handler;
 
 function onbeforeunload_handler(){
 
-    saveIntoLocal();
-    Server.uploadToServer();
-    var warning = "Please confirm to leave Q-Note";              
-    return warning;
+//    saveIntoLocal();
+//    Server.uploadToServer();
+//    var warning = "Please confirm to leave Q-Note";              
+//    return warning;
 
     // for nw.js
     // if (process && process.versions['node-webkit']) {
