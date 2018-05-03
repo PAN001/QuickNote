@@ -1,8 +1,14 @@
-# Quick Note
-![](/public/homepage_images/dragdrop.gif)
+# QuickNote
+![](/public/images/logo/Quicknote.png)
 
-## Introduction
+> Your Intelligent Note-taking Helper
+
 QuickNote is a cross-platform scientific note-taking application, which supports a number of distinct features, including integration of multimedia, dragging and dropping, cloud storgae, and embeded web searching. It is currently being deployed at University of Notitngham, either for pratical and research usage.
+
+## Usage
+
+[Web App](https://quicknote.org/login)
+[Desktop App](https://quicknote.org)
 
 ## Highlighted Features
 - Tagging
@@ -60,8 +66,8 @@ Each time, only the changed note/notebook should be synchronized rather than "al
   * The file management part cannot fit the screen perfectly.
   * There is an unknown scroll bar outside the note.
   * Online video cannot be inserted, showing as image.
-- [ ] Serverside: each cloud handler program needs to be closed whenever the user leaves/refreshes the page; in this case, the handler should be activated whenever the page is loaded, rather than during loging in. 
-- [ ] It should allow the user to choose the camera, rahter than only use the default one.
+- [ ] Server-side: each cloud handler program needs to be closed whenever the user leaves/refreshes the page; in this case, the handler should be activated whenever the page is loaded, rather than during logging in. 
+- [ ] It should allow the user to choose the camera, rather than only use the default one.
 - [ ] Note context menu needs to be improved: export to pdf, information.
 - [x] Save uploaded files to haystack storage system rather than hard encoding them as blob.
 - [x] When inserting an image into editor, UI needs to be improved - progress bar perhaps.
@@ -80,3 +86,11 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 2. In notebook hierarchy, the number of notes in the child-notebook is incorrect after first refreshing.
 3. tinymce.js cannot be compressed - media insertion fails.
 4. The paragraph mechanism is useless - it is always inserted into the end of the note and it cannot be exchanged with other elements in the note.
+
+# Contributing
+
+1. Fork it (<https://github.com/PAN001/QuickNote/fork>)
+2. Create your feature branch (git checkout -b feature/fooBar)
+3. Commit your changes (git commit -am 'Add some fooBar')
+4. Push to the branch (git push origin feature/fooBar)
+5. Create a new Pull Request
