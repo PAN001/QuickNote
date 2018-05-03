@@ -1,5 +1,5 @@
 # QuickNote
-![](/public/images/logo/Quicknote.png)
+![](/public/public/images/logo/Quicknote.png)
 
 > Your Intelligent Note-taking Helper
 
