@@ -51,6 +51,7 @@ UserInfo = {"UserId": UserId,"Email": Email,"Verified": true, "Username":Email, 
 
 
 function retrieveData() {
+    console.log("retrieveData activated");
     $.ajax({
         type: 'GET', // added,
         url: baseUrl + 'getAll',
@@ -59,6 +60,7 @@ function retrieveData() {
         async:false, 
         success: function (data) {
             var parsedData = jQuery.parseJSON(data);
+            console.log(parsedData)
             if(parsedData.status && parsedData.status == "fail") { // 服务端没有数据：使用初始数据
                 console.log("not found data");
                 //使用初始数据
