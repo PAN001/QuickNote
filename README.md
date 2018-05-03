@@ -8,6 +8,7 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 ## Usage
 
 [Web App](https://quicknote.org/login)
+
 [Desktop App](https://quicknote.org)
 
 ## Highlighted Features
