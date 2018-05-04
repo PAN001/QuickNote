@@ -30,7 +30,7 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 │	├── assests
 │	│	├── css
 │	│	│	└── css files
-│	│	│	├── js
+│	│	├── js
 │	│	│	└── js files
 │	│	└── images
 │	│		└── images
@@ -38,7 +38,7 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 │	│	├── css
 │	│	│	└── css files
 │	│	├── js
-│	│	└── js files
+│	│	│	└── js files
 │	│	└── images
 │	│		└── images
 │	└── package.json
