@@ -4,4 +4,4 @@ var basePort = "443";
 var baseUrl = "https:\/\/" + domain + ":" + basePort + "\/";
 var haystackFrontWebIp = "127.0.0.1"
 var haystackFrontWebPort = "8008";
-var haystackFrontWebUrl = "http:\/\/" + haystackFrontWebIp + ":" + haystackFrontWebPort + "\/";
+var haystackFrontWebUrl = "https:\/\/" + haystackFrontWebIp + ":" + haystackFrontWebPort + "\/";
