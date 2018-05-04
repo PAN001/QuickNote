@@ -14,34 +14,34 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 ## Highlighted Features
 - Tagging
 - Cloud Storage
-![](/homepage_assets/images/cloud.gif)
+![](/public/homepage_assets/images/cloud.gif)
 - Dragging & Dropping
-![](/homepage_assets/images/dragdrop.gif)
+![](/public/homepage_assets/images/dragdrop.gif)
 - Sharing
 - Integration of multimedia
-![](/homepage_assets/images/multimedia.gif)
+![](/public/homepage_assets/images/multimedia.gif)
 
 # Development
 ## Structure
 ```
 .
 ├── public
-│  ├── html files
-│ 	├── assests
-│ 	│	├── css
-│ 	│	│	└── css files
-│  │	├── js
-│ 	│	│	└── js files
-│  │	└── images
-│ 	│		└── images
-│ 	├── homepage_assets
-│ 	│	├── css
-│ 	│	│	└── css files
-│  │	├── js
-│ 	│	│	└── js files
-│  │	└── images
-│ 	│		└── images
-│ 	├── package.json
+│	├── html files
+│	├── assests
+│	│	├── css
+│	│	│	└── css files
+│	│	│	├── js
+│	│	│	└── js files
+│	│	└── images
+│	│		└── images
+│	├── homepage_assets
+│	│	├── css
+│	│	│	└── css files
+│	│	├── js
+│	│	└── js files
+│	│	└── images
+│	│		└── images
+│	└── package.json
 ├── app.js
 └── node_modules
 ```
