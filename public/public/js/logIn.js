@@ -122,6 +122,7 @@ function logIn(e) {
                     }
                     else {
                         console.log("does not match locally");
+                        bootbox.alert("Username or password is wrong", function() {});
                     }
                 });
             }

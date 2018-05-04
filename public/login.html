@@ -3,20 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <title> Welcome to QuickNote </title>
-    <link rel="stylesheet" href="public/logIn/css/reset.css">
-    <link rel="stylesheet" href="public/logIn/css/googleapis.css">
-    <!-- <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'> -->
-    <link href="public/css/font-awesome-4.2.0/css/font-awesome-min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="public/logIn/css/style.css">
-  </head>
+    <link rel="stylesheet" href="public/css/logIn/reset.css"/>
+    <link rel="stylesheet" href="public/css/logIn/googleapis.css"/>
+    <link rel="stylesheet" href="public/css/logIn/style.css"/>
+    <link rel="stylesheet" href="public/css/bootstrap-min.css"/>
+    <link rel="stylesheet" href="public/css/font-awesome-4.2.0/css/font-awesome-min.css" />
 
+    <script type="text/javascript" src="public/js/config.js"></script>
+    <script type="text/javascript" src="public/js/dep.min.js"></script>
+    <script type="text/javascript" src="public/js/data/localForage-1.4.0/dist/localforage.js"></script>
+    <script type="text/javascript" src="public/js/logIn.js"></script> 
+    <script type="text/javascript" src="public/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="public/js/i18n/msg.en.js"></script>
+  </head>
   <body>
     <div class="pen-title">
           <a href="https://quicknote.org" target="_blank"><img id = "logo" src="public/images/logo/Quicknote.png" height = 100></a>
-<!--       <span>Q-Note by <a href='http://unnc-cs-grp-dtgroup.github.io/Notebook-NW.js/'>GRPDT</a>
-      </span> -->
     </div>
-    <!-- <div class="rerun"><a href="http://unnc-cs-grp-dtgroup.github.io/Notebook-NW.js/">Q-Note page</a></div> -->
     <div class="rerun"><a href="http://www.sojump.com/jq/7951507.aspx" target="_blank">Give us feedback</a></div>
     <div class="container">
       <div class="card"></div>
@@ -66,13 +69,6 @@
         </form>
       </div>
     </div>
-    <script src="public/js/config.js"></script>
-    <script src="public/js/dep.min.js"></script>
-    <script src="public/data/localForage-1.4.0/dist/localforage.js"></script>
-    <script src="public/js/logIn.js"></script> 
-    <link href="public/css/bootstrap-min.css" rel="stylesheet" />
-    <script type="text/javascript" src="public/js/bootbox.min.js"></script>
-    <script src="public/js/i18n/msg.en.js"></script>
     
     <script>
       // var baseUrl = "http:\/\/59.110.157.82:80/"; // Alibaba server
@@ -88,107 +84,6 @@
       require('nw.gui').Window.get().resizeTo(400,600);
       require('nw.gui').Window.get().zoomLevel=-2.5;
     </script>
-
-    <script>
-    /*
-
-     1. Check the manifest for version (from your running "old" app).
-     2. If the version is different from the running one, download new package to a temp directory.
-     3. Unpack the package in temp.
-     4. Run new app from temp and kill the old one (i.e. still all from the running app).
-     5. The new app (in temp) will copy itself to the original folder, overwriting the old app.
-     6. The new app will run itself from original folder and exit the process.
-
-    */
-
-    var gui = require('nw.gui');
-    var pkg = require('package.json');
-    var updater = require('node-webkit-updater');
-    var upd = new updater(pkg);
-    var copyPath, execPath;
-
-    // Args passed when new app is launched from temp dir during update
-    if(gui.App.argv.length) {
-        // 运行的是下载下来暂存的nwjs app（B）
-        // ------------- Step 5 -------------
-        copyPath = gui.App.argv[0];
-        execPath = gui.App.argv[1];
-
-        // alert("copyPath is: " + copyPath);
-        // alert("the copy destination is: " + upd.getAppPath());
-
-        // Replace old app, Run updated app from original location and close temp instance 将A替换为B
-        upd.install(copyPath, function(err) {
-            if(!err) {
-                // ------------- Step 6 -------------
-                upd.run(execPath, null); // 运行旧app路径，替换为新的以后的nwjs app（C）
-                setTimeout(100);
-                gui.App.quit(); // 退出B
-            }
-            else {
-              console.log("there is an error when copying");
-              alert(err);
-            }
-        });
-        // alert("our of installing");
-    }
-    else { // if no arguments were passed to the app
-        // 正在运行的是旧的nwjs app（A）
-        // ------------- Step 1 -------------
-        upd.checkNewVersion(function(error, newVersionExists, manifest) {
-            if (!error && newVersionExists) {
-                console.log("find new version");
-                bootbox.confirm("There is a new version available, do you want to update now?", function(result) {
-                  if(result) {
-                    window.location.href="./update.html";
-                  }
-
-                  // // ------------- Step 2 -------------
-                  // var newVersion = upd.download(function(error, filename) {
-                  //     if (!error) {
-                  //         console.log("download successfully");
-                  //         // ------------- Step 3 -------------
-                  //         upd.unpack(filename, function(error, newAppPath) {
-                  //             if (!error) {
-                  //                 console.log("unpack successfully");
-                  //                 // ------------- Step 4 -------------
-                  //                 // alert("newAppPath is: " + newAppPath);
-                  //                 // newAppPath = "/var/folders/qk/y0_813td04l3s63yb0qqnk180000gn/T/Q-Note_MAC_1.0.2/QuickNote.app"
-                  //                 newAppPathSplitted = newAppPath.split("/");
-                  //                 appName = newAppPathSplitted.pop();
-                  //                 if(appName!="QuickNote.app") {
-                  //                   newAppPath = "";
-                  //                   for(index in newAppPathSplitted) {
-                  //                     newAppPath = newAppPath + newAppPathSplitted[index] + "/";
-                  //                   }
-                  //                   newAppPath = newAppPath + "QuickNote.app";
-                  //                 }
-
-                  //                 upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()],{}); // 传递参数，启动下载下来的nwjs app（B）
-                  //                 gui.App.quit(); // 关掉旧的app（A）
-
-                  //                 // console.log("copyPath is: " + copyPath);
-                  //                 // upd.install(copyPath, newAppInstalled);
-    
-                  //                 // function newAppInstalled(err) {
-                  //                 //   if(err){
-                  //                 //     console.log("install failed");
-                  //                 //     console.log(err);
-                  //                 //     gui.App.quit();
-                  //                 //     return;
-                  //                 //   }
-                  //                 //   console.log("install successfully");
-                  //                 //   upd.run(execPath, null);
-                  //                 //   console.log("run successfully");
-                  //                 //   gui.App.quit();
-                  //                 // };
-                });
-              }
-              else {
-                console.log("error or no new version");
-              }
-            });
-          }
-    </script>
+    <script type="text/javascript" src="public/js/update.js"></script>
   </body>
 </html>
