@@ -1,5 +1,5 @@
 # QuickNote
-![](/public/assets/images/logo/Quicknote.png)
+![](/public/public/images/logo/Quicknote.png)
 
 > Your Intelligent Note-taking Helper
 
@@ -14,37 +14,17 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 ## Highlighted Features
 - Tagging
 - Cloud Storage
-![](/public/homepage_assets/images/cloud.gif)
+![](/public/homepage_images/cloud.gif)
 - Dragging & Dropping
-![](/public/homepage_assets/images/dragdrop.gif)
+![](/public/homepage_images/dragdrop.gif)
 - Sharing
 - Integration of multimedia
-![](/public/homepage_assets/images/multimedia.gif)
+![](/public/homepage_images/multimedia.gif)
 
 # Development
-## Structure
-```
-.
-├── public
-│	├── html files
-│	├── assests
-│	│	├───── css
-│	│	│	└── css files
-│	│	├───── js
-│	│	│	└── js files
-│	│	└───── images
-│	│		└── images
-│	├── homepage_assets
-│	│	├───── css
-│	│	│	└── css files
-│	│	├───── js
-│	│	│	└── js files
-│	│	└───── images
-│	│		└── images
-│	└── package.json
-├── app.js
-└── node_modules
-```
+## Directory 
+The server configuration codes are not here.
+The client side condes are put in the public directory (/public/public) in the root directory.
 
 ### /public:
 1. LogIn.html is the log in/register interface of Quick Note. 
@@ -52,10 +32,12 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 3. Unit testing directory includes unit tests.
 4. All related js and css files are put in the public directory.
 
-### /public/assets/:
+### /public/public/:
 1. css directory includes all css style sheets for the application.
+2. data directory includes js files which handles sychronization of the application.
 3. images directory includes all related images used in the application.
 4. js directory includes all js files.
+5. logIn directory includes all js and css files for the LogIn.html.
 
 ## Technical Details
 ### Session authentication
