@@ -28,18 +28,18 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 ├── public
 │	├── html files
 │	├── assests
-│	│	├── css
+│	│	├───── css
 │	│	│	└── css files
-│	│	├── js
+│	│	├───── js
 │	│	│	└── js files
-│	│	└── images
+│	│	└───── images
 │	│		└── images
 │	├── homepage_assets
-│	│	├── css
+│	│	├───── css
 │	│	│	└── css files
-│	│	├── js
+│	│	├───── js
 │	│	│	└── js files
-│	│	└── images
+│	│	└───── images
 │	│		└── images
 │	└── package.json
 ├── app.js
