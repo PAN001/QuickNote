@@ -1,0 +1,11 @@
+.
+├── public
+│   ├── html files
+│ 	└── assests
+│ 		├── css
+│ 		│	└── css files
+│   	├── js
+│ 		│	└── js files
+│   	├── images
+│ 		│	└── images
+└── app.js
