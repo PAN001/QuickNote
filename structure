@@ -15,4 +15,6 @@
 │ 	│	│	└── js files
 │   │	└── images
 │ 	│		└── images
-└── app.js
+│ 	├── package.json
+├── app.js
+└── node_modules

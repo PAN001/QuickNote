@@ -67,7 +67,6 @@ Each time, only the changed note/notebook should be synchronized rather than "al
   * The file management part cannot fit the screen perfectly.
   * There is an unknown scroll bar outside the note.
   * Online video cannot be inserted, showing as image.
-- [ ] Server-side: each cloud handler program needs to be closed whenever the user leaves/refreshes the page; in this case, the handler should be activated whenever the page is loaded, rather than during logging in. 
 - [ ] It should allow the user to choose the camera, rather than only use the default one.
 - [ ] Note context menu needs to be improved: export to pdf, information.
 - [x] Save uploaded files to haystack storage system rather than hard encoding them as blob.
@@ -80,7 +79,10 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 - [ ] Session/Cookies seems not working for desktop version because they can not be set for local html files.
 - [ ] Set up a notification area in the top middle of the interface：
 - Bootstrap Notify seems difficult to customize
-- [x] Re-login when authentication failed.
+- [x] Re-login when authentication failed
+- [ ] Add gulp.js
+- [x] Refactor front-end structure
+- [ ] Refactor back-end structure
   
 ## Bugs
 1. When copying the shared note to user's own notebook.
