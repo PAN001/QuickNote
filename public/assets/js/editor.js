@@ -496,7 +496,7 @@ function initEditor() {
             // });
             ed.on('KeyDown', function (e) {
                 console.log("keydown");
-                if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) { // delete & backspace keys
+                if ((e.keyCode == 8 || e.keyCode == 46) && ed.selection) { // delete & backspace keys
                     var selectedNode = tinymce.activeEditor.selection.getNode(); // get the selected node (element) in the editor
                     console.log(selectedNode);
 
