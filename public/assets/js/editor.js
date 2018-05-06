@@ -497,14 +497,35 @@ function initEditor() {
             ed.on('KeyDown', function (e) {
                 console.log("keydown");
                 if ((e.keyCode == 8 || e.keyCode == 46) && ed.selection) { // delete & backspace keys
-                    var selectedNode = tinymce.activeEditor.selection.getNode(); // get the selected node (element) in the editor
-                    console.log(selectedNode.textContent);
-                    console.log(selectedNode.src);
+                    if (selectedNode && selectedNode.nodeName == 'IMG') {
+                        var selectedNode = tinymce.activeEditor.selection.getNode(); // get the selected node (element) in the editor
+                        var src = selectedNode.src;
+                        if(src) {
+                            var splitted = src.split("?")
+                            var prefix = haystackFrontWebUrl + "getFile"
+                            if(splitted.length == 2 && splitted[0] == prefix) {
+                                var id = splitted[1]
+                                console.log(id)
 
-                    // if (selectedNode && selectedNode.nodeName == 'IMG') {
-
-                    //     MyCallback(selectedNode.src); // A callback that will let me invoke the deletion of the image on the server if appropriate for the image source.
-                    // }
+                                // delete file
+                                $.ajax({
+                                    url: haystackFrontWebUrl + "deleteFile?id=" + id,
+                                    type: 'POST',
+                                    contentType: "test/plain",
+                                    async: true,
+                                    success: function (data) {
+                                        console.log("delete file success");
+                                    },
+                                    error: function (data) {
+                                        console.log("delete file fail");
+                                    },
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false
+                                });
+                            }
+                        }
+                    }
                 }
             });
         }
