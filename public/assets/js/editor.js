@@ -495,7 +495,7 @@ function initEditor() {
             //    console.log('the content '+ed.getContent());
             // });
             ed.on('KeyDown', function (e) {
-                console.log("keydown");
+                // console.log("keydown");
                 if ((e.keyCode == 8 || e.keyCode == 46) && ed.selection) { // delete & backspace keys
                     var selectedNode = tinymce.activeEditor.selection.getNode(); // get the selected node (element) in the editor
                     if (selectedNode && selectedNode.nodeName == 'IMG') {
