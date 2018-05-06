@@ -490,11 +490,24 @@ function initEditor() {
         },
 
        // change event handler
-       setup : function(ed) {
-           ed.on('change', function(e) {
+        setup : function(ed) {
+            ed.on('change', function(e) {
                console.log('the content '+ed.getContent());
-           });
-       }
+            });
+            ed.on('KeyDown', function (e) {
+
+                if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) { // delete & backspace keys
+
+                    var selectedNode = tinymce.activeEditor.selection.getNode(); // get the selected node (element) in the editor
+                    console.log(selectedNode);
+
+                    // if (selectedNode && selectedNode.nodeName == 'IMG') {
+
+                    //     MyCallback(selectedNode.src); // A callback that will let me invoke the deletion of the image on the server if appropriate for the image source.
+                    // }
+                }
+            });
+        }
 //        
         
 //        content_css: [
