@@ -477,23 +477,23 @@ function initEditor() {
         toolbar1: 'insertfile undo redo | forecolor backcolor | bold italic | styleselect | fontsizeselect | fontselect',
         toolbar2: ' bullist numlist outdent indent  | alignleft aligncenter alignright alignjustify  | link image | template nonbreaking pagebreak paste codesample emoticons fullscreen',
 
-        init_instance_callback: function (editor) {
-            editor.on('GetContent', function (e) {
-                e.content += 'My custom content!';
-            });
-        },
+        // init_instance_callback: function (editor) {
+        //     editor.on('GetContent', function (e) {
+        //         e.content += 'My custom content!';
+        //     });
+        // },
 
-        init_instance_callback: function (editor) {
-            editor.on('Change', function (e) {
-                console.log('Editor contents was changed.');
-            });
-        },
+        // init_instance_callback: function (editor) {
+        //     editor.on('Change', function (e) {
+        //         console.log('Editor contents was changed.');
+        //     });
+        // },
 
        // change event handler
         setup : function(ed) {
-            ed.on('change', function(e) {
-               console.log('the content '+ed.getContent());
-            });
+            // ed.on('change', function(e) {
+            //    console.log('the content '+ed.getContent());
+            // });
             ed.on('KeyDown', function (e) {
                 console.log("keydown");
                 if ((e.keyCode == 8 || e.keyCode == 46) && editor.selection) { // delete & backspace keys
