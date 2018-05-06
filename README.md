@@ -74,7 +74,6 @@ HTTPS + bcrypt.js
 - Cloud storage: disk based file system
 
 ## ToDo List
-<<<<<<< HEAD
 - [ ] The useless(redundant) code needs to be cleaned.
 - [x] The media insertion mechanism needs to be improved:
 Media files should not be saved as blob within the note; instead, they should be uploaded to the server and saved as a url to this file on the server. 
@@ -83,22 +82,10 @@ Anything should be encoded when transmitting through https protocol.
 - [ ] Synchronization mechanism needs to be improved:
 Each time, only the changed note/notebook should be synchronized rather than "alldata".
 - [ ] For the Windows version: 
-=======
-1. Solve login latency
-1. The useless(redundant) code needs to be cleaned.
-2. The media insertion mechanism needs to be improved:
-  * Media files should not be saved as blob within the note; instead, they should be uploaded to the server and saved as a url to this file on the server. 
-3. Security isses need to be addressed:
-  * Anything should be encoded when transimitting through http protocol.
-4. Synchronization mechanism needs to be improved:
-  * Each time, only the changed note/notebook should be synchronized rather than "alldata".
-5. For the Windows version: 
->>>>>>> 62eeb6068258bd75b5240157e0ad0f136afc2b34
   * The recorded audio cannot be downloaded.
 - [ ] For both Mac and Windows versions:
   * The file management part cannot fit the screen perfectly.
   * There is an unknown scroll bar outside the note.
-<<<<<<< HEAD
   * Online video cannot be inserted, showing as image.
 - [ ] It should allow the user to choose the camera, rather than only use the default one.
 - [ ] Note context menu needs to be improved: export to pdf, information.
@@ -116,12 +103,7 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 - [ ] Add gulp.js
 - [x] Refactor front-end structure
 - [ ] Refactor back-end structure
-  
-=======
-7. Serverside: each cloud handler program needs to be closed whenever the user leaves/refreshes the page; in this case, the handler should be activated whenever the page is loaded, rather than during loging in. 
 
-  
->>>>>>> 62eeb6068258bd75b5240157e0ad0f136afc2b34
 ## Bugs
 1. When copying the shared note to user's own notebook.
 2. In notebook hierarchy, the number of notes in the child-notebook is incorrect after first refreshing.

@@ -481,16 +481,20 @@ function initEditor() {
             editor.on('GetContent', function (e) {
                 e.content += 'My custom content!';
             });
-        }
-    
-        
-//        // change event handler
-//        setup : function(ed) {
-//            ed.on('change', function(e) {
-//                console.log('the content '+ed.getContent());
-//                TrackLogRecord.newWritingRecord(ed.getContent());
-//            });
-//        },
+        },
+
+        init_instance_callback: function (editor) {
+            editor.on('Change', function (e) {
+                console.log('Editor contents was changed.');
+            });
+        },
+
+       // change event handler
+       setup : function(ed) {
+           ed.on('change', function(e) {
+               console.log('the content '+ed.getContent());
+           });
+       }
 //        
         
 //        content_css: [
