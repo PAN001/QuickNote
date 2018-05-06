@@ -475,7 +475,13 @@ function initEditor() {
 
         // specify the layout of the toolbar
         toolbar1: 'insertfile undo redo | forecolor backcolor | bold italic | styleselect | fontsizeselect | fontselect',
-        toolbar2: ' bullist numlist outdent indent  | alignleft aligncenter alignright alignjustify  | link image | template nonbreaking pagebreak paste codesample emoticons fullscreen'
+        toolbar2: ' bullist numlist outdent indent  | alignleft aligncenter alignright alignjustify  | link image | template nonbreaking pagebreak paste codesample emoticons fullscreen',
+
+        init_instance_callback: function (editor) {
+            editor.on('GetContent', function (e) {
+                e.content += 'My custom content!';
+            });
+        }
     
         
 //        // change event handler
