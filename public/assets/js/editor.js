@@ -509,7 +509,7 @@ function initEditor() {
 
                                 // delete file
                                 $.ajax({
-                                    url: haystackFrontWebUrl + "deleteFile?id=" + id,
+                                    url: haystackFrontWebUrl + "deleteFile?" + id,
                                     type: 'POST',
                                     contentType: "test/plain",
                                     async: true,
