@@ -475,60 +475,16 @@ function initEditor() {
 
         // specify the layout of the toolbar
         toolbar1: 'insertfile undo redo | forecolor backcolor | bold italic | styleselect | fontsizeselect | fontselect',
-        toolbar2: ' bullist numlist outdent indent  | alignleft aligncenter alignright alignjustify  | link image | template nonbreaking pagebreak paste codesample emoticons fullscreen',
-
-        // init_instance_callback: function (editor) {
-        //     editor.on('GetContent', function (e) {
-        //         e.content += 'My custom content!';
-        //     });
-        // },
-
-        // init_instance_callback: function (editor) {
-        //     editor.on('Change', function (e) {
-        //         console.log('Editor contents was changed.');
-        //     });
-        // },
-
-       // delete event handler
-        setup : function(ed) {
-            // ed.on('change', function(e) {
-            //    console.log('the content '+ed.getContent());
-            // });
-            ed.on('KeyDown', function (e) {
-                // console.log("keydown");
-                if ((e.keyCode == 8 || e.keyCode == 46) && ed.selection) { // delete & backspace keys
-                    var selectedNode = tinymce.activeEditor.selection.getNode(); // get the selected node (element) in the editor
-                    if (selectedNode && selectedNode.nodeName == 'IMG') {
-                        var src = selectedNode.src;
-                        if(src) {
-                            var splitted = src.split("?")
-                            var prefix = haystackFrontWebUrl + "getFile"
-                            if(splitted.length == 2 && splitted[0] == prefix) {
-                                var id = splitted[1]
-                                console.log(id)
-
-                                // delete file
-                                $.ajax({
-                                    url: haystackFrontWebUrl + "deleteFile?" + id,
-                                    type: 'POST',
-                                    contentType: "test/plain",
-                                    async: true,
-                                    success: function (data) {
-                                        console.log("delete file success");
-                                    },
-                                    error: function (data) {
-                                        console.log("delete file fail");
-                                    },
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false
-                                });
-                            }
-                        }
-                    }
-                }
-            });
-        }
+        toolbar2: ' bullist numlist outdent indent  | alignleft aligncenter alignright alignjustify  | link image | template nonbreaking pagebreak paste codesample emoticons fullscreen'
+    
+        
+//        // change event handler
+//        setup : function(ed) {
+//            ed.on('change', function(e) {
+//                console.log('the content '+ed.getContent());
+//                TrackLogRecord.newWritingRecord(ed.getContent());
+//            });
+//        },
 //        
         
 //        content_css: [
