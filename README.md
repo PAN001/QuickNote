@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/QuickNote_gitter/Lobby](https://badges.gitter.im/QuickNote_gitter/Lobby.svg)](https://gitter.im/QuickNote_gitter/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-![](/public/assets/images/logo/Quicknote.png)
+![](/public/assets/images/logo/rainbow/Quicknote_rainbow.gif)
 
 > Your Intelligent Note-taking Helper
 
