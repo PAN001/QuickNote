@@ -489,7 +489,7 @@ function initEditor() {
         //     });
         // },
 
-       // change event handler
+       // delete event handler
         setup : function(ed) {
             // ed.on('change', function(e) {
             //    console.log('the content '+ed.getContent());
