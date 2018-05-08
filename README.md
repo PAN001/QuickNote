@@ -103,8 +103,7 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 - [ ] Add gulp.js
 - [x] Refactor front-end structure
 - [ ] Refactor back-end structure
-- [ ] Robust file deletion 
-
+  
 ## Bugs
 1. When copying the shared note to user's own notebook.
 2. In notebook hierarchy, the number of notes in the child-notebook is incorrect after first refreshing.
