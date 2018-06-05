@@ -104,6 +104,7 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 - [x] Refactor front-end structure
 - [ ] Refactor back-end structure
 - [ ] Robust file deletion 
+- [ ] Debounce the event listeners a little bit to around 100ms
 
 ## Bugs
 1. When copying the shared note to user's own notebook.
