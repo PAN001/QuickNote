@@ -112,6 +112,12 @@ Each time, only the changed note/notebook should be synchronized rather than "al
 3. tinymce.js cannot be compressed - media insertion fails.
 4. The paragraph mechanism is useless - it is always inserted into the end of the note and it cannot be exchanged with other elements in the note.
 
+# Build
+```
+npm install nw-builder
+sh build.sh
+```
+
 # Contributing
 
 1. Fork it (<https://github.com/PAN001/QuickNote/fork>)
