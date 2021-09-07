@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+	<!-- alow http over https  -->
+	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome-4.6.3/css/font-awesome.min.css"/>
+</head>
+<body>
+	<div style = "font-size:150px;color:#ccc;text-align:center;padding-top:30%">
+		<!-- <i class="fa fa-file-o" aria-hidden="true"></i> -->
+		<i class="fa fa-folder-o" aria-hidden="true"></i>
+	</div>
+	<p style = "font-size:200spx;color:#ccc;text-align:center">
+	No Files Opened...</p>
+
+	<script type="text/javascript" src="assets/js/dep.min.js"></script>	
+	<script>
+		document.domain = document.domain;
+		// alert(parent.document.getElementById("#fileuploadBtn").trigger("click");
+		$('#webicon', window.parent.document).trigger("click");
+	</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+.
+├── public
+│	├── html files
+│	├── assests
+│	│	├───── css
+│	│	│	└── css files
+│	│	├───── js
+│	│	│	└── js files
+│	│	└───── images
+│	│		└── images
+│	├── homepage_assets
+│	│	├───── css
+│	│	│	└── css files
+│	│	├───── js
+│	│	│	└── js files
+│	│	└───── images
+│	│		└── images
+│	└── package.json
+├── app.js
+└── node_modules
