@@ -10,9 +10,9 @@ QuickNote is a cross-platform scientific note-taking application, which supports
 
 ## Usage
 
-[Web App](https://quicknote.org/login)
+[Web App](https://20.46.242.255/login)
 
-[Desktop App](https://quicknote.org)
+[Desktop App](https://20.46.242.255)
 
 ## Highlighted Features
 - Tagging
